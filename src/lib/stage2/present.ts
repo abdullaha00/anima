@@ -28,26 +28,6 @@ export const RECOMMENDATION_LABEL: Record<Stage2Assessment["recommendation"], { 
   },
 };
 
-export const VERIFICATION_LABEL: Record<Stage2Assessment["verification"]["verdict"], string> = {
-  pending: "not yet independently verified",
-  confirmed: "independently verified, confirmed",
-  revised: "independently verified, revised",
-  escalate_uncertainty: "independently verified, uncertainty raised",
-};
-
-export const PLANNING_LABEL: Record<Stage2Assessment["existingPlanning"]["status"], string> = {
-  none_found: "No existing plan found in the record",
-  mentioned_not_active: "A plan is mentioned but not active",
-  active_and_implemented: "An active plan is in place and being followed",
-  unclear: "Existing planning is unclear from the record",
-};
-
-export const FALSE_POSITIVE_LABEL: Record<Stage2Assessment["falsePositiveReview"]["verdict"], string> = {
-  no_clear_false_positive: "No clear benign explanation found",
-  clear_false_positive: "A clear benign explanation was found",
-  uncertain: "Benign explanation uncertain",
-};
-
 /** "record/sites/gp/patient-resources.json" -> "GP record" */
 export function sourceName(sourcePath: string): string {
   const p = sourcePath.replace(/^record\//, "").replace(/\.json$/, "");

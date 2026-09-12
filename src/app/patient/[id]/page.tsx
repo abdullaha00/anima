@@ -94,34 +94,7 @@ export default async function PatientPage({ params }: { params: Promise<{ id: st
 
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
         <div className="flex min-w-0 flex-col gap-6">
-          {/* The person before the record: their own recorded goals, the one bold element on the screen. */}
-          <section aria-labelledby="in-their-words" className="overflow-hidden rounded-lg bg-primary text-primary-ink shadow-sm">
-            <div className="px-6 pb-5 pt-5 sm:px-7">
-              <h2 id="in-their-words" className="text-[12px] font-semibold text-primary-ink/75">
-                What matters to {firstName}, in {firstName}&rsquo;s own words
-              </h2>
-              {patient.goals.length ? (
-                <ul className="mt-2.5 flex flex-col gap-1.5">
-                  {patient.goals.map((g) => (
-                    <li key={g} className="font-voice text-[22px] leading-[1.35] sm:text-[24px]">
-                      &ldquo;{g}&rdquo;
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="mt-3 text-[15px] text-primary-ink/80">No goals recorded in the patient directory.</p>
-              )}
-            </div>
-            {patient.nextOfKin ? (
-              <div className="border-t border-white/15 bg-black/10 px-6 py-3 text-[13px] text-primary-ink/90 sm:px-7">
-                Named contact: {patient.nextOfKin}
-              </div>
-            ) : null}
-          </section>
-
-          {/* Stage 2: a read-only reading of the whole record, a prompt for clinical review. */}
-          <RecordReview status={reviewStatus} patientName={firstName} />
-
+          {/* Why this person is here, with the evidence chain: the first thing on the screen. */}
           <Panel title={`Why ${firstName} is on the list`} tone="brand">
             <p className="text-[18px] font-semibold leading-snug tracking-[-0.01em] text-ink">{TIER_SENTENCE[assessment.tier]}</p>
             {facts.length ? (
@@ -138,6 +111,33 @@ export default async function PatientPage({ params }: { params: Promise<{ id: st
               <EvidenceChain signals={assessment.signals} />
             </div>
           </Panel>
+
+          {/* The person's own recorded goals, the one bold element on the screen. Only what the
+              directory actually holds: when it holds nothing, there is no block at all. */}
+          {patient.goals.length ? (
+            <section aria-labelledby="in-their-words" className="overflow-hidden rounded-lg bg-primary text-primary-ink shadow-sm">
+              <div className="px-6 pb-6 pt-5 sm:px-7">
+                <h2 id="in-their-words" className="text-[12px] font-semibold text-primary-ink/75">
+                  What matters to {firstName}, in {firstName}&rsquo;s own words
+                </h2>
+                <ul className="mt-3 flex flex-col gap-2">
+                  {patient.goals.map((g) => (
+                    <li key={g} className="font-voice hang-quote text-[26px] leading-[1.35] sm:text-[28px]">
+                      &ldquo;{g}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              {patient.nextOfKin ? (
+                <div className="border-t border-white/15 bg-black/10 px-6 py-3 text-[13px] text-primary-ink/90 sm:px-7">
+                  Named contact: {patient.nextOfKin}
+                </div>
+              ) : null}
+            </section>
+          ) : null}
+
+          {/* Stage 2: a read-only reading of the whole record, a prompt for clinical review. */}
+          <RecordReview status={reviewStatus} />
 
           <PlanStatus patient={patient} caseState={caseState} />
         </div>
