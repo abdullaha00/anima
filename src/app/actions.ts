@@ -705,7 +705,7 @@ export async function shareRecord(patientId: string, audiences: Audience[]): Pro
 
     let message = `Record shared with ${chosen.length} ${chosen.length === 1 ? "recipient" : "recipients"}.`;
 
-    // Every share also pushes a copy onto the simulator's own GP document inbox,
+    // Every share also pushes a copy onto the simulator's own GP documents,
     // regardless of which audiences were ticked. Best-effort: the local share above
     // has already succeeded, so a failure here is reported in the message rather
     // than failing the whole action.
@@ -720,11 +720,11 @@ export async function shareRecord(patientId: string, audiences: Audience[]): Pro
           signedAt: view.signedAt,
         });
         if (result.status !== 200 && result.status !== 201) {
-          message += " (Could not forward the record to the GP inbox on the simulator.)";
+          message += " (Could not forward the record to the GP documents on the simulator.)";
         }
       }
     } catch {
-      message += " (Could not forward the record to the GP inbox on the simulator.)";
+      message += " (Could not forward the record to the GP documents on the simulator.)";
     }
 
     return message;
