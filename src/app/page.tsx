@@ -11,6 +11,7 @@ import { reviewedPatientIds } from "@/lib/stage2/read";
 import { RECOMMENDATION_LABEL } from "@/lib/stage2/present";
 import { Chip, Mono, Notice, StateBadge, TierLabel, TIER_TONE } from "@/components/ui";
 import { WorklistFilters, type FilterValues } from "@/components/worklist/WorklistFilters";
+import { TierBody } from "@/components/worklist/TierBody";
 import { RowLink } from "@/components/worklist/RowLink";
 
 export const dynamic = "force-dynamic";
@@ -72,6 +73,18 @@ function applyFilters(rows: WorklistRow[], f: FilterValues): WorklistRow[] {
     if (f.owner && r.waitingOn?.ownerName !== f.owner) return false;
     return true;
   });
+}
+
+const TIER_EMPTY: Partial<Record<ReviewTier, string>> = {
+  "review this week": "Nobody to review this week.",
+  "review this month": "Nobody to review this month.",
+};
+
+/** Says which of the two active tiers are empty, so absence is stated rather than left to be noticed. */
+function EmptyTiers({ present }: { present: ReviewTier[] }) {
+  const lines = (Object.keys(TIER_EMPTY) as ReviewTier[]).filter((t) => !present.includes(t)).map((t) => TIER_EMPTY[t]);
+  if (!lines.length) return null;
+  return <p className="text-[13px] font-medium leading-5 text-secondary">{lines.join(" ")}</p>;
 }
 
 function groupRows(rows: WorklistRow[]): { plan: PlanGroup; tiers: { tier: ReviewTier; rows: WorklistRow[] }[] }[] {
@@ -136,6 +149,9 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
                   )}
                 </span>
               </div>
+              {g.plan === "no plan" ? (
+                <EmptyTiers present={g.tiers.map((t) => t.tier)} />
+              ) : null}
               <div className="overflow-x-auto rounded-lg bg-surface shadow-sm">
                 <table className="w-full min-w-[720px] table-fixed text-[13px]">
                   <thead className="text-left">
@@ -149,14 +165,13 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
                     </tr>
                   </thead>
                   {g.tiers.map((t) => (
-                    <tbody key={t.tier}>
-                      <tr className={`border-b border-line ${TIER_TONE[t.tier].band}`}>
-                        <td className="p-0" />
-                        <td colSpan={5} className="px-3 py-1.5">
-                          <TierLabel tier={t.tier} />
-                          <span className="ml-2 text-[12px] text-faint tnum">{t.rows.length}</span>
-                        </td>
-                      </tr>
+                    <TierBody
+                      key={t.tier}
+                      label={<TierLabel tier={t.tier} />}
+                      count={t.rows.length}
+                      bandClass={TIER_TONE[t.tier].band}
+                      defaultOpen={g.plan !== "no plan" || TIER_ORDER[t.tier] <= TIER_ORDER["review this month"] || t.rows.length <= 5}
+                    >
                       {t.rows.map((r) => {
                         const rec = reviewed.get(r.patientId);
                         const showState = r.state !== "flagged";
@@ -213,13 +228,13 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
                                   </span>
                                 </span>
                               ) : (
-                                <span className="text-muted">no action recorded</span>
+                                <span aria-label="no action recorded" className="text-faint">—</span>
                               )}
                             </td>
                           </RowLink>
                         );
                       })}
-                    </tbody>
+                    </TierBody>
                   ))}
                 </table>
               </div>
