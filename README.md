@@ -133,6 +133,21 @@ proposal in the thread; in the product they would arrive from the conversation.
 - Offline check: `SIM_MODE=snapshot SIM_BASE_URL=http://127.0.0.1:9 npm start` serves every
   screen from the snapshot with the simulator address unreachable.
 
+## The record review (Stage 2)
+
+`src/lib/cairn/` is the Stage 2 pipeline: a collector snapshots the whole record, a read-only
+agent prepares an assessment, and a second read-only agent verifies it (see `docs/STAGE2.md`).
+The frontend reads completed runs from `.cairn/runs/` (or a committed `data/stage2/<id>.json`)
+through `src/lib/stage2/read.ts` and shows them as the "Record review": the recommendation and
+verified summary on the patient screen with every source one click away, a chip on the worklist,
+suggested participants on the care team, the meeting briefing and draft communications on the
+thread, and suggested next steps on the outcome. The review's confidence figure is never shown.
+Where the review used a phrase Cairn avoids, the wording is replaced on load and the panel says so.
+Nobody joins the team, nothing is posted and no next step is created unless a clinician clicks.
+
+To run a review yourself: put `OPENAI_API_KEY` and `SIM_KEY` in `.env.local`, then
+`npm run stage2 -- SIM-000001` (a few minutes). The demo uses the committed run for Amira Khan.
+
 ## The model seam
 
 `SCORING_ENGINE=rules` (default) ships. `SCORING_ENGINE=model` wraps the rules engine and

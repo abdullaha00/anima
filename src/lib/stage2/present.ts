@@ -62,7 +62,14 @@ export function sourceName(sourcePath: string): string {
   return p;
 }
 
+/** Simulator timestamps quoted inside a citation detail, shown as dates. */
+function humaniseEpochs(text: string): string {
+  return text.replace(/(?<![\d.])1[6-9]\d{11}(?![\d.])/g, (m) => formatDate(new Date(Number(m)).toISOString()));
+}
+
 /** One citation as a short line: "GP record · r-54 · 12 Sept 2026 · detail" */
 export function citationLine(e: EvidenceReference): string {
-  return [sourceName(e.sourcePath), e.recordId, e.date ? formatDate(e.date) : undefined, e.detail].filter(Boolean).join(" · ");
+  return [sourceName(e.sourcePath), e.recordId, e.date ? formatDate(e.date) : undefined, humaniseEpochs(e.detail)]
+    .filter(Boolean)
+    .join(" · ");
 }
