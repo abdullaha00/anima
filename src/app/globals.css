@@ -214,9 +214,14 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-/* The person's own words and the human summary: set larger, medium weight, never bold. */
+/* The person's own words and the human summary: set larger, regular weight, never bold. */
 .font-voice {
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: -0.01em;
+}
+
+/* One hanging opening quote, so the words align and the mark sits in the margin. */
+.hang-quote {
+  text-indent: -0.42em;
 }
