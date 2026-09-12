@@ -6,7 +6,7 @@ import type { AudienceView } from "@/lib/record/record";
 import { FAMILY_CONSENT_LINE, NOT_BINDING_LINE } from "@/lib/copy";
 import { formatDateTime } from "@/lib/format";
 import { fieldLabel } from "@/lib/record/fields";
-import { Chip, ProvenanceLine } from "@/components/ui";
+import { Chip, Microlabel, ProvenanceLine } from "@/components/ui";
 
 export interface Provenance {
   recordedBy: string;
@@ -119,7 +119,7 @@ function FamilyView({ view }: { view: AudienceView }) {
   return (
     <div className="flex flex-col gap-8 py-2 sm:px-4">
       <div className="flex flex-col gap-2">
-        <span className="microlabel">What matters</span>
+        <Microlabel>What matters</Microlabel>
         {whatMatters ? (
           <p className="prose-clinical font-voice text-[22px] leading-[1.4] text-ink">&ldquo;{whatMatters}&rdquo;</p>
         ) : (
@@ -127,11 +127,11 @@ function FamilyView({ view }: { view: AudienceView }) {
         )}
       </div>
       <div className="flex flex-col gap-2">
-        <span className="microlabel">Preferred place of care</span>
+        <Microlabel>Preferred place of care</Microlabel>
         <p className="font-voice text-[20px] leading-[1.4] text-ink">{place ?? <span className="text-muted">not recorded</span>}</p>
       </div>
       <div className="flex flex-col gap-2">
-        <span className="microlabel">People involved</span>
+        <Microlabel>People involved</Microlabel>
         <p className="text-[15px] leading-6 text-ink">{people ?? <span className="text-muted">not recorded</span>}</p>
       </div>
       <p className="border-t border-line pt-5 text-[13px] font-medium leading-5 text-secondary">{FAMILY_CONSENT_LINE}</p>

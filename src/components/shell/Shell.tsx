@@ -4,22 +4,21 @@ import type { ReactNode } from "react";
 import { CLINICIAN } from "@/lib/copy";
 import { AccountMenu } from "./AccountMenu";
 import { DataStatus } from "./DataStatus";
-import { TopNav } from "./TopNav";
 
 /**
- * The frame around every screen: a white top bar with the mark, the primary links, the data
- * source (only when degraded) and the signed-in clinician; the work area on the stone ground.
+ * The frame around every screen: a top bar on the same stone ground as the page, holding the
+ * mark (the way to the worklist), the data source (only when degraded) and the signed-in
+ * clinician; then the work area. The way back from a patient is the link in the patient strip.
  */
 export function Shell({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-full flex-1 flex-col">
-      <header className="sticky top-0 z-20 border-b border-line bg-surface">
+      <header className="sticky top-0 z-20 border-b border-line bg-ground">
         <div className="mx-auto flex h-14 w-full max-w-[1180px] items-stretch gap-4 px-4 sm:gap-6 sm:px-8">
           <Link href="/" className="flex shrink-0 items-center gap-2.5 no-underline">
             <Image src="/cairn-mark.png" alt="" width={28} height={28} priority className="h-7 w-7 object-contain" />
             <span className="text-[16px] font-bold tracking-[-0.01em] text-ink">Cairn</span>
           </Link>
-          <TopNav />
           <div className="ml-auto flex shrink-0 items-center gap-3 text-[12px] leading-5 text-muted">
             <DataStatus />
             <AccountMenu name={CLINICIAN.name} organisation={CLINICIAN.organisation} />
