@@ -1,26 +1,150 @@
 @import "tailwindcss";
 
+/*
+  Cairn design tokens. Defined once, light and dark both designed rather than inverted.
+  Warm stone ground, warm ink, one calm slate blue, a muted moss for confirmed states,
+  and a restrained clay red reserved for the signature refusal and blocking validation.
+  The refuse colour never marks a patient.
+*/
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --ground: #f3efe8;
+  --surface: #faf7f2;
+  --surface-2: #eae4da;
+  --line: #d8d0c4;
+  --line-strong: #b9ad9d;
+  --ink: #221e19;
+  --muted: #6a6157;
+  --primary: #4b6a86;
+  --primary-ink: #fbfaf7;
+  --primary-soft: #e2e9f0;
+  --affirm: #5b7a4f;
+  --affirm-soft: #e5ecdd;
+  --refuse: #a44e3a;
+  --refuse-soft: #f4e2db;
+  --focus: #4b6a86;
+  color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme="light"]) {
+    --ground: #1a1815;
+    --surface: #23201b;
+    --surface-2: #2d2923;
+    --line: #3d372f;
+    --line-strong: #5a5247;
+    --ink: #ece6dc;
+    --muted: #a89e91;
+    --primary: #93b2ce;
+    --primary-ink: #14202b;
+    --primary-soft: #26333f;
+    --affirm: #9cb887;
+    --affirm-soft: #27301f;
+    --refuse: #d6917c;
+    --refuse-soft: #3e2721;
+    --focus: #93b2ce;
+    color-scheme: dark;
   }
 }
 
+:root[data-theme="dark"] {
+  --ground: #1a1815;
+  --surface: #23201b;
+  --surface-2: #2d2923;
+  --line: #3d372f;
+  --line-strong: #5a5247;
+  --ink: #ece6dc;
+  --muted: #a89e91;
+  --primary: #93b2ce;
+  --primary-ink: #14202b;
+  --primary-soft: #26333f;
+  --affirm: #9cb887;
+  --affirm-soft: #27301f;
+  --refuse: #d6917c;
+  --refuse-soft: #3e2721;
+  --focus: #93b2ce;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-ground: var(--ground);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-primary: var(--primary);
+  --color-primary-ink: var(--primary-ink);
+  --color-primary-soft: var(--primary-soft);
+  --color-affirm: var(--affirm);
+  --color-affirm-soft: var(--affirm-soft);
+  --color-refuse: var(--refuse);
+  --color-refuse-soft: var(--refuse-soft);
+  --font-serif: var(--font-newsreader), "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-sans: var(--font-public-sans), "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-plex-mono), "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+
+html {
+  background: var(--ground);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Clinical prose: generous line height, a measure near 65 characters. */
+.prose-clinical {
+  line-height: 1.65;
+  max-width: 65ch;
+}
+
+/* Uppercase micro-labels get letter-spacing. */
+.microlabel {
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* Visible focus in the primary colour, keyboard reachable throughout. */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* The evidence drawer: height and opacity together over 150ms. Instant under reduced motion. */
+.drawer {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 150ms ease, opacity 150ms ease;
+}
+.drawer[data-open="true"] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+.drawer > * {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* Tabular numerals wherever digits align. */
+.tnum {
+  font-variant-numeric: tabular-nums;
 }
