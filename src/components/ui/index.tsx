@@ -121,7 +121,7 @@ export function Disclosure({
 export const TIER_TONE: Record<ReviewTier, { band: string; dot: string; text: string }> = {
   "review this week": { band: "bg-warn-soft", dot: "bg-warn-stripe", text: "font-bold text-warn" },
   "review this month": { band: "bg-info-soft", dot: "bg-info", text: "font-bold text-info" },
-  "consider at next contact": { band: "bg-surface-2", dot: "bg-stone-400", text: "font-semibold text-ink" },
+  "consider at next contact": { band: "bg-primary-soft", dot: "bg-cairn-400", text: "font-semibold text-affirm" },
   "no prompt": { band: "bg-surface-2", dot: "bg-stone-300", text: "font-medium text-secondary" },
 };
 
