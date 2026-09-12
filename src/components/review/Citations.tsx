@@ -1,5 +1,30 @@
 import type { EvidenceReference } from "@/lib/cairn/types";
-import { citationLine } from "@/lib/stage2/present";
+import { citationParts } from "@/lib/stage2/present";
+
+/**
+ * One record entry behind a statement from the record review: where it came from and when,
+ * the entry's id set small on the right, then what it says as a sentence underneath.
+ */
+export function Citation({ evidence: e }: { evidence: EvidenceReference }) {
+  const c = citationParts(e);
+  return (
+    <div className="flex flex-col gap-0.5">
+      <div className="flex items-baseline gap-x-1.5 text-[12px] leading-5">
+        <span className="font-semibold text-secondary">{c.source}</span>
+        {c.date ? (
+          <>
+            <span aria-hidden="true" className="text-faint">
+              &middot;
+            </span>
+            <span className="text-faint tnum">{c.date}</span>
+          </>
+        ) : null}
+        {c.id ? <span className="ml-auto pl-3 font-mono text-[11px] text-faint tnum">{c.id}</span> : null}
+      </div>
+      <p className="max-w-[72ch] text-[13px] leading-5 text-secondary">{c.detail}</p>
+    </div>
+  );
+}
 
 /**
  * The citations under one statement from the record review. Every statement the review
@@ -8,10 +33,10 @@ import { citationLine } from "@/lib/stage2/present";
 export function Citations({ evidence, className = "" }: { evidence: EvidenceReference[]; className?: string }) {
   if (evidence.length === 0) return null;
   return (
-    <ul className={`flex flex-col gap-0.5 ${className}`}>
+    <ul className={`flex flex-col gap-2.5 border-l-2 border-stone-200 pl-3 ${className}`}>
       {evidence.map((e, i) => (
-        <li key={`${e.sourcePath}-${e.recordId ?? ""}-${i}`} className="text-[12px] leading-5 text-faint tnum">
-          {citationLine(e)}
+        <li key={`${e.sourcePath}-${e.recordId ?? ""}-${i}`}>
+          <Citation evidence={e} />
         </li>
       ))}
     </ul>

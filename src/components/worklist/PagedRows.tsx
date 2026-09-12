@@ -2,7 +2,80 @@
 
 import { useState, type ReactNode } from "react";
 
-const BUTTON = "min-h-9 rounded-md px-2 font-semibold text-primary-hover disabled:text-faint hover:enabled:underline";
+const BUTTON = "min-h-11 rounded-md px-2 font-semibold text-primary-hover disabled:text-faint hover:enabled:underline";
+const PAGE_LINK = "inline-flex min-h-11 min-w-9 items-center justify-center rounded-md px-1.5 font-semibold";
+
+/** Page indices to show: all when 7 or fewer, else first, current with one neighbour each side, last. */
+function pageItems(current: number, pages: number): (number | "gap")[] {
+  if (pages <= 7) return Array.from({ length: pages }, (_, i) => i);
+  const keep = new Set([0, pages - 1, current - 1, current, current + 1].filter((p) => p >= 0 && p < pages));
+  const out: (number | "gap")[] = [];
+  for (let i = 0; i < pages; i++) {
+    if (keep.has(i)) out.push(i);
+    else if (out[out.length - 1] !== "gap") out.push("gap");
+  }
+  return out;
+}
+
+/**
+ * Previous / numbered page links / Next, with the "n–m of N" count beneath. Shared by the worklist
+ * table and the patient-page lists so both page the same way.
+ */
+export function Pager({
+  current,
+  pages,
+  total,
+  pageSize,
+  onChange,
+}: {
+  current: number;
+  pages: number;
+  total: number;
+  pageSize: number;
+  onChange: (page: number) => void;
+}) {
+  const start = current * pageSize;
+  return (
+    <nav aria-label="Pagination" className="flex flex-col items-center gap-0.5 text-[12px] text-secondary tnum">
+      <div className="flex w-full items-center justify-between gap-2">
+        <button type="button" className={BUTTON} onClick={() => onChange(Math.max(0, current - 1))} disabled={current === 0}>
+          Previous
+        </button>
+        <div className="flex flex-wrap items-center justify-center gap-0.5">
+          {pageItems(current, pages).map((item, i) =>
+            item === "gap" ? (
+              <span key={`gap-${i}`} aria-hidden="true" className={`${PAGE_LINK} font-normal text-faint`}>
+                …
+              </span>
+            ) : (
+              <button
+                key={item}
+                type="button"
+                aria-label={`Page ${item + 1}`}
+                aria-current={item === current ? "page" : undefined}
+                className={`${PAGE_LINK} ${item === current ? "bg-stone-200 text-ink" : "text-primary-hover hover:underline"}`}
+                onClick={() => onChange(item)}
+              >
+                {item + 1}
+              </button>
+            ),
+          )}
+        </div>
+        <button
+          type="button"
+          className={BUTTON}
+          onClick={() => onChange(Math.min(pages - 1, current + 1))}
+          disabled={current >= pages - 1}
+        >
+          Next
+        </button>
+      </div>
+      <span className="text-[11px] leading-4 text-faint">
+        {start + 1}–{Math.min(total, start + pageSize)} of {total}
+      </span>
+    </nav>
+  );
+}
 
 /**
  * Table rows shown a page at a time. Receives already-rendered rows so the server keeps building
@@ -28,22 +101,7 @@ export function PagedRows({ rows, pageSize = 10, colSpan }: { rows: ReactNode[];
       {pages > 1 ? (
         <tr>
           <td colSpan={colSpan} className="px-3 py-1">
-            <div className="flex items-center justify-between text-[12px] text-secondary tnum">
-              <button type="button" className={BUTTON} onClick={() => setPage(Math.max(0, current - 1))} disabled={current === 0}>
-                Previous
-              </button>
-              <span>
-                {start + 1}–{Math.min(rows.length, start + pageSize)} of {rows.length}
-              </span>
-              <button
-                type="button"
-                className={BUTTON}
-                onClick={() => setPage(Math.min(pages - 1, current + 1))}
-                disabled={current >= pages - 1}
-              >
-                Next
-              </button>
-            </div>
+            <Pager current={current} pages={pages} total={rows.length} pageSize={pageSize} onChange={setPage} />
           </td>
         </tr>
       ) : null}

@@ -2,9 +2,10 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import type { EvidenceReference } from "@/lib/cairn/types";
 import type { ReviewStatus } from "@/lib/stage2/read";
-import { RECOMMENDATION_LABEL, citationLine } from "@/lib/stage2/present";
+import { RECOMMENDATION_LABEL } from "@/lib/stage2/present";
 import { formatDate, formatDateTime } from "@/lib/format";
 import { Chip, Disclosure, Microlabel, Notice, Panel } from "@/components/ui";
+import { Citations } from "@/components/review/Citations";
 
 /**
  * The Stage 2 record review for one patient: a read-only agent's reading of the whole
@@ -18,27 +19,15 @@ import { Chip, Disclosure, Microlabel, Notice, Panel } from "@/components/ui";
  * own words are not repeated here; the patient page carries them at size.
  */
 
-function Citations({ evidence }: { evidence: EvidenceReference[] }) {
+/** The record entries behind one part of the review, one click deeper. */
+function Sources({ evidence }: { evidence: EvidenceReference[] }) {
   if (!evidence.length) return null;
   return (
     <Disclosure
       className="mt-2"
       label={evidence.length === 1 ? "1 source in the record" : `${evidence.length} sources in the record`}
     >
-      <ul className="flex flex-col gap-2">
-        {evidence.map((e, i) => {
-          const line = citationLine(e);
-          const cut = line.lastIndexOf(" · ");
-          const where = cut > 0 ? line.slice(0, cut) : line;
-          const what = cut > 0 ? line.slice(cut + 3) : "";
-          return (
-            <li key={`${e.sourcePath}-${e.recordId ?? ""}-${i}`} className="flex flex-col gap-0.5">
-              <span className="font-mono text-[12px] leading-5 text-faint tnum">{where}</span>
-              {what ? <span className="text-[13px] leading-5 text-secondary">{what}</span> : null}
-            </li>
-          );
-        })}
-      </ul>
+      <Citations evidence={evidence} />
     </Disclosure>
   );
 }
@@ -142,7 +131,7 @@ export function RecordReview({ status }: { status: ReviewStatus }) {
                     <li key={e.signal} className="rounded-md border border-line bg-surface-2 px-4 py-3.5">
                       <p className="text-[14px] font-semibold leading-5 text-ink">{e.signal}</p>
                       <p className="mt-1.5 text-[13px] leading-5 text-secondary">{e.significance}</p>
-                      <Citations evidence={e.evidence} />
+                      <Sources evidence={e.evidence} />
                     </li>
                   ))}
                 </ul>
@@ -159,7 +148,7 @@ export function RecordReview({ status }: { status: ReviewStatus }) {
                 {nothingAboutWishes ? (
                   <p className="text-[14px] leading-6 text-muted">Nothing recorded about their wishes in the sources read.</p>
                 ) : null}
-                <Citations evidence={fam.evidence} />
+                <Sources evidence={fam.evidence} />
               </div>
             </Part>
 
@@ -170,7 +159,7 @@ export function RecordReview({ status }: { status: ReviewStatus }) {
                 <Facts label="Current clinical support" items={care.currentClinicalSupport} />
                 <Facts label="Family and carer support" items={care.familyAndCarerSupport} />
                 <Facts label="Gaps" items={care.gaps} />
-                <Citations evidence={care.evidence} />
+                <Sources evidence={care.evidence} />
               </div>
             </Part>
 
