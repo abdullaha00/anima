@@ -1,6 +1,7 @@
 "use client";
 
 import { Chip, type ChipTone } from "@/components/ui";
+import { Pager } from "@/components/worklist/PagedRows";
 
 import { useState } from "react";
 
@@ -16,7 +17,7 @@ export interface PagedItem {
   tone?: ChipTone;
 }
 
-/** A short list shown five at a time, with plain previous and next controls. */
+/** A short list shown five at a time, with previous, numbered page and next controls. */
 export function PagedList({ items, pageSize = 5, empty }: { items: PagedItem[]; pageSize?: number; empty: string }) {
   const [page, setPage] = useState(0);
   const pages = Math.max(1, Math.ceil(items.length / pageSize));
@@ -44,26 +45,8 @@ export function PagedList({ items, pageSize = 5, empty }: { items: PagedItem[]; 
         ))}
       </ol>
       {pages > 1 ? (
-        <div className="flex items-center justify-between border-t border-line pt-3 text-[12px] text-secondary tnum">
-          <button
-            type="button"
-            className="min-h-9 rounded-md px-2 font-semibold text-primary-hover disabled:text-faint hover:enabled:underline"
-            onClick={() => setPage((p) => Math.max(0, p - 1))}
-            disabled={page === 0}
-          >
-            Previous
-          </button>
-          <span>
-            {page * pageSize + 1}–{Math.min(items.length, (page + 1) * pageSize)} of {items.length}
-          </span>
-          <button
-            type="button"
-            className="min-h-9 rounded-md px-2 font-semibold text-primary-hover disabled:text-faint hover:enabled:underline"
-            onClick={() => setPage((p) => Math.min(pages - 1, p + 1))}
-            disabled={page >= pages - 1}
-          >
-            Next
-          </button>
+        <div className="border-t border-line pt-3">
+          <Pager current={page} pages={pages} total={items.length} pageSize={pageSize} onChange={setPage} />
         </div>
       ) : null}
     </div>
