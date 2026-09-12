@@ -67,21 +67,33 @@ function toItems(events: TimelineEvent[]): PagedItem[] {
 }
 
 /** Plain facts from the record that explain why this person is on the list. Nothing inferred. */
-function whyFacts(patient: Patient, nowIso: string): string[] {
-  const facts: string[] = [];
+/** One labelled fact per row: the value carries the weight, the label sits quietly above it. */
+interface WhyFact {
+  label: string;
+  value: string;
+  /** A second, quieter line under the value. */
+  note?: string;
+}
+
+function whyFacts(patient: Patient, nowIso: string): WhyFact[] {
+  const facts: WhyFact[] = [];
   const unplanned = patient.admissions.filter((a) => a.emergency && monthsBetween(a.at, nowIso) <= 12);
   if (unplanned.length) {
     const latest = unplanned.map((a) => a.at).sort().at(-1);
-    facts.push(
-      `${plural(unplanned.length, "unplanned hospital episode")} in the past year, the most recent on ${formatDate(latest)}.`,
-    );
+    facts.push({
+      label: "Unplanned hospital episodes",
+      value: `${unplanned.length} in the past year`,
+      note: `Most recent ${formatDate(latest)}`,
+    });
   }
-  if (patient.conditions.length) facts.push(`${patient.conditions.join(", ")} recorded.`);
+  if (patient.conditions.length) facts.push({ label: "Conditions recorded", value: patient.conditions.join(", ") });
   if (!patient.hasAcpRecord && !patient.onPalliativeRegister) {
-    facts.push("No advance care plan and no palliative care register entry in this record source.");
+    facts.push({ label: "Care planning", value: "No advance care plan", note: "Not on the palliative care register in this record source" });
   }
-  if (patient.needs.length) facts.push(`Recorded needs: ${patient.needs.join(", ").toLowerCase()}.`);
-  if (patient.existingPlanNote) facts.push(`The record mentions an existing decision: “${patient.existingPlanNote}”`);
+  if (patient.needs.length) {
+    facts.push({ label: "Recorded needs", value: patient.needs.map((n) => n.charAt(0).toUpperCase() + n.slice(1).toLowerCase()).join(", ") });
+  }
+  if (patient.existingPlanNote) facts.push({ label: "Existing decision in the record", value: `“${patient.existingPlanNote}”` });
   return facts;
 }
 
@@ -134,17 +146,24 @@ export default async function PatientPage({ params }: { params: Promise<{ id: st
 
           {/* Why this person is here, with the evidence chain. */}
           <Panel title={`Why ${firstName} is on the list`} tone="brand">
-            {reviewStatus.review ? (
-              <p className="text-[14px] leading-6 text-secondary">
-                Record review: {RECOMMENDATION_LABEL[reviewStatus.review.assessment.recommendation].label.toLowerCase()}.
-              </p>
-            ) : null}
-            {facts.length ? (
-              <ul className="mt-3 flex flex-col gap-1.5 text-[14px] leading-6 text-secondary">
+            {facts.length || reviewStatus.review ? (
+              <dl className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
+                {reviewStatus.review ? (
+                  <div className="flex flex-col gap-0.5">
+                    <dt className="text-[12px] font-semibold leading-5 text-muted">Record review</dt>
+                    <dd className="text-[15px] font-semibold leading-6 text-ink">
+                      {RECOMMENDATION_LABEL[reviewStatus.review.assessment.recommendation].label}
+                    </dd>
+                  </div>
+                ) : null}
                 {facts.map((f) => (
-                  <li key={f}>{f}</li>
+                  <div key={f.label} className="flex flex-col gap-0.5">
+                    <dt className="text-[12px] font-semibold leading-5 text-muted">{f.label}</dt>
+                    <dd className="text-[15px] font-semibold leading-6 text-ink">{f.value}</dd>
+                    {f.note ? <dd className="text-[13px] leading-5 text-secondary">{f.note}</dd> : null}
+                  </div>
                 ))}
-              </ul>
+              </dl>
             ) : null}
             <div className="mt-5 border-t border-line pt-4">
               <h3 className="mb-1 text-[13px] font-semibold text-ink">
