@@ -22,8 +22,7 @@ about any patient. It cannot sign a record. Nothing unsigned is shared.
 
 You need Node.js 20.9 or newer and npm. If Node is not installed, either install it from
 https://nodejs.org (the LTS build) or, on Windows without admin rights, unzip the portable build
-into `%LOCALAPPDATA%\Programs
-odejs` and add that folder to your PATH.
+into `%LOCALAPPDATA%\Programs\nodejs` and add that folder to your PATH.
 
 ```bash
 git clone https://github.com/abdullaha00/anima.git
