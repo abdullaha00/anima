@@ -470,6 +470,8 @@ export interface WorklistRow {
   assessment: Assessment;
   state: WorklistState;
   pausedReason?: string;
+  /** The named clinician for the row: the patient's usual GP, else a stable simulated pick */
+  clinician: string;
   /** The oldest open next step, with its owner, if any */
   waitingOn?: { what: string; ownerName: string; ownerRole: string; due: string; status: NextStep['status'] };
   isCancer: boolean;

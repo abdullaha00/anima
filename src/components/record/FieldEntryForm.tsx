@@ -4,15 +4,15 @@ import { useActionState } from "react";
 import type { RecordFieldName } from "@/lib/domain/types";
 import { setRecordField, type ActionResult } from "@/app/actions";
 import { Button, Notice } from "@/components/ui";
-import { FIELD_CLASS, HINT_CLASS, INPUT_CLASS, LABEL_CLASS, SELECT_CLASS, TEXTAREA_CLASS } from "@/components/team/form-classes";
+import { FIELD_CLASS, HINT_CLASS, SELECT_CLASS, TEXTAREA_CLASS } from "@/components/team/form-classes";
 
 export type FieldEntryKind = "text" | "select" | "segmented";
 
 /**
- * Records one field with its source. Compact, inline under the empty field, and only shown
- * while the record is a draft. Where Cairn has a draft, it is prefilled and said so; the
- * clinician edits or confirms it. The source stays editable, because provenance is what
- * makes the entry count.
+ * Records one field. Compact, inline under the field, and only shown while the record is
+ * unsigned. Where Cairn has a draft, it is prefilled and said so; the clinician edits or
+ * confirms it. The source travels unseen: the draft's where there is one, otherwise the
+ * action names the conversation with the recording clinician.
  */
 export function FieldEntryForm({
   patientId,
@@ -20,7 +20,7 @@ export function FieldEntryForm({
   label,
   kind = "text",
   options = [],
-  defaultSource,
+  defaultSource = "",
   defaultValue = "",
   draftNote,
   buttonLabel,
@@ -31,9 +31,10 @@ export function FieldEntryForm({
   label: string;
   kind?: FieldEntryKind;
   options?: readonly string[];
-  defaultSource: string;
+  /** Provenance carried with the entry; empty lets the action apply its default. */
+  defaultSource?: string;
   defaultValue?: string;
-  /** A faint line under the control saying where the prefilled value came from. */
+  /** A faint line under the control saying the prefilled value is Cairn's draft. */
   draftNote?: string;
   buttonLabel?: string;
   serif?: boolean;
@@ -56,6 +57,7 @@ export function FieldEntryForm({
     <form action={formAction} className="mt-2 flex flex-col gap-3">
       <input type="hidden" name="patientId" value={patientId} />
       <input type="hidden" name="field" value={field} />
+      <input type="hidden" name="source" value={defaultSource} />
 
       {kind === "segmented" ? (
         <fieldset>
@@ -107,20 +109,7 @@ export function FieldEntryForm({
 
       {draftNote ? <p className={HINT_CLASS}>{draftNote}</p> : null}
 
-      <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
-        <label className={FIELD_CLASS}>
-          <span className={LABEL_CLASS}>Source</span>
-          <div className="font-mono text-[13px]">
-            <input
-              id={`record-${field}-source`}
-              name="source"
-              required
-              defaultValue={defaultSource}
-              placeholder="e.g. conversation 12 Sept 2026, home visit"
-              className={INPUT_CLASS}
-            />
-          </div>
-        </label>
+      <div>
         <Button type="submit" variant="quiet" disabled={pending}>
           {pending ? "Recording" : submitLabel}
         </Button>

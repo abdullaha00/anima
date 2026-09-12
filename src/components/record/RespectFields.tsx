@@ -1,6 +1,5 @@
-import type { CairnRecord, Patient, RecordEntry, RecordFieldName } from "@/lib/domain/types";
+import type { CairnRecord, Patient, RecordFieldName } from "@/lib/domain/types";
 import type { RecordReview } from "@/lib/stage2/read";
-import { formatDateTime } from "@/lib/format";
 import {
   CAPACITY_OPTIONS,
   CPR_OPTIONS,
@@ -11,7 +10,7 @@ import {
   type RecordFieldGroup,
 } from "@/lib/record/fields";
 import { draftFor } from "@/lib/record/drafts";
-import { Panel, ProvenanceLine } from "@/components/ui";
+import { Disclosure, Panel } from "@/components/ui";
 import { FieldEntryForm, type FieldEntryKind } from "./FieldEntryForm";
 
 /** The three ReSPECT sections on the form: anchor, title and the line under it. */
@@ -55,41 +54,6 @@ function entryKind(name: RecordFieldName): { kind: FieldEntryKind; options?: rea
   }
 }
 
-function hasProvenance(e: RecordEntry): boolean {
-  return Boolean(e.value && e.source && e.recordedBy);
-}
-
-/** Who, from what, when: the parts of a provenance line that make two lines the same. */
-function provenanceKey(e: RecordEntry): string {
-  return `${e.recordedBy}|${e.source}|${formatDateTime(e.recordedAt)}`;
-}
-
-/**
- * Where most of a section's fields share one provenance, that line is said once under the
- * heading and only the exceptions keep their own. Returns nothing when no key repeats.
- */
-function hoistedProvenance(entries: { name: RecordFieldName; entry: RecordEntry }[]):
-  | { key: string; entry: RecordEntry; mixed: boolean }
-  | undefined {
-  const counts = new Map<string, number>();
-  for (const { entry } of entries) {
-    const key = provenanceKey(entry);
-    counts.set(key, (counts.get(key) ?? 0) + 1);
-  }
-  let commonKey: string | undefined;
-  let commonCount = 0;
-  for (const [key, count] of counts) {
-    if (count > commonCount) {
-      commonKey = key;
-      commonCount = count;
-    }
-  }
-  if (commonKey === undefined || commonCount < 2) return undefined;
-  const first = entries.find(({ entry }) => provenanceKey(entry) === commonKey);
-  if (!first) return undefined;
-  return { key: commonKey, entry: first.entry, mixed: counts.size > 1 };
-}
-
 interface FieldProps {
   def: RecordFieldDef;
   record: CairnRecord;
@@ -97,27 +61,26 @@ interface FieldProps {
   review?: RecordReview;
   nowIso: string;
   locked: boolean;
-  hoistedKey?: string;
   /** True for a rationale rendered under its decision. */
   nested?: boolean;
 }
 
 /**
- * One field: label, description, then either the recorded value with its provenance or the
- * entry control. Cairn's draft, where there is one, is prefilled and named as a draft; the
- * clinician confirms or changes it. Nothing is written until they do.
+ * One field: label, description, then either the recorded value or the entry control.
+ * Cairn's draft, where there is one, is prefilled and named as a draft; the clinician
+ * confirms or changes it. Nothing is written until they do. A recorded value on an unsigned
+ * record keeps a quiet Edit that reopens the same form, prefilled. Provenance is carried on
+ * the entry and shown to recipients, not on the form.
  */
-function Field({ def: f, record, patient, review, nowIso, locked, hoistedKey, nested = false }: FieldProps) {
+function Field({ def: f, record, patient, review, nowIso, locked, nested = false }: FieldProps) {
   const entry = record.fields[f.name];
   const serif = VOICE_FIELDS.includes(f.name);
-  const unsourced = entry !== undefined && !hasProvenance(entry);
-  const ownLine = entry !== undefined && !unsourced && (!hoistedKey || provenanceKey(entry) !== hoistedKey);
   const { kind, options } = entryKind(f.name);
   const draft = !locked && !entry ? draftFor(f.name, patient, review?.assessment, { runId: review?.runId, nowIso }) : undefined;
 
   const draftNote = draft
     ? kind === "text"
-      ? `Drafted by Cairn from ${draft.source}. Edit, then record.`
+      ? "Drafted by Cairn. Edit, then record."
       : "Cairn pre-selected this. Confirm or change it."
     : undefined;
   const buttonLabel = kind === "segmented" ? "Confirm CPR recommendation" : undefined;
@@ -138,23 +101,20 @@ function Field({ def: f, record, patient, review, nowIso, locked, hoistedKey, ne
           <p className={serif ? "prose-clinical font-voice text-[20px] leading-[1.4] text-ink" : "prose-clinical text-[15px] leading-6 text-ink"}>
             {serif ? <>&ldquo;{entry.value}&rdquo;</> : entry.value}
           </p>
-          {unsourced ? (
-            <p className="font-mono text-[12px] leading-5 text-refuse">no provenance: blocks signing</p>
-          ) : ownLine ? (
-            <ProvenanceLine recordedBy={entry.recordedBy} recordedAt={entry.recordedAt} source={entry.source} />
-          ) : null}
-          {unsourced && !locked ? (
-            <FieldEntryForm
-              patientId={record.patientId}
-              field={f.name}
-              label={f.label}
-              kind={kind}
-              options={options}
-              defaultSource=""
-              defaultValue={entry.value}
-              buttonLabel={buttonLabel}
-              serif={serif}
-            />
+          {!locked ? (
+            <Disclosure label="Edit" className="mt-1">
+              <FieldEntryForm
+                patientId={record.patientId}
+                field={f.name}
+                label={f.label}
+                kind={kind}
+                options={options}
+                defaultSource={entry.source}
+                defaultValue={entry.value}
+                buttonLabel={buttonLabel}
+                serif={serif}
+              />
+            </Disclosure>
           ) : null}
         </div>
       ) : locked ? (
@@ -166,7 +126,7 @@ function Field({ def: f, record, patient, review, nowIso, locked, hoistedKey, ne
           label={f.label}
           kind={kind}
           options={options}
-          defaultSource={draft?.source ?? ""}
+          defaultSource={draft?.source}
           defaultValue={draft?.value ?? (kind === "segmented" ? "No recorded decision" : "")}
           draftNote={draftNote}
           buttonLabel={buttonLabel}
@@ -178,10 +138,8 @@ function Field({ def: f, record, patient, review, nowIso, locked, hoistedKey, ne
 }
 
 /**
- * The ReSPECT form: three sections, one panel each, fields separated by hairlines. Every
- * present field carries its provenance; where a section shares one, it is given once under
- * the heading. An entry without provenance is marked, because it blocks signing. Once
- * signed, values only.
+ * The ReSPECT form: three sections, one panel each, fields separated by hairlines. While
+ * the record is unsigned each field can be recorded and then edited; once signed, values only.
  */
 export function RespectFields({
   record,
@@ -203,23 +161,12 @@ export function RespectFields({
         if (group === "other") return null;
         const meta = SECTION[group];
         const fields = RECORD_FIELDS.filter((f) => f.group === group);
-        const sourced = fields.flatMap((f) => {
-          const entry = record.fields[f.name];
-          return entry && hasProvenance(entry) ? [{ name: f.name, entry }] : [];
-        });
-        const hoisted = hoistedProvenance(sourced);
-        const shared = { record, patient, review, nowIso, locked, hoistedKey: hoisted?.key };
+        const shared = { record, patient, review, nowIso, locked };
         return (
           <section key={group} id={meta.id} aria-labelledby={`${meta.id}-heading`} className="scroll-mt-[112px]">
             <Panel as="div" heading="h2" title={<span id={`${meta.id}-heading`}>{meta.title}</span>}>
-              <div className="mb-2 flex flex-col gap-1 border-b border-line pb-4">
+              <div className="mb-2 border-b border-line pb-4">
                 <p className="text-[13px] font-medium leading-5 text-secondary">{meta.intro}</p>
-                {hoisted ? (
-                  <div className="flex flex-wrap gap-x-1 text-[12px] leading-5 text-faint tnum">
-                    {hoisted.mixed ? <span>Unless noted,</span> : null}
-                    <ProvenanceLine recordedBy={hoisted.entry.recordedBy} recordedAt={hoisted.entry.recordedAt} source={hoisted.entry.source} />
-                  </div>
-                ) : null}
               </div>
               <div className="flex flex-col divide-y divide-line">
                 {fields

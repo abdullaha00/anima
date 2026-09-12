@@ -25,7 +25,7 @@ import {
   type WorklistRow,
   type WorklistState,
 } from '@/lib/domain/types';
-import { MODEL_DISCLOSURE } from '@/lib/copy';
+import { MODEL_DISCLOSURE, SIMULATED_CLINICIANS } from '@/lib/copy';
 import { isCancer } from './catalogue';
 import { inertIndicators } from './rules';
 
@@ -46,6 +46,19 @@ export function lastTouchedFor(c: CaseState | undefined): string | undefined {
   if (!c) return undefined;
   const stamps = [c.record.signedAt, ...c.record.audit.map((e) => e.at)].filter((x): x is string => !!x);
   return stamps.length ? stamps.reduce((a, b) => (b > a ? b : a)) : undefined;
+}
+
+/** A small stable string hash (djb2), so a simulated clinician never changes between renders. */
+function stableHash(s: string): number {
+  let h = 5381;
+  for (let i = 0; i < s.length; i += 1) h = ((h << 5) + h + s.charCodeAt(i)) | 0;
+  return Math.abs(h);
+}
+
+/** The patient's usual GP when the record names one, else a deterministic simulated clinician. */
+export function clinicianFor(p: Pick<Patient, 'id' | 'usualGp'>): string {
+  if (p.usualGp) return p.usualGp;
+  return SIMULATED_CLINICIANS[stableHash(p.id) % SIMULATED_CLINICIANS.length];
 }
 
 export function waitingOnFor(c: CaseState | undefined): WorklistRow['waitingOn'] {
@@ -128,6 +141,7 @@ export function sweep(
       assessment: a,
       state: c?.state ?? 'flagged',
       pausedReason: c?.pausedReason,
+      clinician: clinicianFor(p),
       waitingOn: waitingOnFor(c),
       isCancer: isCancer(p),
       imdQuintile: p.imdQuintile,

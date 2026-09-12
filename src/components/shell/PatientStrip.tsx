@@ -2,14 +2,6 @@ import Link from "next/link";
 import type { Assessment, CaseState, Patient } from "@/lib/domain/types";
 import { formatDate } from "@/lib/format";
 import { ButtonLink, Chip } from "@/components/ui";
-import { planGroupFor, type PlanGroup } from "@/lib/coordination/state";
-
-/** Plan status in words under the record button. Unknown groups fall back to their own name. */
-const PLAN_LABEL: Partial<Record<PlanGroup, string>> = {
-  "no plan": "No plan yet",
-  "plan in progress": "Plan in progress",
-  "plan complete": "Plan complete",
-};
 
 /**
  * Stays at the top of the patient screens: who this is and where their plan has got to.
@@ -32,8 +24,10 @@ export function PatientStrip({
     { label: "Date of birth", value: patient.birthDate ? formatDate(patient.birthDate) : "not recorded" },
     { label: "Identifier", value: patient.id, mono: true },
   ];
-  const group = planGroupFor(caseState.state);
-  const recordVariant = group === "no plan" || group === "plan in progress" ? "primary" : "quiet";
+  const started =
+    Object.keys(caseState.record.fields).length > 0 ||
+    caseState.record.status !== "draft" ||
+    caseState.participants.length > 0;
   return (
     <div className="mb-6 border-b border-line">
       <div className="flex flex-wrap items-start justify-between gap-x-6 gap-y-3 pb-5">
@@ -61,12 +55,9 @@ export function PatientStrip({
             )}
           </div>
         </div>
-        <div className="flex shrink-0 flex-col items-end gap-1.5">
-          <ButtonLink href={`/patient/${patient.id}/record`} variant={recordVariant} className="shrink-0">
-            ReSPECT record
-          </ButtonLink>
-          <p className="text-[12px] leading-5 text-secondary">{PLAN_LABEL[group] ?? group}</p>
-        </div>
+        <ButtonLink href={`/patient/${patient.id}/record`} variant={started ? "warn" : "primary"} className="shrink-0">
+          {started ? "Edit ReSPECT record" : "Start ReSPECT record"}
+        </ButtonLink>
       </div>
     </div>
   );
