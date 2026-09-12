@@ -21,8 +21,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-GB" className={`${jakarta.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">
+    // suppressHydrationWarning: browser extensions add attributes to <html> and <body> before
+    // React loads; that is not a rendering difference in our code.
+    <html lang="en-GB" className={`${jakarta.variable} h-full antialiased`} suppressHydrationWarning>
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <Shell>{children}</Shell>
       </body>
     </html>
