@@ -142,7 +142,7 @@ test("family view has no clinical recommendations", () => {
   assert.ok(!names.includes("not_recommended"));
   assert.ok(!names.includes("clinical_summary"));
   assert.ok(names.includes("what_matters"));
-  assert.ok(!("error" in fam) && fam.note?.includes("consent"));
+  assert.ok(!("error" in fam) && fam.note?.includes("signing clinician"));
 });
 
 test("share refuses an unknown audience", () => {

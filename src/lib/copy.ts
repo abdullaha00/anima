@@ -16,7 +16,7 @@ export const NOT_BINDING_LINE =
 export const ADRT_LINE =
   "An advance decision to refuse treatment (ADRT) is a separate, legally binding document. Cairn references it and never generates one.";
 
-export const FAMILY_CONSENT_LINE = "Shared with consent recorded in the conversation.";
+export const FAMILY_CONSENT_LINE = "Shared with the family by the signing clinician. No clinical recommendations are included here.";
 
 export const THREAD_NOT_RECORD_LINE =
   "Discussion here does not change the record. A named clinician promotes what is agreed into the record and signs it.";

@@ -65,6 +65,7 @@ export function FieldEntryForm({
               name="source"
               required
               defaultValue={defaultSource}
+              placeholder="e.g. conversation 12 Sept 2026, home visit"
               className={INPUT_CLASS}
             />
           </div>

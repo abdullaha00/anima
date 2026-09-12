@@ -111,7 +111,7 @@ export default async function ThreadPage({
           )}
         </Panel>
       ) : (
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
+        <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_320px] xl:items-start">
           <div className="flex flex-col gap-8">
             <ThreadHeader thread={thread} caseState={caseState} />
 

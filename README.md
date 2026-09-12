@@ -97,7 +97,12 @@ proposal in the thread; in the product they would arrive from the conversation.
   the catalogue or who have a hospital episode. `docs/API-NOTES.md` is the probe's record of
   the real API shape.
 - The simulator API key lives in `.env.local` as `SIM_API_KEY`, server-side only. It is
-  git-ignored and never reaches the browser.
+  git-ignored and never reaches the browser. To verify after a build, search the served
+  output: `grep -rl sim_ .next/static .next/server` should print nothing. Turbopack's local
+  cache under `.next/cache` does hold the environment for change detection; it is
+  git-ignored and never served.
+- Offline check: `SIM_MODE=snapshot SIM_BASE_URL=http://127.0.0.1:9 npm start` serves every
+  screen from the snapshot with the simulator address unreachable.
 
 ## The model seam
 

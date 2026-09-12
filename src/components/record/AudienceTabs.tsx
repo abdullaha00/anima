@@ -19,6 +19,8 @@ export interface AudienceTabsProps {
   /** Provenance per field, for the full-record audiences. */
   provenance: Partial<Record<RecordFieldName, Provenance>>;
   sharedWith: Audience[];
+  /** Name, date of birth and identifier, so the ambulance view stands on its own. */
+  patientLine?: string;
 }
 
 function valueOf(view: AudienceView, name: RecordFieldName): string | undefined {
@@ -26,23 +28,24 @@ function valueOf(view: AudienceView, name: RecordFieldName): string | undefined 
 }
 
 /** Four lines, large, high contrast, on the dark ground. CPR first. Nothing else. */
-function AmbulanceView({ view }: { view: AudienceView }) {
+function AmbulanceView({ view, patientLine }: { view: AudienceView; patientLine?: string }) {
   const cpr = valueOf(view, "cpr_recommendation");
   const rest: RecordFieldName[] = ["preferences_for_care", "not_recommended", "preferred_place_of_care"];
   const label = "text-[11px] font-semibold uppercase tracking-[0.06em] opacity-70";
   return (
     <div className="rounded-lg bg-ink p-8 text-[#F4EFE7]">
       <div className="flex flex-col gap-6">
+        {patientLine ? <p className="text-[16px] font-semibold tracking-[-0.01em] opacity-90 tnum">{patientLine}</p> : null}
         <div className="flex flex-col gap-1">
           <span className={label}>CPR recommendation</span>
-          <p className="text-[26px] font-bold leading-tight tracking-[-0.01em]">{cpr ?? "not recorded"}</p>
+          <p className="text-[30px] font-bold leading-tight tracking-[-0.01em]">{cpr ?? "not recorded"}</p>
         </div>
         {rest.map((name) => {
           const v = valueOf(view, name);
           return (
             <div key={name} className="flex flex-col gap-1">
               <span className={label}>{fieldLabel(name)}</span>
-              <p className="text-[20px] font-semibold leading-snug tracking-[-0.01em]">{v ?? "not recorded"}</p>
+              <p className="text-[22px] font-semibold leading-snug tracking-[-0.01em]">{v ?? "not recorded"}</p>
             </div>
           );
         })}
@@ -141,7 +144,10 @@ function FamilyView({ view }: { view: AudienceView }) {
  * Keyboard reachable: arrow keys move between tabs, Enter or Space selects, Home and End
  * jump. Rendered only once a clinician has signed.
  */
-export function AudienceTabs({ views, provenance, sharedWith }: AudienceTabsProps) {
+const TAB_ORDER: Audience[] = ["ambulance", "family", "out_of_hours", "hospice", "gp", "hospital"];
+
+export function AudienceTabs({ views: unordered, provenance, sharedWith, patientLine }: AudienceTabsProps) {
+  const views = [...unordered].sort((a, b) => TAB_ORDER.indexOf(a.audience) - TAB_ORDER.indexOf(b.audience));
   const [index, setIndex] = useState(0);
   const [focused, setFocused] = useState(0);
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -229,7 +235,7 @@ export function AudienceTabs({ views, provenance, sharedWith }: AudienceTabsProp
         >
           <p className="text-[13px] font-medium leading-5 text-secondary">{view.description}</p>
           {view.audience === "ambulance" ? (
-            <AmbulanceView view={view} />
+            <AmbulanceView view={view} patientLine={patientLine} />
           ) : view.audience === "out_of_hours" ? (
             <OutOfHoursView view={view} />
           ) : view.audience === "family" ? (

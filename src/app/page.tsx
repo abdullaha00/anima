@@ -34,6 +34,15 @@ const STRIPE: Record<WorklistState, string> = {
   paused: "bg-stone-300",
 };
 
+const FIELD_WORDS: Record<string, string> = {
+  frailtyCfs: "a Clinical Frailty Scale score",
+  weightLossPct: "a weight loss figure",
+  carePackageIncreasedAt: "a care package change",
+  performanceStatus: "a performance status",
+  nyha: "an NYHA class",
+  mrcDyspnoea: "an MRC dyspnoea grade",
+};
+
 function one(v: string | string[] | undefined): string {
   return Array.isArray(v) ? (v[0] ?? "") : (v ?? "");
 }
@@ -126,7 +135,7 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
 
       {result.modelDisclosure ? <Notice kind="info">{result.modelDisclosure}</Notice> : null}
 
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_300px]">
+      <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_300px]">
         <div className="flex flex-col gap-6">
           <WorklistFilters values={filters} owners={owners} imdAvailable={e.imdAvailable} />
 
@@ -278,7 +287,7 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
                 {result.inertIndicators.map((i) => (
                   <li key={i.id}>
                     <Mono className="text-faint">{i.id}</Mono> <span className="text-secondary">{i.label}</span>{" "}
-                    <span className="text-faint">(needs {i.missingField})</span>
+                    <span className="text-faint">(needs {FIELD_WORDS[i.missingField] ?? i.missingField})</span>
                   </li>
                 ))}
               </ul>

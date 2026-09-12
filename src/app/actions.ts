@@ -213,7 +213,7 @@ export async function assembleTeam(patientId: string): Promise<ActionResult> {
       next = move(next, "team assembled");
       return withAudit(
         next,
-        audit("participant", `team proposed: ${participants.length} participants, ${recipients} recipients`),
+        audit("participant", `team proposed: ${participants.length - recipients} participants, ${recipients} recipients of the signed record`),
       );
     });
     return `Team proposed: ${participants.length} participants.`;

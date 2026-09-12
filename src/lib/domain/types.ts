@@ -392,13 +392,14 @@ export type WorklistState =
   | 'shared'
   | 'paused';
 
+/** Display and sort order: work in progress first, then completed, then untouched flags, then paused. */
 export const WORKLIST_STATE_ORDER: WorklistState[] = [
-  'flagged',
-  'team assembled',
   'coordinating',
   'meeting held',
+  'team assembled',
   'record signed',
   'shared',
+  'flagged',
   'paused',
 ];
 

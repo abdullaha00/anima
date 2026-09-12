@@ -388,9 +388,9 @@ export const INDICATORS: IndicatorRule[] = [
 
   {
     id: 'REC_HEART',
-    label: 'Heart failure on the problem list, severity grade not recorded',
+    label: 'Heart failure recorded, severity grade not recorded',
     family: 'disease-specific',
-    basis: 'Shaped after the SPICT heart and vascular indicator; NYHA class is not present in this record source',
+    basis: 'SPICT heart and vascular indicator, adapted: NYHA class is not present in this record source',
     provenance: 'adapted',
     enabled: true,
     requires: ['conditions'],
@@ -398,14 +398,14 @@ export const INDICATORS: IndicatorRule[] = [
     test: (p) => hasCondition(p, ...HEART_TERMS) && p.nyha === undefined,
     evidence: (p) => {
       const c = conditionEvidence(p, HEART_TERMS, 'Heart failure recorded');
-      return { text: `${c.text}; NYHA class not recorded in this record source`, recordedAt: c.recordedAt };
+      return { text: `${c.text.replace(/\.$/, '')}. NYHA class is not recorded in this record source.`, recordedAt: c.recordedAt };
     },
   },
   {
     id: 'REC_RESP',
-    label: 'Chronic lung disease on the problem list, breathlessness grade not recorded',
+    label: 'Chronic lung disease recorded, breathlessness grade not recorded',
     family: 'disease-specific',
-    basis: 'Shaped after the SPICT respiratory indicator; MRC dyspnoea grade is not present in this record source',
+    basis: 'SPICT respiratory indicator, adapted: MRC dyspnoea grade is not present in this record source',
     provenance: 'adapted',
     enabled: true,
     requires: ['conditions'],
@@ -413,14 +413,14 @@ export const INDICATORS: IndicatorRule[] = [
     test: (p) => hasCondition(p, ...LUNG_TERMS) && p.mrcDyspnoea === undefined,
     evidence: (p) => {
       const c = conditionEvidence(p, LUNG_TERMS, 'Chronic lung disease recorded');
-      return { text: `${c.text}; MRC dyspnoea grade not recorded in this record source`, recordedAt: c.recordedAt };
+      return { text: `${c.text.replace(/\.$/, '')}. MRC dyspnoea grade is not recorded in this record source.`, recordedAt: c.recordedAt };
     },
   },
   {
     id: 'REC_FRAILTY',
     label: 'Frailty recorded on the problem list, Clinical Frailty Scale not recorded',
     family: 'general',
-    basis: 'Shaped after the Clinical Frailty Scale / eFI general indicator',
+    basis: 'Clinical Frailty Scale / eFI general indicator, adapted',
     provenance: 'adapted',
     enabled: true,
     requires: ['conditions'],
@@ -428,7 +428,7 @@ export const INDICATORS: IndicatorRule[] = [
     test: (p) => hasCondition(p, ...FRAILTY_TERMS) && p.frailtyCfs === undefined,
     evidence: (p) => {
       const c = conditionEvidence(p, FRAILTY_TERMS, 'Frailty recorded');
-      return { text: `${c.text}; Clinical Frailty Scale not recorded in this record source`, recordedAt: c.recordedAt };
+      return { text: `${c.text.replace(/\.$/, '')}. Clinical Frailty Scale score is not recorded in this record source.`, recordedAt: c.recordedAt };
     },
   },
   {

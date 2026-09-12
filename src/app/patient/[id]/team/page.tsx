@@ -59,7 +59,7 @@ export default async function TeamPage({ params }: { params: Promise<{ id: strin
           )}
         </Panel>
       ) : (
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
+        <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px] xl:items-start">
           <div className="flex flex-col gap-8">
             <Panel as="div" tone="brand">
               <section aria-labelledby="team-heading">
@@ -122,9 +122,9 @@ export default async function TeamPage({ params }: { params: Promise<{ id: strin
                     {recipients.map((p) => (
                       <li key={p.id} className="flex flex-wrap items-center gap-x-3 gap-y-1.5 py-3 first:pt-0 last:pb-0">
                         <span className="text-[15px] font-bold leading-6 text-ink">{p.name}</span>
-                        <span className="text-[13px] font-medium text-secondary">
-                          {p.roleLabel ?? p.role} · {p.organisation}
-                        </span>
+                        {p.organisation !== p.name ? (
+                          <span className="text-[13px] font-medium text-secondary">{p.organisation}</span>
+                        ) : null}
                         <Chip className="sm:ml-auto">recipient of the signed record</Chip>
                       </li>
                     ))}

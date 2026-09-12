@@ -31,8 +31,10 @@ export function ReadinessPanel({ record }: { record: CairnRecord }) {
               <span className="microlabel">Required, not yet recorded</span>
               <ul className="flex flex-col divide-y divide-line">
                 {r.missing.map((f) => (
-                  <li key={f} className="py-1.5 text-[15px] leading-6 text-ink">
-                    {fieldLabel(f)}
+                  <li key={f} className="py-1.5 text-[15px] leading-6">
+                    <a href={`#field-${f}`} className="text-primary-hover hover:underline">
+                      {fieldLabel(f)}
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -43,8 +45,10 @@ export function ReadinessPanel({ record }: { record: CairnRecord }) {
               <span className="microlabel">Recorded without a source</span>
               <ul className="flex flex-col divide-y divide-line">
                 {r.unsourced.map((f) => (
-                  <li key={f} className="py-1.5 text-[15px] leading-6 text-ink">
-                    {fieldLabel(f)}
+                  <li key={f} className="py-1.5 text-[15px] leading-6">
+                    <a href={`#field-${f}`} className="text-primary-hover hover:underline">
+                      {fieldLabel(f)}
+                    </a>
                   </li>
                 ))}
               </ul>

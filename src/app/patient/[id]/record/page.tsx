@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { RecordFieldName } from "@/lib/domain/types";
 import { loadPatientContext } from "@/lib/patient-context";
 import { CLINICIAN, DRAFT_LINE, NOT_BINDING_LINE } from "@/lib/copy";
-import { formatDateTime } from "@/lib/format";
+import { formatDate, formatDateTime } from "@/lib/format";
 import { viewFor, type AudienceView } from "@/lib/record/record";
 import { AUDIENCES, AUDIENCE_LABELS } from "@/lib/record/audiences";
 import { PatientStrip } from "@/components/shell/PatientStrip";
@@ -18,11 +18,11 @@ export const dynamic = "force-dynamic";
 
 export default async function RecordPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const { patient, assessment, caseState, nowIso } = await loadPatientContext(id);
+  const { patient, assessment, caseState } = await loadPatientContext(id);
   const record = caseState.record;
   const signed = record.status === "signed" || record.status === "shared";
   const base = `/patient/${patient.id}`;
-  const defaultSource = `conversation ${nowIso.slice(0, 10)} with ${CLINICIAN.name}`;
+  const defaultSource = "";
 
   // Audience views are computed here, server-side, and only exist once signed.
   const views: AudienceView[] = signed
@@ -52,7 +52,7 @@ export default async function RecordPage({ params }: { params: Promise<{ id: str
     <div>
       <PatientStrip patient={patient} assessment={assessment} caseState={caseState} current="/record" />
 
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(16rem,20rem)] lg:items-start">
+      <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(16rem,20rem)] xl:items-start">
         <div className="flex flex-col gap-8">
           <header className="flex flex-col gap-2">
             <h2 className="font-display text-[22px] leading-tight text-ink">The record</h2>
@@ -82,7 +82,11 @@ export default async function RecordPage({ params }: { params: Promise<{ id: str
               <ShareBlock patientId={patient.id} sharedWith={record.sharedWith} />
             </div>
           ) : (
-            <SignGate patientId={patient.id} clinicianName={CLINICIAN.name} />
+            <SignGate
+              patientId={patient.id}
+              clinicianName={CLINICIAN.name}
+              refusedBefore={[...record.audit].reverse().find((a) => a.action === "refuse-sign")?.detail}
+            />
           )}
 
           <Panel as="div">
@@ -94,7 +98,12 @@ export default async function RecordPage({ params }: { params: Promise<{ id: str
                 What each recipient sees
               </h3>
               {signed && views.length ? (
-                <AudienceTabs views={views} provenance={provenance} sharedWith={record.sharedWith} />
+                <AudienceTabs
+                  views={views}
+                  provenance={provenance}
+                  sharedWith={record.sharedWith}
+                  patientLine={[patient.name ?? patient.id, patient.birthDate ? `DOB ${formatDate(patient.birthDate)}` : undefined, patient.id].filter(Boolean).join(" · ")}
+                />
               ) : (
                 <Notice kind="quiet">Audience views render nothing until a clinician signs.</Notice>
               )}

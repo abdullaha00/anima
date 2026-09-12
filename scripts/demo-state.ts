@@ -36,14 +36,6 @@ async function main() {
     }),
     "proposal",
   );
-  check(
-    await actions.postMessage(PATIENT, thread.id, {
-      kind: "concern",
-      body: "Night-time breathlessness was the reason for the attendance. Home is right if there is a clear contact for help out of hours.",
-      inReplyTo: (await store.getCase(PATIENT)).threads[0].messages.find((m) => m.kind === "proposal" && m.authorId === "p-gp")!.id,
-    }),
-    "concern",
-  );
   check(await actions.openThread(PATIENT, "family", "Keep Amira's daughter informed about practical arrangements and who to call."), "family thread");
   c = await store.getCase(PATIENT);
   const fam = c.threads.find((t) => t.channel === "family")!;

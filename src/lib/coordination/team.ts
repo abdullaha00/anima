@@ -50,7 +50,7 @@ export function deriveTeam(patient: Patient, assessment: Assessment): Participan
 
   // Always: the usual GP, who holds the record. This is the signed-in clinician.
   add({
-    ...fromRoster("usual-gp", "Registered GP; holds the record.", patient.usualGp ?? "Registered GP on the record", true),
+    ...fromRoster("usual-gp", "Registered GP; holds the record.", patient.usualGp ? `${patient.usualGp}, the GP named on the appointment record` : "Registered GP on the patient record", true),
     id: CLINICIAN.id,
     status: "accepted",
     simulated: false,
@@ -133,7 +133,7 @@ export function deriveTeam(patient: Patient, assessment: Assessment): Participan
   if (patient.needs.includes("Carer involvement")) {
     add({
       id: "p-carer",
-      name: "Carer (name not recorded)",
+      name: patient.nextOfKin ?? "Carer (name not recorded)",
       role: "carer",
       roleLabel: "Carer",
       organisation: "Family",

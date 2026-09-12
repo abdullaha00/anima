@@ -43,7 +43,7 @@ export function RecordFields({
                 const serif = f.group === "the person";
                 const unsourced = entry !== undefined && !hasProvenance(entry);
                 return (
-                  <div key={f.name} className="flex flex-col gap-1 py-5 last:pb-0">
+                  <div key={f.name} id={`field-${f.name}`} className="flex scroll-mt-6 flex-col gap-1 py-5 last:pb-0">
                     <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
                       <h4 className="text-[13px] font-semibold leading-5 text-ink">{f.label}</h4>
                       {f.required ? (

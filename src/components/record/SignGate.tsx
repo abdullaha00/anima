@@ -10,7 +10,16 @@ import { CHECK_CLASS, FIELD_CLASS, INPUT_CLASS, LABEL_CLASS } from "@/components
  * sign and is refused, calmly and in place; a named clinician signs in the ordinary way.
  * The refusal stays on screen. It is a design decision, not an error.
  */
-export function SignGate({ patientId, clinicianName }: { patientId: string; clinicianName: string }) {
+export function SignGate({
+  patientId,
+  clinicianName,
+  refusedBefore,
+}: {
+  patientId: string;
+  clinicianName: string;
+  /** The reason Cairn was refused earlier, from the audit, so the refusal survives a reload. */
+  refusedBefore?: string;
+}) {
   const [cairn, cairnAction, cairnPending] = useActionState(
     async (_prev: ActionResult | null, fd: FormData) => attemptCairnSignature(String(fd.get("patientId") ?? "")),
     null,
@@ -43,9 +52,9 @@ export function SignGate({ patientId, clinicianName }: { patientId: string; clin
                 Cairn: sign record
               </Button>
             </div>
-            {cairn?.ok === false ? (
+            {cairn?.ok === false || refusedBefore ? (
               <Notice kind="refuse" role="status" title="Cairn cannot sign this record" className="mt-1">
-                <p className="text-ink">{cairn.error}</p>
+                <p className="text-ink">{cairn?.ok === false ? cairn.error : refusedBefore}</p>
                 <p className="text-[13px] font-medium text-secondary">Signing requires a named clinician.</p>
               </Notice>
             ) : null}

@@ -606,16 +606,16 @@ describe('sweep', () => {
       'no prompt': 1,
     });
 
-    // rows: 'flagged' state first (W then N by tier), then 'meeting held' (M)
-    assert.deepEqual(r.rows.map((x) => x.patientId), ['W', 'N', 'M']);
-    assert.deepEqual(r.rows[2].waitingOn, {
+    // rows: work in progress first ('meeting held', M), then 'flagged' (W then N by tier)
+    assert.deepEqual(r.rows.map((x) => x.patientId), ['M', 'W', 'N']);
+    assert.deepEqual(r.rows[0].waitingOn, {
       what: 'Home visit',
       ownerName: 'Sam Okafor',
       ownerRole: 'Respiratory specialist nurse',
       due: '2026-09-15',
       status: 'open',
     });
-    assert.equal(r.rows[1].isCancer, true);
+    assert.equal(r.rows[2].isCancer, true);
     assert.equal(isCancer(next), true);
 
     // 1 of 3 flagged is cancer; the 2 newly identified (W, M) are non-cancer
