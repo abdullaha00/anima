@@ -3,8 +3,10 @@ import { formatDateTime } from "@/lib/format";
 
 /** A visible but undramatic indicator of where the data came from. */
 export async function DataStatus() {
-  const { mode, degraded, meta } = await getPatients();
-  const label = degraded ? "using cached data" : mode === "live" ? "live simulator" : "snapshot";
+  const { degraded, meta } = await getPatients();
+  // Quiet by design: nothing is shown unless the live simulator failed and the cache is in use.
+  if (!degraded) return null;
+  const label = "using cached data";
   return (
     <span
       className="inline-flex items-center gap-2 font-mono text-[0.75rem]"

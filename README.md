@@ -20,13 +20,28 @@ about any patient. It cannot sign a record. Nothing unsigned is shared.
 
 ## Run it
 
-Node 20.9 or newer and npm.
+You need Node.js 20.9 or newer and npm. If Node is not installed, either install it from
+https://nodejs.org (the LTS build) or, on Windows without admin rights, unzip the portable build
+into `%LOCALAPPDATA%\Programs
+odejs` and add that folder to your PATH.
 
 ```bash
-npm ci
-npm run build && npm start     # http://localhost:3000, no network needed after the build
-npm run dev                    # development server
+git clone https://github.com/abdullaha00/anima.git
+cd anima
+npm ci                         # install the pinned dependencies
+npm run build                  # production build (needs network once, for the Google font)
+npm start                      # serves http://localhost:3000 from the committed snapshot, no network needed
 ```
+
+For development with hot reload use `npm run dev` instead of build and start.
+
+The demo runs without any environment file: `SIM_MODE` defaults to `snapshot` and the data is
+in `data/snapshot/`. Only `npm run snapshot` and `SIM_MODE=live` need a simulator key, which
+goes in `.env.local` as `SIM_API_KEY=...` alongside `SIM_BASE_URL=https://sim.animahealth.com`.
+`.env.local` is git-ignored.
+
+To rehearse: open http://localhost:3000, search for Amira Khan (SIM-000001), and follow the
+stages Find, Prepare, Record. `npm run demo:reset` puts her case back to the start.
 
 Checks:
 

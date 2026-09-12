@@ -13,9 +13,9 @@ export function EvidenceChain({ signals }: { signals: Signal[] }) {
     return <EmptyLine>No recognised indicators are present in this record.</EmptyLine>;
   }
   return (
-    <ol className="-mx-6 -my-5 divide-y divide-line">
+    <ol className="divide-y divide-line">
       {signals.map((s) => (
-        <li key={s.id} className="px-6">
+        <li key={s.id}>
           <Drawer
             summary={
               <span className="flex flex-wrap items-center gap-x-3 gap-y-1">

@@ -268,3 +268,22 @@ export function PageHeader({
     </header>
   );
 }
+
+const PLAN_TONE: Record<string, { pill: string; dot: string; label: string }> = {
+  "no plan": { pill: "bg-stone-100 text-secondary border-line-strong", dot: "bg-stone-400", label: "No plan" },
+  "plan in progress": { pill: "bg-warn-soft text-warn border-warn-border", dot: "bg-warn-stripe", label: "Plan in progress" },
+  "plan complete": { pill: "bg-affirm-soft text-affirm border-affirm-border", dot: "bg-cairn-400", label: "Plan complete" },
+};
+
+/** Where the plan has got to, as a status badge: a dot and text, never colour alone. */
+export function PlanBadge({ plan, className = "" }: { plan: "no plan" | "plan in progress" | "plan complete"; className?: string }) {
+  const tone = PLAN_TONE[plan];
+  return (
+    <span
+      className={`inline-flex items-center gap-2 whitespace-nowrap rounded-full border px-3 py-1.5 text-[13px] font-semibold leading-none ${tone.pill} ${className}`}
+    >
+      <span aria-hidden="true" className={`h-2 w-2 shrink-0 rounded-full ${tone.dot}`} />
+      {tone.label}
+    </span>
+  );
+}

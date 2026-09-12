@@ -27,9 +27,6 @@ export function CaseActions({ caseState, patientId }: { caseState: CaseState; pa
             <Button type="submit" variant="primary" className="w-full">
               Assemble the team
             </Button>
-            <p className="text-[12px] leading-5 text-muted">
-              Cairn proposes who needs to be involved, each with a reason traced to the record. You add and remove.
-            </p>
           </form>
         ) : (
           <ButtonLink href={`/patient/${patientId}${next.path}`} variant="primary" className="w-full">

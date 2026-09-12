@@ -1,6 +1,6 @@
 import type { CaseState, Patient } from "@/lib/domain/types";
 import { LabelValue, Panel } from "@/components/ui";
-import { NO_PLAN_RECORDED, DRAFT_LINE, ADRT_LINE } from "@/lib/copy";
+import { NO_PLAN_RECORDED, DRAFT_LINE } from "@/lib/copy";
 import { formatDateTime } from "@/lib/format";
 
 /** Current palliative and advance care planning status. Says plainly when there is none. */
@@ -47,7 +47,6 @@ export function PlanStatus({ patient, caseState }: { patient: Patient; caseState
           The record mentions an existing decision: &ldquo;{patient.existingPlanNote}&rdquo;
         </p>
       ) : null}
-      <p className="mt-4 border-t border-line pt-3 text-[12px] leading-5 text-muted">{ADRT_LINE}</p>
     </Panel>
   );
 }

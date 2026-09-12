@@ -13,7 +13,7 @@ export function SidebarNav() {
   return (
     <nav aria-label="Primary" className="flex flex-row gap-1 lg:flex-col">
       <span className="hidden px-2 pb-1 pt-3 text-[10px] font-semibold uppercase tracking-[0.08em] text-faint lg:block">
-        Work
+        Find
       </span>
       {LINKS.map((l) => {
         const active = l.match(pathname);
