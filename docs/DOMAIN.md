@@ -1,5 +1,7 @@
 # Domain model and the ML seam
 
+**Scope update, 12 September 2026:** [DATA.md](../DATA.md) now specifies Stage 1 all-cause mortality within three calendar months. The types and ranking endpoint below describe the existing indicator-based frontend, not the intended mortality model contract. The old restriction to within-tier ranking does not constrain the agreed new Stage 1 target. The separate, versioned screening result is now implemented in `src/lib/stage1/mortality-schema.ts` with horizon, estimate, threshold, missingness and provenance, and links escalations to the [Stage 2 queue](STAGE2.md). See [MORTALITY.md](MORTALITY.md); `modelRank` and Stage 2 `confidence` must not be used as mortality probabilities.
+
 The contract between the frontend, the rules engine and whatever the ML pair produces
 later. Get this right early and the two workstreams stop blocking each other.
 

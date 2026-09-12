@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "patientId",
+    "sourceReference",
+    "adjudicatedBy",
+    "verifiedDeathTime",
+    "verifiedAliveThrough"
+  ],
+  "properties": {
+    "patientId": {
+      "type": "string",
+      "pattern": "^SIM-[0-9]{6}$"
+    },
+    "sourceReference": {
+      "type": "string",
+      "minLength": 1
+    },
+    "adjudicatedBy": {
+      "type": "string",
+      "minLength": 1
+    },
+    "verifiedDeathTime": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "verifiedAliveThrough": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "additionalProperties": false
+}

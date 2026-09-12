@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import "../src/lib/cairn/load-env";
+import { parseArgs } from "node:util";
 import {
   acquireWorkerLock,
   claimNextJob,
@@ -8,7 +9,8 @@ import {
 } from "../src/lib/cairn/job-worker";
 
 async function main(): Promise<void> {
-  const once = process.argv.includes("--once");
+  const { values } = parseArgs({ options: { once: { type: "boolean" }, job: { type: "string" } } });
+  const once = values.once || !!values.job;
   const pollMilliseconds = Number(process.env.CAIRN_WORKER_POLL_MS ?? 1000);
   let stopping = false;
 
@@ -25,10 +27,11 @@ async function main(): Promise<void> {
     console.log(`Cairn Stage 2 worker started; recovered=${recovered}`);
 
     do {
-      const job = await claimNextJob();
+      const job = await claimNextJob(values.job);
       if (job) {
         console.log(`Processing ${job.id} for ${job.patientId}`);
         const finished = await processStage2Job(job);
+        if (finished.status === "failed" && once) process.exitCode = 1;
         console.log(
           `${finished.id}: ${finished.status}${finished.error ? ` - ${finished.error}` : ""}`,
         );

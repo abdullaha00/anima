@@ -1,16 +1,31 @@
 # Overview
 
-This describes how we use data input from wide range of sources in the anima simulated environment to create initially a signal, using ML methods, that flags a patient is likely to die and needs a conversation about palliative care with their team. This then triggers a second stage, an agent traverses the health record and verifies this is an appropriate decision. It then identifies key members of care team who need to be involved and organises and prepares a discussion.
+Use data from the Anima simulated environment to estimate a patient's probability of death within the next three months. Stage 1 applies a screening threshold to that estimate. Stage 2 then traverses the health record to assess whether a goals-of-care or palliative-care conversation is appropriate, identifies the responsible care team, and prepares the discussion. An elevated estimate triggers review; it does not establish that a patient is dying or that treatment should be limited.
 
 # Stage 1 - ML
-- LLM preprocessing to generates features from free text.
-- Then a ML model to output a signal 
-- Define a threshold for escalation
-- We lean towards sensitivity over specificity, minimise FN, Stage 2 + human review will catch FP.
+- **Target: all-cause death within three months of the screening time.** Conversation-review appropriateness is a separate Stage 2 evaluation target, not the Stage 1 training label.
+- Interpret three months as **three calendar months**, using UTC simulation time. Preserve the time of day and clamp to the final day of the destination month when necessary. Store the exact screening time (`indexTime`) and horizon end (`horizonEnd`); do not silently substitute 90 days.
+- **Positive label (`1`):** a verified death event occurs after `indexTime` and on or before `horizonEnd`. Patients already deceased at screening are outside this prospective cohort.
+- **Negative label (`0`):** verified survival through `horizonEnd`. A missing death record or incomplete follow-up is unknown, not a negative. Retain follow-up/censoring information and exclude unascertained outcomes from a simple binary training/evaluation set, reporting exclusions.
+- LLM preprocessing extracts structured features from free text, retaining source references, dates, negation, uncertainty and missingness. Combine them with available structured data. Features must have been available by `indexTime`; future death events and later record edits belong outside the predictor inputs.
+- **Output:** an estimated three-month mortality probability, plus an escalation flag obtained by applying a versioned threshold. Retain patient ID, screening ID, `indexTime`, `horizonEnd`, model/extractor versions, threshold, feature provenance and data-quality status. When the model cannot assess a patient, return an explicit unavailable/abstain result with a reason, not a zero probability or a reassuring negative flag.
+- Choose the threshold on validation data to favour sensitivity while measuring precision, false positives and reviewer workload. Freeze it before testing on patient-separated data and, where possible, later times and unseen templates. Assess calibration before interpreting model scores as reliable probabilities. Stage 2 and human review provide further scrutiny but cannot be assumed to catch every error.
+
+## Stage 1 implementation and Stage 2 handoff
+
+A full-record LLM baseline now implements this inference target as an unvalidated demonstration; a trained outcome model is still pending. Existing Python conversation-review and explicit-request classifiers use different labels. The ten selected future-death scenarios are authored selections, not observed three-month outcomes. Preserve their original reports and do not relabel their scores as mortality probabilities.
+
+The configurable LLM narrative extractor is now implemented in `src/lib/stage1/` with a CLI, shared TypeBox schemas, source/time validation and nullable feature output. See [Stage 1 extraction](docs/STAGE1.md) for settings, examples and measured development failures. The full-record LLM mortality engine, fixed input/output schemas, deterministic demo threshold and durable Stage 2 handoff are also implemented. See [Mortality pipeline](docs/MORTALITY.md). Structured feature calculation, outcome-based model fitting and clinically justified threshold selection remain unfinished.
+
+The pulled Stage 2 pipeline accepts a canonical `patientId` through `POST /api/stage2/jobs` and runs collection, primary assessment and independent verification. Its output schema is `Stage2AssessmentSchema` in `src/lib/cairn/types.ts`; `confidence` describes the Stage 2 assessment and is not the Stage 1 mortality probability. `already_managed` and `do_not_proceed` concern the conversation workflow, not proof of survival or a negative mortality label.
+
+Stage 1 persists the screening result, enqueues above-threshold patients with a stable screening-event idempotency key, and retains the job ID. Stage 2 jobs optionally reference a frozen screening snapshot, with durable associations for coalesced jobs. The assessment schema is unchanged. Stage 2 can remain independently runnable by patient ID. An active care plan does not change a mortality label; Stage 2 assesses whether additional planning is needed.
+
+The frontend currently implements rule-based indicators and an optional within-tier ranking contract; `/api/score` returns 501. Its existing prohibition on forecasts describes that implementation and is superseded as a product requirement by this Stage 1 target. The separate mortality contract and full-record LLM inference now feed a threshold-triggered Stage 2 handoff and the `/screening` clinician research view. See `docs/DOMAIN.md` and `docs/STAGE2.md` for the existing interfaces.
 
 # Stage 2 - Agent
 - Tool access to record
-- Verifies the Stage 1 output
+- Reviews the evidence behind the Stage 1 escalation and whether a conversation is appropriate; it does not verify the future mortality outcome.
 - Once confident it identifies to key members of patients care team to involve in the meeting.      
     - This prioritises speed, core members only so the meeting can happen fast
     - Determining ownership is crucial. The patient may be in hospital, at home, care home etc. In the NHS there is no centralised ownership of these decisions. A rare disease pt with a tertiary specialist needs to have the convo with them. A patient with low mobility and QDS care needs a home visit from GP or community care team.
@@ -26,7 +41,7 @@ This describes how we use data input from wide range of sources in the anima sim
 
 ## Live simulator inventory (verified 2026-09-12)
 
-The public API currently reports **50,000 synthetic patients** (`GET /api/sites/gp/patients`, `total`; results are paged in groups of 30). This is the available screening cohort, but it is **not 50,000 labelled palliative-care evaluation cases**. The patient schema now has an authored synthetic `death` outcome (`date`, `cause`, `synthetic`, `source`), projected by PDS as `deceasedDateTime`. A complete 50,000-patient directory sweep on 2026-09-12 found only **five** deaths: four medically related deaths and one road-traffic collision. A same-time 50,000-patient PDS sweep returned zero `deceasedDateTime` values despite those five directory outcomes, so the PDS death projection is currently inconsistent and must not be used as the mortality inventory. There are still no native palliative-care, hospice, ADRT or DNACPR/ReSPECT outcome labels. The four eligible mortality outcomes are useful for pipeline development only and are far too few for performance claims.
+The public API currently reports **50,000 synthetic patients** (`GET /api/sites/gp/patients`, `total`; results are paged in groups of 30). This is the available screening cohort, but it is **not 50,000 labelled mortality outcomes or palliative-care evaluation cases**. The patient schema now has an authored synthetic `death` outcome (`date`, `cause`, `synthetic`, `source`), projected by PDS as `deceasedDateTime`. A complete 50,000-patient directory sweep on 2026-09-12 found only **five** deaths: four medically related deaths and one road-traffic collision. A same-time 50,000-patient PDS sweep returned zero `deceasedDateTime` values despite those five directory outcomes, so the PDS death projection is currently inconsistent and must not be used as the mortality inventory. There are still no native palliative-care, hospice, ADRT or DNACPR/ReSPECT outcome labels. The four eligible mortality outcomes and any authored events are useful for pipeline development only; they do not establish clinical mortality accuracy. Clinician-labelled conversation appropriateness evaluates Stage 2 separately.
 
 A team key creates an isolated world over the shared fictional population. Patient-specific additions and workflow changes remain in that world. Site views can contain the same resource in several sites and can also contain non-patient resources; deduplicate by resource `id` and filter on exact `patientId` before counting.
 
@@ -104,7 +119,7 @@ A four-week advance was attempted in the isolated audit world, but the deploymen
 
 ## Evaluation-volume recommendation
 
-Use the 50,000-patient directory for high-recall screening and retrieval/load tests. For quality evaluation, author a stratified labelled set in isolated worlds (clear positive, clear negative and difficult/contradictory cases), freeze raw API snapshots, and have clinicians label whether a **goals-of-care/palliative-care conversation review** is appropriate. Report patient-level sensitivity, specificity/precision, abstention and evidence-citation accuracy separately; do not treat simulator prevalence as clinical prevalence. The four medically related deaths cannot support a stable held-out estimate.
+Use the 50,000-patient directory for retrieval/load tests and screening runs where input coverage permits. For **Stage 1**, assemble index-time snapshots linked to verified three-month death/survival outcomes, retain label provenance and follow-up, and report sensitivity, precision, false-positive workload, abstention and calibration on frozen evaluation data. Explicitly distinguish authored simulator outcomes from observed clinical outcomes; the four medically related deaths cannot support a stable held-out estimate. For **Stage 2**, author a stratified set in isolated worlds (clear positive, clear negative and difficult/contradictory cases), freeze raw API snapshots, and have clinicians label whether a **goals-of-care/palliative-care conversation review** is appropriate. Measure evidence and ownership correctness separately from Stage 1 mortality performance. Do not treat simulator prevalence as clinical prevalence.
 
 ## Synthetic mortality model cohort (2026-09-12)
 
@@ -154,3 +169,8 @@ Before mortality outcomes were added, the following synthetic patients were sele
 Useful alternates are `SIM-000052` (four recorded comorbidities including heart failure, but contradictory GP status) and `SIM-000015` (three comorbidities, carer involvement and recent urgent hospital correspondence).
 
 Only `SIM-000001` currently has a convincing cluster of acute deterioration signals. The remainder are intentionally weaker, high-recall cases and should test whether Stage 2 distinguishes genuine escalation evidence from age or comorbidity alone.
+
+
+## Current implementation checkpoint
+
+The full-record LLM baseline, durable Stage 1 job/API, automatic threshold routing into the existing two-pass Stage 2 worker, and clinician-reviewed preparation actions are implemented. Input/output contracts remain fixed. The default is GPT-5.6 Sol with low reasoning. See [the integration runbook and fresh batch evidence](docs/MORTALITY.md#integrated-local-backend-12-september-2026). Five fresh patients returned all 27 attempted sources; none crossed the provisional 20% threshold. A separate 1% routing test exercised the full handoff without changing that default. Model estimates remain unvalidated; the fresh sample did not provide verified mortality/survival labels for ML training.

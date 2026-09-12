@@ -18,6 +18,10 @@ export function compactAgentEvent(event: unknown): JsonRecord {
 
   if (type === "message_update") {
     const update = objectValue(source.assistantMessageEvent) ?? {};
+    if (typeof update.type === "string" && update.type.startsWith("thinking")) {
+      compact.assistantMessageEvent = { type: update.type, contentIndex: update.contentIndex };
+      return compact;
+    }
     compact.assistantMessageEvent = {
       type: update.type,
       contentIndex: update.contentIndex,

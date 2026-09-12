@@ -70,10 +70,11 @@ export async function recoverInterruptedJobs(): Promise<number> {
   return files.length;
 }
 
-export async function claimNextJob(): Promise<Stage2Job | undefined> {
+export async function claimNextJob(requestedId?: string): Promise<Stage2Job | undefined> {
+  if (requestedId && !/^[0-9a-f-]{36}$/i.test(requestedId)) throw new Error("Job ID must be a UUID");
   await ensureJobDirectories();
   const files = (await readdir(jobStatusDirectory("queued")))
-    .filter((file) => file.endsWith(".json"))
+    .filter((file) => file.endsWith(".json") && (!requestedId || file === `${requestedId}.json`))
     .sort();
 
   for (const file of files) {
@@ -101,7 +102,7 @@ export async function claimNextJob(): Promise<Stage2Job | undefined> {
 export async function processStage2Job(job: Stage2Job): Promise<Stage2Job> {
   const runningPath = stage2JobPath("running", job.id);
   try {
-    const run = await runStage2Pipeline(job.patientId, job.id);
+    const run = await runStage2Pipeline(job.patientId, job.id, job.screeningId);
     const completed: Stage2Job = {
       ...job,
       status: "completed",

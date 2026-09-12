@@ -1,12 +1,13 @@
 # Cairn frontend architecture (internal contract)
 
 Read this before touching `src/`. It is the agreement between the people and agents
-building in parallel. `src/lib/domain/types.ts` is the type contract and wins over prose.
+building in parallel. `src/lib/domain/types.ts` is the frontend type contract. Stage 1 worker contracts live in `src/lib/stage1/schema.ts`; Stage 2 worker contracts live in `src/lib/cairn/types.ts`. See [STAGE1.md](STAGE1.md) and [STAGE2.md](STAGE2.md). The current frontend restrictions below do not redefine the agreed Stage 1 target in DATA.md.
 
 ## Layout of `src/`
 
 ```
-src/lib/domain/types.ts              the whole type contract (do not add types elsewhere)
+src/lib/domain/types.ts              the frontend type contract
+src/lib/stage1/                      configurable narrative extraction, validation and feature contracts
 src/lib/copy.ts                      shared UI copy: the quiet line, disclaimers, labels
 src/lib/format.ts                    date, age and id formatting helpers
 
@@ -79,7 +80,9 @@ text-affirm bg-affirm-soft text-refuse bg-refuse-soft border-refuse`. Fonts: `fo
 
 Refuse colour appears only on the signature refusal and blocking validation. Never on a patient.
 
-## Copy rules (enforced by scripts/check-language.mjs)
+## Current frontend copy rules (enforced by scripts/check-language.mjs)
+
+The guard checks frontend source and README, rendered server output, and browser app chunks. Worker contracts/prompts, research, fixtures and bundled server adapter code are not interface copy.
 
 Never: dying, predicts, risk of death, probability, prognosis, terminal, risk score, chat,
 messaging, inbox, ping, notification, "the algorithm decided", any percentage attached to a

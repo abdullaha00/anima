@@ -165,7 +165,11 @@ function strictAsOf(record, indexDate, horizonDays) {
     .filter((resource) => Number.isFinite(resource.createdAt) && resource.createdAt <= cutoffMs)
     // Current payloads cannot be reconstructed to an old version. Exclude anything changed later.
     .filter((resource) => maxChangeTime(resource) <= cutoffMs)
-    .map(({ provenance, ...resource }) => resource);
+    .map((resource) => {
+      const modelResource = { ...resource };
+      delete modelResource.provenance;
+      return modelResource;
+    });
   return {
     patientId: record.directory.id,
     cutoffDate,

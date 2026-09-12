@@ -149,6 +149,10 @@ export interface Stage2Job {
   createdAt: string;
   updatedAt: string;
   attempts: number;
+  /** Optional immutable Stage 1 reference; existing patient-ID-only callers remain valid. */
+  screeningId?: string;
+  screeningIds?: string[];
+  idempotencyKeys?: string[];
   runDirectory?: string;
   resultPath?: string;
   error?: string;

@@ -2,6 +2,10 @@
 
 Stage 2 is independent of Stage 1. Its only required input is a canonical synthetic patient ID such as `SIM-000001`.
 
+The agreed Stage 1 target in [DATA.md](../DATA.md) is all-cause death within three calendar months of screening. Its future threshold-triggered integration can use this patient-ID interface. Stage 1 must retain its own screening result and link the returned job ID; the current job schema does not persist mortality estimates or screening metadata. This handoff is not yet wired to a mortality model.
+
+`Stage2AssessmentSchema.confidence` is assessment confidence, not a mortality probability. Recommendations such as `already_managed` or `do_not_proceed` describe the conversation workflow and must not be reused as negative mortality labels. Stage 2 reviews the clinical evidence and need for a conversation; it cannot verify a future death outcome at screening time.
+
 ## Architecture
 
 - Next.js `POST /api/stage2/jobs` writes a durable queued job.
@@ -19,8 +23,8 @@ Copy `.env.example` to `.env.local` and set:
 
 - `SIM_KEY`: simulator team bearer key.
 - `OPENAI_API_KEY`: model credential used by Pi (or use another provider configured in Pi).
-- `CAIRN_MODEL`: optional `provider/model` SDK override, for example `openai/gpt-5.6-sol`.
-- `CAIRN_THINKING`: optional thinking override (`off`, `minimal`, `low`, `medium`, `high`, `xhigh`, or `max`).
+- `CAIRN_MODEL`: optional `provider/model` SDK override; defaults to `openai/gpt-5.6-sol`.
+- `CAIRN_THINKING`: defaults to `low`; optional thinking override (`off`, `minimal`, `low`, `medium`, `high`, `xhigh`, or `max`).
 - `CAIRN_TRIGGER_TOKEN`: bearer token protecting the HTTP trigger/status endpoints in every environment.
 - `CAIRN_TRIGGER_RATE_LIMIT`: accepted POST triggers per minute per Next.js process; defaults to 30.
 - `CAIRN_QUEUE_CAPACITY`: maximum queued plus running jobs; defaults to 100.
@@ -115,3 +119,7 @@ npm run build
 ```
 
 Offline fixtures cover cross-patient filtering, unknown response shapes, citations, pass semantics, safety gates, terminal-state recovery, enqueue coalescing/capacity and API authentication.
+
+## Mortality screening handoff
+
+The separate full-record Stage 1 pipeline can now enqueue an above-threshold screening using a frozen snapshot reference. Patient-only jobs remain compatible and `Stage2AssessmentSchema` is unchanged. Stage 2 independently assesses conversation appropriateness; the numerical estimate is withheld from its record. Run a specific queued review with `npm run stage2:worker -- --job JOB_ID`. See [MORTALITY.md](MORTALITY.md) for contracts, idempotent recovery, examples and remaining outcome-data limitations.

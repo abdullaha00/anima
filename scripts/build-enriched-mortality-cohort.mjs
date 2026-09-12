@@ -12,7 +12,6 @@
  *   node scripts/build-enriched-mortality-cohort.mjs --validate
  */
 
-import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -47,17 +46,6 @@ const SIMULATOR_NON_MEDICAL_DEATH = {
   birthDate: '1958-02-17',
   name: 'Synthetic road-traffic outcome',
 };
-
-const OUTPUT_FILES = [
-  'cohort-index.csv',
-  'labels.ndjson',
-  'raw-records.ndjson',
-  'asof-30d.ndjson',
-  'asof-60d.ndjson',
-  'asof-90d.ndjson',
-  'manifest.json',
-  'README.md',
-];
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
@@ -256,7 +244,9 @@ function sanitizeModelResource(resource) {
   // Top-level `id` and `patientId` identify the internal resource and are not
   // model features. Clinical coding IDs under panel/analyte/problem data are
   // retained because they describe the measurement, not the resource identity.
-  const { id: _resourceId, patientId: _patientId, ...withoutJoinFields } = resource;
+  const withoutJoinFields = { ...resource };
+  delete withoutJoinFields.id;
+  delete withoutJoinFields.patientId;
   return sanitizeModelValue(withoutJoinFields);
 }
 
@@ -537,7 +527,6 @@ function validateOutput() {
     assert(ids.size === expectedIds.size && [...expectedIds].every((id) => ids.has(id)), `asof-${horizon}d.ndjson patient links differ`, errors);
   }
 
-  const recordById = new Map(records.map((record) => [record.patientId, record]));
   const planById = new Map(AUTHORED_DEATHS.map((spec) => [spec.patientId, spec]));
   const allResourceIds = new Set();
   for (const record of records) {
@@ -626,11 +615,10 @@ function validateOutput() {
 }
 
 function build() {
-  const { base, entries, labels, records, authoredIds, selectedControls, deathDates } = buildCohort();
+  const { labels, records, authoredIds, selectedControls, deathDates } = buildCohort();
   fs.rmSync(OUT_DIR, { recursive: true, force: true });
   fs.mkdirSync(OUT_DIR, { recursive: true });
 
-  const labelsById = new Map(labels.map((label) => [label.patientId, label]));
   writeNdjson(path.join(OUT_DIR, 'labels.ndjson'), labels);
   writeNdjson(path.join(OUT_DIR, 'raw-records.ndjson'), records);
 

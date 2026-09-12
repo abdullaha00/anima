@@ -17,7 +17,12 @@
     "demo:advance": "tsx scripts/demo-state.ts",
     "stage2": "tsx scripts/stage2.ts",
     "stage2:enqueue": "tsx scripts/stage2-enqueue.ts",
-    "stage2:worker": "tsx scripts/stage2-worker.ts"
+    "stage2:worker": "tsx scripts/stage2-worker.ts",
+    "stage1:extract": "tsx scripts/stage1-extract.ts",
+    "stage1:screen": "tsx scripts/stage1-screen.ts",
+    "stage1:enqueue": "tsx scripts/stage1-enqueue.ts",
+    "stage1:worker": "tsx scripts/stage1-worker.ts",
+    "screening:batch": "tsx scripts/screening-batch.ts"
   },
   "dependencies": {
     "@earendil-works/pi-coding-agent": "^0.85.1",

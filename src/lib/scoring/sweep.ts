@@ -62,7 +62,7 @@ export function clinicianFor(p: Pick<Patient, 'id' | 'usualGp'>): string {
 }
 
 export function waitingOnFor(c: CaseState | undefined): WorklistRow['waitingOn'] {
-  const steps = c?.outcome?.nextSteps ?? [];
+  const steps = [...(c?.preparationSteps ?? []), ...(c?.outcome?.nextSteps ?? [])];
   const pending: NextStep[] = steps
     .filter((s) => s.status === 'open' || s.status === 'blocked')
     .sort((a, b) => a.due.localeCompare(b.due));

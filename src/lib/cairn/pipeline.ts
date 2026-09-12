@@ -1,10 +1,11 @@
-import { appendFile } from "node:fs/promises";
+import { appendFile, readFile } from "node:fs/promises";
 import path from "node:path";
 import { runPrimaryAssessment, runVerificationAssessment } from "./agent";
 import { collectPatientRecord } from "./collector";
-import { RUNS_ROOT, assertPatientId } from "./config";
+import { RUNS_ROOT, assertPatientId, DEFAULT_LLM_MODEL, DEFAULT_LLM_REASONING } from "./config";
 import { ensureDirectory, errorMessage, writeJsonAtomic } from "./json-files";
 import type { Stage2Assessment } from "./types";
+import { writeEligibleRecord } from "../stage1/mortality-input";
 
 async function logPipelineEvent(
   runDirectory: string,
@@ -30,6 +31,7 @@ async function setRunState(
 export async function runStage2Pipeline(
   inputPatientId: string,
   requestedRunId?: string,
+  screeningId?: string,
 ): Promise<{ runId: string; runDirectory: string; result: Stage2Assessment }> {
   const patientId = assertPatientId(inputPatientId);
   const runId = requestedRunId ?? crypto.randomUUID();
@@ -39,8 +41,8 @@ export async function runStage2Pipeline(
   const runDirectory = path.join(RUNS_ROOT, runId);
   const startedAt = new Date().toISOString();
   const agentConfiguration = {
-    model: process.env.CAIRN_MODEL ?? "pi-default",
-    thinkingLevel: process.env.CAIRN_THINKING ?? "pi-default",
+    model: process.env.CAIRN_MODEL || DEFAULT_LLM_MODEL,
+    thinkingLevel: process.env.CAIRN_THINKING || DEFAULT_LLM_REASONING,
   };
   await ensureDirectory(runDirectory);
 
@@ -48,16 +50,27 @@ export async function runStage2Pipeline(
     await setRunState(runDirectory, {
       runId,
       patientId,
+      screeningId,
       status: "running",
       phase: "collecting",
       startedAt,
       agentConfiguration,
     });
-    const manifest = await collectPatientRecord(patientId, runDirectory);
+    let manifest;
+    if (screeningId) {
+      const store = await import("../stage1/mortality-store");
+      const input = await store.readScreeningInput(screeningId);
+      if (input.patientId !== patientId) throw new Error("Frozen screening patient mismatch");
+      // Derive every review file from the verified input, including manifest and indexes.
+      await writeEligibleRecord(runDirectory, input);
+      manifest = JSON.parse(await readFile(path.join(runDirectory, "record/manifest.json"), "utf8"));
+      await writeJsonAtomic(path.join(runDirectory, "screening-link.json"), { screeningId, snapshotHash: input.snapshotHash });
+    } else manifest = await collectPatientRecord(patientId, runDirectory);
 
     await setRunState(runDirectory, {
       runId,
       patientId,
+      screeningId,
       status: "running",
       phase: "primary_assessment",
       startedAt,
@@ -73,6 +86,7 @@ export async function runStage2Pipeline(
     await setRunState(runDirectory, {
       runId,
       patientId,
+      screeningId,
       status: "running",
       phase: "false_positive_verification",
       startedAt,
@@ -86,6 +100,7 @@ export async function runStage2Pipeline(
     await setRunState(runDirectory, {
       runId,
       patientId,
+      screeningId,
       status: "completed",
       phase: "completed",
       startedAt,
@@ -102,6 +117,7 @@ export async function runStage2Pipeline(
     await setRunState(runDirectory, {
       runId,
       patientId,
+      screeningId,
       status: "failed",
       phase: "failed",
       startedAt,

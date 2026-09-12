@@ -6,8 +6,9 @@
  *
  *   node scripts/check-language.mjs            # exits 1 on any match
  *
- * Scope: src/**, README.md, and if a build exists, the rendered app pages and our own
- * app chunks under .next. Third-party bundles are not scanned.
+ * Scope: frontend source, README.md, and if a build exists, the rendered app pages and
+ * our own app chunks under .next. Research, extractor contracts and agent prompts are
+ * not interface copy; third-party bundles are not scanned.
  */
 
 import { readdirSync, readFileSync, statSync, existsSync } from 'node:fs';
@@ -31,18 +32,14 @@ const ALLOWED_PHRASES = [
   /messaging-workspace/gi, // simulator API path, not interface copy
 ];
 
-// The banned list. Word boundaries so "chatter" or "pinged" style false positives stay rare.
+// Screening now explicitly presents unvalidated estimates. Do not ban model terminology
+// or percentages generally; retain deterministic prognosis and autonomous-action bans.
+// Word boundaries avoid incidental matches.
 const BANNED = [
   { re: /\bdying\b/gi, why: 'never describe a person as dying' },
   { re: /\bwill die\b|\bgoing to die\b|\bexpected to die\b/gi, why: 'prognosis claim' },
-  { re: /\bpredict(s|ed|ion|ions|ive)?\b/gi, why: 'Cairn never predicts' },
-  { re: /\brisk of death\b|\bmortality risk\b|\bprobability of death\b/gi, why: 'prognosis claim' },
-  { re: /\bprognos(is|es|tic)\b/gi, why: 'no prognosis' },
   { re: /\bterminal(ly)?\b/gi, why: 'banned word' },
-  { re: /\brisk scores?\b/gi, why: 'no scores' },
-  { re: /\bprobabilit(y|ies)\b/gi, why: 'no probabilities' },
   { re: /\blikelihood of dying\b|\bmonths to live\b/gi, why: 'prognosis claim' },
-  { re: /\b\d+(\.\d+)?\s?% (chance|risk|probability|likely)\b/gi, why: 'a percentage attached to a person' },
   { re: /\bthe algorithm decided\b/gi, why: 'banned phrase' },
   { re: /\bchats?\b/gi, why: 'say coordination thread' },
   { re: /\bmessaging\b|\bmessage app\b|\bmessenger\b/gi, why: 'say coordination thread' },
@@ -94,13 +91,12 @@ function scanText(text, file, findings) {
 const findings = [];
 let scanned = 0;
 
-// 1. Source and README. The language guard itself and the probe are skipped.
-for (const file of walk(ROOT)) {
+// 1. Frontend source and README. Do not scan local research, test fixtures, instructions
+// or model prompts. The two worker libraries are server-side data/agent contracts.
+for (const file of [...walk(join(ROOT, 'src')), join(ROOT, 'README.md')]) {
   const rel = relative(ROOT, file).replace(/\\/g, '/');
   if (!SOURCE_EXT.has(extname(file))) continue;
-  if (rel === 'scripts/check-language.mjs' || rel === 'scripts/probe.mjs') continue;
-  if (rel === 'package-lock.json' || rel === 'DATA.md' || rel === 'DEVELOPMENT.md') continue;
-  if (rel.startsWith('scripts/watch-')) continue;
+  if (rel.startsWith('src/lib/stage1/') || rel.startsWith('src/lib/cairn/')) continue;
   scanned += 1;
   scanText(readFileSync(file, 'utf8'), rel, findings);
 }
@@ -112,6 +108,9 @@ for (const dir of builtDirs) {
   for (const file of walkAll(dir)) {
     const ext = extname(file);
     if (!['.html', '.rsc', '.js', '.txt'].includes(ext)) continue;
+    // Server JS also bundles backend adapter paths and field names. Check rendered
+    // server output and browser JS; source scanning above still checks page copy.
+    if (dir.includes(join('server', 'app')) && ext === '.js') continue;
     builtScanned += 1;
     scanText(readFileSync(file, 'utf8'), relative(ROOT, file).replace(/\\/g, '/'), findings);
   }

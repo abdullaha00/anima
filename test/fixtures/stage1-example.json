@@ -1,0 +1,38 @@
+{
+  "patientId": "SIM-000001",
+  "indexTime": "2026-09-12T08:00:00.000Z",
+  "provenance": "Authored software example; not a simulator export or independently labelled evaluation case",
+  "collectionPartial": true,
+  "records": [
+    {
+      "id": "example-gp-note", "patientId": "SIM-000001", "kind": "consultation", "version": 1,
+      "createdAt": "2026-09-11T10:00:00.000Z", "status": "signed",
+      "data": {"text": "Over the past six weeks the patient has become less able to manage usual activities. They now need help with washing and dressing, and can only walk across one room with a frame. The patient reports breathlessness every day for the past month. Appetite and fluid intake remain normal. No unintentional weight loss is reported."}
+    },
+    {
+      "id": "example-family-note", "patientId": "SIM-000001", "kind": "consultation", "version": 1,
+      "createdAt": "2026-09-11T11:00:00.000Z", "status": "signed",
+      "data": {"text": "The daughter reports that carers have increased from two visits to four visits daily this week."}
+    },
+    {
+      "id": "example-patient-note", "patientId": "SIM-000001", "kind": "consultation", "version": 1,
+      "createdAt": "2026-09-11T12:00:00.000Z", "status": "signed",
+      "data": {"text": "The patient says carers still visit twice daily and there has been no increase. The discrepancy with the daughter's account remains unresolved."}
+    },
+    {
+      "id": "example-uncertain-note", "patientId": "SIM-000001", "kind": "hospital-note", "version": 1,
+      "createdAt": "2026-09-10T09:00:00.000Z", "status": "signed",
+      "data": {"sections": {"assessment": "It is unclear whether the underlying disease is progressing. The clinician documents an acute infection as a potentially reversible contributor to the current decline; treatment has started."}}
+    },
+    {
+      "id": "example-foreign-note", "patientId": "SIM-000002", "kind": "consultation", "version": 1,
+      "createdAt": "2026-09-11T09:00:00.000Z", "status": "signed",
+      "data": {"text": "This other patient has recurrent falls and reduced oral intake."}
+    },
+    {
+      "id": "example-future-note", "patientId": "SIM-000001", "kind": "consultation", "version": 1,
+      "createdAt": "2026-10-01T09:00:00.000Z", "status": "signed",
+      "data": {"text": "A later outcome was recorded. This note must not reach the extractor."}
+    }
+  ]
+}

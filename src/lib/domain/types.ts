@@ -453,6 +453,9 @@ export interface CaseState {
   removedParticipants: { participant: Participant; removedBy: string; at: string; reason?: string }[];
   threads: CoordinationThread[];
   outcome?: MeetingOutcome;
+  /** Clinician-reviewed screening proposals, separate from a held meeting. */
+  screeningReviews?: import("../stage1/clinical-review").ScreeningDecision[];
+  preparationSteps?: NextStep[];
   record: CairnRecord;
   audit: AuditEvent[];
   updatedAt: string;
