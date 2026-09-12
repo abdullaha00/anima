@@ -26,14 +26,18 @@ export function AuditPanel({ recordAudit, caseAudit }: { recordAudit: AuditEvent
       {events.length === 0 ? (
         <EmptyLine>Nothing recorded yet.</EmptyLine>
       ) : (
-        <ol className="flex flex-col gap-1.5 font-mono text-[0.75rem] leading-5 text-muted">
+        <ol className="flex flex-col divide-y divide-line font-mono text-[12px] leading-5">
           {events.map((e, i) => (
-            <li key={`${e.at}-${i}`} className="grid gap-x-3 sm:grid-cols-[10.5rem_7rem_9rem_minmax(0,1fr)]">
-              <span className="tnum whitespace-nowrap">{formatDateTime(e.at)}</span>
-              <span className={e.action === "refuse-sign" ? "text-refuse" : e.action === "sign" || e.action === "share" ? "text-affirm" : "text-ink"}>
+            <li key={`${e.at}-${i}`} className="grid gap-x-3 py-2 first:pt-0 last:pb-0 sm:grid-cols-[10.5rem_7rem_9rem_minmax(0,1fr)]">
+              <span className="whitespace-nowrap text-faint tnum">{formatDateTime(e.at)}</span>
+              <span
+                className={`font-semibold ${
+                  e.action === "refuse-sign" ? "text-refuse" : e.action === "sign" || e.action === "share" ? "text-affirm" : "text-ink"
+                }`}
+              >
                 {e.action}
               </span>
-              <span className="truncate">{e.actor}</span>
+              <span className="truncate text-secondary">{e.actor}</span>
               <span className="text-ink">{e.detail}</span>
             </li>
           ))}

@@ -4,7 +4,7 @@ import { useActionState } from "react";
 import type { Channel, ParticipantRole } from "@/lib/domain/types";
 import { addParticipant, type ActionResult } from "@/app/actions";
 import { Button, Notice } from "@/components/ui";
-import { FIELD_CLASS, INPUT_CLASS, SELECT_CLASS, TEXTAREA_CLASS } from "./form-classes";
+import { CHECK_CLASS, FIELD_CLASS, INPUT_CLASS, LABEL_CLASS, SELECT_CLASS, TEXTAREA_CLASS } from "./form-classes";
 import { PARTICIPANT_ROLES } from "./roles";
 
 /** A clinician adds a participant. The reason is required, like every other row on the list. */
@@ -25,19 +25,19 @@ export function AddParticipantForm({ patientId }: { patientId: string }) {
   );
 
   return (
-    <details className="border-t border-line pt-2">
-      <summary className="min-h-11 cursor-pointer list-none py-2 text-[0.9375rem] text-primary underline-offset-4 hover:underline">
+    <details className="mt-5 border-t border-line pt-3">
+      <summary className="inline-flex min-h-11 cursor-pointer list-none items-center text-[14px] font-semibold text-primary-hover underline-offset-4 hover:underline">
         Add a participant
       </summary>
-      <form action={formAction} className="flex flex-col gap-3 pb-2 pt-1">
+      <form action={formAction} className="flex flex-col gap-4 pb-2 pt-3">
         <input type="hidden" name="patientId" value={patientId} />
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2">
           <label className={FIELD_CLASS}>
-            <span className="microlabel">Name</span>
+            <span className={LABEL_CLASS}>Name</span>
             <input name="name" required className={INPUT_CLASS} autoComplete="off" />
           </label>
           <label className={FIELD_CLASS}>
-            <span className="microlabel">Role</span>
+            <span className={LABEL_CLASS}>Role</span>
             <select name="role" required defaultValue="specialist nurse" className={SELECT_CLASS}>
               {PARTICIPANT_ROLES.map((r) => (
                 <option key={r} value={r}>
@@ -47,16 +47,16 @@ export function AddParticipantForm({ patientId }: { patientId: string }) {
             </select>
           </label>
           <label className={FIELD_CLASS}>
-            <span className="microlabel">Role label, optional</span>
+            <span className={LABEL_CLASS}>Role label, optional</span>
             <input name="roleLabel" className={INPUT_CLASS} placeholder="e.g. Heart failure specialist nurse" />
           </label>
           <label className={FIELD_CLASS}>
-            <span className="microlabel">Organisation</span>
+            <span className={LABEL_CLASS}>Organisation</span>
             <input name="organisation" required className={INPUT_CLASS} />
           </label>
         </div>
         <label className={FIELD_CLASS}>
-          <span className="microlabel">Reason for inclusion, required</span>
+          <span className={LABEL_CLASS}>Reason for inclusion, required</span>
           <textarea
             name="reasonForInclusion"
             required
@@ -67,19 +67,19 @@ export function AddParticipantForm({ patientId }: { patientId: string }) {
           />
         </label>
         <label className={FIELD_CLASS}>
-          <span className="microlabel">Evidence, optional</span>
+          <span className={LABEL_CLASS}>Evidence, optional</span>
           <input name="evidence" className={INPUT_CLASS} placeholder="The record entry or indicator behind the reason" />
         </label>
         <div className="flex flex-wrap items-end gap-x-6 gap-y-3">
-          <label className={FIELD_CLASS}>
-            <span className="microlabel">Channel</span>
-            <select name="channel" defaultValue="professional" className={`${SELECT_CLASS} w-auto`}>
+          <label className={`${FIELD_CLASS} w-48`}>
+            <span className={LABEL_CLASS}>Channel</span>
+            <select name="channel" defaultValue="professional" className={SELECT_CLASS}>
               <option value="professional">professional</option>
               <option value="family">family</option>
             </select>
           </label>
-          <label className="inline-flex min-h-11 items-center gap-2 text-[0.9375rem]">
-            <input type="checkbox" name="required" className="h-4 w-4 accent-primary" />
+          <label className="inline-flex min-h-11 items-center gap-2 text-[14px] text-ink">
+            <input type="checkbox" name="required" className={CHECK_CLASS} />
             Required for the decision
           </label>
         </div>

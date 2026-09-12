@@ -77,6 +77,7 @@ async function main(): Promise<void> {
   console.log(pad('any unplanned episode', patients.filter((p) => p.admissions.some((a) => a.emergency)).length));
   console.log(pad('medicationCount > 0', patients.filter((p) => (p.medicationCount ?? 0) > 0).length));
   console.log(pad('medications listed', patients.filter((p) => (p.medications?.length ?? 0) > 0).length));
+  console.log(pad('any finding quoted from text', patients.filter((p) => (p.extracted?.length ?? 0) > 0).length));
 
   if (result.problems.length > 0) {
     console.log('');

@@ -6,7 +6,7 @@ import { formatDateTime } from "@/lib/format";
 import { viewFor, type AudienceView } from "@/lib/record/record";
 import { AUDIENCES, AUDIENCE_LABELS } from "@/lib/record/audiences";
 import { PatientStrip } from "@/components/shell/PatientStrip";
-import { Notice } from "@/components/ui";
+import { Notice, Panel } from "@/components/ui";
 import { RecordFields } from "@/components/record/RecordFields";
 import { ReadinessPanel } from "@/components/record/ReadinessPanel";
 import { SignGate } from "@/components/record/SignGate";
@@ -52,18 +52,18 @@ export default async function RecordPage({ params }: { params: Promise<{ id: str
     <div>
       <PatientStrip patient={patient} assessment={assessment} caseState={caseState} current="/record" />
 
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,72ch)_minmax(16rem,20rem)] lg:items-start">
-        <div className="flex flex-col gap-10">
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(16rem,20rem)] lg:items-start">
+        <div className="flex flex-col gap-8">
           <header className="flex flex-col gap-2">
-            <h2 className="font-display text-[1.5rem] font-medium leading-tight">The record</h2>
-            <p className={`text-[0.9375rem] leading-6 ${signed ? "font-medium text-affirm" : "text-muted"}`}>{statusLine}</p>
-            <p className="text-[0.8125rem] leading-5 text-muted">
+            <h2 className="font-display text-[22px] leading-tight text-ink">The record</h2>
+            <p className={`text-[15px] leading-6 ${signed ? "font-medium text-affirm" : "text-secondary"}`}>{statusLine}</p>
+            <p className="text-[13px] font-medium leading-5 text-secondary">
               {NOT_BINDING_LINE} Version {record.version}.
             </p>
             {!signed && caseState.state !== "meeting held" && caseState.state !== "paused" ? (
-              <p className="text-[0.8125rem] leading-5 text-muted">
+              <p className="text-[13px] font-medium leading-5 text-secondary">
                 Fields can be recorded now. A signature follows the meeting outcome, recorded on the{" "}
-                <Link href={`${base}/outcome`} className="text-primary underline-offset-4 hover:underline">
+                <Link href={`${base}/outcome`} className="text-primary-hover underline-offset-4 hover:underline">
                   outcome screen
                 </Link>
                 .
@@ -73,30 +73,33 @@ export default async function RecordPage({ params }: { params: Promise<{ id: str
 
           <RecordFields record={record} patientId={patient.id} defaultSource={defaultSource} locked={signed} />
 
-          <div className="border-t border-line pt-8">
-            {signed ? (
-              <div className="flex flex-col gap-8">
-                <p className="rounded-md bg-affirm-soft px-4 py-3 text-[0.9375rem] leading-6 text-affirm">
-                  Signed by {record.signedBy} on {formatDateTime(record.signedAt)}. The record is now immutable; a change
-                  creates a new version.
-                </p>
-                <ShareBlock patientId={patient.id} sharedWith={record.sharedWith} />
-              </div>
-            ) : (
-              <SignGate patientId={patient.id} clinicianName={CLINICIAN.name} />
-            )}
-          </div>
+          {signed ? (
+            <div className="flex flex-col gap-8">
+              <Notice kind="affirm">
+                Signed by {record.signedBy} on {formatDateTime(record.signedAt)}. The record is now immutable; a change
+                creates a new version.
+              </Notice>
+              <ShareBlock patientId={patient.id} sharedWith={record.sharedWith} />
+            </div>
+          ) : (
+            <SignGate patientId={patient.id} clinicianName={CLINICIAN.name} />
+          )}
 
-          <section aria-labelledby="audience-heading" className="flex flex-col gap-4 border-t border-line pt-8">
-            <h3 id="audience-heading" className="font-display text-[1.25rem] font-medium leading-tight">
-              What each recipient sees
-            </h3>
-            {signed && views.length ? (
-              <AudienceTabs views={views} provenance={provenance} sharedWith={record.sharedWith} />
-            ) : (
-              <Notice kind="quiet">Audience views render nothing until a clinician signs.</Notice>
-            )}
-          </section>
+          <Panel as="div">
+            <section aria-labelledby="audience-heading" className="flex flex-col gap-5">
+              <h3
+                id="audience-heading"
+                className="border-b border-line pb-4 text-[18px] font-semibold leading-tight tracking-[-0.01em] text-ink"
+              >
+                What each recipient sees
+              </h3>
+              {signed && views.length ? (
+                <AudienceTabs views={views} provenance={provenance} sharedWith={record.sharedWith} />
+              ) : (
+                <Notice kind="quiet">Audience views render nothing until a clinician signs.</Notice>
+              )}
+            </section>
+          </Panel>
 
           <AuditPanel recordAudit={record.audit} caseAudit={caseState.audit} />
         </div>

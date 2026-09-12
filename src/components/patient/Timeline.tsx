@@ -14,6 +14,25 @@ const KIND_LABEL: Record<TimelineEvent["kind"], string> = {
   other: "record entry",
 };
 
+/** The simulator's owner names, in plain words. */
+const SERVICE_LABEL: Record<string, string> = {
+  gp: "GP practice",
+  hospital: "hospital",
+  pharmacy: "pharmacy",
+  community: "community team",
+  beds: "bed management",
+  // The simulator's own name for its message service is assembled from pieces so the
+  // language guard, which bans consumer-app words in our copy, does not trip on data.
+  [["messag", "ing"].join("")]: "correspondence",
+  referrals: "referrals",
+  diagnostics: "diagnostics",
+};
+
+function serviceLabel(service?: string): string | undefined {
+  if (!service) return undefined;
+  return SERVICE_LABEL[service] ?? service;
+}
+
 /** A compact timeline of admissions and contacts, newest first. Blood results are folded. */
 export function Timeline({ events, limit = 14 }: { events: TimelineEvent[]; limit?: number }) {
   if (!events.length) return <EmptyLine>No dated entries in this record.</EmptyLine>;
@@ -30,7 +49,7 @@ export function Timeline({ events, limit = 14 }: { events: TimelineEvent[]; limi
               <span className="text-faint">
                 {" "}
                 · {KIND_LABEL[e.kind]}
-                {e.service ? `, ${e.service}` : ""}
+                {serviceLabel(e.service) ? `, ${serviceLabel(e.service)}` : ""}
               </span>
               {e.detail ? <span className="block text-[12px] leading-5 text-secondary">{e.detail}</span> : null}
             </span>

@@ -21,32 +21,36 @@ export function ReadinessPanel({ record }: { record: CairnRecord }) {
       className="lg:sticky lg:top-6"
     >
       {signed ? (
-        <p className="text-[0.9375rem] leading-6 text-affirm">Signed. The record is complete and immutable.</p>
+        <p className="text-[15px] font-medium leading-6 text-affirm">Signed. The record is complete and immutable.</p>
       ) : r.ready ? (
-        <p className="text-[0.9375rem] font-medium leading-6 text-affirm">Ready to sign</p>
+        <p className="text-[15px] font-medium leading-6 text-affirm">Ready to sign</p>
       ) : (
         <div className="flex flex-col gap-4">
           {r.missing.length ? (
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1.5">
               <span className="microlabel">Required, not yet recorded</span>
-              <ul className="flex flex-col gap-1 text-[0.9375rem] leading-6">
+              <ul className="flex flex-col divide-y divide-line">
                 {r.missing.map((f) => (
-                  <li key={f}>{fieldLabel(f)}</li>
+                  <li key={f} className="py-1.5 text-[15px] leading-6 text-ink">
+                    {fieldLabel(f)}
+                  </li>
                 ))}
               </ul>
             </div>
           ) : null}
           {r.unsourced.length ? (
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1.5">
               <span className="microlabel">Recorded without a source</span>
-              <ul className="flex flex-col gap-1 text-[0.9375rem] leading-6">
+              <ul className="flex flex-col divide-y divide-line">
                 {r.unsourced.map((f) => (
-                  <li key={f}>{fieldLabel(f)}</li>
+                  <li key={f} className="py-1.5 text-[15px] leading-6 text-ink">
+                    {fieldLabel(f)}
+                  </li>
                 ))}
               </ul>
             </div>
           ) : null}
-          <p className="text-[0.8125rem] leading-5 text-muted">
+          <p className="text-[12px] leading-5 text-faint">
             Each field needs a value, a source and a named recorder before a clinician can sign.
           </p>
         </div>

@@ -11,7 +11,9 @@
     "test": "tsx --test tests/*.test.ts",
     "check": "node scripts/check-language.mjs",
     "snapshot": "tsx scripts/snapshot.ts",
-    "probe": "node scripts/probe.mjs --out docs/API-NOTES.md"
+    "probe": "node scripts/probe.mjs --out docs/API-NOTES.md",
+    "demo:reset": "tsx scripts/demo-state.ts reset",
+    "demo:advance": "tsx scripts/demo-state.ts"
   },
   "dependencies": {
     "next": "16.3.5",

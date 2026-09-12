@@ -4,7 +4,7 @@ import { useActionState } from "react";
 import type { RecordFieldName } from "@/lib/domain/types";
 import { setRecordField, type ActionResult } from "@/app/actions";
 import { Button, Notice } from "@/components/ui";
-import { INPUT_CLASS, TEXTAREA_CLASS } from "@/components/ui/form";
+import { FIELD_CLASS, INPUT_CLASS, LABEL_CLASS, TEXTAREA_CLASS } from "@/components/team/form-classes";
 
 /**
  * Records one field with its source. Compact, inline under the empty field, and only shown
@@ -38,30 +38,36 @@ export function FieldEntryForm({
   );
 
   return (
-    <form action={formAction} className="mt-2 flex flex-col gap-2">
+    <form action={formAction} className="mt-2 flex flex-col gap-3">
       <input type="hidden" name="patientId" value={patientId} />
       <input type="hidden" name="field" value={field} />
-      <label className="flex flex-col gap-1">
+      <label className={FIELD_CLASS}>
         <span className="sr-only">{label}</span>
-        <textarea
-          id={`record-${field}`}
-          name="value"
-          required
-          defaultValue={defaultValue}
-          className={`${TEXTAREA_CLASS} ${serif ? "font-voice text-[1.125rem]" : ""}`}
-          placeholder={serif ? "Their words, as they said them." : "As recorded, in plain words."}
-        />
-      </label>
-      <div className="grid gap-2 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
-        <label className="flex flex-col gap-1">
-          <span className="microlabel">Source</span>
-          <input
-            id={`record-${field}-source`}
-            name="source"
+        {/* The field inherits its size from the wrapper: the person's fields are set in the voice face at 17px. */}
+        <div className={serif ? "text-[17px]" : ""}>
+          <textarea
+            id={`record-${field}`}
+            name="value"
             required
-            defaultValue={defaultSource}
-            className={`${INPUT_CLASS} font-mono text-[0.8125rem]`}
+            rows={3}
+            defaultValue={defaultValue}
+            className={`${TEXTAREA_CLASS} ${serif ? "font-voice" : ""}`}
+            placeholder={serif ? "Their words, as they said them." : "As recorded, in plain words."}
           />
+        </div>
+      </label>
+      <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
+        <label className={FIELD_CLASS}>
+          <span className={LABEL_CLASS}>Source</span>
+          <div className="font-mono text-[13px]">
+            <input
+              id={`record-${field}-source`}
+              name="source"
+              required
+              defaultValue={defaultSource}
+              className={INPUT_CLASS}
+            />
+          </div>
         </label>
         <Button type="submit" variant="quiet" disabled={pending}>
           {pending ? "Recording" : "Record"}

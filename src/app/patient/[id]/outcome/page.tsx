@@ -3,7 +3,7 @@ import type { ThreadMessage } from "@/lib/domain/types";
 import { loadPatientContext } from "@/lib/patient-context";
 import { CLINICIAN, THREAD_NOT_RECORD_LINE } from "@/lib/copy";
 import { PatientStrip } from "@/components/shell/PatientStrip";
-import { ButtonLink, Notice } from "@/components/ui";
+import { ButtonLink, Notice, Panel } from "@/components/ui";
 import { OutcomeForm, type OutcomeMessageRef, type OutcomePerson, type OutcomeProposal } from "@/components/outcome/OutcomeForm";
 import { OutcomeView } from "@/components/outcome/OutcomeView";
 
@@ -37,9 +37,9 @@ export default async function OutcomePage({ params }: { params: Promise<{ id: st
     <div>
       <PatientStrip patient={patient} assessment={assessment} caseState={caseState} current="/outcome" />
 
-      <div className="mx-auto flex max-w-[72ch] flex-col gap-6 lg:mx-0 lg:max-w-[80ch]">
-        <header className="flex flex-wrap items-baseline justify-between gap-4">
-          <h2 className="font-display text-[1.5rem] font-medium leading-tight">
+      <div className="flex max-w-[860px] flex-col gap-6">
+        <header className="flex flex-wrap items-center justify-between gap-4">
+          <h2 className="font-display text-[22px] leading-tight text-ink">
             {outcome ? "Outcome and next steps" : "Record the outcome"}
           </h2>
           {outcome ? (
@@ -58,8 +58,8 @@ export default async function OutcomePage({ params }: { params: Promise<{ id: st
             messageLabels={messageLabels}
           />
         ) : caseState.state === "coordinating" ? (
-          <>
-            <p className="prose-clinical text-[0.9375rem] leading-6 text-muted">{THREAD_NOT_RECORD_LINE}</p>
+          <Panel>
+            <p className="prose-clinical mb-6 text-[13px] font-medium leading-5 text-secondary">{THREAD_NOT_RECORD_LINE}</p>
             <OutcomeForm
               patientId={patient.id}
               today={nowIso.slice(0, 10)}
@@ -81,11 +81,11 @@ export default async function OutcomePage({ params }: { params: Promise<{ id: st
                 }))}
               messages={messageLabels}
             />
-          </>
+          </Panel>
         ) : caseState.state === "paused" ? (
           <Notice kind="quiet" title="Paused">
             {caseState.pausedReason} The outcome can be recorded once the case is resumed from the{" "}
-            <Link href={base} className="text-primary underline-offset-4 hover:underline">
+            <Link href={base} className="text-primary-hover underline-offset-4 hover:underline">
               patient screen
             </Link>
             .
@@ -96,14 +96,14 @@ export default async function OutcomePage({ params }: { params: Promise<{ id: st
             {caseState.state === "flagged" ? (
               <>
                 assemble the team from the{" "}
-                <Link href={base} className="text-primary underline-offset-4 hover:underline">
+                <Link href={base} className="text-primary-hover underline-offset-4 hover:underline">
                   patient screen
                 </Link>
               </>
             ) : (
               <>
                 open the{" "}
-                <Link href={`${base}/thread`} className="text-primary underline-offset-4 hover:underline">
+                <Link href={`${base}/thread`} className="text-primary-hover underline-offset-4 hover:underline">
                   coordination thread
                 </Link>{" "}
                 and reach a decision

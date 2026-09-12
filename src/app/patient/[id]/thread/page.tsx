@@ -5,7 +5,7 @@ import { THREAD_NOT_RECORD_LINE } from "@/lib/copy";
 import { DEMO_PATIENT_IDS, DEMO_THREAD_PURPOSE, defaultPurpose } from "@/lib/coordination/fixtures";
 import { FAMILY_ALLOWED_TOPICS } from "@/lib/coordination/family-guard";
 import { RECORD_FIELDS, fieldLabel } from "@/lib/record/fields";
-import { ButtonLink, EmptyLine, Microlabel, Notice, Panel } from "@/components/ui";
+import { ButtonLink, EmptyLine, Notice, Panel } from "@/components/ui";
 import { ChannelTabs } from "@/components/thread/ChannelTabs";
 import { ThreadHeader } from "@/components/thread/ThreadHeader";
 import { ThreadEntries } from "@/components/thread/ThreadEntries";
@@ -56,15 +56,15 @@ export default async function ThreadPage({
       <PatientStrip patient={patient} assessment={assessment} caseState={caseState} current="/thread" />
 
       <ChannelTabs patientId={patient.id} current={channel} />
-      <p className="prose-clinical py-3 text-[0.8125rem] leading-5 text-muted">{THREAD_NOT_RECORD_LINE}</p>
+      <p className="prose-clinical py-4 text-[13px] font-medium leading-5 text-secondary">{THREAD_NOT_RECORD_LINE}</p>
 
       {!thread ? (
-        <div className="mt-2 max-w-2xl">
-          <h2 className="font-display text-[1.5rem] font-medium leading-tight">
+        <Panel className="mt-2 max-w-2xl">
+          <h2 className="font-display text-[22px] leading-tight text-ink">
             {family ? "No family channel is open" : "No coordination thread is open"}
           </h2>
           {!teamProposed ? (
-            <div className="mt-4 flex flex-col gap-3">
+            <div className="mt-4 flex flex-col gap-4">
               <EmptyLine>The team has not been proposed yet, so there is nobody to include.</EmptyLine>
               <div>
                 <ButtonLink href={`/patient/${patient.id}/team`} variant="primary">
@@ -73,10 +73,10 @@ export default async function ThreadPage({
               </div>
             </div>
           ) : (
-            <div className="mt-4 flex flex-col gap-4">
+            <div className="mt-4 flex flex-col gap-5">
               {family ? (
                 <>
-                  <p className="prose-clinical text-[0.9375rem] leading-6 text-ink">
+                  <p className="prose-clinical text-[15px] leading-6 text-secondary">
                     Nothing posts to the family channel automatically. Every entry is written or approved by a
                     clinician, and it never carries clinical recommendations, ceilings of treatment or CPR content.
                   </p>
@@ -86,13 +86,13 @@ export default async function ThreadPage({
                       family participant on the care team screen when the conversation names someone.
                     </Notice>
                   ) : (
-                    <p className="text-[0.875rem] text-muted">
+                    <p className="text-[13px] font-medium leading-5 text-secondary">
                       Family participants: {familyParticipants.map((p) => `${p.name}, ${p.roleLabel ?? p.role}`).join("; ")}.
                     </p>
                   )}
                 </>
               ) : (
-                <p className="prose-clinical text-[0.9375rem] leading-6 text-ink">
+                <p className="prose-clinical text-[15px] leading-6 text-secondary">
                   Scoped to this patient and this decision, with a closed participant list, a stated purpose, and an
                   audit of who has read it. Colleagues other than the signed-in clinician are simulated.
                 </p>
@@ -109,45 +109,51 @@ export default async function ThreadPage({
               />
             </div>
           )}
-        </div>
+        </Panel>
       ) : (
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
-          <div className="flex flex-col gap-6">
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
+          <div className="flex flex-col gap-8">
             <ThreadHeader thread={thread} caseState={caseState} />
 
-            <section aria-labelledby="entries-heading">
-              <div className="flex items-baseline justify-between gap-4 pb-1">
-                <h2 id="entries-heading" className="font-display text-[1.25rem] font-medium leading-tight">
-                  Contributions
-                </h2>
-                <span className="text-[0.8125rem] text-muted tnum">
-                  {thread.messages.length} entries · {proposals.length} proposals
-                </span>
-              </div>
-              <ThreadEntries thread={thread} caseState={caseState} />
-            </section>
+            <Panel as="div">
+              <section aria-labelledby="entries-heading">
+                <div className="mb-5 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-line pb-4">
+                  <h2 id="entries-heading" className="font-display text-[22px] leading-tight text-ink">
+                    Contributions
+                  </h2>
+                  <span className="text-[13px] font-medium text-secondary tnum">
+                    {thread.messages.length} entries · {proposals.length} proposals
+                  </span>
+                </div>
+                <ThreadEntries thread={thread} caseState={caseState} />
+              </section>
+            </Panel>
 
-            <section aria-labelledby="composer-heading" className="border-t border-line pt-5">
-              <h2 id="composer-heading" className="sr-only">
-                Add to the thread
-              </h2>
-              <Microlabel className="mb-3">Add to the thread</Microlabel>
-              <Composer
-                patientId={patient.id}
-                threadId={thread.id}
-                channel={channel}
-                proposals={proposals}
-                fields={fields}
-                allowedTopics={FAMILY_ALLOWED_TOPICS}
-              />
-            </section>
+            <Panel as="div">
+              <section aria-labelledby="composer-heading">
+                <h2
+                  id="composer-heading"
+                  className="mb-5 border-b border-line pb-4 text-[18px] font-semibold leading-tight tracking-[-0.01em] text-ink"
+                >
+                  Add to the thread
+                </h2>
+                <Composer
+                  patientId={patient.id}
+                  threadId={thread.id}
+                  channel={channel}
+                  proposals={proposals}
+                  fields={fields}
+                  allowedTopics={FAMILY_ALLOWED_TOPICS}
+                />
+              </section>
+            </Panel>
 
             {!family ? (
-              <div className="flex flex-wrap items-center gap-4 border-t border-line pt-5">
-                <ButtonLink href={`/patient/${patient.id}/outcome`} variant="primary">
+              <div className="flex flex-wrap items-center gap-4">
+                <ButtonLink href={`/patient/${patient.id}/outcome`} variant="quiet">
                   Record the outcome
                 </ButtonLink>
-                <span className="text-[0.8125rem] text-muted">
+                <span className="text-[13px] font-medium text-secondary">
                   Decisions, attendees and next steps with a named owner and a date.
                 </span>
               </div>
@@ -157,7 +163,7 @@ export default async function ThreadPage({
           <aside className="flex flex-col gap-4">
             <Panel title={family ? "Family channel" : "Professional thread"}>
               {family ? (
-                <div className="flex flex-col gap-2 text-[0.875rem] leading-5 text-muted">
+                <div className="flex flex-col gap-2 text-[13px] font-medium leading-5 text-secondary">
                   <p>Never in the professional thread. Content limited to:</p>
                   <ul className="list-disc pl-5">
                     {FAMILY_ALLOWED_TOPICS.map((t) => (
@@ -167,7 +173,7 @@ export default async function ThreadPage({
                   <p>Anything else is refused in place, with the reason, before it reaches the family.</p>
                 </div>
               ) : (
-                <div className="flex flex-col gap-2 text-[0.875rem] leading-5 text-muted">
+                <div className="flex flex-col gap-2 text-[13px] font-medium leading-5 text-secondary">
                   <p>A proposal names a record field and a value. Agreements and concerns attach to it.</p>
                   <p>
                     The outcome is assembled from these proposals, and a named clinician promotes a decision into the

@@ -75,7 +75,7 @@ proposal in the thread; in the product they would arrive from the conversation.
 
 | Rule | Where |
 |---|---|
-| Cairn never predicts. No score, percentage or forecast is ever shown for a patient. | `src/lib/domain/types.ts` has no field for one; `scripts/check-language.mjs` fails the build on the banned words |
+| Cairn never predicts. No score, percentage or forecast is ever shown for a patient. | `src/lib/domain/types.ts` has no field for one; `scripts/check-language.mjs` fails `npm run lint` on the banned words, in source and in the built pages |
 | Every indicator is traceable to a record entry and a published tool | `Signal.evidence` and `Signal.basis` are required; the evidence chain on the patient screen |
 | Cairn cannot sign. Signing needs a named clinician. | `sign()` in `src/lib/record/record.ts` refuses any signer whose name starts with "Cairn"; the refusal is shown inline and recorded in the audit |
 | Nothing unsigned is shared | `viewFor()` returns nothing until the record is signed; audience tabs render nothing before |
@@ -106,6 +106,17 @@ posts to `MODEL_ENDPOINT` (default `/api/score`, which is a stub returning 501).
 reorder the worklist within a tier. It may never add a patient with no indicator, remove one
 with indicators, or change a tier, and any influence is labelled as model-suggested and not
 validated. The contract is in `docs/DOMAIN.md`.
+
+## Design
+
+The interface follows the Cairn Design System (`Cairn Design System.html` in the kit folder): Cairn
+green as the accent, the stone scale for structure, Plus Jakarta Sans as the single typeface with
+hierarchy from weight, white cards with 12px corners and warm shadows, pill status badges with a
+dot, square signal chips. Light mode only, as the system specifies. Two deliberate departures, both
+for clinical safety: the system's red left stripe for "no plan" is not used, because a red patient row
+reads as an alarm about a person, so the worklist stripe encodes progress instead (amber in
+progress, green signed or shared); and the critical red appears only on the signature refusal and
+blocking validation.
 
 ## Where things are
 

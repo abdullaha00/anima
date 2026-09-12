@@ -4,7 +4,15 @@ import { useActionState, useState } from "react";
 import type { Channel, MessageKind, RecordFieldName } from "@/lib/domain/types";
 import { postMessage, type ActionResult } from "@/app/actions";
 import { Button, Notice } from "@/components/ui";
-import { FIELD_CLASS, INPUT_CLASS, SELECT_CLASS, TEXTAREA_CLASS } from "@/components/team/form-classes";
+import {
+  CHECK_CLASS,
+  FIELD_CLASS,
+  HINT_CLASS,
+  INPUT_CLASS,
+  LABEL_CLASS,
+  SELECT_CLASS,
+  TEXTAREA_CLASS,
+} from "@/components/team/form-classes";
 
 export interface ProposalOption {
   id: string;
@@ -66,20 +74,23 @@ export function Composer({
   );
 
   return (
-    <form action={formAction} className="flex flex-col gap-4" aria-label="Add to the coordination thread">
+    <form action={formAction} className="flex flex-col gap-5" aria-label="Add to the coordination thread">
       <input type="hidden" name="patientId" value={patientId} />
       <input type="hidden" name="threadId" value={threadId} />
 
-      <fieldset className="flex flex-col gap-1.5">
-        <legend className="microlabel mb-1.5">Kind of entry</legend>
+      <fieldset className="flex flex-col gap-2">
+        <legend className={`${LABEL_CLASS} mb-2`}>Kind of entry</legend>
+        {/* Real radio inputs, drawn as a segmented row of quiet buttons. The checked one takes the primary tint. */}
         <div className="flex flex-wrap gap-2">
           {kinds.map((k) => {
             const disabled = (k === "agreement" || k === "concern") && proposals.length === 0;
             return (
               <label
                 key={k}
-                className={`inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-md border px-3 text-[0.9375rem] has-checked:border-primary has-checked:bg-primary-soft ${
-                  disabled ? "cursor-not-allowed border-line text-muted opacity-60" : "border-line text-ink"
+                className={`inline-flex min-h-11 items-center rounded-md border px-[14px] text-[13px] font-semibold leading-none transition-colors duration-150 has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-primary ${
+                  disabled
+                    ? "cursor-not-allowed border-line bg-stone-200 text-faint"
+                    : "cursor-pointer border-line-strong bg-surface text-ink shadow-xs hover:bg-surface-2 has-checked:border-primary has-checked:bg-primary-soft has-checked:text-primary-hover"
                 }`}
               >
                 <input
@@ -89,7 +100,7 @@ export function Composer({
                   checked={kind === k}
                   disabled={disabled}
                   onChange={() => setKind(k)}
-                  className="accent-primary"
+                  className="sr-only"
                 />
                 {KIND_LABEL[k]}
               </label>
@@ -97,14 +108,14 @@ export function Composer({
           })}
         </div>
         {proposals.length === 0 ? (
-          <p className="text-[0.8125rem] text-muted">Agreement and concern attach to a proposal; none is in this thread yet.</p>
+          <p className={HINT_CLASS}>Agreement and concern attach to a proposal; none is in this thread yet.</p>
         ) : null}
       </fieldset>
 
       {kind === "proposal" ? (
-        <div className="grid gap-3 rounded-md border-l-2 border-primary pl-4 sm:grid-cols-2">
+        <div className="grid gap-4 border-l-[3px] border-cairn-400 pl-4 sm:grid-cols-2">
           <label className={FIELD_CLASS}>
-            <span className="microlabel">Record field</span>
+            <span className={LABEL_CLASS}>Record field</span>
             <select name="proposesField" required className={SELECT_CLASS} defaultValue="">
               <option value="" disabled>
                 choose a field
@@ -117,10 +128,10 @@ export function Composer({
             </select>
           </label>
           <label className={FIELD_CLASS}>
-            <span className="microlabel">Proposed value</span>
+            <span className={LABEL_CLASS}>Proposed value</span>
             <input name="proposesValue" required className={INPUT_CLASS} placeholder="e.g. Home" />
           </label>
-          <p className="text-[0.8125rem] leading-5 text-muted sm:col-span-2">
+          <p className={`${HINT_CLASS} sm:col-span-2`}>
             A proposal is not the record. A clinician promotes it from the outcome screen, then signs.
           </p>
         </div>
@@ -128,7 +139,7 @@ export function Composer({
 
       {needsReply ? (
         <label className={FIELD_CLASS}>
-          <span className="microlabel">In reply to</span>
+          <span className={LABEL_CLASS}>In reply to</span>
           <select name="inReplyTo" required className={SELECT_CLASS} defaultValue="">
             <option value="" disabled>
               choose a proposal
@@ -143,24 +154,24 @@ export function Composer({
       ) : null}
 
       <label className={FIELD_CLASS}>
-        <span className="microlabel">
+        <span className={LABEL_CLASS}>
           {kind === "proposal" ? "Why you propose it" : kind === "concern" ? "The concern" : "Entry"}
         </span>
         <textarea name="body" required minLength={2} rows={4} className={TEXTAREA_CLASS} />
       </label>
 
       {family ? (
-        <div className="flex flex-col gap-3 border-t border-dashed border-line pt-3">
+        <div className="flex flex-col gap-3 border-t border-dashed border-line-strong pt-4">
           <div>
-            <p className="microlabel mb-1">This channel carries only</p>
-            <ul className="flex flex-wrap gap-x-4 gap-y-1 text-[0.875rem] text-muted">
+            <p className="microlabel mb-1.5">This channel carries only</p>
+            <ul className="flex flex-wrap gap-x-4 gap-y-1 text-[13px] font-medium text-secondary">
               {allowedTopics.map((t) => (
                 <li key={t}>{t}</li>
               ))}
             </ul>
           </div>
-          <label className="inline-flex min-h-11 items-start gap-2 text-[0.9375rem] leading-6">
-            <input type="checkbox" name="approved" required className="mt-1.5 h-4 w-4 shrink-0 accent-primary" />
+          <label className="inline-flex min-h-11 items-start gap-2.5 text-[14px] leading-6 text-ink">
+            <input type="checkbox" name="approved" required className={`${CHECK_CLASS} mt-1`} />
             <span>I am writing or approving this entry as the clinician</span>
           </label>
         </div>
@@ -170,7 +181,7 @@ export function Composer({
         <Notice kind="refuse" title={family ? "Not added to the family channel" : "Not added to the thread"} role="alert">
           <p className="prose-clinical">{state.error}</p>
           {family ? (
-            <p className="mt-1 text-[0.875rem] text-muted">
+            <p className="mt-1 text-[13px] leading-5 text-secondary">
               Clinical recommendations stay with the professional participants. Reword the entry to what matters, place
               preferences, who is involved, practical arrangements or a question.
             </p>
@@ -178,12 +189,12 @@ export function Composer({
         </Notice>
       ) : null}
 
-      <div className="flex items-center gap-4">
+      <div className="flex flex-wrap items-center gap-4">
         <Button type="submit" variant="primary" disabled={pending}>
           {pending ? "Adding to the thread" : "Add to the thread"}
         </Button>
         {family ? (
-          <span className="text-[0.8125rem] text-muted">Every family entry is written or approved by a clinician.</span>
+          <span className={HINT_CLASS}>Every family entry is written or approved by a clinician.</span>
         ) : null}
       </div>
     </form>

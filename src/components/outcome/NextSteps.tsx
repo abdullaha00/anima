@@ -1,19 +1,22 @@
 import type { NextStep, Participant } from "@/lib/domain/types";
 import { addNextStepForm, setNextStepStatusForm } from "@/app/actions";
 import { formatDate } from "@/lib/format";
-import { Button, EmptyLine, Mono, SimulatedTag } from "@/components/ui";
-import { INPUT_CLASS, SELECT_CLASS } from "@/components/ui/form";
+import { Button, Chip, EmptyLine, Mono, SimulatedTag } from "@/components/ui";
+import { FIELD_CLASS, INPUT_CLASS, LABEL_CLASS, SELECT_CLASS } from "@/components/team/form-classes";
 
 function personLine(p: Participant | undefined, id: string) {
   if (!p) return <Mono className="text-muted">{id}</Mono>;
   return (
     <span>
-      <span className="font-medium">{p.name}</span>
-      <span className="text-muted"> · {p.roleLabel ?? p.role}</span>
+      <span className="font-medium text-ink">{p.name}</span>
+      <span className="text-secondary"> · {p.roleLabel ?? p.role}</span>
       {p.simulated ? <SimulatedTag className="ml-2" /> : null}
     </span>
   );
 }
+
+const TH = "microlabel border-b-2 border-line px-3 py-2.5 text-left font-semibold";
+const TD = "border-b border-line px-3 py-2.5 text-[13px] leading-5 align-top";
 
 /**
  * The next steps from the outcome, each with one named owner and a date. Status changes
@@ -37,46 +40,54 @@ export function NextSteps({
       {steps.length === 0 ? (
         <EmptyLine>No next steps recorded.</EmptyLine>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse text-[0.9375rem]">
+        <div className="-mx-3 overflow-x-auto">
+          <table className="w-full border-collapse">
             <thead>
-              <tr className="border-b border-line text-left">
-                <th className="microlabel py-2 pr-4 font-medium">What</th>
-                <th className="microlabel py-2 pr-4 font-medium">Owner</th>
-                <th className="microlabel py-2 pr-4 font-medium">Due</th>
-                <th className="microlabel py-2 pr-4 font-medium">Status</th>
-                <th className="microlabel py-2 font-medium">
+              <tr>
+                <th className={TH}>What</th>
+                <th className={TH}>Owner</th>
+                <th className={TH}>Due</th>
+                <th className={TH}>Status</th>
+                <th className={TH}>
                   <span className="sr-only">Change status</span>
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="[&>tr:last-child>td]:border-b-0">
               {steps.map((s) => (
-                <tr key={s.id} className="border-b border-line align-top">
-                  <td className="py-3 pr-4">
+                <tr key={s.id}>
+                  <td className={`${TD} text-ink`}>
                     <div>{s.what}</div>
                     {s.createdFrom ? (
-                      <div className="font-mono text-[0.75rem] text-muted">from {s.createdFrom}</div>
+                      <div className="font-mono text-[12px] text-faint">from {s.createdFrom}</div>
                     ) : null}
                   </td>
-                  <td className="py-3 pr-4">{personLine(byId.get(s.ownerId), s.ownerId)}</td>
-                  <td className="py-3 pr-4 whitespace-nowrap tnum">{formatDate(s.due)}</td>
-                  <td className="py-3 pr-4">
-                    <span className={s.status === "done" ? "text-affirm" : s.status === "blocked" ? "font-medium" : ""}>
+                  <td className={TD}>{personLine(byId.get(s.ownerId), s.ownerId)}</td>
+                  <td className={`${TD} whitespace-nowrap text-ink tnum`}>{formatDate(s.due)}</td>
+                  <td className={TD}>
+                    <Chip
+                      className={
+                        s.status === "done"
+                          ? "border-affirm-border bg-affirm-soft text-affirm"
+                          : s.status === "blocked"
+                            ? "font-semibold text-ink"
+                            : ""
+                      }
+                    >
                       {s.status}
-                    </span>
+                    </Chip>
                     {s.status === "blocked" && s.blockedReason ? (
-                      <div className="text-[0.8125rem] text-muted">{s.blockedReason}</div>
+                      <div className="mt-1 text-[13px] text-secondary">{s.blockedReason}</div>
                     ) : null}
                   </td>
-                  <td className="py-2">
+                  <td className={`${TD} py-1.5`}>
                     <div className="flex flex-wrap items-start gap-2">
                       {s.status !== "done" ? (
                         <form action={setNextStepStatusForm}>
                           <input type="hidden" name="patientId" value={patientId} />
                           <input type="hidden" name="nextStepId" value={s.id} />
                           <input type="hidden" name="status" value="done" />
-                          <Button type="submit" variant="quiet" className="text-[0.875rem]">
+                          <Button type="submit" variant="quiet" className="px-3.5 text-[13px]">
                             Mark done
                           </Button>
                         </form>
@@ -85,26 +96,26 @@ export function NextSteps({
                           <input type="hidden" name="patientId" value={patientId} />
                           <input type="hidden" name="nextStepId" value={s.id} />
                           <input type="hidden" name="status" value="open" />
-                          <Button type="submit" variant="quiet" className="text-[0.875rem]">
+                          <Button type="submit" variant="quiet" className="px-3.5 text-[13px]">
                             Reopen
                           </Button>
                         </form>
                       )}
                       {s.status !== "blocked" ? (
-                        <details className="text-[0.875rem]">
-                          <summary className="inline-flex min-h-11 cursor-pointer list-none items-center px-2 text-muted hover:text-ink">
+                        <details className="text-[13px]">
+                          <summary className="inline-flex min-h-11 cursor-pointer list-none items-center px-2 font-semibold text-muted hover:text-ink">
                             Blocked
                           </summary>
                           <form action={setNextStepStatusForm} className="flex flex-col gap-2 pt-1">
                             <input type="hidden" name="patientId" value={patientId} />
                             <input type="hidden" name="nextStepId" value={s.id} />
                             <input type="hidden" name="status" value="blocked" />
-                            <label className="flex flex-col gap-1">
-                              <span className="microlabel">Reason, required</span>
+                            <label className={FIELD_CLASS}>
+                              <span className={LABEL_CLASS}>Reason, required</span>
                               <input name="blockedReason" required minLength={3} className={INPUT_CLASS} />
                             </label>
                             <div>
-                              <Button type="submit" variant="quiet" className="text-[0.875rem]">
+                              <Button type="submit" variant="quiet" className="px-3.5 text-[13px]">
                                 Mark blocked
                               </Button>
                             </div>
@@ -120,20 +131,20 @@ export function NextSteps({
         </div>
       )}
 
-      <p className="text-[0.8125rem] text-muted">Open next steps appear on the worklist with their owner.</p>
+      <p className="text-[12px] leading-5 text-faint">Open next steps appear on the worklist with their owner.</p>
 
-      <details className="rounded-md border border-dashed border-line-strong px-4 py-2">
-        <summary className="min-h-11 cursor-pointer list-none py-2 text-[0.9375rem] text-muted hover:text-ink">
+      <details className="border-t border-line pt-3">
+        <summary className="inline-flex min-h-11 cursor-pointer list-none items-center text-[14px] font-semibold text-primary-hover underline-offset-4 hover:underline">
           Add a next step
         </summary>
-        <form action={addNextStepForm} className="grid gap-3 pb-3 pt-1 sm:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)]">
+        <form action={addNextStepForm} className="grid gap-4 pb-2 pt-3 sm:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)]">
           <input type="hidden" name="patientId" value={patientId} />
-          <label className="flex flex-col gap-1 sm:col-span-3">
-            <span className="microlabel">What needs to happen</span>
+          <label className={`${FIELD_CLASS} sm:col-span-3`}>
+            <span className={LABEL_CLASS}>What needs to happen</span>
             <input id="add-step-what" name="what" required className={INPUT_CLASS} />
           </label>
-          <label className="flex flex-col gap-1">
-            <span className="microlabel">Owner, one named person</span>
+          <label className={FIELD_CLASS}>
+            <span className={LABEL_CLASS}>Owner, one named person</span>
             <select id="add-step-owner" name="ownerId" required defaultValue="" className={SELECT_CLASS}>
               <option value="" disabled>
                 choose a person
@@ -145,12 +156,12 @@ export function NextSteps({
               ))}
             </select>
           </label>
-          <label className="flex flex-col gap-1">
-            <span className="microlabel">Due, a date</span>
+          <label className={FIELD_CLASS}>
+            <span className={LABEL_CLASS}>Due, a date</span>
             <input id="add-step-due" type="date" name="due" required className={INPUT_CLASS} />
           </label>
-          <label className="flex flex-col gap-1">
-            <span className="microlabel">From thread entry, optional</span>
+          <label className={FIELD_CLASS}>
+            <span className={LABEL_CLASS}>From thread entry, optional</span>
             <select id="add-step-from" name="createdFrom" defaultValue="" className={SELECT_CLASS}>
               <option value="">none</option>
               {messages.map((m) => (

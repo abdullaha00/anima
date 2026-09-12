@@ -30,7 +30,7 @@ export function PromotionBlock({
       <input type="hidden" name="decisionIndex" value={decisionIndex} />
       <div className="flex flex-col gap-1">
         <span className="microlabel">Proposed</span>
-        <p className="text-[0.9375rem] leading-6">{proposedValue}</p>
+        <p className="text-[15px] font-medium leading-6 text-ink">{proposedValue}</p>
       </div>
       {state?.ok === false ? (
         <Notice kind="refuse" role="alert">

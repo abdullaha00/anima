@@ -17,10 +17,8 @@ export function ChannelTabs({ patientId, current }: { patientId: string; current
             key={t.channel}
             href={`/patient/${patientId}/thread?channel=${t.channel}`}
             aria-current={active ? "page" : undefined}
-            className={`-mb-px inline-flex min-h-11 items-center border-b-2 px-3 text-[0.9375rem] ${
-              active
-                ? "border-primary font-medium text-ink"
-                : "border-transparent text-muted hover:border-line-strong hover:text-ink"
+            className={`-mb-px inline-flex min-h-11 items-center whitespace-nowrap border-b-2 px-3 text-[13px] font-semibold ${
+              active ? "border-primary text-primary" : "border-transparent text-muted hover:border-line-strong hover:text-ink"
             }`}
           >
             {t.label}

@@ -2,7 +2,7 @@ import { loadPatientContext } from "@/lib/patient-context";
 import { PatientStrip } from "@/components/shell/PatientStrip";
 import { assembleTeamForm } from "@/app/actions";
 import { DEMO_PATIENT_IDS, DEMO_THREAD_PURPOSE, defaultPurpose } from "@/lib/coordination/fixtures";
-import { Button, ButtonLink, EmptyLine, Microlabel, Notice, Panel } from "@/components/ui";
+import { Button, ButtonLink, Chip, EmptyLine, Microlabel, Notice, Panel } from "@/components/ui";
 import { ParticipantRow } from "@/components/team/ParticipantRow";
 import { RemovedGroup } from "@/components/team/RemovedGroup";
 import { AddParticipantForm } from "@/components/team/AddParticipantForm";
@@ -32,12 +32,12 @@ export default async function TeamPage({ params }: { params: Promise<{ id: strin
       <PatientStrip patient={patient} assessment={assessment} caseState={caseState} current="/team" />
 
       {participants.length === 0 ? (
-        <div className="max-w-2xl">
-          <h2 className="font-display text-[1.5rem] font-medium leading-tight">Who needs to be involved, and why</h2>
+        <Panel className="max-w-2xl">
+          <h2 className="font-display text-[22px] leading-tight text-ink">Who needs to be involved, and why</h2>
           {state === "flagged" ? (
-            <form action={assembleTeamForm} className="mt-4 flex flex-col gap-3">
+            <form action={assembleTeamForm} className="mt-4 flex flex-col gap-4">
               <input type="hidden" name="patientId" value={patient.id} />
-              <p className="prose-clinical text-[0.9375rem] leading-6 text-ink">
+              <p className="prose-clinical text-[15px] leading-6 text-secondary">
                 The team has not been proposed yet. Cairn reads the indicators and the recorded needs and proposes who
                 should be involved, each with a reason and the record entry behind it. You add and remove from there.
               </p>
@@ -57,79 +57,83 @@ export default async function TeamPage({ params }: { params: Promise<{ id: strin
               ) : null}
             </div>
           )}
-        </div>
+        </Panel>
       ) : (
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
           <div className="flex flex-col gap-8">
-            <section aria-labelledby="team-heading">
-              <div className="flex items-baseline justify-between gap-4 pb-1">
-                <h2 id="team-heading" className="font-display text-[1.5rem] font-medium leading-tight">
-                  Who needs to be involved, and why
+            <Panel as="div">
+              <section aria-labelledby="team-heading">
+                <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                  <h2 id="team-heading" className="font-display text-[22px] leading-tight text-ink">
+                    Who needs to be involved, and why
+                  </h2>
+                  <span className="text-[13px] font-medium text-secondary tnum">
+                    {professionals.length} in the thread, {requiredCount} required
+                  </span>
+                </div>
+                <p className="prose-clinical mt-2 mb-5 text-[13px] font-medium leading-5 text-secondary">
+                  Every participant carries a reason and the record entry behind it, so the list can be checked rather
+                  than trusted. Colleagues other than the signed-in clinician are simulated for this demonstration.
+                </p>
+                {professionals.length ? (
+                  <ul className="flex flex-col divide-y divide-line border-t border-line pt-5">
+                    {professionals.map((p) => (
+                      <ParticipantRow key={p.id} participant={p} patientId={patient.id} controls="full" />
+                    ))}
+                  </ul>
+                ) : (
+                  <EmptyLine>No professional participants remain on this case.</EmptyLine>
+                )}
+                <AddParticipantForm patientId={patient.id} />
+              </section>
+            </Panel>
+
+            <Panel as="div">
+              <section aria-labelledby="family-heading">
+                <h2 id="family-heading" className="text-[18px] font-semibold leading-tight tracking-[-0.01em] text-ink">
+                  Family channel
                 </h2>
-                <span className="text-[0.8125rem] text-muted tnum">
-                  {professionals.length} in the thread, {requiredCount} required
-                </span>
-              </div>
-              <p className="prose-clinical pb-2 text-[0.875rem] leading-5 text-muted">
-                Every participant carries a reason and the record entry behind it, so the list can be checked rather
-                than trusted. Colleagues other than the signed-in clinician are simulated for this demonstration.
-              </p>
-              {professionals.length ? (
-                <ul className="divide-y divide-line border-y border-line">
-                  {professionals.map((p) => (
-                    <ParticipantRow key={p.id} participant={p} patientId={patient.id} controls="full" />
-                  ))}
-                </ul>
-              ) : (
-                <EmptyLine>No professional participants remain on this case.</EmptyLine>
-              )}
-              <AddParticipantForm patientId={patient.id} />
-            </section>
+                <p className="prose-clinical mt-2 mb-5 text-[13px] font-medium leading-5 text-secondary">
+                  Never in the professional thread. Content limited to what matters, place preferences, who is involved,
+                  practical arrangements and questions. Nothing is posted there automatically.
+                </p>
+                {family.length ? (
+                  <ul className="flex flex-col divide-y divide-line border-t border-line pt-5">
+                    {family.map((p) => (
+                      <ParticipantRow key={p.id} participant={p} patientId={patient.id} controls="remove" />
+                    ))}
+                  </ul>
+                ) : (
+                  <EmptyLine>No carer or next of kin is recorded. Add one above if the conversation names someone.</EmptyLine>
+                )}
+              </section>
+            </Panel>
 
-            <section aria-labelledby="family-heading">
-              <h2 id="family-heading" className="font-display text-[1.25rem] font-medium leading-tight">
-                Family channel
-              </h2>
-              <p className="prose-clinical pb-2 text-[0.875rem] leading-5 text-muted">
-                Never in the professional thread. Content limited to what matters, place preferences, who is involved,
-                practical arrangements and questions. Nothing is posted there automatically.
-              </p>
-              {family.length ? (
-                <ul className="divide-y divide-line border-y border-line">
-                  {family.map((p) => (
-                    <ParticipantRow key={p.id} participant={p} patientId={patient.id} controls="remove" />
-                  ))}
-                </ul>
-              ) : (
-                <EmptyLine>No carer or next of kin is recorded. Add one above if the conversation names someone.</EmptyLine>
-              )}
-            </section>
-
-            <section
-              aria-labelledby="recipients-heading"
-              className="border-t border-dashed border-line-strong pt-4 text-muted"
-            >
-              <h2 id="recipients-heading" className="font-display text-[1.25rem] font-medium leading-tight">
-                Recipients of the signed record
-              </h2>
-              <p className="prose-clinical pb-2 text-[0.875rem] leading-5">
-                They receive the signed record and never join the thread.
-              </p>
-              {recipients.length ? (
-                <ul className="flex flex-col gap-2">
-                  {recipients.map((p) => (
-                    <li key={p.id} className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-[0.9375rem]">
-                      <span className="text-ink">{p.name}</span>
-                      <span>{p.roleLabel ?? p.role}</span>
-                      <span>{p.organisation}</span>
-                      <span className="ml-auto font-mono text-[0.75rem]">recipient of the signed record</span>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <EmptyLine>No recipients listed. Out of hours and the ambulance service are added on sharing.</EmptyLine>
-              )}
-            </section>
+            <Panel as="div">
+              <section aria-labelledby="recipients-heading" className="border-t border-dashed border-line-strong pt-5">
+                <h2 id="recipients-heading" className="text-[18px] font-semibold leading-tight tracking-[-0.01em] text-ink">
+                  Recipients of the signed record
+                </h2>
+                <p className="prose-clinical mt-2 mb-4 text-[13px] font-medium leading-5 text-secondary">
+                  They receive the signed record and never join the thread.
+                </p>
+                {recipients.length ? (
+                  <ul className="flex flex-col divide-y divide-line">
+                    {recipients.map((p) => (
+                      <li key={p.id} className="flex flex-wrap items-center gap-x-3 gap-y-1.5 py-3 first:pt-0 last:pb-0">
+                        <span className="text-[15px] font-bold leading-6 text-ink">{p.name}</span>
+                        <span className="text-[13px] font-medium text-secondary">
+                          {p.roleLabel ?? p.role} · {p.organisation}
+                        </span>
+                        <Chip className="sm:ml-auto">recipient of the signed record</Chip>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <EmptyLine>No recipients listed. Out of hours and the ambulance service are added on sharing.</EmptyLine>
+                )}
+              </section>
+            </Panel>
 
             <RemovedGroup removed={caseState.removedParticipants} />
           </div>
@@ -137,8 +141,8 @@ export default async function TeamPage({ params }: { params: Promise<{ id: strin
           <aside className="flex flex-col gap-4">
             <Panel title="Next action">
               {professionalThread ? (
-                <div className="flex flex-col gap-3">
-                  <p className="text-[0.9375rem] leading-6 text-muted">
+                <div className="flex flex-col gap-4">
+                  <p className="text-[15px] leading-6 text-secondary">
                     The professional coordination thread is open with {professionalThread.participantIds.length}{" "}
                     participants.
                   </p>
@@ -149,7 +153,7 @@ export default async function TeamPage({ params }: { params: Promise<{ id: strin
               ) : state === "team assembled" ? (
                 <div className="flex flex-col gap-3">
                   <Microlabel>Open the coordination thread</Microlabel>
-                  <p className="text-[0.875rem] leading-5 text-muted">
+                  <p className="text-[13px] font-medium leading-5 text-secondary">
                     Scoped to this patient and this decision, with a closed participant list and an audit of who has
                     read it.
                   </p>
@@ -160,14 +164,14 @@ export default async function TeamPage({ params }: { params: Promise<{ id: strin
                   {caseState.pausedReason}
                 </Notice>
               ) : (
-                <p className="text-[0.9375rem] leading-6 text-muted">
+                <p className="text-[15px] leading-6 text-secondary">
                   No coordination thread has been opened for this case.
                 </p>
               )}
             </Panel>
 
             <Panel title="How the team was proposed">
-              <p className="prose-clinical text-[0.875rem] leading-5 text-muted">
+              <p className="prose-clinical text-[13px] font-medium leading-5 text-secondary">
                 The usual GP is always included and holds the record. Specialists follow the indicators present.
                 Frailty or a change in care needs brings the community matron and social care. Five or more medicines
                 brings a pharmacist. Out of hours and the ambulance service are recipients only.

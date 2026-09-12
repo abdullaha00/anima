@@ -26,7 +26,16 @@
  * does not fire.
  */
 
-import type { Patient, ReviewTier, Signal, SignalFamily, Condition, Admission, LabResult } from '@/lib/domain/types';
+import type {
+  Patient,
+  ReviewTier,
+  Signal,
+  SignalFamily,
+  Condition,
+  Admission,
+  LabResult,
+  ExtractedFinding,
+} from '@/lib/domain/types';
 import { formatDate, monthsBetween, plural } from '@/lib/format';
 
 export interface RuleContext {
@@ -82,6 +91,48 @@ function matchingConditions(p: Patient, terms: string[]): Condition[] {
 }
 
 /**
+ * The most recent free-text finding for a field, if the adapter found one. Findings
+ * carry the sentence they came from, so the evidence can quote the record rather
+ * than show a bare number whose origin the clinician cannot check.
+ */
+export function findingFor(p: Patient, field: ExtractedFinding['field']): ExtractedFinding | undefined {
+  return (p.extracted ?? [])
+    .filter((f) => f.field === field)
+    .sort((a, b) => (b.at ?? '').localeCompare(a.at ?? ''))[0];
+}
+
+/** The finding behind a field's current value: present only when the value came from text. */
+function textBehind(p: Patient, field: ExtractedFinding['field'], value: unknown): ExtractedFinding | undefined {
+  const f = findingFor(p, field);
+  return f !== undefined && f.value === value ? f : undefined;
+}
+
+/** "from a consultation on 3 Mar 2026: "..."" */
+function cite(f: ExtractedFinding): string {
+  return `from a ${f.sourceKind} on ${formatDate(f.at)}: "${f.quote}"`;
+}
+
+/** A value with its provenance: the quote when it came from text, else the bare statement. */
+function valueEvidence(
+  p: Patient,
+  field: ExtractedFinding['field'],
+  value: unknown,
+  label: string,
+  fallback: string,
+): { text: string; recordedAt?: string } {
+  const f = textBehind(p, field, value);
+  return f ? { text: `${label}, ${cite(f)}`, recordedAt: f.at } : { text: fallback };
+}
+
+/** A condition named only in free text (not in the directory or the problem list). */
+function conditionFromText(p: Patient, terms: string[]): ExtractedFinding | undefined {
+  const lower = terms.map((t) => t.toLowerCase());
+  return (p.extracted ?? [])
+    .filter((f) => f.field === 'condition' && typeof f.value === 'string' && lower.some((t) => String(f.value).toLowerCase().includes(t)))
+    .sort((a, b) => (b.at ?? '').localeCompare(a.at ?? ''))[0];
+}
+
+/**
  * Cite the actual record entry behind a condition rule. Prefers the problem list, names
  * the status and date, and says plainly when the directory and the problem list disagree.
  * Falls back to the reference wording when only the plain condition terms are available.
@@ -92,7 +143,11 @@ export function conditionEvidence(
   fallback: string,
 ): { text: string; recordedAt?: string } {
   const matches = matchingConditions(p, terms);
-  if (matches.length === 0) return { text: fallback };
+  if (matches.length === 0) {
+    const found = conditionFromText(p, terms);
+    if (found) return { text: `${String(found.value)} found in a ${found.sourceKind} on ${formatDate(found.at)}: "${found.quote}"`, recordedAt: found.at };
+    return { text: fallback };
+  }
 
   const problem = matches.filter((c) => c.source === 'problem list');
   const directory = matches.filter((c) => c.source === 'directory');
@@ -182,10 +237,14 @@ export const INDICATORS: IndicatorRule[] = [
     requires: ['frailtyCfs'],
     threshold: 'Clinical Frailty Scale 6 or above',
     test: (p) => (p.frailtyCfs ?? 0) >= 6,
-    evidence: (p) => ({
-      text: `Clinical Frailty Scale ${p.frailtyCfs} recorded ${formatDate(p.frailtyRecordedAt)}`,
-      recordedAt: p.frailtyRecordedAt,
-    }),
+    evidence: (p) => {
+      const f = textBehind(p, 'frailtyCfs', p.frailtyCfs);
+      if (f) return { text: `Clinical Frailty Scale ${p.frailtyCfs}, ${cite(f)}`, recordedAt: f.at };
+      return {
+        text: `Clinical Frailty Scale ${p.frailtyCfs} recorded ${formatDate(p.frailtyRecordedAt)}`,
+        recordedAt: p.frailtyRecordedAt,
+      };
+    },
   },
   {
     id: 'GEN_WEIGHT',
@@ -197,7 +256,8 @@ export const INDICATORS: IndicatorRule[] = [
     requires: ['weightLossPct'],
     threshold: 'Weight loss of 10% or more over the past 6 months',
     test: (p) => (p.weightLossPct ?? 0) >= 10,
-    evidence: (p) => ({ text: `${p.weightLossPct}% weight loss over the past 6 months` }),
+    evidence: (p) =>
+      valueEvidence(p, 'weightLossPct', p.weightLossPct, `${p.weightLossPct}% weight loss`, `${p.weightLossPct}% weight loss over the past 6 months`),
   },
   {
     id: 'GEN_CARE_NEEDS',
@@ -209,10 +269,14 @@ export const INDICATORS: IndicatorRule[] = [
     requires: ['carePackageIncreasedAt'],
     threshold: 'A recorded increase in the care package (any date present)',
     test: (p) => Boolean(p.carePackageIncreasedAt),
-    evidence: (p) => ({
-      text: `Care package increased ${formatDate(p.carePackageIncreasedAt)}`,
-      recordedAt: p.carePackageIncreasedAt,
-    }),
+    evidence: (p) => {
+      const f = textBehind(p, 'carePackageIncreasedAt', p.carePackageIncreasedAt);
+      if (f) return { text: `Care package increased, ${cite(f)}`, recordedAt: f.at };
+      return {
+        text: `Care package increased ${formatDate(p.carePackageIncreasedAt)}`,
+        recordedAt: p.carePackageIncreasedAt,
+      };
+    },
   },
   {
     id: 'GEN_PERFORMANCE',
@@ -224,7 +288,8 @@ export const INDICATORS: IndicatorRule[] = [
     requires: ['performanceStatus'],
     threshold: 'Performance status 3 or above',
     test: (p) => (p.performanceStatus ?? 0) >= 3,
-    evidence: (p) => ({ text: `Performance status ${p.performanceStatus} recorded` }),
+    evidence: (p) =>
+      valueEvidence(p, 'performanceStatus', p.performanceStatus, `Performance status ${p.performanceStatus}`, `Performance status ${p.performanceStatus} recorded`),
   },
 
   // --- Disease-specific indicators, reference ------------------------------------------
@@ -241,7 +306,8 @@ export const INDICATORS: IndicatorRule[] = [
     test: (p) => hasCondition(p, ...ADVANCED_CANCER_TERMS) && (p.performanceStatus ?? 0) >= 2,
     evidence: (p) => {
       const c = conditionEvidence(p, ADVANCED_CANCER_TERMS, 'Advanced or metastatic cancer recorded');
-      return { text: `${c.text}; performance status ${p.performanceStatus}`, recordedAt: c.recordedAt };
+      const ps = valueEvidence(p, 'performanceStatus', p.performanceStatus, `performance status ${p.performanceStatus}`, `performance status ${p.performanceStatus}`);
+      return { text: `${c.text}; ${ps.text}`, recordedAt: c.recordedAt ?? ps.recordedAt };
     },
   },
   {
@@ -256,7 +322,8 @@ export const INDICATORS: IndicatorRule[] = [
     test: (p) => hasCondition(p, ...HEART_TERMS) && (p.nyha ?? 0) >= 3,
     evidence: (p) => {
       const c = conditionEvidence(p, HEART_TERMS, 'Heart failure recorded');
-      return { text: `${c.text}; NYHA class ${p.nyha}`, recordedAt: c.recordedAt };
+      const grade = valueEvidence(p, 'nyha', p.nyha, `NYHA class ${p.nyha}`, `NYHA class ${p.nyha}`);
+      return { text: `${c.text}; ${grade.text}`, recordedAt: c.recordedAt ?? grade.recordedAt };
     },
   },
   {
@@ -271,7 +338,8 @@ export const INDICATORS: IndicatorRule[] = [
     test: (p) => hasCondition(p, ...LUNG_TERMS) && (p.mrcDyspnoea ?? 0) >= 4,
     evidence: (p) => {
       const c = conditionEvidence(p, LUNG_TERMS, 'Chronic lung disease recorded');
-      return { text: `${c.text}; MRC dyspnoea grade ${p.mrcDyspnoea}`, recordedAt: c.recordedAt };
+      const grade = valueEvidence(p, 'mrcDyspnoea', p.mrcDyspnoea, `MRC dyspnoea grade ${p.mrcDyspnoea}`, `MRC dyspnoea grade ${p.mrcDyspnoea}`);
+      return { text: `${c.text}; ${grade.text}`, recordedAt: c.recordedAt ?? grade.recordedAt };
     },
   },
   {

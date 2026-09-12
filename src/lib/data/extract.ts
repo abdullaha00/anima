@@ -143,8 +143,8 @@ const CONDITION_TERMS: { term: string; re: RegExp }[] = [
   { term: 'Leukaemia', re: /\bleukaemia\b/i },
   { term: 'Cirrhosis', re: /\bcirrhosis\b/i },
   { term: 'Liver failure', re: /\bliver failure\b/i },
-  // "frailty scale 4" names a scale, not a diagnosis; the CFS matcher handles those.
-  { term: 'Frailty', re: /\bfrailty\b(?!\s*(?:scale|score|index))/i },
+  // "frailty scale 4" names a scale and "frailty team" a service, not a diagnosis.
+  { term: 'Frailty', re: /\bfrailty\b(?!\s*(?:scale|score|index|team|clinic|service|nurse|pathway|screening))/i },
 ];
 
 function readRegister(sentence: string): boolean | undefined {

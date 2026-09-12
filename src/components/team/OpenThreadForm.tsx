@@ -4,7 +4,7 @@ import { useActionState } from "react";
 import type { Channel } from "@/lib/domain/types";
 import { openThread, type ActionResult } from "@/app/actions";
 import { Button, Notice } from "@/components/ui";
-import { FIELD_CLASS, TEXTAREA_CLASS } from "./form-classes";
+import { FIELD_CLASS, HINT_CLASS, LABEL_CLASS, TEXTAREA_CLASS } from "./form-classes";
 
 /**
  * Opens a coordination thread with a stated purpose. The purpose is required: a thread
@@ -29,22 +29,27 @@ export function OpenThreadForm({
   const purposeId = `open-thread-purpose-${channel}`;
 
   return (
-    <form action={formAction} className="flex flex-col gap-3">
+    <form action={formAction} className="flex flex-col gap-4">
       <input type="hidden" name="patientId" value={patientId} />
       <input type="hidden" name="channel" value={channel} />
-      <label htmlFor={purposeId} className={FIELD_CLASS}>
-        <span className="microlabel">Stated purpose, required and shown at the top of the thread</span>
-        <textarea
-          id={purposeId}
-          name="purpose"
-          required
-          minLength={8}
-          rows={3}
-          defaultValue={defaultPurpose}
-          className={`${TEXTAREA_CLASS} font-voice text-[1.0625rem]`}
-        />
-      </label>
-      {note ? <p className="prose-clinical text-[0.8125rem] leading-5 text-muted">{note}</p> : null}
+      <div className={FIELD_CLASS}>
+        <label htmlFor={purposeId} className={LABEL_CLASS}>
+          Stated purpose, required and shown at the top of the thread
+        </label>
+        {/* The field inherits its size from the wrapper, so the purpose reads in the voice face at 17px. */}
+        <div className="text-[17px]">
+          <textarea
+            id={purposeId}
+            name="purpose"
+            required
+            minLength={8}
+            rows={3}
+            defaultValue={defaultPurpose}
+            className={`${TEXTAREA_CLASS} font-voice`}
+          />
+        </div>
+      </div>
+      {note ? <p className={`prose-clinical ${HINT_CLASS}`}>{note}</p> : null}
       {state && !state.ok ? (
         <Notice kind="refuse" title="The thread was not opened" role="alert">
           {state.error}

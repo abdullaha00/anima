@@ -145,14 +145,14 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
                   </span>
                 </div>
                 <div className="overflow-x-auto rounded-lg border border-line bg-surface shadow-sm">
-                  <table className="w-full min-w-[760px] text-[13px]">
+                  <table className="w-full min-w-[720px] table-fixed text-[13px]">
                     <thead className="text-left">
                       <tr className="border-b-2 border-line">
                         <th className="w-1 p-0" aria-hidden="true" />
-                        <th className="microlabel px-3 py-2.5">Patient</th>
-                        <th className="microlabel px-3 py-2.5 tnum">Age</th>
-                        <th className="microlabel px-3 py-2.5">Conditions</th>
-                        <th className="microlabel px-3 py-2.5">Indicators present</th>
+                        <th className="microlabel w-[19%] px-3 py-2.5">Patient</th>
+                        <th className="microlabel w-[6%] px-2 py-2.5 tnum">Age</th>
+                        <th className="microlabel w-[17%] px-3 py-2.5">Conditions</th>
+                        <th className="microlabel w-[33%] px-3 py-2.5">Indicators present</th>
                         <th className="microlabel px-3 py-2.5">Waiting on</th>
                       </tr>
                     </thead>
@@ -178,7 +178,7 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
                                 <Mono className="text-faint">{r.patientId}</Mono>
                               </div>
                             </td>
-                            <td className="px-3 py-3 align-top text-secondary tnum">{r.age !== undefined ? r.age : "—"}</td>
+                            <td className="px-2 py-3 align-top text-secondary tnum">{r.age !== undefined ? r.age : "—"}</td>
                             <td className="px-3 py-3 align-top">
                               <div className="flex flex-wrap gap-1">
                                 {r.conditions.length ? (

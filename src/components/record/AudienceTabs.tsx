@@ -6,7 +6,7 @@ import type { AudienceView } from "@/lib/record/record";
 import { FAMILY_CONSENT_LINE, NOT_BINDING_LINE } from "@/lib/copy";
 import { formatDateTime } from "@/lib/format";
 import { fieldLabel } from "@/lib/record/fields";
-import { ProvenanceLine } from "@/components/ui";
+import { Chip, ProvenanceLine } from "@/components/ui";
 
 export interface Provenance {
   recordedBy: string;
@@ -25,28 +25,29 @@ function valueOf(view: AudienceView, name: RecordFieldName): string | undefined 
   return view.fields.find((f) => f.name === name)?.value;
 }
 
-/** Four lines, large, high contrast, dark ground in both themes. CPR first. Nothing else. */
+/** Four lines, large, high contrast, on the dark ground. CPR first. Nothing else. */
 function AmbulanceView({ view }: { view: AudienceView }) {
   const cpr = valueOf(view, "cpr_recommendation");
   const rest: RecordFieldName[] = ["preferences_for_care", "not_recommended", "preferred_place_of_care"];
+  const label = "text-[11px] font-semibold uppercase tracking-[0.06em] opacity-70";
   return (
-    <div className="rounded-md border border-line-strong bg-ink px-6 py-6 text-ground sm:px-8">
+    <div className="rounded-lg bg-ink p-8 text-[#F4EFE7]">
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-1">
-          <span className="font-mono text-[0.75rem] uppercase tracking-wider opacity-70">CPR recommendation</span>
-          <p className="text-[2rem] font-medium leading-tight sm:text-[2.25rem]">{cpr ?? "not recorded"}</p>
+          <span className={label}>CPR recommendation</span>
+          <p className="text-[26px] font-bold leading-tight tracking-[-0.01em]">{cpr ?? "not recorded"}</p>
         </div>
         {rest.map((name) => {
           const v = valueOf(view, name);
           return (
             <div key={name} className="flex flex-col gap-1">
-              <span className="font-mono text-[0.75rem] uppercase tracking-wider opacity-70">{fieldLabel(name)}</span>
-              <p className="text-[1.5rem] font-medium leading-snug">{v ?? "not recorded"}</p>
+              <span className={label}>{fieldLabel(name)}</span>
+              <p className="text-[20px] font-semibold leading-snug tracking-[-0.01em]">{v ?? "not recorded"}</p>
             </div>
           );
         })}
-        <p className="border-t border-line-strong pt-4 text-[1.125rem] font-medium leading-snug">{NOT_BINDING_LINE}</p>
-        <p className="font-mono text-[0.875rem] opacity-80">
+        <p className="border-t border-[#F4EFE7]/25 pt-5 text-[16px] font-medium leading-6">{NOT_BINDING_LINE}</p>
+        <p className="font-mono text-[12px] opacity-80 tnum">
           signed by {view.signedBy ?? "not signed"} at {formatDateTime(view.signedAt)}
         </p>
       </div>
@@ -57,20 +58,20 @@ function AmbulanceView({ view }: { view: AudienceView }) {
 /** The clinical picture: fields in order, sans, compact. */
 function OutOfHoursView({ view }: { view: AudienceView }) {
   return (
-    <div className="flex flex-col divide-y divide-line rounded-md border border-line bg-surface">
+    <div className="flex flex-col divide-y divide-line">
       {view.fields.map((f) => (
-        <div key={f.name} className="grid gap-1 px-4 py-3 sm:grid-cols-[14rem_minmax(0,1fr)] sm:gap-4">
-          <span className="text-[0.8125rem] font-medium leading-5 text-muted">{f.label}</span>
-          <p className="text-[0.9375rem] leading-6">{f.value}</p>
+        <div key={f.name} className="grid gap-1 py-3 sm:grid-cols-[14rem_minmax(0,1fr)] sm:gap-4">
+          <span className="text-[13px] font-semibold leading-5 text-ink">{f.label}</span>
+          <p className="text-[15px] leading-6 text-ink">{f.value}</p>
         </div>
       ))}
       {view.missing.map((name) => (
-        <div key={name} className="grid gap-1 px-4 py-3 sm:grid-cols-[14rem_minmax(0,1fr)] sm:gap-4">
-          <span className="text-[0.8125rem] font-medium leading-5 text-muted">{fieldLabel(name)}</span>
-          <p className="text-[0.9375rem] leading-6 text-muted italic">not recorded</p>
+        <div key={name} className="grid gap-1 py-3 sm:grid-cols-[14rem_minmax(0,1fr)] sm:gap-4">
+          <span className="text-[13px] font-semibold leading-5 text-ink">{fieldLabel(name)}</span>
+          <p className="text-[15px] leading-6 text-muted">not recorded</p>
         </div>
       ))}
-      <p className="px-4 py-3 font-mono text-[0.75rem] text-muted">
+      <p className="pt-3 font-mono text-[12px] text-faint tnum">
         signed by {view.signedBy ?? "not signed"} at {formatDateTime(view.signedAt)}
       </p>
     </div>
@@ -80,14 +81,14 @@ function OutOfHoursView({ view }: { view: AudienceView }) {
 /** The whole record with provenance, for the practice, the hospice and the admitting team. */
 function FullRecordView({ view, provenance }: { view: AudienceView; provenance: AudienceTabsProps["provenance"] }) {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col divide-y divide-line">
       {view.fields.map((f) => {
         const p = provenance[f.name];
         const serif = f.name === "what_matters" || f.name === "concerns_and_fears";
         return (
-          <div key={f.name} className="flex flex-col gap-1">
-            <span className="microlabel">{f.label}</span>
-            <p className={serif ? "prose-clinical font-display text-[1.125rem] leading-[1.45]" : "prose-clinical text-[0.9375rem] leading-6"}>
+          <div key={f.name} className="flex flex-col gap-1 py-4 first:pt-0">
+            <span className="text-[13px] font-semibold leading-5 text-ink">{f.label}</span>
+            <p className={serif ? "prose-clinical font-voice text-[20px] leading-[1.4] text-ink" : "prose-clinical text-[15px] leading-6 text-ink"}>
               {serif ? <>&ldquo;{f.value}&rdquo;</> : f.value}
             </p>
             {p ? <ProvenanceLine recordedBy={p.recordedBy} recordedAt={p.recordedAt} source={p.source} /> : null}
@@ -95,42 +96,42 @@ function FullRecordView({ view, provenance }: { view: AudienceView; provenance: 
         );
       })}
       {view.missing.length ? (
-        <div className="flex flex-col gap-1 border-t border-line pt-4">
-          <span className="microlabel">Not recorded</span>
-          <p className="text-[0.9375rem] leading-6 text-muted italic">{view.missing.map(fieldLabel).join(", ")}</p>
+        <div className="flex flex-col gap-1 py-4">
+          <span className="text-[13px] font-semibold leading-5 text-ink">Not recorded</span>
+          <p className="text-[15px] leading-6 text-muted">{view.missing.map(fieldLabel).join(", ")}</p>
         </div>
       ) : null}
-      <p className="font-mono text-[0.75rem] text-muted">
+      <p className="pt-4 font-mono text-[12px] text-faint tnum">
         signed by {view.signedBy ?? "not signed"} at {formatDateTime(view.signedAt)}
       </p>
     </div>
   );
 }
 
-/** What matters, in the serif, at size. The place. Who is involved. No clinical recommendations. */
+/** What matters, in the voice face, at size. The place. Who is involved. No clinical recommendations. */
 function FamilyView({ view }: { view: AudienceView }) {
   const whatMatters = valueOf(view, "what_matters");
   const place = valueOf(view, "preferred_place_of_care");
   const people = valueOf(view, "people_involved");
   return (
-    <div className="flex flex-col gap-8 rounded-md border border-line bg-surface px-6 py-8 sm:px-10">
+    <div className="flex flex-col gap-8 py-2 sm:px-4">
       <div className="flex flex-col gap-2">
         <span className="microlabel">What matters</span>
         {whatMatters ? (
-          <p className="prose-clinical font-voice text-[1.5rem] leading-[1.4] text-ink">&ldquo;{whatMatters}&rdquo;</p>
+          <p className="prose-clinical font-voice text-[22px] leading-[1.4] text-ink">&ldquo;{whatMatters}&rdquo;</p>
         ) : (
-          <p className="font-voice text-[1.25rem] text-muted">not recorded</p>
+          <p className="font-voice text-[20px] text-muted">not recorded</p>
         )}
       </div>
       <div className="flex flex-col gap-2">
         <span className="microlabel">Preferred place of care</span>
-        <p className="font-voice text-[1.25rem] leading-[1.4]">{place ?? <span className="text-muted italic">not recorded</span>}</p>
+        <p className="font-voice text-[20px] leading-[1.4] text-ink">{place ?? <span className="text-muted">not recorded</span>}</p>
       </div>
       <div className="flex flex-col gap-2">
         <span className="microlabel">People involved</span>
-        <p className="text-[1rem] leading-6">{people ?? <span className="text-muted italic">not recorded</span>}</p>
+        <p className="text-[15px] leading-6 text-ink">{people ?? <span className="text-muted">not recorded</span>}</p>
       </div>
-      <p className="border-t border-line pt-4 text-[0.9375rem] leading-6 text-muted">{FAMILY_CONSENT_LINE}</p>
+      <p className="border-t border-line pt-5 text-[13px] font-medium leading-5 text-secondary">{FAMILY_CONSENT_LINE}</p>
     </div>
   );
 }
@@ -184,8 +185,8 @@ export function AudienceTabs({ views, provenance, sharedWith }: AudienceTabsProp
   const view = views[index];
 
   return (
-    <div className="flex flex-col gap-4">
-      <div role="tablist" aria-label="Audience views" className="-mb-px flex flex-wrap gap-x-1 border-b border-line">
+    <div className="flex flex-col gap-5">
+      <div role="tablist" aria-label="Audience views" className="-mb-px flex flex-wrap gap-x-1 overflow-x-auto border-b border-line">
         {views.map((v, i) => {
           const selected = i === index;
           return (
@@ -205,13 +206,13 @@ export function AudienceTabs({ views, provenance, sharedWith }: AudienceTabsProp
                 setFocused(i);
               }}
               onKeyDown={(e) => onKeyDown(e, i)}
-              className={`inline-flex min-h-11 items-center gap-2 border-b-2 px-3 text-[0.9375rem] ${
-                selected ? "border-primary font-medium text-ink" : "border-transparent text-muted hover:border-line-strong hover:text-ink"
+              className={`-mb-px inline-flex min-h-11 items-center gap-2 whitespace-nowrap border-b-2 px-3 text-[13px] font-semibold ${
+                selected ? "border-primary text-primary" : "border-transparent text-muted hover:border-line-strong hover:text-ink"
               }`}
             >
               {v.label}
               {sharedWith.includes(v.audience) ? (
-                <span className="font-mono text-[0.6875rem] text-affirm">shared</span>
+                <Chip className="border-affirm-border bg-affirm-soft text-affirm">shared</Chip>
               ) : null}
             </button>
           );
@@ -224,9 +225,9 @@ export function AudienceTabs({ views, provenance, sharedWith }: AudienceTabsProp
           id={`${baseId}-panel-${view.audience}`}
           aria-labelledby={`${baseId}-tab-${view.audience}`}
           tabIndex={0}
-          className="flex flex-col gap-3"
+          className="flex flex-col gap-4"
         >
-          <p className="text-[0.8125rem] leading-5 text-muted">{view.description}</p>
+          <p className="text-[13px] font-medium leading-5 text-secondary">{view.description}</p>
           {view.audience === "ambulance" ? (
             <AmbulanceView view={view} />
           ) : view.audience === "out_of_hours" ? (

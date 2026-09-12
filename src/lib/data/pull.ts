@@ -13,6 +13,7 @@ import {
   asNumber,
   asRecord,
   asString,
+  deriveAge,
   enrichWithView,
   isRawDirectoryRow,
   isRawResource,
@@ -31,9 +32,9 @@ const CONCURRENCY = 8;
 const ATTEMPTS = 4;
 
 /**
- * Directory condition terms that earn a deep record pull. They mirror the
- * indicator catalogue: a patient whose directory conditions match none of these
- * has no disease-specific indicator to evidence, so the directory row is enough.
+ * Directory condition terms the indicator catalogue recognises. Kept for reference
+ * and for the snapshot summary; the deep-record rule below is wider, because the
+ * simulator hides diagnoses and severity grades in prose that only a full pull shows.
  */
 export const DEEP_RECORD_TERMS = [
   'heart failure',
@@ -57,9 +58,31 @@ export const DEEP_RECORD_TERMS = [
   'kidney',
 ];
 
-export function needsDeepRecord(conditions: string[]): boolean {
-  const joined = conditions.join(' | ').toLowerCase();
-  return DEEP_RECORD_TERMS.some((term) => joined.includes(term));
+/** Recorded needs that point at dependency or a care setting worth reading in full. */
+const DEEP_RECORD_NEEDS = /carer|home visit|care home|nursing home|interpreter|step-free|transport/i;
+/** Age at the simulation clock from which the full record is always pulled. */
+export const DEEP_RECORD_AGE = 65;
+
+export interface DeepRecordInput {
+  conditions: string[];
+  needs: string[];
+  birthDate?: string;
+  /** True when the global attendance or discharge-summary lists carry an episode for this patient. */
+  hasEpisode?: boolean;
+}
+
+/**
+ * Whether a patient earns the full GP and hospital record rather than the directory
+ * row alone: any directory condition at all, a need that suggests dependency or a care
+ * setting, age 65 or over at the simulation clock, or any hospital attendance or
+ * discharge summary.
+ */
+export function needsDeepRecord(input: DeepRecordInput, nowIso: string): boolean {
+  if (input.conditions.length > 0) return true;
+  if (input.needs.some((need) => DEEP_RECORD_NEEDS.test(need))) return true;
+  const age = deriveAge(input.birthDate, nowIso);
+  if (age !== undefined && age >= DEEP_RECORD_AGE) return true;
+  return Boolean(input.hasEpisode);
 }
 
 export interface PullOptions {
@@ -226,6 +249,8 @@ const VIEW_TIMEOUT_MS = 20_000;
 /** The second, slower pass over stragglers: fewer in flight, more patience. */
 const STRAGGLER_CONCURRENCY = 2;
 const STRAGGLER_TIMEOUT_MS = 60_000;
+/** Let the simulator settle before the second pass. */
+const STRAGGLER_PAUSE_MS = 5_000;
 
 /** One site view for one patient, following resourceTotal across pages when needed. */
 async function pullView(site: 'gp' | 'hospital', patientId: string, timeoutMs: number): Promise<ViewPull> {
@@ -266,7 +291,7 @@ async function pullDeepRecords(ids: string[], log: (line: string) => void): Prom
       pullView('hospital', id, VIEW_TIMEOUT_MS),
     ]);
     done += 1;
-    if (done % 25 === 0 || done === ids.length) log(`deep records: ${done}/${ids.length}`);
+    if (done % 50 === 0 || done === ids.length) log(`deep records: ${done}/${ids.length}`);
     return { id, gp, hospital };
   });
   for (const record of firstPass) records.set(record.id, record);
@@ -275,7 +300,7 @@ async function pullDeepRecords(ids: string[], log: (line: string) => void): Prom
   if (stragglers.length === 0) return records;
 
   log(`deep records: ${stragglers.length} incomplete, second pass at concurrency ${STRAGGLER_CONCURRENCY}`);
-  await sleep(2_000);
+  await sleep(STRAGGLER_PAUSE_MS);
   done = 0;
   await mapConcurrent(stragglers, STRAGGLER_CONCURRENCY, async (record) => {
     const gp = record.gp.ok ? record.gp : await pullView('gp', record.id, STRAGGLER_TIMEOUT_MS);
@@ -331,10 +356,20 @@ export async function pullSlice(opts: PullOptions): Promise<PullResult> {
   const globalByPatient = groupByPatient([...attendances, ...hospitalDocs, ...gpDocs]);
   log(`global: ${attendances.length} attendances, ${hospitalDocs.length + gpDocs.length} discharge summaries, ${eps.length} EPS items`);
 
-  // Deep pulls: only patients with a catalogue condition or a hospital episode.
+  // Deep pulls: any condition, a dependency-shaped need, age 65+, or a hospital episode.
   const patients = directory.rows.map((row) => normaliseDirectoryPatient(row, simulationNow));
   const deepIds = patients
-    .filter((patient) => needsDeepRecord(patient.conditions) || globalByPatient.has(patient.id))
+    .filter((patient) =>
+      needsDeepRecord(
+        {
+          conditions: patient.conditionDetail.map((condition) => condition.term),
+          needs: patient.needs,
+          birthDate: patient.birthDate,
+          hasEpisode: globalByPatient.has(patient.id),
+        },
+        simulationNow,
+      ),
+    )
     .map((patient) => patient.id);
   log(`deep records: ${deepIds.length} patients to pull`);
 
@@ -358,25 +393,74 @@ export async function pullSlice(opts: PullOptions): Promise<PullResult> {
   });
 
   const fullRecordCount = enriched.filter((patient) => patient.recordDepth === 'full').length;
-  const failedDeep = [...viewById.values()].filter((view) => !view.gp.ok).length;
+  const failedDeep = [...viewById.values()].filter((view) => !view.gp.ok || !view.hospital.ok).length;
+  const withFindings = enriched.filter((patient) => (patient.extracted?.length ?? 0) > 0).length;
 
   const notes = [
-    `Directory rows for the first ${formatCount(enriched.length)} patients; full GP and hospital record for the ${formatCount(fullRecordCount)} patients whose conditions match the indicator catalogue or who have a hospital episode.`,
-    'No frailty score, NYHA, MRC, performance status, deprivation, register, ACP or next-of-kin fields exist in the simulator. Those Patient fields are left unset and the matching indicators cannot fire.',
+    `Directory rows for the first ${formatCount(enriched.length)} patients. The full GP and hospital record was pulled for ${formatCount(deepIds.length)} of them: every patient with any directory condition, a recorded need matching carer, home visit, care home, nursing home, interpreter, step-free or transport, age ${DEEP_RECORD_AGE} or over at the simulation clock, or any hospital attendance or discharge summary. ${formatCount(fullRecordCount)} came back with a complete GP view.`,
+    `The simulator has no structured frailty score, NYHA, MRC, performance status, deprivation, register, ACP or next-of-kin fields. Where a consultation, discharge summary, hospital note, referral or inter-service message states one in prose it is quoted into patient.extracted and fills the matching field only when nothing structured exists; ${formatCount(withFindings)} patients carry at least one such finding. Deprivation has no source and stays unset.`,
     'Blood results keep only eGFR, creatinine, albumin, haemoglobin, CRP, potassium and sodium. Consultation text equal to the simulator placeholder is kept on the timeline but not as a narrative.',
   ];
-  if (failedDeep > 0) notes.push(`${failedDeep} deep GP record pulls failed after retries; those patients carry directory rows only.`);
+  if (failedDeep > 0) {
+    notes.push(
+      `${failedDeep} of ${formatCount(deepIds.length)} deep record pulls failed after two passes (one GP or hospital view missing); those patients carry the directory row plus whatever came back.`,
+    );
+  } else {
+    notes.push(`0 of ${formatCount(deepIds.length)} deep record pulls failed.`);
+  }
   if (directory.failedOffsets.length > 0) notes.push(`${directory.failedOffsets.length} directory pages failed after retries.`);
+
+  const compact = compactWithinBudget(enriched);
+  if (compact.trimmed) {
+    notes.push(
+      `Trimmed to stay under ${SNAPSHOT_BUDGET_MB} MB: at most ${TRIM_TIMELINE_EVENTS} timeline events per patient, narrative texts cut at ${TRIM_NARRATIVE_CHARS} characters (extracted findings keep their full quotes), and blood results limited to eGFR, creatinine, albumin and haemoglobin.`,
+    );
+  }
 
   const meta: SnapshotMeta = {
     takenAt,
     baseUrl: simBaseUrl(),
     simulationNow,
-    patientCount: enriched.length,
+    patientCount: compact.patients.length,
     fullRecordCount,
     populationTotal: directory.populationTotal,
     notes,
   };
 
-  return { patients: enriched, meta, problems };
+  return { patients: compact.patients, meta, problems };
+}
+
+// ---------------------------------------------------------------------------
+// Size budget. The snapshot ships in the repo, so it stays small; the trim keeps
+// everything the rules read and every quoted finding, and cuts only bulk.
+// ---------------------------------------------------------------------------
+
+export const SNAPSHOT_BUDGET_MB = 6;
+export const TRIM_TIMELINE_EVENTS = 12;
+export const TRIM_NARRATIVE_CHARS = 600;
+const TRIM_ANALYTES = new Set(['egfr', 'creatinine', 'albumin', 'haemoglobin']);
+
+function serialisedMb(patients: Patient[]): number {
+  return Buffer.byteLength(JSON.stringify(patients), 'utf8') / (1024 * 1024);
+}
+
+/** Cut bulk from one patient: fewer timeline events, shorter narratives, fewer analytes. */
+export function compactPatient(patient: Patient): Patient {
+  const narratives = patient.narratives?.map((narrative) =>
+    narrative.text.length > TRIM_NARRATIVE_CHARS
+      ? { ...narrative, text: `${narrative.text.slice(0, TRIM_NARRATIVE_CHARS - 1).trimEnd()}…` }
+      : narrative,
+  );
+  return {
+    ...patient,
+    timeline: patient.timeline.slice(0, TRIM_TIMELINE_EVENTS),
+    labs: patient.labs.filter((lab) => TRIM_ANALYTES.has(lab.analyte.toLowerCase())),
+    narratives,
+  };
+}
+
+/** Apply the trim only when the serialised patients would exceed the budget. */
+export function compactWithinBudget(patients: Patient[]): { patients: Patient[]; trimmed: boolean } {
+  if (serialisedMb(patients) <= SNAPSHOT_BUDGET_MB) return { patients, trimmed: false };
+  return { patients: patients.map(compactPatient), trimmed: true };
 }

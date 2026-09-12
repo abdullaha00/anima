@@ -3,22 +3,22 @@ import type { CaseState, MeetingOutcome, Participant, ThreadMessage } from "@/li
 import { CLINICIAN } from "@/lib/copy";
 import { formatDate, formatDateTime } from "@/lib/format";
 import { fieldLabel } from "@/lib/record/fields";
-import { EmptyLine, Microlabel, Mono, Panel, ProvenanceLine, SimulatedTag } from "@/components/ui";
+import { EmptyLine, Microlabel, Mono, Notice, Panel, ProvenanceLine, SimulatedTag } from "@/components/ui";
 import { PromotionBlock } from "./PromotionBlock";
 import { NextSteps } from "./NextSteps";
 
 function PersonList({ ids, byId }: { ids: string[]; byId: Map<string, Participant> }) {
   if (ids.length === 0) return <EmptyLine>none</EmptyLine>;
   return (
-    <ul className="flex flex-col gap-1 text-[0.9375rem] leading-6">
+    <ul className="flex flex-col gap-1.5 text-[15px] leading-6">
       {ids.map((id) => {
         const p = byId.get(id);
         return (
           <li key={id}>
             {p ? (
               <>
-                <span className="font-medium">{p.name}</span>
-                <span className="text-muted"> · {p.roleLabel ?? p.role}</span>
+                <span className="font-medium text-ink">{p.name}</span>
+                <span className="text-[13px] font-medium text-secondary"> · {p.roleLabel ?? p.role}</span>
                 {p.simulated ? <SimulatedTag className="ml-2" /> : null}
               </>
             ) : (
@@ -53,11 +53,11 @@ export function OutcomeView({
 
   return (
     <div className="flex flex-col gap-6">
-      <section className="border-b border-line pb-6">
+      <Panel>
         <Microlabel className="mb-3">Outcome, held {formatDate(outcome.heldAt)}</Microlabel>
-        <p className="prose-clinical font-voice text-[1.375rem] leading-[1.4] text-ink">{outcome.summary}</p>
-        <p className="mt-3 font-mono text-[0.75rem] text-muted">recorded by {outcome.recordedBy}</p>
-      </section>
+        <p className="prose-clinical font-voice text-[20px] leading-[1.4] text-ink">{outcome.summary}</p>
+        <p className="mt-3 font-mono text-[12px] leading-5 text-faint">recorded by {outcome.recordedBy}</p>
+      </Panel>
 
       <div className="grid gap-6 sm:grid-cols-2">
         <Panel title="Attended">
@@ -80,32 +80,32 @@ export function OutcomeView({
               const from = d.fromMessageId ? messages.get(d.fromMessageId) : undefined;
               const current = d.intoRecordField ? record.fields[d.intoRecordField] : undefined;
               return (
-                <li key={i} className="flex flex-col gap-3 py-4 first:pt-0 last:pb-0">
+                <li key={i} className="flex flex-col gap-4 py-5 first:pt-0 last:pb-0">
                   <div className="flex items-start gap-3">
-                    <Mono className="mt-1 text-muted tnum">{i + 1}.</Mono>
+                    <Mono className="mt-1 text-faint tnum">{i + 1}.</Mono>
                     <div className="flex flex-col gap-1">
-                      <p className="text-[1rem] leading-6">{d.text}</p>
+                      <p className="text-[15px] leading-6 text-ink">{d.text}</p>
                       {from ? (
-                        <p className="text-[0.875rem] leading-5 text-muted">
+                        <p className="text-[13px] font-medium leading-5 text-secondary">
                           From the coordination thread, {authorName(from.authorId)}: &ldquo;{from.body}&rdquo;{" "}
-                          <Link href={threadHref} className="text-primary underline-offset-4 hover:underline">
+                          <Link href={threadHref} className="text-primary-hover underline-offset-4 hover:underline">
                             open the thread
                           </Link>
-                          <Mono className="ml-2">{from.id}</Mono>
+                          <Mono className="ml-2 text-faint">{from.id}</Mono>
                         </p>
                       ) : d.fromMessageId ? (
-                        <p className="font-mono text-[0.75rem] text-muted">from {d.fromMessageId}</p>
+                        <p className="font-mono text-[12px] text-faint">from {d.fromMessageId}</p>
                       ) : null}
                     </div>
                   </div>
 
                   {d.intoRecordField ? (
-                    <div className="ml-8 grid gap-4 rounded-md border border-line bg-surface-2 p-4 sm:grid-cols-2">
+                    <div className="ml-8 grid grid-cols-1 gap-4 border-t border-dashed border-line-strong pt-4 md:grid-cols-2">
                       <div className="flex flex-col gap-1">
                         <span className="microlabel">Current record: {fieldLabel(d.intoRecordField)}</span>
                         {current ? (
                           <>
-                            <p className="text-[0.9375rem] leading-6">{current.value}</p>
+                            <p className="text-[15px] leading-6 text-ink">{current.value}</p>
                             <ProvenanceLine
                               recordedBy={current.recordedBy}
                               recordedAt={current.recordedAt}
@@ -119,11 +119,11 @@ export function OutcomeView({
                       {d.promotedAt ? (
                         <div className="flex flex-col gap-1">
                           <span className="microlabel">Proposed</span>
-                          <p className="text-[0.9375rem] leading-6">{d.proposedValue ?? "no value carried"}</p>
-                          <p className="mt-2 rounded-md bg-affirm-soft px-3 py-2 text-[0.875rem] leading-5 text-affirm">
+                          <p className="text-[15px] font-medium leading-6 text-ink">{d.proposedValue ?? "no value carried"}</p>
+                          <Notice kind="affirm" className="mt-2">
                             Promoted into the record on {formatDateTime(d.promotedAt)}, recorded by {CLINICIAN.name}. The
                             record still needs a signature.
-                          </p>
+                          </Notice>
                         </div>
                       ) : d.proposedValue ? (
                         <PromotionBlock patientId={caseState.patientId} decisionIndex={i} proposedValue={d.proposedValue} />
@@ -141,7 +141,7 @@ export function OutcomeView({
           </ol>
         )}
         {promotable ? (
-          <p className="mt-4 border-t border-line pt-3 text-[0.8125rem] leading-5 text-muted">
+          <p className="mt-5 border-t border-line pt-4 text-[12px] leading-5 text-faint">
             Promotion never signs. Recorded-by is the accepting clinician, not the person who proposed it.
           </p>
         ) : null}
