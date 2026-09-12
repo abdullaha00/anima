@@ -42,11 +42,26 @@ export function draftFor(
   opts: { runId?: string; nowIso: string },
 ): FieldDraft | undefined {
   switch (field) {
-    case "capacity_assessment":
-      return {
-        value: "Had capacity for this decision",
-        source: `Cairn pre-selection; no capacity assessment in the record. ${CAIRN_CONFIRMED}`,
-      };
+    case "capacity_assessment": {
+      // Pre-select only from what the record says. Lacking capacity or a best-interests
+      // decision anywhere in the review's legal or planning notes takes precedence; the
+      // person's own recorded wishes support capacity; otherwise nothing is pre-selected.
+      const legal = [
+        ...(review?.patientAndFamily.legalAndCarePlanningRecords ?? []),
+        ...(review?.patientAndFamily.uncertainties ?? []),
+        ...(review?.existingPlanning.details ?? []),
+      ].join(" ");
+      if (/best.interests?/i.test(legal)) {
+        return { value: "Best interests decision", source: `Cairn pre-selection from a best-interests note in the record review. ${CAIRN_CONFIRMED}` };
+      }
+      if (/(lack(s|ed|ing)?|without|does not have|no) capacity/i.test(legal)) {
+        return { value: "Lacked capacity for this decision", source: `Cairn pre-selection from a capacity note in the record review. ${CAIRN_CONFIRMED}` };
+      }
+      if (recordedGoals(patient).length > 0 || (review?.patientAndFamily.patientWishes.length ?? 0) > 0) {
+        return { value: "Had capacity for this decision", source: `Cairn pre-selection: the person's own wishes are recorded in the record. ${CAIRN_CONFIRMED}` };
+      }
+      return undefined;
+    }
 
     case "what_matters": {
       const goals = recordedGoals(patient).map(sentence).filter((g) => g !== "");
