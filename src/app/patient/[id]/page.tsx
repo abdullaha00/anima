@@ -8,6 +8,7 @@ import { ScreeningPanel } from "@/components/patient/ScreeningPanel";
 import { RECOMMENDATION_LABEL } from "@/lib/stage2/present";
 import { PagedList, type PagedItem } from "@/components/patient/PagedList";
 import { MedicinesPanel } from "@/components/patient/MedicinesPanel";
+import { LiveReassessment } from "@/components/patient/LiveReassessment";
 import { getReviewStatus } from "@/lib/stage2/read";
 import { Panel, type ChipTone } from "@/components/ui";
 import { formatDate, monthsBetween, plural } from "@/lib/format";
@@ -119,6 +120,8 @@ export default async function PatientPage({ params }: { params: Promise<{ id: st
 
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
         <div className="flex min-w-0 flex-col gap-6">
+          <LiveReassessment patientId={patient.id} />
+
           {/* The person's own recorded goals, the one bold element on the screen and the first
               thing read. Only words found in the record itself: when there are none, there is
               no block at all. */}

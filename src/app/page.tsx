@@ -10,6 +10,7 @@ import { Chip, Mono, Notice, StateBadge } from "@/components/ui";
 import { WorklistFilters, type FilterValues } from "@/components/worklist/WorklistFilters";
 import { RowLink } from "@/components/worklist/RowLink";
 import { PagedRows } from "@/components/worklist/PagedRows";
+import { ReassessButton } from "@/components/worklist/ReassessButton";
 
 const PAGE_SIZE = 10;
 
@@ -104,11 +105,13 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
   const rows = applyFilters(result.rows, filters, nowIso);
   const groups = groupRows(rows, nowIso);
   const owners = Array.from(new Set(result.rows.map((r) => r.clinician))).sort();
+  const reassessmentPatientId = result.rows[0]?.patientId ?? patients[0]?.id;
 
   return (
     <div className="flex flex-col gap-6">
-      <header className="border-b border-line pb-5">
+      <header className="flex items-center justify-between gap-4 border-b border-line pb-5">
         <h1 className="font-display text-[28px] leading-[1.1] text-ink sm:text-[32px]">Worklist</h1>
+        {reassessmentPatientId ? <ReassessButton patientId={reassessmentPatientId} /> : null}
       </header>
 
       {result.modelDisclosure ? <Notice kind="info">{result.modelDisclosure}</Notice> : null}

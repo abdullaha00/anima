@@ -2,7 +2,7 @@ import { appendFile, readFile } from "node:fs/promises";
 import path from "node:path";
 import { runPrimaryAssessment, runVerificationAssessment } from "./agent";
 import { collectPatientRecord } from "./collector";
-import { RUNS_ROOT, assertPatientId, DEFAULT_LLM_MODEL, DEFAULT_LLM_REASONING } from "./config";
+import { RUNS_ROOT, assertPatientId, DEFAULT_LLM_MODEL, DEFAULT_LLM_REASONING, type LlmReasoning } from "./config";
 import { ensureDirectory, errorMessage, writeJsonAtomic } from "./json-files";
 import type { Stage2Assessment } from "./types";
 import { writeEligibleRecord } from "../stage1/mortality-input";
@@ -32,6 +32,7 @@ export async function runStage2Pipeline(
   inputPatientId: string,
   requestedRunId?: string,
   screeningId?: string,
+  overrides?: { model?: string; thinking?: LlmReasoning },
 ): Promise<{ runId: string; runDirectory: string; result: Stage2Assessment }> {
   const patientId = assertPatientId(inputPatientId);
   const runId = requestedRunId ?? crypto.randomUUID();
@@ -41,8 +42,8 @@ export async function runStage2Pipeline(
   const runDirectory = path.join(RUNS_ROOT, runId);
   const startedAt = new Date().toISOString();
   const agentConfiguration = {
-    model: process.env.CAIRN_MODEL || DEFAULT_LLM_MODEL,
-    thinkingLevel: process.env.CAIRN_THINKING || DEFAULT_LLM_REASONING,
+    model: overrides?.model ?? process.env.CAIRN_MODEL ?? DEFAULT_LLM_MODEL,
+    thinkingLevel: overrides?.thinking ?? process.env.CAIRN_THINKING ?? DEFAULT_LLM_REASONING,
   };
   await ensureDirectory(runDirectory);
 
@@ -77,7 +78,10 @@ export async function runStage2Pipeline(
       collectionCoverage: manifest.coverage,
       agentConfiguration,
     });
-    const primary = await runPrimaryAssessment(runDirectory, patientId);
+    const primary = await runPrimaryAssessment(runDirectory, patientId, {
+      model: agentConfiguration.model,
+      thinking: agentConfiguration.thinkingLevel as LlmReasoning,
+    });
     await writeJsonAtomic(
       path.join(runDirectory, "analysis", "primary.json"),
       primary,
@@ -93,7 +97,10 @@ export async function runStage2Pipeline(
       collectionCoverage: manifest.coverage,
       agentConfiguration,
     });
-    const result = await runVerificationAssessment(runDirectory, patientId);
+    const result = await runVerificationAssessment(runDirectory, patientId, {
+      model: agentConfiguration.model,
+      thinking: agentConfiguration.thinkingLevel as LlmReasoning,
+    });
     const resultPath = path.join(runDirectory, "analysis", "final.json");
     await writeJsonAtomic(resultPath, result);
 

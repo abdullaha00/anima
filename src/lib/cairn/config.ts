@@ -2,11 +2,21 @@ import path from "node:path";
 
 export const DEFAULT_LLM_MODEL = "openai/gpt-5.6-sol";
 export const DEFAULT_LLM_REASONING = "low";
+export type LlmReasoning = "off" | "minimal" | "low" | "medium" | "high" | "xhigh" | "max";
 
 export const REPO_ROOT = process.cwd();
+// Vercel Functions have a read-only deployment filesystem and a writable /tmp directory.
+// Re-assessment runs are self-contained in one streamed request, so their artifacts can live
+// there; durable worker deployments should continue to set CAIRN_DATA_DIR explicitly.
+const configuredDataRoot = process.env.CAIRN_DATA_DIR;
+const defaultDataRoot = process.env.VERCEL ? path.join("/tmp", "cairn") : path.join(REPO_ROOT, ".cairn");
+// A relative CAIRN_DATA_DIR is suitable locally but resolves into Vercel's read-only bundle.
+const selectedDataRoot = process.env.VERCEL && configuredDataRoot && !path.isAbsolute(configuredDataRoot)
+  ? defaultDataRoot
+  : configuredDataRoot ?? defaultDataRoot;
 export const CAIRN_ROOT = path.resolve(
   /* turbopackIgnore: true */
-  process.env.CAIRN_DATA_DIR ?? path.join(REPO_ROOT, ".cairn"),
+  selectedDataRoot,
 );
 export const JOBS_ROOT = path.join(CAIRN_ROOT, "jobs");
 export const RUNS_ROOT = path.join(CAIRN_ROOT, "runs");

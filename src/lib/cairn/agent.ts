@@ -12,7 +12,7 @@ import {
 import { Check, Errors } from "typebox/value";
 import { validateSubmittedAssessment } from "./assessment-validation";
 import { compactAgentEvent } from "./agent-events";
-import { DEFAULT_LLM_MODEL, DEFAULT_LLM_REASONING } from "./config";
+import { DEFAULT_LLM_MODEL, DEFAULT_LLM_REASONING, type LlmReasoning } from "./config";
 import { ensureDirectory } from "./json-files";
 import {
   Stage2AssessmentSchema,
@@ -38,6 +38,8 @@ async function runAgentPass(options: {
   runDirectory: string;
   patientId: string;
   generatedAt: string;
+  model?: string;
+  thinking?: LlmReasoning;
 }): Promise<Stage2Assessment> {
   const logsDirectory = path.join(options.runDirectory, "logs");
   await ensureDirectory(logsDirectory);
@@ -86,7 +88,7 @@ async function runAgentPass(options: {
     "xhigh",
     "max",
   ] as const;
-  const configuredThinking = process.env.CAIRN_THINKING || DEFAULT_LLM_REASONING;
+  const configuredThinking = options.thinking ?? process.env.CAIRN_THINKING ?? DEFAULT_LLM_REASONING;
   if (
     configuredThinking &&
     !thinkingLevels.includes(configuredThinking as (typeof thinkingLevels)[number])
@@ -97,7 +99,7 @@ async function runAgentPass(options: {
     | (typeof thinkingLevels)[number]
     | undefined;
   const modelRuntime = await ModelRuntime.create();
-  const configuredModel = process.env.CAIRN_MODEL || DEFAULT_LLM_MODEL;
+  const configuredModel = options.model ?? process.env.CAIRN_MODEL ?? DEFAULT_LLM_MODEL;
   const resolvedModel = configuredModel
     ? resolveCliModel({
         cliModel: configuredModel,
@@ -192,23 +194,27 @@ async function runAgentPass(options: {
 export async function runPrimaryAssessment(
   runDirectory: string,
   patientId: string,
+  agent?: { model?: string; thinking?: LlmReasoning },
 ): Promise<Stage2Assessment> {
   return runAgentPass({
     pass: "primary",
     runDirectory,
     patientId,
     generatedAt: new Date().toISOString(),
+    ...agent,
   });
 }
 
 export async function runVerificationAssessment(
   runDirectory: string,
   patientId: string,
+  agent?: { model?: string; thinking?: LlmReasoning },
 ): Promise<Stage2Assessment> {
   return runAgentPass({
     pass: "verification",
     runDirectory,
     patientId,
     generatedAt: new Date().toISOString(),
+    ...agent,
   });
 }
