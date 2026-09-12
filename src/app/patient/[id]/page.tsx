@@ -9,16 +9,9 @@ import { MedicinesPanel } from "@/components/patient/MedicinesPanel";
 import { getReviewStatus } from "@/lib/stage2/read";
 import { Panel, type ChipTone } from "@/components/ui";
 import { formatDate, monthsBetween, plural } from "@/lib/format";
-import type { Patient, ReviewTier, TimelineEvent } from "@/lib/domain/types";
+import type { Patient, TimelineEvent } from "@/lib/domain/types";
 
 export const dynamic = "force-dynamic";
-
-const TIER_SENTENCE: Record<ReviewTier, string> = {
-  "review this week": "Prompted for review this week.",
-  "review this month": "Prompted for review this month.",
-  "consider at next contact": "To consider at the next contact.",
-  "no prompt": "No prompt for review from the record.",
-};
 
 const KIND_LABEL: Record<TimelineEvent["kind"], string> = {
   attendance: "ED attendance",
@@ -90,6 +83,15 @@ function whyFacts(patient: Patient, nowIso: string): string[] {
   return facts;
 }
 
+/**
+ * The directory fills `goals` for every patient from a template, so a goal counts as the
+ * person's own words only when its text appears in a narrative in their record.
+ */
+function recordedGoals(patient: Patient): string[] {
+  const texts = (patient.narratives ?? []).map((n) => n.text.toLowerCase());
+  return patient.goals.filter((g) => texts.some((t) => t.includes(g.toLowerCase())));
+}
+
 export default async function PatientPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const ctx = await loadPatientContext(id);
@@ -97,6 +99,7 @@ export default async function PatientPage({ params }: { params: Promise<{ id: st
   const reviewStatus = await getReviewStatus(patient.id);
   const firstName = patient.name?.split(" ")[0] ?? "this person";
   const facts = whyFacts(patient, nowIso);
+  const goals = recordedGoals(patient);
 
   const contacts = toItems(patient.timeline.filter((e) => CONTACT_KINDS.includes(e.kind)));
   const documents = toItems(patient.timeline.filter((e) => DOCUMENT_KINDS.includes(e.kind)));
@@ -108,16 +111,16 @@ export default async function PatientPage({ params }: { params: Promise<{ id: st
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
         <div className="flex min-w-0 flex-col gap-6">
           {/* The person's own recorded goals, the one bold element on the screen and the first
-              thing read. Only what the directory actually holds: when it holds nothing, there is
+              thing read. Only words found in the record itself: when there are none, there is
               no block at all. */}
-          {patient.goals.length ? (
+          {goals.length ? (
             <section aria-labelledby="in-their-words" className="overflow-hidden rounded-lg bg-primary text-primary-ink shadow-sm">
               <div className="px-6 pb-6 pt-5 sm:px-7">
                 <h2 id="in-their-words" className="text-[12px] font-semibold text-cairn-100">
                   In {firstName}&rsquo;s own words
                 </h2>
                 <ul className="mt-3 flex flex-col gap-2">
-                  {patient.goals.map((g) => (
+                  {goals.map((g) => (
                     <li key={g} className="font-voice hang-quote text-[26px] leading-[1.35] sm:text-[28px]">
                       &ldquo;{g}
                     </li>
@@ -134,9 +137,8 @@ export default async function PatientPage({ params }: { params: Promise<{ id: st
 
           {/* Why this person is here, with the evidence chain. */}
           <Panel title={`Why ${firstName} is on the list`} tone="brand">
-            <p className="text-[18px] font-semibold leading-snug tracking-[-0.01em] text-ink">{TIER_SENTENCE[assessment.tier]}</p>
             {reviewStatus.review ? (
-              <p className="mt-1 text-[14px] leading-6 text-secondary">
+              <p className="text-[14px] leading-6 text-secondary">
                 Record review: {RECOMMENDATION_LABEL[reviewStatus.review.assessment.recommendation].label.toLowerCase()}.
               </p>
             ) : null}

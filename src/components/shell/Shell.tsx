@@ -32,11 +32,6 @@ export function Shell({ children }: { children: ReactNode }) {
         </div>
       </header>
       <main id="main" tabIndex={-1} className="mx-auto w-full min-w-0 max-w-[1180px] flex-1 overflow-x-clip px-4 py-6 sm:px-8 lg:py-10">{children}</main>
-      <footer className="mx-auto w-full max-w-[1180px] px-4 pb-8 text-[12px] leading-5 text-faint sm:px-8">
-        Cairn reports indicators present in the record as a prompt for clinical review. It makes no prediction about any patient,
-        cannot sign a record, and shares nothing until a named clinician signs. Synthetic data from NHS-SIM. Participant
-        replies are simulated.
-      </footer>
     </div>
   );
 }
