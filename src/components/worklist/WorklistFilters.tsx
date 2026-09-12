@@ -22,13 +22,19 @@ const FILTER_KEYS: FilterKey[] = ["plan", "tier", "noPlan", "group", "imd", "own
 const GROUPS = ["heart", "kidney", "respiratory", "neurological", "frailty", "cancer"];
 
 const LABELS: Record<FilterKey, string> = {
-  plan: "plan",
-  tier: "tier",
-  noPlan: "plan recorded",
-  group: "condition",
-  imd: "deprivation",
-  owner: "owner",
+  plan: "Plan",
+  tier: "Review tier",
+  noPlan: "Existing plan",
+  group: "Condition group",
+  imd: "Deprivation quintile",
+  owner: "Clinician",
 };
+
+/** The applied-filter chip says what the select said, never the URL value. */
+function describe(key: FilterKey, value: string): string {
+  if (key === "noPlan") return value === "yes" ? "no plan recorded" : value;
+  return value;
+}
 
 const EMPTY_FILTERS: Record<FilterKey, string> = { plan: "", tier: "", noPlan: "", group: "", imd: "", owner: "" };
 
@@ -207,6 +213,7 @@ export function WorklistFilters({
                     ))}
                   </select>
                 </label>
+                {imdAvailable ? (
                 <label className="flex flex-col gap-1.5">
                   <span className="text-[13px] font-semibold text-ink">Deprivation quintile</span>
                   {imdAvailable ? (
@@ -222,8 +229,9 @@ export function WorklistFilters({
                     <span className="text-[13px] leading-6 text-muted">Not carried by this data source.</span>
                   )}
                 </label>
+                ) : null}
                 <label className="flex flex-col gap-1.5">
-                  <span className="text-[13px] font-semibold text-ink">Owner of next action</span>
+                  <span className="text-[13px] font-semibold text-ink">Clinician</span>
                   <select id="filter-owner" className={selectClass} value={draft.owner} onChange={(e) => setDraftValue("owner", e.target.value)}>
                     <option value="">anyone</option>
                     {owners.map((o) => (
@@ -277,7 +285,7 @@ export function WorklistFilters({
               className="inline-flex min-h-8 items-center gap-1.5 rounded-full border border-line bg-surface px-3 font-medium text-secondary hover:border-line-strong"
               onClick={() => applyFilters({ ...pick(values), [k]: "" })}
             >
-              {LABELS[k]}: {values[k]} <span aria-hidden="true">×</span>
+              {LABELS[k]}: {describe(k, values[k])} <span aria-hidden="true">×</span>
               <span className="sr-only">clear {LABELS[k]} filter</span>
             </button>
           ))}
