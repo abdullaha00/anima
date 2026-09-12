@@ -67,9 +67,15 @@ function humaniseEpochs(text: string): string {
   return text.replace(/(?<![\d.])1[6-9]\d{11}(?![\d.])/g, (m) => formatDate(new Date(Number(m)).toISOString()));
 }
 
+/** The review's date field may be an ISO date, or a field name with a simulator timestamp. */
+function dateLabel(date: string): string {
+  const withDates = humaniseEpochs(date);
+  return withDates === date && !Number.isNaN(new Date(date).getTime()) ? formatDate(date) : withDates;
+}
+
 /** One citation as a short line: "GP record · r-54 · 12 Sept 2026 · detail" */
 export function citationLine(e: EvidenceReference): string {
-  return [sourceName(e.sourcePath), e.recordId, e.date ? formatDate(e.date) : undefined, humaniseEpochs(e.detail)]
+  return [sourceName(e.sourcePath), e.recordId, e.date ? dateLabel(e.date) : undefined, humaniseEpochs(e.detail)]
     .filter(Boolean)
     .join(" · ");
 }
