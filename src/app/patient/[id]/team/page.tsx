@@ -61,7 +61,7 @@ export default async function TeamPage({ params }: { params: Promise<{ id: strin
       ) : (
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
           <div className="flex flex-col gap-8">
-            <Panel as="div">
+            <Panel as="div" tone="brand">
               <section aria-labelledby="team-heading">
                 <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                   <h2 id="team-heading" className="font-display text-[22px] leading-tight text-ink">

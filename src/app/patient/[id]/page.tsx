@@ -4,7 +4,7 @@ import { EvidenceChain } from "@/components/patient/EvidenceChain";
 import { Timeline } from "@/components/patient/Timeline";
 import { PlanStatus } from "@/components/patient/PlanStatus";
 import { CaseActions } from "@/components/patient/CaseActions";
-import { Chip, EmptyLine, Panel } from "@/components/ui";
+import { EmptyLine, Panel } from "@/components/ui";
 import { formatDate } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
@@ -23,45 +23,49 @@ export default async function PatientPage({ params }: { params: Promise<{ id: st
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
         <div className="flex flex-col gap-6">
-          {/* The person before the record: their own recorded goals, in a green-tinted header card. */}
-          <section aria-labelledby="in-their-words" className="overflow-hidden rounded-lg border border-line bg-surface shadow-sm">
-            <div className="border-b border-cairn-100 bg-primary-soft px-6 py-3">
-              <p className="text-[10px] font-bold uppercase tracking-[0.08em] text-affirm">
-                In {firstName}&rsquo;s own words, from the record
-              </p>
-            </div>
-            <div className="px-6 py-5">
-              <h2 id="in-their-words" className="sr-only">
-                What matters to {firstName}
+          {/* The person before the record. Their own recorded goals, set large on Cairn green:
+              the one bold element on the screen, so everything clinical around it can stay quiet. */}
+          <section aria-labelledby="in-their-words" className="overflow-hidden rounded-lg bg-primary text-primary-ink shadow-sm">
+            <div className="px-7 pb-6 pt-6 sm:px-8">
+              <h2 id="in-their-words" className="text-[12px] font-semibold text-primary-ink/75">
+                What matters to {firstName}, in {firstName}&rsquo;s own words from the record
               </h2>
               {patient.goals.length ? (
-                <ul className="flex flex-col gap-2.5">
+                <ul className="mt-3 flex flex-col gap-2">
                   {patient.goals.map((g) => (
-                    <li key={g} className="font-voice text-[20px] leading-[1.4] text-ink sm:text-[22px]">
+                    <li key={g} className="font-voice text-[22px] leading-[1.35] sm:text-[26px]">
                       &ldquo;{g}&rdquo;
                     </li>
                   ))}
                 </ul>
               ) : (
-                <EmptyLine>No goals recorded in the patient directory.</EmptyLine>
+                <p className="mt-3 text-[15px] text-primary-ink/80">No goals recorded in the patient directory.</p>
               )}
-              {patient.needs.length ? (
-                <div className="mt-4 flex flex-wrap items-center gap-1.5 border-t border-line pt-3">
-                  <span className="mr-1 text-[12px] font-medium text-muted">Recorded needs</span>
-                  {patient.needs.map((n) => (
-                    <Chip key={n}>{n}</Chip>
-                  ))}
-                </div>
-              ) : null}
-              {patient.nextOfKin ? (
-                <p className="mt-3 text-[13px] text-secondary">Named contact in the record: {patient.nextOfKin}.</p>
-              ) : null}
             </div>
+            {patient.needs.length || patient.nextOfKin ? (
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-white/15 bg-black/10 px-7 py-3 text-[13px] sm:px-8">
+                {patient.needs.length ? (
+                  <span className="flex flex-wrap items-center gap-1.5">
+                    <span className="mr-1 text-primary-ink/75">Recorded needs</span>
+                    {patient.needs.map((n) => (
+                      <span
+                        key={n}
+                        className="rounded-xs border border-white/25 px-2 py-[3px] text-[11px] font-medium leading-none text-primary-ink"
+                      >
+                        {n}
+                      </span>
+                    ))}
+                  </span>
+                ) : null}
+                {patient.nextOfKin ? <span className="text-primary-ink/90">Named contact: {patient.nextOfKin}</span> : null}
+              </div>
+            ) : null}
           </section>
 
           <Panel
             title="Indicators present in the record"
             aside={`${assessment.signals.length} · open each one to see what fired it`}
+            tone="brand"
           >
             <EvidenceChain signals={assessment.signals} />
           </Panel>

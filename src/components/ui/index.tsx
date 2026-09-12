@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import type { ReviewTier, WorklistState } from "@/lib/domain/types";
+import type { ReviewTier, SignalFamily, WorklistState } from "@/lib/domain/types";
 import { formatDateTime } from "@/lib/format";
 
 /** Shared primitives, following the Cairn design system. Quiet by default. */
@@ -82,15 +82,44 @@ export function StateBadge({ state, className = "" }: { state: WorklistState; cl
   );
 }
 
-/** A square signal chip, for indicator codes and short facts. */
-export function Chip({ children, className = "" }: { children: ReactNode; className?: string }) {
+export type ChipTone = "neutral" | "brand" | "info" | "warn" | "affirm";
+
+const CHIP_TONE: Record<ChipTone, string> = {
+  neutral: "border-line bg-stone-100 text-secondary",
+  brand: "border-primary-border bg-primary-soft text-affirm",
+  info: "border-info-border bg-info-soft text-info",
+  warn: "border-warn-border bg-warn-soft text-warn",
+  affirm: "border-affirm-border bg-affirm-soft text-affirm",
+};
+
+/** A square signal chip, for indicator codes and short facts. Tone is category, never severity. */
+export function Chip({
+  children,
+  className = "",
+  tone = "neutral",
+}: {
+  children: ReactNode;
+  className?: string;
+  tone?: ChipTone;
+}) {
   return (
     <span
-      className={`inline-flex items-center rounded-xs border border-line bg-stone-100 px-2 py-[3px] text-[11px] font-medium leading-none text-secondary ${className}`}
+      className={`inline-flex items-center rounded-xs border px-2 py-[3px] text-[11px] font-medium leading-none ${CHIP_TONE[tone]} ${className}`}
     >
       {children}
     </span>
   );
+}
+
+/** Indicator families are categories, so each gets its own tint: general, disease, service use. */
+export const FAMILY_TONE: Record<SignalFamily, ChipTone> = {
+  general: "info",
+  "disease-specific": "brand",
+  "service-use": "warn",
+};
+
+export function FamilyChip({ family }: { family: SignalFamily }) {
+  return <Chip tone={FAMILY_TONE[family]}>{family}</Chip>;
 }
 
 /** "recorded by X on D from S". Every record field carries one. */
@@ -156,19 +185,25 @@ export function Panel({
   children,
   className = "",
   as: Tag = "section",
+  tone = "plain",
 }: {
   title?: ReactNode;
   aside?: ReactNode;
   children: ReactNode;
   className?: string;
   as?: "section" | "div" | "aside";
+  /** 'brand' tints the header Cairn green, for the one panel that carries the screen's purpose. */
+  tone?: "plain" | "brand";
 }) {
+  const header = tone === "brand" ? "border-b border-cairn-100 bg-primary-soft" : "border-b border-line";
+  const titleColour = tone === "brand" ? "text-affirm" : "text-ink";
+  const asideColour = tone === "brand" ? "text-affirm/80" : "text-faint";
   return (
-    <Tag className={`rounded-lg border border-line bg-surface shadow-sm ${className}`}>
+    <Tag className={`overflow-hidden rounded-lg border border-line bg-surface shadow-sm ${className}`}>
       {title ? (
-        <header className="flex items-baseline justify-between gap-4 border-b border-line px-6 py-3.5">
-          <h2 className="text-[14px] font-bold tracking-[-0.01em] text-ink">{title}</h2>
-          {aside ? <div className="text-[12px] text-faint">{aside}</div> : null}
+        <header className={`flex items-baseline justify-between gap-4 px-6 py-3.5 ${header}`}>
+          <h2 className={`text-[14px] font-bold tracking-[-0.01em] ${titleColour}`}>{title}</h2>
+          {aside ? <div className={`text-[12px] ${asideColour}`}>{aside}</div> : null}
         </header>
       ) : null}
       <div className="px-6 py-5">{children}</div>

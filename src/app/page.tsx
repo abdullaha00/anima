@@ -116,7 +116,9 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
             key={label}
             className={`flex flex-col gap-1 px-5 py-4 ${i > 0 ? "border-l border-line" : ""} ${i >= 2 ? "border-t border-line sm:border-t-0" : ""}`}
           >
-            <dd className="font-display text-[26px] leading-none text-ink tnum">{value.toLocaleString("en-GB")}</dd>
+            <dd className={`font-display text-[26px] leading-none tnum ${i === 1 || i === 4 ? "text-primary" : "text-ink"}`}>
+              {value.toLocaleString("en-GB")}
+            </dd>
             <dt className="microlabel mt-1">{label}</dt>
           </div>
         ))}
@@ -221,7 +223,7 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
         </div>
 
         <aside className="flex flex-col gap-5">
-          <Panel title="Cohort composition" aside="descriptive">
+          <Panel title="Cohort composition" aside="descriptive" tone="brand">
             <dl className="flex flex-col gap-4">
               <div>
                 <dd className="font-display text-[22px] leading-none text-ink tnum">{pct(e.cohortNonCancerShare)}</dd>

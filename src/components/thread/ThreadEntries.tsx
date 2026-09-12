@@ -86,15 +86,11 @@ function Entry({ caseState, m, reply = false }: { caseState: CaseState; m: Threa
         <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
           <Author caseState={caseState} m={m} />
           {label ? (
-            <span
-              className={`text-[13px] font-medium ${
-                m.kind === "concern" ? "text-ink" : m.kind === "agreement" ? "text-affirm" : "text-secondary"
-              }`}
-            >
+            <Chip tone={m.kind === "concern" ? "warn" : m.kind === "agreement" ? "affirm" : m.kind === "action" ? "info" : "neutral"}>
               {label}
-            </span>
+            </Chip>
           ) : null}
-          {isProposal ? <span className="text-[13px] font-semibold text-primary">proposal</span> : null}
+          {isProposal ? <Chip tone="brand">proposal</Chip> : null}
         </div>
 
         {isProposal && m.proposes ? (

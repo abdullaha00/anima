@@ -7,7 +7,7 @@ import { Button, ButtonLink, Notice, Panel } from "@/components/ui";
 export function CaseActions({ caseState, patientId }: { caseState: CaseState; patientId: string }) {
   const next = nextActionFor(caseState.state);
   return (
-    <Panel title="Next action">
+    <Panel title="Next action" tone="brand">
       <div className="flex flex-col gap-3">
         {caseState.state === "paused" ? (
           <>
