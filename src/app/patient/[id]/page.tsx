@@ -5,8 +5,9 @@ import { PlanStatus } from "@/components/patient/PlanStatus";
 import { CaseActions } from "@/components/patient/CaseActions";
 import { RecordReview } from "@/components/patient/RecordReview";
 import { PagedList, type PagedItem } from "@/components/patient/PagedList";
+import { MedicinesPanel } from "@/components/patient/MedicinesPanel";
 import { getReviewStatus } from "@/lib/stage2/read";
-import { EmptyLine, Panel } from "@/components/ui";
+import { Panel } from "@/components/ui";
 import { formatDate, monthsBetween, plural } from "@/lib/format";
 import type { Patient, ReviewTier, TimelineEvent } from "@/lib/domain/types";
 
@@ -86,7 +87,6 @@ export default async function PatientPage({ params }: { params: Promise<{ id: st
 
   const contacts = toItems(patient.timeline.filter((e) => CONTACT_KINDS.includes(e.kind)));
   const documents = toItems(patient.timeline.filter((e) => DOCUMENT_KINDS.includes(e.kind)));
-  const medicines: PagedItem[] = (patient.medications ?? []).map((m, i) => ({ key: `${m}-${i}`, primary: m }));
 
   return (
     <div>
@@ -149,9 +149,7 @@ export default async function PatientPage({ params }: { params: Promise<{ id: st
             <PagedList items={contacts} empty="No admissions or contacts in this record." />
           </Panel>
 
-          <Panel title="Medicines" aside={plural(medicines.length, "item")}>
-            {medicines.length ? <PagedList items={medicines} empty="" /> : <EmptyLine>No medicines on the record.</EmptyLine>}
-          </Panel>
+          <MedicinesPanel medications={patient.medications ?? []} />
 
           <Panel title="Documents" aside={plural(documents.length, "document")}>
             <PagedList items={documents} empty="No letters or summaries in this record." />

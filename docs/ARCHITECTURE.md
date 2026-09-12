@@ -40,9 +40,9 @@ src/app/api/patients/[id]/route.ts   GET one patient + assessment
 
 src/app/page.tsx                                  1. worklist
 src/app/patient/[id]/page.tsx                     2. patient + evidence chain
-src/app/patient/[id]/team/page.tsx                3. care team
-src/app/patient/[id]/thread/page.tsx              4. coordination thread
-src/app/patient/[id]/outcome/page.tsx             5a. outcome, next steps, promotion
+src/components/team/TeamSection.tsx               3. care team (on the record page, #team)
+src/components/thread/ThreadSection.tsx           4. coordination thread (#thread)
+src/components/outcome/OutcomeSection.tsx         5a. outcome, next steps, promotion (#outcome)
 src/app/patient/[id]/record/page.tsx              5b. record, readiness, sign gate, audience views, audit
 
 src/components/ui/*                  shared primitives (Button, Tier, StateBadge, Drawer, ProvenanceLine, Field)

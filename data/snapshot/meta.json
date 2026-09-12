@@ -1,13 +1,15 @@
 {
-  "takenAt": "2026-09-12T12:45:46.872Z",
+  "takenAt": "2026-09-12T14:14:01.557Z",
   "baseUrl": "https://sim.animahealth.com",
   "simulationNow": "2026-09-12T08:00:00.000Z",
-  "patientCount": 2000,
-  "fullRecordCount": 207,
+  "patientCount": 1680,
+  "fullRecordCount": 272,
   "populationTotal": 50000,
   "notes": [
-    "Directory rows for the first 2,000 patients; full GP and hospital record for the 207 patients whose conditions match the indicator catalogue or who have a hospital episode.",
-    "No frailty score, NYHA, MRC, performance status, deprivation, register, ACP or next-of-kin fields exist in the simulator. Those Patient fields are left unset and the matching indicators cannot fire.",
-    "Blood results keep only eGFR, creatinine, albumin, haemoglobin, CRP, potassium and sodium. Consultation text equal to the simulator placeholder is kept on the timeline but not as a narrative."
+    "Directory rows for the first 1,680 patients. The full GP and hospital record was pulled for 272 of them: every patient with a directory condition the indicator catalogue recognises, a recorded need matching carer, home visit, care home or nursing home, or any hospital attendance or discharge summary. 272 came back with a complete GP view.",
+    "The simulator has no structured frailty score, NYHA, MRC, performance status, deprivation, register, ACP or next-of-kin fields. Where a consultation, discharge summary, hospital note, referral or inter-service message states one in prose it is quoted into patient.extracted and fills the matching field only when nothing structured exists; 5 patients carry at least one such finding. Deprivation has no source and stays unset.",
+    "Blood results keep only eGFR, creatinine, albumin, haemoglobin, CRP, potassium and sodium. Consultation text equal to the simulator placeholder is kept on the timeline but not as a narrative.",
+    "0 of 272 deep record pulls failed.",
+    "11 directory pages failed after retries."
   ]
 }

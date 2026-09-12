@@ -83,23 +83,23 @@ export const STATE_LABELS: Record<WorklistState, string> = {
   paused: "Paused",
 };
 
-/** What the UI offers next, as a label and a path suffix relative to /patient/[id]. */
+/** What the UI offers next, as a label and a path suffix relative to /patient/[id]. Everything lives on the one record page, so the suffix is an anchor into it. */
 export function nextActionFor(state: WorklistState): { label: string; path: string } {
   switch (state) {
     case "flagged":
-      return { label: "Review the evidence, assemble the team", path: "" };
+      return { label: "Review the evidence, assemble the team", path: "/record#team" };
     case "team assembled":
-      return { label: "Open the thread", path: "/team" };
+      return { label: "Open the thread", path: "/record#team" };
     case "coordinating":
-      return { label: "Post, propose, record the outcome", path: "/thread" };
+      return { label: "Post, propose, record the outcome", path: "/record#thread" };
     case "meeting held":
-      return { label: "Promote decisions into the record", path: "/outcome" };
+      return { label: "Promote decisions into the record", path: "/record#outcome" };
     case "record signed":
-      return { label: "Share with audiences", path: "/record" };
+      return { label: "Share with audiences", path: "/record#record" };
     case "shared":
-      return { label: "Review next steps and the audit", path: "/record" };
+      return { label: "Review next steps and the audit", path: "/record#record" };
     case "paused":
-      return { label: "Paused: reason shown", path: "" };
+      return { label: "Paused: reason shown", path: "/record#team" };
   }
 }
 
