@@ -182,23 +182,38 @@ test("act three: outcome with owned next steps, promotion that never signs, the 
   assert.equal(early.ok, false, "an incomplete record cannot be signed");
 
   const values: [string, string][] = [
+    ["capacity_assessment", "Had capacity for this decision"],
     ["what_matters", "To stay at home with a clear contact for help, and to avoid unnecessary travel."],
-    ["clinical_summary", "Heart failure and chronic kidney disease. Two hospital episodes this month for breathlessness."],
     ["preferences_for_care", "Priority on comfort. Avoid admission where symptoms can be managed at home."],
+    ["clinical_summary", "Heart failure and chronic kidney disease. Two hospital episodes this month for breathlessness."],
+    ["clinical_trajectory", "Getting tired on the walk to the shops; an urgent breathlessness attendance this week."],
+    ["active_medications", "Furosemide tablets (approved)"],
+    ["cpr_recommendation", "Do not attempt CPR"],
+    ["cpr_rationale", "Discussed with Amira and her daughter; understood and agreed."],
+    ["escalation_rationale", "Symptoms can be managed at home with community nursing."],
     ["recommended_interventions", "Community nursing, home monitoring, out-of-hours aware."],
-    ["cpr_recommendation", "CPR not recommended. Discussed and understood."],
-    ["capacity_assessment", "Has capacity for these decisions."],
-    ["people_involved", "Daughter present. GP and heart failure nurse informed."],
   ];
   for (const [field, value] of values) {
     ok(await actions.setRecordField(PATIENT, field as never, value, "conversation 12 Sep 2026 with Dr Maya Shah"), `set ${field}`);
   }
   c = await store.getCase(PATIENT);
+  assert.deepEqual(record.readiness(c.record).missing, ["escalation_ceiling"], "the escalation ceiling is required");
+  const noCeiling = await actions.signRecord(PATIENT, "Dr Maya Shah");
+  assert.equal(noCeiling.ok, false, "no signature without an escalation ceiling");
+
+  ok(await actions.setRecordField(PATIENT, "escalation_ceiling" as never, "Community-only", "conversation 12 Sep 2026 with Dr Maya Shah"), "set escalation_ceiling");
+  c = await store.getCase(PATIENT);
   assert.equal(record.readiness(c.record).ready, true);
 
-  ok(await actions.signRecord(PATIENT, "Dr Maya Shah"), "signRecord");
+  ok(
+    await actions.signRecord(PATIENT, "Dr Maya Shah", { gmc: "7654321", signature: "Maya Shah", nextReviewAt: "2027-03-12" }),
+    "signRecord",
+  );
   c = await store.getCase(PATIENT);
   assert.equal(c.record.status, "signed");
+  assert.equal(c.record.signedGmc, "7654321", "the registration number round-trips through the store");
+  assert.equal(c.record.signature, "Maya Shah");
+  assert.equal(c.record.nextReviewAt, "2027-03-12", "the review date round-trips through the store");
   assert.equal(c.state, "record signed");
 
   const mutate = await actions.setRecordField(PATIENT, "what_matters" as never, "changed", "x");
@@ -209,8 +224,11 @@ test("act three: outcome with owned next steps, promotion that never signs, the 
   assert.equal(c.state, "shared");
   const amb = record.viewFor(c.record, "ambulance");
   assert.ok(!("error" in amb));
-  assert.ok(amb.fields.some((f) => f.name === "cpr_recommendation"));
+  assert.equal(amb.fields[0]?.name, "cpr_recommendation");
+  assert.ok(amb.fields.some((f) => f.name === "escalation_ceiling"));
+  assert.ok(amb.fields.some((f) => f.name === "cpr_rationale"));
   assert.ok(!amb.fields.some((f) => f.name === "what_matters"));
+  assert.ok(!amb.fields.some((f) => f.name === "clinical_summary"));
   assert.match(amb.note ?? "", /not legally binding/i);
   const fam = record.viewFor(c.record, "family");
   assert.ok(!("error" in fam));

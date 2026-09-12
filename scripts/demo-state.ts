@@ -75,12 +75,23 @@ async function main() {
     ["preferences_for_care", "Priority on comfort. Avoid admission where symptoms can be managed at home."],
     ["recommended_interventions", "Community nursing visits, home monitoring, anticipatory medicines reviewed, out-of-hours service aware."],
     ["not_recommended", "Not for critical care admission or intubation."],
-    ["cpr_recommendation", "CPR not recommended. Discussed with Amira and her daughter, understood and agreed."],
-    ["capacity_assessment", "Has capacity for these decisions."],
+    ["cpr_recommendation", "Do not attempt CPR"],
+    ["cpr_rationale", "Discussed with Amira and her daughter; understood and agreed."],
+    ["escalation_ceiling", "Community-only"],
+    ["escalation_rationale", "Symptoms can be managed at home with community nursing and anticipatory medicines."],
+    ["clinical_trajectory", "Getting tired on the walk to the shops; an urgent breathlessness attendance and an open oxygen-review request this week."],
+    ["active_medications", "Furosemide tablets (approved)"],
+    ["capacity_assessment", "Had capacity for this decision"],
     ["people_involved", "Daughter present at the conversation. GP, heart failure specialist nurse and community nursing informed."],
   ];
   for (const [f, v] of values) check(await actions.setRecordField(PATIENT, f as never, v, "conversation 12 Sep 2026 with Dr Maya Shah, home visit"), f);
-  check(await actions.signRecord(PATIENT, "Dr Maya Shah"), "sign");
+  const { CLINICIAN } = await import("@/lib/copy");
+  const nextReview = new Date();
+  nextReview.setMonth(nextReview.getMonth() + 6);
+  check(
+    await actions.signRecord(PATIENT, "Dr Maya Shah", { gmc: CLINICIAN.gmc, signature: "Maya Shah", nextReviewAt: nextReview.toISOString() }),
+    "sign",
+  );
   if (upTo < 6) return console.log("at signed");
   check(await actions.shareRecord(PATIENT, ["gp", "out_of_hours", "ambulance", "hospice", "family"]), "share");
   console.log("at shared");

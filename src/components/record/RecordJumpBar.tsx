@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 
 const LINKS: { hash: string; label: string; short?: string }[] = [
   { hash: "#team", label: "Care team" },
-  { hash: "#thread", label: "Coordination thread", short: "Thread" },
-  { hash: "#outcome", label: "Outcome" },
-  { hash: "#record", label: "Record" },
+  { hash: "#details", label: "Personal details", short: "Details" },
+  { hash: "#matters", label: "What matters" },
+  { hash: "#clinical", label: "Clinical context", short: "Clinical" },
+  { hash: "#emergency", label: "Emergency care", short: "Emergency" },
+  { hash: "#sign", label: "Signatures" },
 ];
 
 /**

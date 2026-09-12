@@ -41,6 +41,13 @@ function round3(n: number): number {
 }
 
 /** The oldest open or blocked next step (earliest due date), with its owner named from the participants. */
+/** The latest of the record's signing date and its audit entries, or undefined when the record has neither. */
+export function lastTouchedFor(c: CaseState | undefined): string | undefined {
+  if (!c) return undefined;
+  const stamps = [c.record.signedAt, ...c.record.audit.map((e) => e.at)].filter((x): x is string => !!x);
+  return stamps.length ? stamps.reduce((a, b) => (b > a ? b : a)) : undefined;
+}
+
 export function waitingOnFor(c: CaseState | undefined): WorklistRow['waitingOn'] {
   const steps = c?.outcome?.nextSteps ?? [];
   const pending: NextStep[] = steps
@@ -124,6 +131,7 @@ export function sweep(
       waitingOn: waitingOnFor(c),
       isCancer: isCancer(p),
       imdQuintile: p.imdQuintile,
+      lastTouchedAt: lastTouchedFor(c),
     });
   }
 

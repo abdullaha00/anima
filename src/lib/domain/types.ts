@@ -369,7 +369,12 @@ export type RecordFieldName =
   | 'capacity_assessment'
   | 'adrt_exists'
   | 'lpa_health_welfare'
-  | 'people_involved';
+  | 'people_involved'
+  | 'clinical_trajectory'
+  | 'active_medications'
+  | 'cpr_rationale'
+  | 'escalation_ceiling'
+  | 'escalation_rationale';
 
 export interface RecordEntry {
   value: string;
@@ -400,6 +405,12 @@ export interface CairnRecord {
   fields: Partial<Record<RecordFieldName, RecordEntry>>;
   signedBy?: string;
   signedAt?: string;
+  /** The signing clinician's registration number, as typed at signature. */
+  signedGmc?: string;
+  /** The typed signature, as entered at signature. */
+  signature?: string;
+  /** ISO date the plan is due a review, set at signature. */
+  nextReviewAt?: string;
   sharedWith: Audience[];
   audit: AuditEvent[];
   version: number;
@@ -463,6 +474,8 @@ export interface WorklistRow {
   waitingOn?: { what: string; ownerName: string; ownerRole: string; due: string; status: NextStep['status'] };
   isCancer: boolean;
   imdQuintile?: number;
+  /** When the record was last signed or edited (latest of signedAt and the audit), for spotting plans due a review */
+  lastTouchedAt?: string;
 }
 
 export interface Funnel {
