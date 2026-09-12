@@ -48,7 +48,7 @@ export function OutcomeView({
   const byId = new Map(caseState.participants.map((p) => [p.id, p]));
   const authorName = (id: string) => (id === CLINICIAN.id ? CLINICIAN.name : (byId.get(id)?.name ?? id));
   const record = caseState.record;
-  const threadHref = `/patient/${caseState.patientId}/thread`;
+  const threadHref = `/patient/${caseState.patientId}/record#thread`;
   const promotable = outcome.decisions.filter((d) => d.intoRecordField).length;
 
   return (

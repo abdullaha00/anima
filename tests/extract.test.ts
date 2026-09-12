@@ -307,13 +307,18 @@ describe('enrichWithView with extraction', () => {
 // ---------------------------------------------------------------------------
 
 describe('needsDeepRecord', () => {
-  it('pulls for any condition, a dependency-shaped need, age 65+, or an episode', () => {
-    assert.equal(needsDeepRecord({ conditions: ['Asthma'], needs: [] }, NOW), true);
+  it('pulls for a catalogue condition, a carer or care-setting need, or an episode', () => {
+    assert.equal(needsDeepRecord({ conditions: ['Heart failure'], needs: [] }, NOW), true);
+    assert.equal(needsDeepRecord({ conditions: ['Stage 3 CKD'], needs: [] }, NOW), true);
+    assert.equal(needsDeepRecord({ conditions: ['Asthma'], needs: [] }, NOW), false);
     assert.equal(needsDeepRecord({ conditions: [], needs: ['Carer involvement'] }, NOW), true);
-    assert.equal(needsDeepRecord({ conditions: [], needs: ['Step-free access'] }, NOW), true);
-    assert.equal(needsDeepRecord({ conditions: [], needs: [], birthDate: '1960-01-01' }, NOW), true);
-    assert.equal(needsDeepRecord({ conditions: [], needs: [], birthDate: '1961-09-13' }, NOW), false);
+    assert.equal(needsDeepRecord({ conditions: [], needs: ['Home visit'] }, NOW), true);
+    assert.equal(needsDeepRecord({ conditions: [], needs: ['Step-free access'] }, NOW), false);
     assert.equal(needsDeepRecord({ conditions: [], needs: [], hasEpisode: true }, NOW), true);
+  });
+
+  it('no longer pulls on age alone', () => {
+    assert.equal(needsDeepRecord({ conditions: [], needs: [], birthDate: '1940-01-01' }, NOW), false);
     assert.equal(needsDeepRecord({ conditions: [], needs: ['Text reminders'], birthDate: '1990-01-01' }, NOW), false);
   });
 });

@@ -8,13 +8,11 @@ const LINKS = [
   { href: "/about", label: "How Cairn works", match: (p: string) => p.startsWith("/about") },
 ];
 
-export function SidebarNav() {
+/** The primary links in the top bar. The active one is green with a 2px underline. */
+export function TopNav() {
   const pathname = usePathname();
   return (
-    <nav aria-label="Primary" className="flex flex-row gap-1 lg:flex-col">
-      <span className="hidden px-2 pb-1 pt-3 text-[10px] font-semibold uppercase tracking-[0.08em] text-faint lg:block">
-        Find
-      </span>
+    <nav aria-label="Primary" className="flex h-full items-stretch gap-1 sm:gap-2">
       {LINKS.map((l) => {
         const active = l.match(pathname);
         return (
@@ -22,8 +20,8 @@ export function SidebarNav() {
             key={l.href}
             href={l.href}
             aria-current={active ? "page" : undefined}
-            className={`block rounded-sm px-2 py-1.5 text-[13px] font-medium leading-5 transition-colors ${
-              active ? "bg-primary-soft text-primary" : "text-secondary hover:bg-stone-100 hover:text-ink"
+            className={`-mb-px flex items-center border-b-2 px-2 text-[13px] font-semibold leading-5 no-underline transition-colors sm:px-3 ${
+              active ? "border-primary text-primary" : "border-transparent text-secondary hover:text-ink"
             }`}
           >
             {l.label}

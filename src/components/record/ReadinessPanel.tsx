@@ -18,7 +18,7 @@ export function ReadinessPanel({ record }: { record: CairnRecord }) {
           {recorded} of {RECORD_FIELDS.length} recorded
         </span>
       }
-      className="lg:sticky lg:top-6"
+      className="lg:sticky lg:top-[116px]"
     >
       {signed ? (
         <p className="text-[15px] font-medium leading-6 text-affirm">Signed. The record is complete and immutable.</p>

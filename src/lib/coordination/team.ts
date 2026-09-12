@@ -39,6 +39,18 @@ function firstSignal(assessment: Assessment, ids: string[]): Signal | undefined 
   return assessment.signals.find((s) => ids.includes(s.id));
 }
 
+/**
+ * The record may name the contact ("Priya") or only say who they are ("daughter"). A
+ * relationship word is shown capitalised with the name marked as not recorded; a name is
+ * shown as it is. Nothing is invented.
+ */
+function contactName(found: string | undefined): string {
+  if (!found) return "Carer (name not recorded)";
+  const word = found.trim();
+  const isRelationship = /^(daughter|son|husband|wife|partner|carer|next of kin|mother|father|sister|brother|friend|neighbour)$/i.test(word);
+  return isRelationship ? `${word.charAt(0).toUpperCase()}${word.slice(1).toLowerCase()} (name not recorded)` : word;
+}
+
 export function deriveTeam(patient: Patient, assessment: Assessment): Participant[] {
   const team: Participant[] = [];
   const seen = new Set<string>();
@@ -133,7 +145,7 @@ export function deriveTeam(patient: Patient, assessment: Assessment): Participan
   if (patient.needs.includes("Carer involvement")) {
     add({
       id: "p-carer",
-      name: patient.nextOfKin ?? "Carer (name not recorded)",
+      name: contactName(patient.nextOfKin),
       role: "carer",
       roleLabel: "Carer",
       organisation: "Family",
