@@ -1,0 +1,330 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000304",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "proceed",
+  "confidence": 0.72,
+  "summary": "Prompt human review for a priorities-and-future-care conversation is supported, while urgent assessment of potentially reversible neurological symptoms remains the immediate clinical priority. The snapshot documents age 95, active heart failure and CKD, recent episodes of word-finding difficulty with increasing drowsiness for which urgent assessment was advised, and rising urea/creatinine. It does not document function, residence, patient wishes, decision-making capacity, family wishes, an advance care plan, DNACPR/ReSPECT documentation, or active palliative care; these must be established by the human team rather than assumed.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "detail": "Demographics list ageAtIndex 95; the longitudinal GP record lists active heart failure and CKD; a GP encounter describes transient language difficulty and increasing drowsiness with urgent assessment advised; later U&E results show urea 9.7 mmol/L and creatinine 118 µmol/L. No care-planning, residence, function, capacity, or wishes fields are present in the snapshot."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Serious multimorbidity in advanced age",
+      "significance": "Age alone is not determinative, but age 95 together with documented active heart failure and CKD supports timely clinician-led review of priorities, acceptable treatments, and contingency planning.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-02-14",
+          "detail": "Demographics record ageAtIndex 95, and the longitudinal GP record lists heart failure as active from 2026-02-14 and CKD as active from 2026-05-15."
+        }
+      ]
+    },
+    {
+      "signal": "Recent neurological change requiring urgent assessment",
+      "significance": "Two episodes of word-finding difficulty and increasing drowsiness may reflect an acute, potentially treatable problem; this requires urgent clinical assessment and also creates a need to clarify preferences once clinically appropriate.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-19T12:00:00.000Z",
+          "detail": "GP encounter states that family described two episodes of word-finding difficulty and increasing drowsiness and that urgent assessment was advised rather than routine follow-up."
+        }
+      ]
+    },
+    {
+      "signal": "Renal markers increased over the available trajectory",
+      "significance": "The rise warrants clinical interpretation in context and adds uncertainty about current physiological reserve; it does not by itself establish irreversible decline.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-17T08:00:00Z",
+          "detail": "Renal monitoring report records urea 8.4 mmol/L and creatinine 109 µmol/L, with continued monitoring during blood-pressure review."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-11T09:00:00.000Z",
+          "detail": "Latest U&E panel in the snapshot records urea 9.7 mmol/L and creatinine 118 µmol/L, both above their stated reference highs."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "no_clear_false_positive",
+    "alternativeExplanations": [
+      "The transient language symptoms and drowsiness could arise from an acute neurological or other reversible process and must not be interpreted as evidence of irreversible deterioration without assessment.",
+      "The record shows ongoing routine GP contacts and monitoring rather than a documented sequence of repeated admissions or escalating care dependence.",
+      "Several laboratory abnormalities are mild or nonspecific and cannot independently justify a palliative-care conclusion."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "A broad goals-of-care discussion should not delay the urgent assessment already advised for new neurological symptoms.",
+      "Timing may need adjustment if the patient is acutely unwell, lacks decision-making capacity at that moment, or prefers not to discuss future care; none of these points is established in the snapshot."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "The combination of active heart failure, active CKD, advanced age, neurological change, and increasing renal markers remains clinically significant even if an acute cause is treatable.",
+      "Absence of documented admissions, functional decline, or palliative involvement in this limited snapshot is unknown status, not evidence that these are absent in practice."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The snapshot includes routine longitudinal contacts and mostly monitoring data, but also active heart failure and CKD, new language difficulty with drowsiness, and urgent-assessment advice; it contains no explicit explanation that resolves the overall concern."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No advance care plan, goals-of-care discussion, DNACPR/DNR, ReSPECT, ADRT, hospice, or palliative-care entry is documented in the eligible snapshot.",
+      "Administrative entries saying that the care team was updated do not establish that an advance or end-of-life care plan is active and implemented."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Review of all 51 resources found routine reports, GP encounters, administrative codes, an EHR summary, and a genomic record, but no explicit advance-care or palliative-care planning resource."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Telephone is recorded as the patient's administrative contact preference."
+    ],
+    "uncertainties": [
+      "The patient's understanding, priorities, preferred place of care, acceptable treatment burden, and willingness to discuss future care are unknown.",
+      "Decision-making capacity for this discussion is not documented and should be assessed at the time, particularly in light of reported drowsiness and language difficulty.",
+      "A family member reported symptoms, but identity, relationship, availability, authority, and wishes are unknown.",
+      "The existence of a health and welfare attorney, ADRT, DNACPR/ReSPECT form, or other legal/care-planning record is unknown beyond this snapshot."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Repeated administrative observations record telephone preference; a neurological-symptom encounter refers only to 'family'; no patient/family wishes, capacity assessment, named representative, or legal planning document is included."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown; no residence or current care setting is documented in the eligible snapshot.",
+    "functionAndMobility": "Unknown; activities of daily living, mobility, cognition at baseline, frailty, falls, and change from baseline are not documented.",
+    "currentClinicalSupport": [
+      "GP-led long-term-condition contacts and renal/blood-pressure monitoring are documented.",
+      "Urgent assessment was advised after reported transient language difficulty and increasing drowsiness; completion and outcome are not documented."
+    ],
+    "familyAndCarerSupport": [
+      "An unidentified family member reported neurological symptoms; no ongoing caring role or availability is documented."
+    ],
+    "gaps": [
+      "Current location and residence",
+      "Mobility, daily function, frailty, cognition, nutrition, and symptom burden",
+      "Medication reconciliation and adherence",
+      "Whether urgent neurological assessment occurred and its findings",
+      "Named family/carer contacts and support capacity",
+      "Current heart-failure and CKD severity, treatment, and responsible clinicians"
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The record documents GP monitoring and urgent-assessment advice but has no structured residence, functional, mobility, frailty, carer, or completed urgent-assessment information; the EHR medication array is empty."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Usual GP or responsible primary-care clinician",
+      "meetingPriority": "core",
+      "ownership": "Confirm the current clinical picture, reconcile records and medicines, assess readiness and capacity, invite the patient using the recorded preference, and own documentation and follow-up.",
+      "reason": "The available longitudinal record, active-problem list, symptom encounters, and monitoring are GP-owned, making primary care the clearest documented coordinator.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The longitudinal EHR record and relevant hypertension and neurological encounters are owned by GP; telephone is the recorded contact preference."
+        }
+      ]
+    },
+    {
+      "role": "Clinician responsible for the urgent neurological assessment",
+      "meetingPriority": "core",
+      "ownership": "Provide the assessment outcome, likely reversibility, treatment options, and near-term clinical uncertainties before or at the planning discussion.",
+      "reason": "New language difficulty and drowsiness were judged to need urgent rather than routine assessment, but no outcome is available in the snapshot.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-19T12:00:00.000Z",
+          "detail": "GP encounter documents two word-finding episodes, increasing drowsiness, and advice for urgent assessment."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "Usual GP or responsible primary-care clinician",
+    "urgency": "Urgent neurological assessment should occur first or in parallel; after the current situation is clarified, offer a focused priorities-and-care-planning discussion within days rather than waiting for a routine long-term-condition review.",
+    "formatAndAccessibility": "Begin with the recorded telephone contact preference to ask how and when the patient wishes to meet. Offer telephone, in-person, or supported discussion; check hearing, language, cognition, communication needs, capacity, and whether the patient wants a family member present rather than assuming any arrangement.",
+    "objectives": [
+      "Explain the current clinical uncertainties and any findings from urgent assessment in understandable terms.",
+      "Elicit what matters to the patient, acceptable treatment burden, and preferences for future deterioration or emergencies.",
+      "Assess capacity for the decisions being discussed and identify any chosen family supporter or legally authorised representative.",
+      "Review medicines, current heart-failure and CKD management, symptoms, function, support, and escalation contacts.",
+      "Decide whether formal advance care planning or specialist palliative/supportive-care input is wanted and clinically appropriate, then document and share the agreed plan."
+    ],
+    "briefingNotes": [
+      {
+        "note": "Active heart failure and CKD are recorded, but severity, treatment, symptom burden, and specialist ownership are not supplied.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-02-14",
+            "detail": "The GP problem list marks heart failure active from 2026-02-14 and CKD active from 2026-05-15; the EHR medication list is empty."
+          }
+        ]
+      },
+      {
+        "note": "Clarify the outcome of the advised urgent assessment and whether language or drowsiness affects communication or capacity now.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-08-19T12:00:00.000Z",
+            "detail": "Family reported transient word-finding difficulty and increasing drowsiness; urgent assessment was advised, with no subsequent assessment outcome documented."
+          }
+        ]
+      },
+      {
+        "note": "Review the upward renal-marker pattern and reconcile it with the coded CKD and the internally unusual reported eGFR values.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-09-11T09:00:00.000Z",
+            "detail": "Latest panel records urea 9.7, creatinine 118, and eGFR 126 despite active CKD; clinical interpretation and source verification are needed."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Check immediate safety, assessment results, comfort, and ability to participate.",
+      "Ask permission to discuss priorities and future care.",
+      "Review understanding, what matters, worries, and acceptable interventions.",
+      "Clarify family involvement, capacity, and any existing documents held elsewhere.",
+      "Agree escalation, symptom, support, and follow-up plans with explicit owners.",
+      "Document decisions and confirm who may receive the agreed plan."
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Telephone initially, subject to confirmation of accessibility and preference",
+      "draft": "Your GP team would like to check how you are after the recent symptoms and make sure your care reflects what matters most to you. Once any urgent assessment is complete or underway, we would like to offer a conversation about your priorities, the support you may need, and what you would prefer if your health changes. This is not a prediction about what will happen. You can choose whether to have the conversation, how it takes place, and whether someone you trust joins you.",
+      "cautions": [
+        "Do not imply that deterioration or death is certain.",
+        "Confirm urgent clinical safety before treating this as a routine planning call.",
+        "Check communication needs and capacity; do not rely on telephone if language difficulty, drowsiness, hearing, or preference makes it unsuitable.",
+        "Do not share clinical details with family without consent or another lawful basis."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Telephone is repeatedly recorded as the administrative contact preference; recent language difficulty and drowsiness require accessibility and safety checks."
+        }
+      ]
+    },
+    {
+      "audience": "Family member or chosen supporter, only with patient consent or other lawful authority",
+      "channel": "Channel to be agreed with the patient; none is documented for family",
+      "draft": "The clinical team is reviewing the recent symptoms and would like to understand what is important to the patient and what support may help. If the patient would like you involved, your observations and knowledge of their priorities could be useful. The discussion is for planning and support, not a declaration about the future.",
+      "cautions": [
+        "Confirm identity, relationship, consent, and any legal authority before disclosure.",
+        "Do not assume the person who reported symptoms is a carer or decision-maker.",
+        "Seek the patient's own views whenever they have capacity."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-19T12:00:00.000Z",
+          "detail": "An encounter says 'family' reported neurological symptoms but gives no identity, relationship, wishes, contact preference, or authority."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Human clinician to confirm whether the advised urgent assessment occurred; if symptoms are current, recurrent, or worsening, perform immediate clinical triage through the appropriate urgent pathway rather than waiting for a planning meeting.",
+      "owner": "Usual GP or clinician currently responsible for care",
+      "urgency": "Immediate",
+      "reason": "Transient language difficulty and increasing drowsiness were documented with explicit advice for urgent assessment, but no result is present.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-19T12:00:00.000Z",
+          "detail": "GP encounter records two episodes of word-finding difficulty, increasing drowsiness, and urgent-assessment advice."
+        }
+      ]
+    },
+    {
+      "action": "Reconcile the current medication list, active diagnoses, recent renal results, heart-failure status, and outcome of any hospital or urgent-care assessment before the conversation.",
+      "owner": "Usual GP or responsible primary-care clinician",
+      "urgency": "Within 1-2 working days",
+      "reason": "The GP summary lists active heart failure and CKD while its medication array is empty; renal markers rose and the urgent-assessment outcome is missing.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The EHR resource lists active heart failure and CKD with no medications; sequential U&E reports culminate in urea 9.7 and creatinine 118; no urgent neurological assessment outcome is included."
+        }
+      ]
+    },
+    {
+      "action": "Offer, but do not schedule autonomously, a focused priorities-and-care-planning discussion after checking readiness, accessibility, and capacity; ask whether the patient wants a supporter involved.",
+      "owner": "Usual GP or responsible primary-care clinician",
+      "urgency": "Within days, coordinated with acute assessment",
+      "reason": "The record supports review but supplies no wishes, planning documents, capacity assessment, or named supporter.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The snapshot documents serious active conditions and recent symptoms but no patient wishes, advance plan, capacity assessment, or named family contact."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "The manifest reports one successful eligible 15-day snapshot source, no failed sources, and 51 unique resources with no duplicate visibility; the safety gate did not force insufficient evidence. This is complete coverage of the collected eligible snapshot, not evidence that all clinical systems or domains are represented.",
+    "missingSources": [
+      "No separate hospital assessment, admission, discharge, referral, community, pharmacy, appointment, or care-planning source is listed in the manifest.",
+      "No documented outcome of the urgent neurological assessment is present in the eligible snapshot.",
+      "Residence, function, frailty, capacity, symptom burden, current medicines, named carers, and patient/family wishes are not established by the available resources."
+    ],
+    "failedSources": [],
+    "contradictions": [
+      "The EHR medication array is empty while a genomic record names clopidogrel as the medication context; the genomic context does not establish current prescribing and requires reconciliation.",
+      "Active CKD is coded and creatinine/urea rise, while reported eGFR values increase to above the reference high; the internally unusual combination requires clinician/source verification rather than assumption."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Coverage reports successful 1, failed 0, failedSources [], 51 unique resources, zero resources with duplicate visibility, and forceInsufficientEvidence false."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The sole snapshot contains the listed resources and gaps; its EHR medications array is empty, a genomic resource references clopidogrel, and renal panels contain the stated creatinine, urea, and eGFR pattern."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "confirmed",
+    "falsePositiveChecks": [
+      "Deliberately re-read all 51 eligible resources after drafting, checking chronology, active versus resolved problems, acute/reversible explanations, laboratory trajectory, and whether routine monitoring alone explained the concern.",
+      "Re-checked the full snapshot for advance care planning, ADRT, DNACPR/DNR, ReSPECT, hospice, palliative care, documented wishes, capacity, residence, function, admissions, and named carers; none was documented.",
+      "Re-checked the manifest safety gate, source count, failures, deduplication, and the restriction that coverage reflects only the eligible snapshot.",
+      "Checked that the recommendation does not convert age, mild laboratory abnormalities, or acute neurological symptoms into a prognosis and that urgent reversible causes remain prioritised.",
+      "This was a deliberate second evidence re-check by the same single agent, not independent verification."
+    ],
+    "changesFromPrimary": [
+      "No separate primary assessment existed in this single-agent adaptation; the draft recommendation was retained after the second re-check.",
+      "Kept confidence moderate because function, residence, wishes, capacity, medications, and the urgent-assessment outcome are missing.",
+      "Explicitly added the potentially reversible acute neurological explanation and made urgent assessment precede or run in parallel with care planning.",
+      "Added medication/genomic ambiguity and the unusual CKD-creatinine-eGFR combination as data-quality issues requiring human reconciliation."
+    ]
+  }
+}

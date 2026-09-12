@@ -1,0 +1,349 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000395",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "proceed",
+  "confidence": 0.82,
+  "summary": "Prompt human review for a priorities-and-care-planning conversation is supported. The snapshot documents worsening appetite, nausea, activity, urine output and oedema, an approximately 1.5 kg unintentional weight loss, declining renal-function results, and subsequent arrival at an acute medical unit with uraemic symptoms and fluid retention. This supports offering a careful conversation alongside active assessment, not making a prognosis. No active advance or palliative-care plan is documented in the available snapshot, but wishes, residence, function, support network and legal planning are largely unknown.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "detail": "The snapshot documents progressive symptoms, weight loss, renal-function abnormalities and acute medical unit arrival for poor intake, reduced urine output, nausea and worsening oedema."
+    },
+    {
+      "sourcePath": "record/manifest.json",
+      "detail": "Collection succeeded for one eligible snapshot containing 35 unique resources, with no failed source and no forced insufficient-evidence gate."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Progressive symptom and functional burden",
+      "significance": "Less appetite, increasing fatigue, intermittent nausea and ankle swelling progressed to nausea affecting meals, much less activity, reduced urine output and swelling above the ankles; this warrants timely clinician review and a patient-centred discussion of priorities alongside investigation and treatment.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "GP encounters describe worsening appetite, fatigue, nausea, oedema, reduced activity and reduced urine output."
+        }
+      ]
+    },
+    {
+      "signal": "Nutritional decline",
+      "significance": "Documented unintentional weight loss together with reduced intake adds concern about declining reserve, while its cause and duration remain incompletely characterised.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "A GP observation records weight 68.1 kg and approximately 1.5 kg unintentional loss since winter; encounters describe poor appetite and nausea affecting meals."
+        }
+      ]
+    },
+    {
+      "signal": "Renal deterioration with acute-care escalation",
+      "significance": "A report records urea 13 mmol/L, creatinine 120 micromol/L and eGFR 28, followed in the snapshot by acute medical unit arrival for symptoms attributed to uraemia and fluid retention. This requires active medical assessment and makes advance discussion reasonable without assuming irreversibility.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-24T07:40:00Z",
+          "detail": "The declining renal function report records urea 13 mmol/L, creatinine 120 micromol/L and eGFR 28 mL/min/1.73m²."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-11T18:20:00Z",
+          "detail": "Hospital attendance records arrival at the acute medical unit with poor intake, reduced urine output, nausea and worsening oedema; the clinician field identifies the renal medical team."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "no_clear_false_positive",
+    "alternativeExplanations": [
+      "The acute presentation may include a treatable or reversible contributor; the snapshot does not document the hospital assessment, treatment response or final diagnosis.",
+      "Individual laboratory values are internally difficult to reconcile, so renal trajectory should be confirmed from source systems rather than inferred from every value."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "A prognosis-focused or end-of-life-framed conversation would be premature because the snapshot does not document prognosis, diagnostic conclusions, response to treatment or patient wishes.",
+      "The conversation should not delay urgent assessment and treatment of reduced urine output, poor intake and fluid retention."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "Symptoms progressed across GP contacts and culminated in acute medical unit attendance.",
+      "Reduced intake, weight loss, reduced activity and renal-function abnormalities together represent more than an isolated mildly abnormal result."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The available resources show progressive symptoms, abnormal renal results and acute attendance, but do not include a hospital diagnostic conclusion or treatment response."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "The collected evidence is limited to one eligible snapshot of 35 unique resources."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No advance care plan, ReSPECT form, DNACPR decision, ADRT, hospice involvement or palliative-care involvement is documented in the available 35-resource snapshot.",
+      "Absence from this snapshot does not establish that such planning does not exist elsewhere; it must be checked by a human reviewer."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Review of the resources found clinical contacts and results but no documented advance or palliative-care planning resource."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Coverage comprises one successful eligible snapshot with 35 unique resources and no duplicate visibility."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Telephone is recorded as the patient's contact preference."
+    ],
+    "uncertainties": [
+      "The patient's understanding, priorities, acceptable trade-offs and desired level of family involvement are not documented.",
+      "Family members, carers, decision-making capacity and any proxy decision-maker are not documented.",
+      "No legal or advance-care-planning record is present in the available snapshot; existence elsewhere is unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Administrative observations record telephone contact preference; the snapshot does not document wishes, family views, carers, capacity, proxy decision-makers or legal planning records."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "The available coverage is one successful eligible snapshot containing 35 unique resources."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown; no residence or current discharge destination is documented in the available snapshot.",
+    "functionAndMobility": "Baseline function and mobility are unknown. A recent GP encounter states that the patient had become much less active, but no activities-of-daily-living or mobility assessment is documented.",
+    "currentClinicalSupport": [
+      "GP contacts and diagnostics are documented.",
+      "At the latest documented attendance, the patient had arrived at an acute medical unit and the clinician field identified the renal medical team."
+    ],
+    "familyAndCarerSupport": [],
+    "gaps": [
+      "Current location and status after acute medical unit arrival are unknown.",
+      "Residence, baseline activities of daily living, mobility aids and formal care services are unknown.",
+      "Family, unpaid-carer and other support availability are unknown.",
+      "Medication list, established diagnoses beyond the encounter reason, treatment decisions and response are not provided."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The snapshot documents GP and diagnostic activity, recent reduced activity, and acute medical unit arrival under a renal medical team, but lacks residence, baseline function and support-network details."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Responsible GP or primary-care clinician",
+      "meetingPriority": "core",
+      "ownership": "Confirm the longitudinal record, check existing planning and patient communication needs, and coordinate a priorities conversation with the current hospital team if the patient remains admitted.",
+      "reason": "GP-owned encounters contain the longitudinal symptom history and the recorded telephone contact preference.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "GP resources document serial symptoms, weight change and telephone contact preference."
+        }
+      ]
+    },
+    {
+      "role": "Current renal medical team clinician",
+      "meetingPriority": "core",
+      "ownership": "Clarify the acute diagnosis, reversibility, treatment response and current clinical status, and lead any inpatient discussion if clinically appropriate.",
+      "reason": "The latest documented event is acute medical unit arrival with the renal medical team identified as clinician.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-11T18:20:00Z",
+          "detail": "The hospital attendance records the acute medical unit location and renal medical team clinician."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "Current renal medical team clinician while the patient is in acute care, with the responsible GP taking ownership if the patient has left hospital.",
+    "urgency": "Human review during the current acute episode or promptly after current status is confirmed; do not delay acute assessment or treatment.",
+    "formatAndAccessibility": "Begin with a brief private conversation with the patient, using telephone only if clinically appropriate and consistent with the recorded preference. Check capacity, communication needs and whom the patient wants involved before including anyone else.",
+    "objectives": [
+      "Understand the patient's current concerns, priorities and information preferences.",
+      "Explain uncertainty and what is known about the acute problem without predicting an outcome.",
+      "Clarify acceptable treatment trade-offs and preferred involvement of family or carers.",
+      "Check for existing advance or emergency care-planning documents and agree who will document and share any decisions."
+    ],
+    "briefingNotes": [
+      {
+        "note": "Symptoms progressed from poor appetite, fatigue, nausea and ankle swelling to reduced meals, much less activity, reduced urine output and more extensive swelling.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "Serial GP encounters document the symptom progression."
+          }
+        ]
+      },
+      {
+        "note": "A renal report recorded urea 13, creatinine 120 and eGFR 28, but other renal values in the snapshot are inconsistent and should be clinically reconciled.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-06-24T07:40:00Z",
+            "detail": "The explicitly dated declining renal function panel contains these values; other U&E resources contain discordant patterns."
+          }
+        ]
+      },
+      {
+        "note": "The latest documented event is arrival at an acute medical unit for poor intake, reduced urine output, nausea and worsening oedema.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-08-11T18:20:00Z",
+            "detail": "Hospital attendance records acuity 2 and arrival under the renal medical team."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Confirm current condition, understanding and decision-making capacity.",
+      "Ask what matters most and how much information the patient wants.",
+      "Discuss realistic options and uncertainties alongside active treatment.",
+      "Ask whether the patient wants family or another supporter involved.",
+      "Check existing planning documents and assign documentation and follow-up ownership."
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Telephone if clinically appropriate, or private in-person discussion during acute care",
+      "draft": "We would like to talk with you about how things have been recently and what matters most to you while the team assesses and treats your symptoms. This is not a prediction about what will happen. It is a chance to hear your priorities, explain what we know and do not yet know, and make sure any plans reflect your wishes. Would you be comfortable having that conversation, and is there anyone you would like involved?",
+      "cautions": [
+        "Confirm current clinical stability, capacity and communication needs before starting.",
+        "Do not describe this as end-of-life care or imply a prognosis not documented in the record.",
+        "Do not contact family or carers unless the patient requests it or a lawful clinical basis is established by the treating team."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Telephone is recorded as the contact preference, while the acute presentation and treatment outcome remain uncertain."
+        }
+      ]
+    },
+    {
+      "audience": "GP and renal medical team",
+      "channel": "Draft internal clinical handover",
+      "draft": "Please jointly review the recent progression of poor intake, nausea, reduced activity and urine output, oedema, weight loss and renal results. Confirm current diagnosis, reversibility and response to treatment, check for any existing advance or emergency care plan, and identify who will offer a patient-led priorities conversation without delaying acute care.",
+      "cautions": [
+        "Reconcile discordant renal laboratory values before drawing trajectory conclusions.",
+        "Treat wishes, support arrangements and legal planning as unknown until verified."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "GP encounters, renal laboratory resources and acute attendance provide the basis for a shared review."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Confirm the patient's current location, clinical status, acute assessment, treatment response and responsible clinician.",
+      "owner": "Current renal medical team clinician",
+      "urgency": "Immediate human review during the acute episode",
+      "reason": "The snapshot ends at acute medical unit arrival and contains no subsequent assessment or outcome.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-11T18:20:00Z",
+          "detail": "The last documented event is arrival at the acute medical unit with acuity 2 and a renal medical team clinician."
+        }
+      ]
+    },
+    {
+      "action": "Reconcile the renal laboratory timeline and evaluate the documented reduced intake, urine output, nausea and oedema through ordinary clinical care.",
+      "owner": "Current renal medical team clinician",
+      "urgency": "Immediate clinical review",
+      "reason": "Symptoms escalated and laboratory values include both concerning renal impairment and internally discordant patterns.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The snapshot contains escalating renal-type symptoms, a declining renal function report and other U&E panels with discordant value patterns."
+        }
+      ]
+    },
+    {
+      "action": "Check primary-care and hospital records for existing ACP, ReSPECT, DNACPR, ADRT, proxy or palliative-care documentation before any planning discussion.",
+      "owner": "Responsible GP or delegated hospital clinician",
+      "urgency": "Before or at the prompt human conversation review",
+      "reason": "No such documents appear in the available snapshot, but coverage is limited and absence cannot be assumed.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "No advance, emergency or palliative-care planning resource is present in the reviewed snapshot."
+        },
+        {
+          "sourcePath": "record/manifest.json",
+          "detail": "Coverage is one eligible snapshot containing 35 unique resources."
+        }
+      ]
+    },
+    {
+      "action": "If clinically appropriate after status confirmation, offer a patient-led priorities conversation and ask whether the patient wants anyone else involved.",
+      "owner": "Current renal medical team clinician, or responsible GP if no longer admitted",
+      "urgency": "During the acute episode or promptly afterward",
+      "reason": "The documented deterioration supports timely review, while wishes and support preferences remain unknown.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Progressive symptoms, weight loss, renal abnormalities and acute attendance are documented; patient wishes and family involvement preferences are not."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "Manifest coverage is one successfully collected eligible 15-day snapshot with 35 unique resources, zero failed sources, zero resources with duplicate visibility and no forced insufficient-evidence gate.",
+    "missingSources": [
+      "No post-arrival hospital assessment, treatment, discharge or outcome resource is included.",
+      "No medication list, comprehensive problem list, residence, functional assessment, carer details or broader multidisciplinary records are included.",
+      "No explicit ACP, ReSPECT, DNACPR, ADRT, proxy or palliative-care document is included."
+    ],
+    "failedSources": [],
+    "contradictions": [
+      "U&E panels are internally discordant: some show very low urea with falling eGFR and lower creatinine, while the explicitly dated declining renal function panel shows elevated urea and creatinine with eGFR 28; the timeline and source values require human reconciliation.",
+      "Resource ordering is not consistently chronological, so sequence was checked using embedded timestamps rather than array position."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Coverage reports one successful source, zero failures, 35 unique resources, no duplicate visibility and no safety-gate reason."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The snapshot contains the stated clinical-resource gaps and discordant U&E patterns, and ends with acute medical unit arrival."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "confirmed",
+    "falsePositiveChecks": [
+      "Re-read all 35 resources for a benign isolated explanation; deterioration spans symptoms, nutrition, activity, renal results and acute-care escalation.",
+      "Re-checked for active ACP, ReSPECT, DNACPR, ADRT, hospice or palliative-care planning; none is documented in the available snapshot.",
+      "Re-checked the latest event and confirmed that the snapshot ends at acute medical unit arrival without diagnosis, treatment response or discharge information.",
+      "Re-checked laboratory chronology and identified discordant U&E patterns that limit certainty about the precise renal trajectory.",
+      "Re-checked citations: no resource IDs are present, and dates are included only where explicit date fields are present.",
+      "Re-checked the manifest: the failedSources array is empty and the safety gate does not force insufficient evidence."
+    ],
+    "changesFromPrimary": [
+      "No separate primary assessment was supplied in the permitted inputs; this deliberate second pass re-checked the drafted assessment against eligible.json and manifest.json.",
+      "Retained proceed but limited the claim to prompt human review, explicitly avoiding prognosis and highlighting possible reversibility.",
+      "Added laboratory discordance and missing post-arrival information as uncertainty requiring human reconciliation.",
+      "Kept existing planning at none_found rather than already managed, while emphasizing that absence in the snapshot is not proof of absence elsewhere."
+    ]
+  }
+}

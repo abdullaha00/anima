@@ -1,0 +1,467 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000170",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "proceed",
+  "confidence": 0.74,
+  "summary": "Prompt human review for a person-centred goals-of-care conversation is supported by a recent emergency attendance for acute kidney injury with potassium 6.2 mmol/L, ECG changes, confusion, vomiting and oliguria, preceded by fatigue affecting daily tasks, reduced intake, nausea and an urgent renal referral. This should not be framed as a prognosis or an assumption that deterioration is irreversible: emergency treatment was given and subsequent blood results show creatinine 64, potassium 5.0 and eGFR 52, while current location, recovery, renal follow-up, function, support and wishes remain unknown.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-09-07T12:00:00.000Z",
+      "detail": "Emergency hospital attendance records vomiting, confusion, oliguria, creatinine 218, potassium 6.2, peaked T waves, dehydration and emergency treatment."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-08-25T12:00:00.000Z",
+      "detail": "Urgent renal referral describes progressive renal decline, reduced intake and intermittent nausea, with assessment requested within days."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-09-11T08:00:00.000Z",
+      "detail": "Subsequent U&E reports creatinine 64, potassium 5.0, urea 9.0 and eGFR 52."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Recent severe acute renal decompensation",
+      "significance": "The combination of confusion, oliguria, hyperkalaemia with ECG changes and emergency treatment represents a serious acute event that warrants review of the patient's priorities alongside ongoing active treatment.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-07T12:00:00.000Z",
+          "detail": "Emergency attendance documents creatinine 218, potassium 6.2, peaked T waves, vomiting, confusion and very little urine."
+        }
+      ]
+    },
+    {
+      "signal": "Symptoms and renal concern preceded the emergency attendance",
+      "significance": "Fatigue affecting daily tasks, variable urine output, ankle swelling, early satiety, reduced intake and nausea indicate a multi-month symptomatic trajectory rather than an isolated laboratory value.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-07T12:00:00.000Z",
+          "detail": "GP encounter records increasing ankle swelling and early satiety."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-11T12:00:00.000Z",
+          "detail": "GP observation records increasing fatigue affecting daily tasks and variable urine output."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-25T12:00:00.000Z",
+          "detail": "Urgent renal referral records progressive decline, reduced intake and intermittent nausea."
+        }
+      ]
+    },
+    {
+      "signal": "Unresolved renal pathway and planning gaps",
+      "significance": "A renal assessment was requested, but the snapshot does not document its completion or any patient priorities, escalation plan or advance-care-planning record; human review can establish these without presuming a palliative-only approach.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-25T12:00:00.000Z",
+          "detail": "Renal medicine referral remains recorded with status requested."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The eligible snapshot contains no documented patient wishes, escalation plan, advance decision, DNACPR/ReSPECT record or active palliative service."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "uncertain",
+    "alternativeExplanations": [
+      "The severe event may have been substantially driven by dehydration and an acute kidney injury for which emergency hyperkalaemia treatment and intravenous fluid were given.",
+      "Blood results four days after the emergency attendance were markedly improved compared with the attendance values, supporting at least partial reversibility.",
+      "The record does not establish advanced irreversible renal failure, repeated admissions, terminal disease or sustained functional dependence."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "An end-of-life or palliative-only framing would overstate the evidence because the acute episode was treated and later renal indices improved.",
+      "The patient's current recovery, understanding and readiness are unknown, so timing and wording require clinician judgement."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "The emergency event included hyperkalaemia with peaked T waves, confusion and oliguria.",
+      "Symptoms and an urgent renal referral predated the emergency event, so the episode should not be dismissed as an isolated benign abnormality.",
+      "The latest snapshot does not document discharge status, current symptoms or completion of specialist review."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-07T12:00:00.000Z",
+        "detail": "Attendance records dehydration, acute kidney injury, hyperkalaemia treatment and intravenous fluid."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-11T08:00:00.000Z",
+        "detail": "Later U&E shows creatinine 64 and potassium 5.0 versus 218 and 6.2 at attendance, with eGFR 52."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-25T12:00:00.000Z",
+        "detail": "Urgent renal referral documents progressive renal decline with reduced intake and nausea before the acute attendance."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No advance-care plan, advance decision, DNACPR/ReSPECT record, documented treatment-escalation plan, hospice record or active palliative-care involvement is present in the eligible snapshot.",
+      "The renal referral is a requested clinical assessment, not evidence that goals-of-care planning is active and implemented."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Review of the 49-resource eligible snapshot found no resource documenting advance-care or palliative planning."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-25T12:00:00.000Z",
+        "detail": "Urgent renal assessment is recorded as requested."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Manifest reports one successful eligible snapshot source, zero failed sources and 49 unique resources."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Telephone is the recorded contact preference, subject to confirmation with the patient."
+    ],
+    "uncertainties": [
+      "The patient's understanding, priorities, preferred place of care, acceptable treatment burden and readiness for a planning conversation are unknown.",
+      "Family, carer or chosen-support-person involvement and wishes are unknown.",
+      "Capacity, health-and-welfare attorney status, advance decisions, DNACPR/ReSPECT status and other legal or care-planning records are unknown beyond their absence from this snapshot."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-12T08:10:00.000Z",
+        "detail": "GP administrative observation records telephone as the contact preference."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The snapshot does not contain documented patient or family wishes, named carers, capacity assessment, attorney record or advance-care-planning document."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown; no residence or current care setting is documented after the emergency attendance.",
+    "functionAndMobility": "Fatigue was documented as affecting daily tasks; baseline mobility, personal-care independence, cognition outside the acute confusion, nutrition and frailty are otherwise unknown.",
+    "currentClinicalSupport": [
+      "GP involvement is documented through longitudinal-condition reviews and renal monitoring.",
+      "Hospital involvement is documented through the emergency attendance.",
+      "Renal medicine assessment was requested, but completion is not documented."
+    ],
+    "familyAndCarerSupport": [],
+    "gaps": [
+      "Current location, discharge status and recovery after the emergency attendance are unknown.",
+      "Baseline activities of daily living, mobility aids, frailty, cognition, nutrition and symptom burden are incompletely documented.",
+      "No named family, unpaid carer, formal care package or community support is documented.",
+      "Current medicines are unknown because the longitudinal EHR medication array is empty."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-06-11T12:00:00.000Z",
+        "detail": "Fatigue is recorded as affecting daily tasks."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-07T12:00:00.000Z",
+        "detail": "Most recent care-setting event is an emergency hospital attendance with status arrived; no later disposition note is present."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-25T12:00:00.000Z",
+        "detail": "Renal medicine referral is documented with status requested."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-11T08:00:00.000Z",
+        "detail": "Longitudinal GP record contains an empty medication list and no named carer or residence information."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Responsible acute or hospital clinician",
+      "meetingPriority": "core",
+      "ownership": "Confirm current location, acute treatment response, discharge or escalation plan, and immediate renal safety needs; hand over clearly if acute-team responsibility has ended.",
+      "reason": "The latest major clinical event was an emergency hospital attendance for acute kidney injury with hyperkalaemia.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-07T12:00:00.000Z",
+          "detail": "Hospital-owned emergency attendance documents acute kidney injury, potassium 6.2 and emergency treatment."
+        }
+      ]
+    },
+    {
+      "role": "GP clinician",
+      "meetingPriority": "core",
+      "ownership": "Coordinate longitudinal review, confirm the patient's priorities and support network, reconcile the renal pathway and medicines, and ensure agreed plans are recorded and shared.",
+      "reason": "GP records contain the preceding symptom trajectory, monitoring and recorded telephone preference.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-11T12:00:00.000Z",
+          "detail": "GP observation documents fatigue affecting daily tasks and variable urine output."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-12T08:10:00.000Z",
+          "detail": "GP observation records telephone as contact preference."
+        }
+      ]
+    },
+    {
+      "role": "Renal medicine clinician",
+      "meetingPriority": "optional",
+      "ownership": "Clarify renal diagnosis, reversibility, follow-up and treatment options, and contribute if the requested referral has been accepted.",
+      "reason": "An urgent renal assessment was requested for progressive renal decline, reduced intake, nausea and rising potassium, but completion is not shown.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-25T12:00:00.000Z",
+          "detail": "Urgent renal medicine referral is recorded as requested."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "GP clinician, after confirming whether the acute hospital team still holds immediate responsibility",
+    "urgency": "Clinical status and ownership should be checked within 24 hours; if medically stable, offer a brief priorities conversation within days rather than delaying for a large multidisciplinary meeting.",
+    "formatAndAccessibility": "Use a short telephone-first invitation because telephone is recorded as preferred; confirm preference, capacity, hearing or communication needs, and whether the patient wants a supporter involved before choosing the final format.",
+    "objectives": [
+      "Establish current recovery, symptoms, location and who owns renal follow-up.",
+      "Ask what matters to the patient and what outcomes or treatment burdens they would find acceptable.",
+      "Explain uncertainty and the potentially reversible acute component without giving false reassurance.",
+      "Agree practical escalation, follow-up and information-sharing steps; consider formal care planning only if the patient wishes."
+    ],
+    "briefingNotes": [
+      {
+        "note": "Emergency attendance involved vomiting, confusion, oliguria, creatinine 218, potassium 6.2 and peaked T waves; emergency treatment and intravenous fluid were given.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-09-07T12:00:00.000Z",
+            "detail": "Emergency attendance provides the acute presentation, laboratory values, ECG finding and treatment."
+          }
+        ]
+      },
+      {
+        "note": "Subsequent U&E was improved but still showed urea 9.0 and eGFR 52; the snapshot does not establish the patient's current clinical recovery.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-09-11T08:00:00.000Z",
+            "detail": "U&E reports creatinine 64, potassium 5.0, urea 9.0 and eGFR 52."
+          }
+        ]
+      },
+      {
+        "note": "Fatigue affecting daily tasks and an urgent renal referral preceded the emergency event.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-06-11T12:00:00.000Z",
+            "detail": "GP observation records fatigue affecting daily tasks."
+          },
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-08-25T12:00:00.000Z",
+            "detail": "Referral records progressive renal decline, reduced intake and intermittent nausea."
+          }
+        ]
+      },
+      {
+        "note": "No patient wishes, named supporter or existing advance-care plan is documented; these must be elicited rather than assumed.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "Eligible snapshot contains no documented wishes, named supporter or advance-care-planning resource."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Check immediate wellbeing, recovery and clinical ownership.",
+      "Invite the patient's account of the recent illness and current concerns.",
+      "Explore priorities, acceptable treatment burden and desired involvement of family or supporters.",
+      "Clarify renal follow-up and medicines safely.",
+      "Record agreed escalation and communication plans without presuming limits on treatment."
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Draft telephone invitation; do not send without human review",
+      "draft": "Hello, we would like to check how you are recovering after your recent kidney-related hospital care and make sure the next steps fit with what matters to you. This is not a prediction about what will happen. We would like to hear your priorities, answer questions and agree who will coordinate your care. Would a short conversation be helpful, and would you like anyone you trust to join you?",
+      "cautions": [
+        "Confirm identity, current safety, capacity and preferred contact method before discussing clinical details.",
+        "Do not imply terminal illness, treatment withdrawal or a known prognosis.",
+        "Ask permission before involving any family member or supporter."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-07T12:00:00.000Z",
+          "detail": "Recent kidney-related hospital attendance provides the basis for a recovery and priorities check."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-12T08:10:00.000Z",
+          "detail": "Telephone is the recorded contact preference."
+        }
+      ]
+    },
+    {
+      "audience": "GP and responsible hospital clinician",
+      "channel": "Draft secure clinical handover; do not send without human review",
+      "draft": "Please confirm current clinical ownership and recovery after the 7 September acute kidney injury with hyperkalaemia. Review the later renal results, referral status and medicines, then offer a patient-led conversation about priorities and escalation preferences without assuming that the acute deterioration is irreversible.",
+      "cautions": [
+        "Verify current observations, treatment, disposition and laboratory results in the live record before acting.",
+        "Keep acute safety review separate from, but coordinated with, the optional goals-of-care conversation."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-07T12:00:00.000Z",
+          "detail": "Hospital attendance records acute kidney injury and emergency hyperkalaemia treatment."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-11T08:00:00.000Z",
+          "detail": "Later renal panel documents improved creatinine and potassium."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-25T12:00:00.000Z",
+          "detail": "Urgent renal referral remains recorded as requested."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Verify current location, symptoms, observations, treatment response and responsible clinician in the live record.",
+      "owner": "Responsible acute clinician, or GP if the patient has left acute care",
+      "urgency": "Within 24 hours; immediately if ongoing confusion, vomiting, oliguria or other acute concern is reported",
+      "reason": "The snapshot ends after a serious emergency attendance and later blood results but contains no disposition or recovery note.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-07T12:00:00.000Z",
+          "detail": "Emergency attendance records confusion, vomiting, oliguria and treated hyperkalaemia."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-11T08:00:00.000Z",
+          "detail": "Later blood results are available, but no accompanying disposition or symptom update is documented."
+        }
+      ]
+    },
+    {
+      "action": "Reconcile renal results, the requested renal referral and current medicines, and document explicit follow-up ownership.",
+      "owner": "GP clinician with hospital or renal-team input",
+      "urgency": "Within 24 hours after current clinical responsibility is established",
+      "reason": "The renal referral is only shown as requested, and the GP EHR medication list is empty despite a treated acute renal event.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-25T12:00:00.000Z",
+          "detail": "Urgent renal medicine referral has status requested."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-11T08:00:00.000Z",
+          "detail": "Longitudinal GP EHR resource contains an empty medications array."
+        }
+      ]
+    },
+    {
+      "action": "Once immediate safety is confirmed, offer a voluntary, patient-led priorities conversation and ask whom the patient wants involved.",
+      "owner": "GP clinician",
+      "urgency": "Within several days",
+      "reason": "The serious acute event followed months of symptoms, while wishes and support preferences are not documented.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-11T12:00:00.000Z",
+          "detail": "Fatigue affecting daily tasks and variable urine output were documented before the acute event."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-07T12:00:00.000Z",
+          "detail": "Recent emergency renal event provides the clinical context for reviewing priorities."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "No patient wishes or chosen supporter are documented in the snapshot."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "The manifest records one successful eligible 15-day snapshot source, zero failed sources and 49 unique resources. This is complete for the supplied snapshot format, but it does not establish that all clinically relevant domains were authored or that the patient's status after the latest entries is known.",
+    "missingSources": [],
+    "failedSources": [],
+    "contradictions": [
+      "Demographics report ageAtIndex 82, but birth date 1944-09-23 and cutoff 2026-09-13 imply the 82nd birthday had not yet occurred.",
+      "The longitudinal problem list labels CKD as resolved on 2026-02-14, while later encounters and referral describe renal deterioration and progressive CKD.",
+      "Renal values fluctuate substantially: eGFR 42 with urea 10.6 and potassium 5.5 on 2026-07-24, eGFR 59 on 2026-08-29, severe acute kidney injury on 2026-09-07, and eGFR 52 on 2026-09-11; context and assay comparability require clinical reconciliation."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "date": "2026-09-12T16:45:22.771Z",
+        "detail": "Coverage reports successful 1, failed 0, no failed sources, 49 unique resources and no forced insufficient-evidence gate."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Demographics provide birthDate 1944-09-23, ageAtIndex 82 and cutoffDate 2026-09-13."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-02-14",
+        "detail": "Problem list records CKD with status resolved, conflicting with later progressive-CKD wording."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-24T12:00:00.000Z",
+        "detail": "Worsening renal profile reports eGFR 42, urea 10.6 and potassium 5.5."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-11T08:00:00.000Z",
+        "detail": "Later U&E reports eGFR 52, urea 9.0, creatinine 64 and potassium 5.0 after the acute attendance."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "revised",
+    "falsePositiveChecks": [
+      "Re-read all 49 resources in the assigned eligible snapshot and the manifest coverage and safety-gate fields.",
+      "Re-checked the renal timeline from May symptoms through July testing, August referral, September emergency attendance and post-treatment blood results.",
+      "Looked specifically for reversibility evidence, later improvement, benign explanations and evidence of repeated admissions or advanced irreversible disease.",
+      "Looked specifically for active ACP, DNACPR/ReSPECT, advance decisions, hospice or palliative involvement and found none in the supplied snapshot.",
+      "Re-checked current location, function, residence, medicines, carers, wishes and legal-planning fields and retained them as unknown where absent.",
+      "Checked every clinical factual claim against record/eligible.json and every coverage statement against record/manifest.json; no independent verifier was involved."
+    ],
+    "changesFromPrimary": [
+      "On deliberate second review, reduced confidence and changed the false-positive verdict to uncertain because dehydration was treated and renal indices improved after the acute event.",
+      "Reframed the recommendation as a patient-led priorities conversation alongside active renal care, not an end-of-life or palliative-only conclusion.",
+      "Added explicit reconciliation needs for the age discrepancy, resolved-CKD problem-list status, fluctuating renal results, empty medication list and unknown post-attendance disposition."
+    ]
+  }
+}

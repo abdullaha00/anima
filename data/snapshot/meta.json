@@ -1,15 +1,12 @@
 {
-  "takenAt": "2026-09-12T14:14:01.557Z",
+  "takenAt": "2026-10-03T00:00:00.000Z",
   "baseUrl": "https://sim.animahealth.com",
-  "simulationNow": "2026-09-12T08:00:00.000Z",
-  "patientCount": 1680,
-  "fullRecordCount": 272,
-  "populationTotal": 50000,
+  "simulationNow": "2026-10-03T00:00:00.000Z",
+  "patientCount": 34,
+  "fullRecordCount": 34,
   "notes": [
-    "Directory rows for the first 1,680 patients. The full GP and hospital record was pulled for 272 of them: every patient with a directory condition the indicator catalogue recognises, a recorded need matching carer, home visit, care home or nursing home, or any hospital attendance or discharge summary. 272 came back with a complete GP view.",
-    "The simulator has no structured frailty score, NYHA, MRC, performance status, deprivation, register, ACP or next-of-kin fields. Where a consultation, discharge summary, hospital note, referral or inter-service message states one in prose it is quoted into patient.extracted and fills the matching field only when nothing structured exists; 5 patients carry at least one such finding. Deprivation has no source and stays unset.",
-    "Blood results keep only eGFR, creatinine, albumin, haemoglobin, CRP, potassium and sodium. Consultation text equal to the simulator placeholder is kept on the timeline but not as a narrative.",
-    "0 of 272 deep record pulls failed.",
-    "11 directory pages failed after retries."
+    "Invented synthetic 15-day pipeline-development data derived from data/mortality-cohort-enriched/all-authored-deaths-asof-15d.ndjson; it is not real patient data and is not for clinical use.",
+    "Each patient is normalized at that row’s cutoff date. The snapshot includes only facts supported by the per-patient resources available at that cutoff.",
+    "Stage 2 assessments are hard-coded copies of the pipeline batch final outputs and remain clinical decision support requiring human review."
   ]
 }

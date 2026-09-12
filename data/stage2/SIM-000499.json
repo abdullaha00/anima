@@ -1,0 +1,434 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000499",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "proceed",
+  "confidence": 0.84,
+  "summary": "Prompt human review is supported for a sensitive goals-of-care conversation alongside, not instead of, clinical assessment. The record shows progression from breathlessness on stairs with mild ankle oedema and a 1.8 kg weight increase in May 2026 to sleeping propped up, needing pauses after a short walk, and swelling to the shins by 26 July 2026. A June renal/electrolyte abnormality was followed by apparently improved July values, so reversible congestion or another treatable contributor remains possible and should not be mistaken for proof of an irreversible trajectory. The snapshot does not document the patient's care priorities, family involvement, residence, active advance-care plan, or specialist/palliative involvement.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-05-03T08:15:00.000Z",
+      "detail": "GP heart-failure review records breathlessness on stairs, evening ankle swelling, comfort at rest, and unchanged medication-taking."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-05-03T08:25:00.000Z",
+      "detail": "Assessment records weight 79.8 kg, 1.8 kg above reported baseline, with mild bilateral ankle oedema."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-07-26T09:20:00.000Z",
+      "detail": "GP encounter records two weeks of sleeping propped up, pauses after a short walk, and ankle swelling extending to the shins."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Worsening breathlessness and fluid-retention symptoms",
+      "significance": "The change from exertional symptoms with mild ankle oedema to orthopnoea-like sleeping position, short-walk limitation, and shin-level swelling suggests a clinically important deterioration that warrants both urgent medical review and an opportunity to understand priorities.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-03T08:15:00.000Z",
+          "detail": "Earlier review documents breathlessness on stairs and evening ankle swelling while comfortable at rest."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-26T09:20:00.000Z",
+          "detail": "Later encounter documents sleeping propped up, pauses after a short walk, and swelling now reaching the shins."
+        }
+      ]
+    },
+    {
+      "signal": "Reduced functional tolerance",
+      "significance": "Needing pauses after a short walk is a patient-relevant functional change and provides a concrete basis for discussing what matters, acceptable treatment burden, and support needs without presuming prognosis.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-26T09:20:00.000Z",
+          "detail": "The patient is reported to need pauses after a short walk."
+        }
+      ]
+    },
+    {
+      "signal": "Recent renal and electrolyte abnormality with later apparent improvement",
+      "significance": "The June result could affect treatment safety, but the later values differ substantially; a human clinician should reconcile the sequence rather than infer persistent renal failure or dismiss prior risk.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-19T08:00:00Z",
+          "detail": "Follow-up U&E reports potassium 5.6 mmol/L, urea 9.4 mmol/L, creatinine 128 micromol/L, and eGFR 48 mL/min/1.73m²."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-14T08:00:00.000Z",
+          "detail": "Later U&E reports potassium 4.9 mmol/L, urea 6.2 mmol/L, creatinine 30 micromol/L, and eGFR 79 mL/min/1.73m²."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "no_clear_false_positive",
+    "alternativeExplanations": [
+      "Potentially treatable fluid congestion or another reversible cause could explain the worsening breathlessness and oedema.",
+      "The June renal/electrolyte abnormality may have been transient because the July panel is substantially improved, although the discrepancy requires clinical reconciliation."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "An alarmist or prognosis-led conversation would be inappropriate because the snapshot does not establish irreversibility, terminal decline, repeated admissions, or a defined prognosis.",
+      "A planning conversation must not delay urgent assessment and treatment of worsening breathlessness, orthopnoea-like symptoms, and oedema."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "Symptoms progressed over roughly three months from breathlessness on stairs and mild ankle oedema to sleeping propped up, short-walk limitation, and shin-level swelling.",
+      "Comfort at rest was documented only in the earlier May review and should not be assumed at the later July presentation.",
+      "The absence of admission, specialist, or palliative records in this limited snapshot is unknown coverage, not evidence that these services are unnecessary."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-05-03T08:15:00.000Z",
+        "detail": "Earlier symptoms were exertional, with comfort at rest documented at that time."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-26T09:20:00.000Z",
+        "detail": "Later symptoms include sleeping propped up, reduced walking tolerance, and more extensive swelling."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-14T08:00:00.000Z",
+        "detail": "July U&E values appear improved compared with the abnormal June follow-up, supporting consideration of reversibility and the need for reconciliation."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No advance care plan, ADRT, DNACPR/DNR, ReSPECT, hospice, palliative-care involvement, or documented goals-of-care discussion appears in the 36-resource eligible snapshot.",
+      "Absence from this snapshot does not prove that planning records do not exist elsewhere; a human reviewer should verify before initiating a new conversation."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The available 36-resource snapshot contains diagnostic reports, GP contacts, contact-preference observations, and symptom assessments but no explicit advance-care-planning resource."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Manifest reports one successful eligible snapshot containing 36 unique resources and no duplicate visibility."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Telephone is recorded as the patient's contact preference."
+    ],
+    "uncertainties": [
+      "The patient's priorities, understanding, preferred level of involvement, and acceptable treatment burden are not documented.",
+      "Family, carer, advocate, or lasting-power-of-attorney involvement is not documented.",
+      "Decision-making capacity, communication or accessibility needs, and consent to involve others are not documented.",
+      "The existence of advance-care or legal planning records outside this snapshot is unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-06-22T08:10:00.000Z",
+        "detail": "A GP observation records telephone as the administrative contact preference."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "No named relative, carer, advocate, legal proxy, patient priority, or explicit care-planning document appears in the available resources."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown; no residence or current location is documented in the eligible snapshot.",
+    "functionAndMobility": "Earlier baseline detail is sparse. By 26 July 2026 the patient reportedly needed pauses after a short walk; use of mobility aids and independence in daily activities are unknown.",
+    "currentClinicalSupport": [
+      "GP-led long-term-condition and heart-failure review contacts are documented.",
+      "Diagnostics produced serial blood-test reports."
+    ],
+    "familyAndCarerSupport": [],
+    "gaps": [
+      "Residence and current location are unknown.",
+      "Activities of daily living, falls, frailty, cognition, mobility aids, nutrition, and personal-care needs are unknown.",
+      "Medication list, adherence beyond one note of unchanged medication-taking, and current treatment plan are unknown.",
+      "Named family or carer support and formal community or social-care support are unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-05-03T08:15:00.000Z",
+        "detail": "GP telephone heart-failure review documents unchanged medication-taking but does not provide a medication list or wider functional baseline."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-26T09:20:00.000Z",
+        "detail": "Latest symptom encounter documents pauses after a short walk."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Available resources do not state residence, activities of daily living, mobility aids, or family/carer arrangements."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Responsible GP clinician",
+      "meetingPriority": "core",
+      "ownership": "Reconcile the symptom and laboratory trajectory, complete immediate clinical assessment, verify existing plans, and offer and coordinate the priorities-led conversation.",
+      "reason": "GP owns the documented heart-failure and worsening-breathlessness encounters and is the only treating clinical service identified in the snapshot.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-03T08:15:00.000Z",
+          "detail": "The heart-failure review is owned by GP."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-26T09:20:00.000Z",
+          "detail": "The latest worsening-breathlessness encounter is owned by GP."
+        }
+      ]
+    },
+    {
+      "role": "Patient",
+      "meetingPriority": "core",
+      "ownership": "Choose whether to participate, identify priorities and acceptable support, and decide whether any family member, carer, advocate, or other clinician should be invited.",
+      "reason": "No wishes are documented, and telephone is recorded as the contact preference; the conversation must be led by the patient's priorities rather than assumptions.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-22T08:10:00.000Z",
+          "detail": "Telephone is recorded as the patient's contact preference."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The snapshot does not document the patient's goals, preferred participants, or care priorities."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "Responsible GP clinician",
+    "urgency": "Offer a brief planning conversation within days, after or alongside same-day clinical safety assessment of the worsening breathlessness and oedema; timing must remain subject to human clinical judgement and the patient's agreement.",
+    "formatAndAccessibility": "Offer telephone contact first because that preference is recorded, then confirm whether the patient prefers telephone or in-person discussion and ask about accessibility, communication, support-person, and interpreter needs before proceeding.",
+    "objectives": [
+      "Ask what matters most to the patient and how the recent symptoms are affecting daily life.",
+      "Clarify understanding of the current condition and invite questions without making prognostic claims.",
+      "Review preferences for future care, escalation, and treatment burden only to the extent the patient wishes.",
+      "Identify desired family, carer, advocate, or clinician involvement and obtain consent before involving anyone.",
+      "Agree who owns follow-up and where any clinician-approved plan should be documented and shared."
+    ],
+    "briefingNotes": [
+      {
+        "note": "May review: breathlessness on stairs, evening ankle swelling, comfort at rest, and unchanged medication-taking.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-05-03T08:15:00.000Z",
+            "detail": "GP early fluid-retention review documents these symptoms and context."
+          }
+        ]
+      },
+      {
+        "note": "July review: two weeks of sleeping propped up, pauses after a short walk, and swelling reaching the shins.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-07-26T09:20:00.000Z",
+            "detail": "Latest GP encounter documents worsening orthopnoea-like and oedema symptoms."
+          }
+        ]
+      },
+      {
+        "note": "Reconcile the abnormal 19 June U&E with the apparently improved 14 July panel before drawing conclusions about persistent renal dysfunction.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-06-19T08:00:00Z",
+            "detail": "June U&E includes potassium 5.6, creatinine 128, and eGFR 48."
+          },
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-07-14T08:00:00.000Z",
+            "detail": "July U&E includes potassium 4.9, creatinine 30, and eGFR 79."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Confirm immediate clinical stability and explain the purpose of the conversation.",
+      "Hear the patient's account of symptoms, function, concerns, and priorities.",
+      "Review current treatment and likely reversible contributors.",
+      "Explore future-care preferences only with permission and at the patient's pace.",
+      "Agree participants, documentation, ownership, and follow-up."
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Draft telephone invitation; do not send without human review",
+      "draft": "Hello. Your GP team would like to check how you have been managing with your breathing and swelling, and to make time to hear what matters most to you when planning your care. This is not a statement about what will happen in the future. Would you be comfortable having that conversation, and is telephone still the best way to speak? You can choose whether anyone you trust joins you.",
+      "cautions": [
+        "A clinician must first assess whether symptoms require immediate emergency or same-day care.",
+        "Do not imply a terminal prognosis or that decisions have already been made.",
+        "Confirm identity, privacy, capacity, accessibility needs, and consent before discussing clinical details or involving another person.",
+        "Telephone is a recorded preference, but it must be reconfirmed."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-26T09:20:00.000Z",
+          "detail": "Latest GP encounter records worsening breathing-related functional limitation and oedema."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-22T08:10:00.000Z",
+          "detail": "Telephone is recorded as the contact preference."
+        }
+      ]
+    },
+    {
+      "audience": "Responsible GP clinician",
+      "channel": "Draft internal briefing; do not transmit without human review",
+      "draft": "Please review the July progression to sleeping propped up, pauses after a short walk, and shin-level swelling. Assess clinical urgency and reversible causes first, reconcile the June and July renal/electrolyte results, verify whether any existing care-planning documents or involved teams are outside this snapshot, and, if appropriate, offer a patient-led conversation about priorities and future care.",
+      "cautions": [
+        "This is clinical decision support, not a diagnosis, prognosis, referral, or completed action.",
+        "Do not let planning replace assessment and treatment of potentially reversible deterioration.",
+        "Check the live record before acting because the snapshot cutoff is 9 August 2026."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-26T09:20:00.000Z",
+          "detail": "GP encounter documents worsening symptoms and function."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-19T08:00:00Z",
+          "detail": "June U&E contains hyperkalaemia and reduced eGFR values."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-14T08:00:00.000Z",
+          "detail": "July U&E values differ substantially from the June result."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Clinically assess the worsening breathlessness, sleeping propped up, reduced walking tolerance, and shin-level oedema, using emergency or same-day pathways if the live assessment indicates.",
+      "owner": "Responsible GP clinician",
+      "urgency": "Same day on human review",
+      "reason": "The latest record describes worsening symptoms that may reflect treatable decompensation; a planning conversation must not substitute for clinical assessment.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-26T09:20:00.000Z",
+          "detail": "Latest encounter records sleeping propped up, pauses after a short walk, and swelling to the shins."
+        }
+      ]
+    },
+    {
+      "action": "Reconcile the June and July U&E results against the live record, current medicines, and any intervening treatment before making medication or renal-risk decisions.",
+      "owner": "Responsible GP clinician",
+      "urgency": "At the immediate clinical review",
+      "reason": "The June abnormal potassium, creatinine, and eGFR are followed by substantially different July values, and the snapshot does not explain the change.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-19T08:00:00Z",
+          "detail": "June U&E reports potassium 5.6, creatinine 128, and eGFR 48."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-14T08:00:00.000Z",
+          "detail": "July U&E reports potassium 4.9, creatinine 30, and eGFR 79."
+        }
+      ]
+    },
+    {
+      "action": "Check the live record for current treatment, named responsible clinicians, recent admissions or specialist involvement, and existing advance-care-planning documents before offering a new conversation.",
+      "owner": "Responsible GP clinician",
+      "urgency": "Before or during the planning offer",
+      "reason": "The eligible snapshot does not contain these domains, so existing management cannot be ruled out.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The snapshot contains no medication list, named clinician, admission record, specialist plan, or explicit advance-care-planning document."
+        },
+        {
+          "sourcePath": "record/manifest.json",
+          "detail": "Coverage is limited to one successful eligible snapshot with 36 unique resources."
+        }
+      ]
+    },
+    {
+      "action": "After clinical safety review, ask the patient whether they want a priorities-led conversation and whom, if anyone, they consent to involve.",
+      "owner": "Responsible GP clinician",
+      "urgency": "Within days, guided by clinical review and patient preference",
+      "reason": "The worsening functional symptoms support an offer, while patient wishes and family involvement remain undocumented.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-26T09:20:00.000Z",
+          "detail": "Latest encounter records worsening symptom burden and reduced walking tolerance."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "No patient priorities, family wishes, or consent to involve others are documented."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "Manifest coverage is technically complete for the batch input: one eligible 15-day snapshot succeeded, zero sources failed, and 36 unique resources were collected. Clinical breadth is nevertheless limited: the snapshot is dominated by diagnostic reports and GP contacts and lacks explicit residence, medication-list, admission, specialist, social-care, family/carer, and advance-care-planning records. Missing domains are unknown rather than normal or absent.",
+    "missingSources": [
+      "No separate medication, hospital-admission, specialist, community-care, social-care, family/carer, or advance-care-planning source is represented in the eligible snapshot."
+    ],
+    "failedSources": [],
+    "contradictions": [
+      "The 19 June 2026 U&E reports creatinine 128 micromol/L and eGFR 48, while the 14 July 2026 U&E reports creatinine 30 micromol/L and eGFR 79; the snapshot provides no intervening treatment or explanation.",
+      "The earlier May note records comfort at rest, while the July note reports sleeping propped up and greater exertional limitation; this is best treated as temporal progression rather than a direct same-time contradiction."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Manifest reports 1 successful source, 0 failed sources, 36 unique resources, no duplicate visibility, and no forced insufficient-evidence safety gate."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-06-19T08:00:00Z",
+        "detail": "June U&E provides the abnormal renal and potassium values."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-14T08:00:00.000Z",
+        "detail": "July U&E provides substantially different renal and potassium values without an explanatory note."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "confirmed",
+    "falsePositiveChecks": [
+      "Re-read all 36 eligible resources against the 9 August 2026 cutoff and confirmed that the key symptom progression predates the cutoff.",
+      "Compared the May and July GP symptom encounters and confirmed worsening from stair-related breathlessness and mild ankle oedema to sleeping propped up, short-walk pauses, and shin-level swelling.",
+      "Checked for a benign single-event explanation; potentially reversible congestion remains plausible, but no clear benign explanation resolves the longitudinal progression.",
+      "Rechecked serial U&E results and retained the June-to-July discrepancy as uncertainty rather than claiming persistent renal dysfunction.",
+      "Searched the complete eligible snapshot for ACP, ADRT, DNACPR, DNR, ReSPECT, hospice, palliative, family, carer, admission, and specialist planning content; none was found in the available snapshot.",
+      "Rechecked the manifest: one source succeeded, none failed, the safety gate is false, and failedSources is exactly empty.",
+      "Rechecked that no claim relies on another patient, outcome label, future outcome, or source path outside record/eligible.json and record/manifest.json."
+    ],
+    "changesFromPrimary": [
+      "The deliberate second self-check retained the proceed recommendation but framed it as a priorities-led offer alongside urgent assessment, not as evidence of terminal or irreversible decline.",
+      "The second check explicitly added the June-to-July U&E discrepancy and possible reversibility to guard against a false-positive interpretation.",
+      "No independent verification is claimed; this was a single-agent evidence re-check."
+    ]
+  }
+}

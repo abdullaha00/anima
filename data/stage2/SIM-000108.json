@@ -1,0 +1,377 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000108",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "do_not_proceed",
+  "confidence": 0.73,
+  "summary": "The available record does not currently support a prompt goals-of-care or palliative-care meeting. The main recent deterioration is a complicated urinary infection with confusion and acute kidney injury, treated with fluids and antibiotics and followed by discharge with time-limited clinical follow-up. Earlier urinary symptoms and an inflammatory-marker rise fit that acute episode. Chronic kidney disease and diabetes increase vulnerability, and recovery remains unverified, but the snapshot does not document progressive advanced disease, repeated admissions, functional decline, escalating care, or active palliative needs. Human clinical review should first confirm recovery and the missing baseline; reconsider a broader planning conversation if recovery is incomplete or additional deterioration is identified.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-09-27",
+      "detail": "Discharge summary records complicated urinary infection with acute kidney injury on CKD, treatment with intravenous fluids and antibiotics, partial renal improvement, oral antibiotics, and GP review within 48 hours."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-09-22",
+      "detail": "Emergency attendance records fever, rigors, confusion and right flank pain with acuity 2."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-09-11",
+      "detail": "Longitudinal GP record lists active CKD and diabetes but contains no documented function, frailty, palliative-care involvement, or advance-care-planning record."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Serious but potentially reversible acute illness",
+      "significance": "The emergency presentation and admission warrant prompt clinical follow-up and confirmation of recovery, but the documented treatment and discharge plan provide a coherent reversible explanation rather than evidence by themselves of progressive end-of-life decline.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-22",
+          "detail": "Emergency attendance documents fever, rigors, confusion and right flank pain."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-27",
+          "detail": "Discharge summary documents treatment for bacterial urinary infection and acute kidney injury, partial renal improvement, and a defined follow-up plan."
+        }
+      ]
+    },
+    {
+      "signal": "Vulnerability from chronic conditions and recent biochemical changes",
+      "significance": "Active CKD and diabetes, potassium 5.8 mmol/L, albumin 34 g/L, and a recent CRP rise justify clinical reassessment; they do not establish an advanced progressive trajectory in this limited record.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-11",
+          "detail": "GP record lists active CKD and diabetes; same-day results include potassium 5.8 mmol/L and albumin 34 g/L."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-13",
+          "detail": "CRP increased to 28.6 mg/L before the febrile urinary illness attendance."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "clear_false_positive",
+    "alternativeExplanations": [
+      "A bacterial urinary infection with acute kidney injury provides a documented, treated explanation for the abrupt fever, confusion, poor intake and renal change.",
+      "The preceding dysuria, nocturia and reduced appetite form a urinary-symptom trajectory rather than a documented multisystem progressive decline."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "Offering an urgent palliative framing during recovery from a treated infection could be premature and alarming without first establishing the patient's post-discharge baseline.",
+      "The snapshot does not document progressive advanced disease, persistent functional decline, recurrent acute admissions, uncontrolled symptoms, or a request for such a conversation."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "The illness included confusion and acute kidney injury on CKD, so recovery and renal status require human clinical confirmation.",
+      "Age, CKD, diabetes, reduced appetite and recent hypoalbuminaemia may increase vulnerability, while residence, function and support are unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-27",
+        "detail": "Discharge summary attributes the admission to complicated urinary infection with acute kidney injury and records active treatment plus follow-up."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-20",
+        "detail": "GP encounter documents new dysuria, nocturia and reduced appetite with urine culture and reassessment planned."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-11",
+        "detail": "Available GP record lists chronic problems but does not document frailty, function, progressive advanced disease, or palliative needs."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No advance care plan, ReSPECT form, ADRT, DNACPR decision, documented goals-of-care discussion, hospice involvement, or specialist palliative-care involvement is present in the available snapshot.",
+      "Absence from this limited snapshot does not confirm that no such plan exists elsewhere and should be checked by a clinician before any discussion."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The 52-resource eligible snapshot contains clinical reports, primary-care contacts, an attendance, a discharge summary and a GP record, but no identifiable advance-care-planning or palliative-care item."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Manifest reports one successful eligible-snapshot source and 52 unique resources, limiting the conclusion to that collected source."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Telephone is recorded as the patient's contact preference."
+    ],
+    "uncertainties": [
+      "The patient's priorities, understanding, desired level of involvement, and willingness to discuss future care are unknown.",
+      "Family or carer identities, availability, wishes and permission to involve them are unknown.",
+      "Decision-making capacity, proxy decision-maker status, ADRT, DNACPR and ReSPECT status are unknown beyond no item being found in this snapshot."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-06-19",
+        "detail": "Latest contact-preference observation records telephone."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Available resources do not identify patient goals, family or carers, capacity assessment, proxy decision-maker, or legal care-planning documents."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown; no residence or current living setting is documented in the available snapshot.",
+    "functionAndMobility": "Unknown; activities of daily living, cognition outside the acute confusion, mobility, falls, frailty and usual functional baseline are not documented.",
+    "currentClinicalSupport": [
+      "GP follow-up was requested within 48 hours of discharge to repeat the renal profile, review culture and hydration, and check glucose control.",
+      "Hospital treatment included intravenous fluids and antibiotics followed by an oral antibiotic course."
+    ],
+    "familyAndCarerSupport": [],
+    "gaps": [
+      "Post-discharge recovery, current symptoms, hydration, oral intake, renal profile and glucose status are not documented after discharge.",
+      "Medication list is empty in the GP record despite a discharge instruction to complete antibiotics; medication reconciliation is therefore needed.",
+      "Usual residence, function, mobility, cognition, formal services and informal support are unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-27",
+        "detail": "Discharge summary records antibiotic treatment and specific GP follow-up actions within 48 hours."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-11",
+        "detail": "GP record has an empty medications array and does not provide residence, function, mobility or support information."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Usual GP or duty GP",
+      "meetingPriority": "core",
+      "ownership": "Own the post-discharge review, reconcile results and medicines, establish recovery and baseline, and decide with the patient whether any future-care discussion is appropriate.",
+      "reason": "The discharge summary assigns follow-up to the duty GP and the longitudinal record is GP-owned.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-27",
+          "detail": "Discharge summary is assigned to the duty GP and requests review within 48 hours with renal, culture, hydration and glucose checks."
+        }
+      ]
+    },
+    {
+      "role": "Hospital team responsible for the recent admission",
+      "meetingPriority": "optional",
+      "ownership": "Clarify unresolved culture, blood-culture or renal findings if these are not available to primary care; join only if recovery or discharge details remain unclear.",
+      "reason": "The hospital treated the complicated urinary infection and monitored acute kidney injury.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-27",
+          "detail": "Hospital discharge summary records microbiology-guided antibiotics, renal monitoring and blood-culture follow-up."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "Usual GP or duty GP",
+    "urgency": "Do not convene a goals-of-care meeting solely from this record; complete the requested post-discharge clinical review promptly, then reassess need after recovery is known.",
+    "formatAndAccessibility": "Begin with the recorded telephone contact preference, confirm that it remains suitable and private, and offer an accessible alternative if needed; involve family or carers only with the patient's agreement or an appropriate legal basis.",
+    "objectives": [
+      "Confirm clinical recovery and identify any unresolved urgent problem.",
+      "Establish usual residence, function, cognition, support and current priorities.",
+      "Check for care-planning documents or conversations not represented in the snapshot.",
+      "Decide with the patient whether routine future-care planning would be useful after acute recovery."
+    ],
+    "briefingNotes": [
+      {
+        "note": "The recent crisis was documented as a complicated urinary infection with acute kidney injury and was treated before discharge.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-09-27",
+            "detail": "Discharge summary describes the diagnosis, treatment, partial renal improvement and oral antibiotic plan."
+          }
+        ]
+      },
+      {
+        "note": "Recovery is not evidenced in the snapshot; renal profile, culture, hydration and glucose review were requested within 48 hours.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-09-27",
+            "detail": "Discharge follow-up requests GP review within 48 hours and specifies renal, culture, hydration and glucose actions."
+          }
+        ]
+      },
+      {
+        "note": "Baseline function, residence, support and patient priorities are not documented, so they must not be assumed.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "Eligible snapshot contains no structured or narrative documentation of usual function, residence, carers or patient goals."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Acute recovery and unresolved clinical issues",
+      "Medicines and pending-result reconciliation",
+      "Usual baseline and available support",
+      "Patient priorities and preferred involvement",
+      "Whether any later future-care planning conversation is wanted and clinically appropriate"
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Draft telephone script; confirm preference before use",
+      "draft": "Hello. We would like to check how you are recovering after your recent hospital treatment and make sure the follow-up tests, results and medicines are clear. We would also like to understand what matters to you and what support you need now. This is a routine review after being unwell, not a statement about what will happen in the future. If and when you would find it helpful, we can also talk about preferences for future care. Would a telephone review suit you, and is there anyone you would like involved?",
+      "cautions": [
+        "Do not introduce palliative or end-of-life language solely on the basis of this assessment.",
+        "Confirm identity, privacy, current contact preference and whether the patient wants anyone else involved.",
+        "Prioritise urgent clinical escalation if fever, confusion, vomiting or reduced urine has recurred."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-27",
+          "detail": "Discharge summary requests follow-up and urgent help for recurrent fever, confusion, vomiting or reduced urine."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-19",
+          "detail": "Latest recorded contact preference is telephone."
+        }
+      ]
+    },
+    {
+      "audience": "Primary-care clinician",
+      "channel": "Draft internal clinical handover",
+      "draft": "Please prioritise the documented post-discharge review: confirm recovery from the complicated urinary infection and acute kidney injury, reconcile antibiotics and other medicines, review renal and culture results, hydration and glucose, and establish usual function and support. The current snapshot does not support an urgent goals-of-care meeting by itself. Reconsider sensitively if recovery is incomplete, further decline emerges, or the patient requests planning.",
+      "cautions": [
+        "This is decision support, not an instruction to schedule or contact anyone.",
+        "Check the live record and clinical status because the frozen snapshot contains no post-discharge outcome."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-27",
+          "detail": "Discharge summary specifies GP follow-up actions and no later resource documents recovery."
+        },
+        {
+          "sourcePath": "record/manifest.json",
+          "detail": "Coverage is limited to one successful frozen eligible-snapshot source."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Clinically review recovery from the urinary infection and acute kidney injury, including red-flag symptoms and hydration.",
+      "owner": "Usual GP or duty GP",
+      "urgency": "Promptly; the discharge summary requested review within 48 hours.",
+      "reason": "No post-discharge recovery is documented, and urgent return precautions were given.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-27",
+          "detail": "Discharge plan requests GP review within 48 hours and urgent help for fever, confusion, vomiting or reduced urine."
+        }
+      ]
+    },
+    {
+      "action": "Reconcile the oral antibiotic course, long-term medicines, culture and blood-culture results, and repeat renal profile as clinically indicated.",
+      "owner": "Usual GP or duty GP",
+      "urgency": "At the prompt post-discharge review.",
+      "reason": "The discharge plan assigns these checks to primary care, while the snapshot medication list is empty.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-27",
+          "detail": "Discharge summary documents microbiology-guided oral antibiotics and requests culture and renal review."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-11",
+          "detail": "Longitudinal GP record contains an empty medications array."
+        }
+      ]
+    },
+    {
+      "action": "Establish usual residence, function, cognition, family or carer support, patient priorities and whether any care-planning documents exist outside the snapshot.",
+      "owner": "Usual GP or duty GP",
+      "urgency": "After immediate clinical stability is confirmed.",
+      "reason": "These missing elements are necessary before deciding whether a broader planning conversation is appropriate.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The snapshot does not document residence, functional baseline, carers, patient goals or legal care-planning records."
+        },
+        {
+          "sourcePath": "record/manifest.json",
+          "detail": "Only one eligible-snapshot source was collected, so absence should be verified against the live record."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "Manifest coverage is complete for the single eligible 15-day snapshot source: 1 successful, 0 failed, 52 unique resources, no duplicate visibility, and no forced-insufficient-evidence safety gate. This is source-complete but clinically limited and contains no post-discharge follow-up.",
+    "missingSources": [
+      "No separate residence, function or social-support source is represented.",
+      "No dedicated medication, advance-care-planning, ReSPECT, ADRT, DNACPR, hospice or palliative-care source is represented.",
+      "No resource after the 2026-09-27 discharge documents clinical recovery before the 2026-09-29 cutoff."
+    ],
+    "failedSources": [],
+    "contradictions": [
+      "The GP record labels one 2026 diabetes problem as resolved while also listing other diabetes entries as active and the discharge summary identifies diabetes as a risk factor; current diagnostic status should be reconciled.",
+      "The GP record medication array is empty although the discharge summary documents an oral antibiotic course and refers to long-term medicines; the medication list is incomplete or temporally discordant."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Manifest reports 1 successful source, 0 failures, 52 unique resources, no duplicates, and safetyGate.forceInsufficientEvidence=false."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-27",
+        "detail": "Latest resource is a discharge summary; no later recovery assessment appears before the stated 2026-09-29 cutoff."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-11",
+        "detail": "GP record includes both resolved and active diabetes entries and an empty medications array."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "revised",
+    "falsePositiveChecks": [
+      "Re-read all 52 resources and reconstructed the urinary-symptom, inflammatory-marker, emergency-attendance and discharge sequence.",
+      "Checked whether the acute deterioration had a documented reversible explanation and confirmed bacterial urinary infection with treated acute kidney injury.",
+      "Checked for repeated admissions, progressive advanced disease, frailty, functional decline, escalating support and persistent uncontrolled symptoms; none is documented in the available snapshot, but baseline data are missing.",
+      "Checked for active or mentioned ACP, ReSPECT, ADRT, DNACPR, hospice and palliative-care planning; none was found in the collected snapshot.",
+      "Checked post-discharge follow-up and confirmed that recovery, renal repeat results and culture outcomes are absent.",
+      "Rechecked manifest coverage, failed sources, safety gate, resource count and citation paths."
+    ],
+    "changesFromPrimary": [
+      "On deliberate second review, revised the working recommendation from possible prompt conversation review to do_not_proceed because the deterioration is coherently explained by a treated acute urinary infection and no progressive trajectory is documented.",
+      "Retained explicit uncertainty and prompt clinical follow-up because post-discharge recovery, baseline function, residence and support are not documented.",
+      "Classified existing planning as none_found only within this snapshot and required live-record confirmation rather than treating absence as proof.",
+      "No independent verification was performed; this verdict reflects the sole agent's deliberate second evidence re-check."
+    ]
+  }
+}

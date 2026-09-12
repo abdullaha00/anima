@@ -1,0 +1,386 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000472",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "proceed",
+  "confidence": 0.86,
+  "summary": "Prompt human review for a priorities and goals-of-care conversation is supported, alongside rather than instead of urgent clinical assessment. The snapshot shows progressive severe leukopenia/neutropenia and anemia, reduced appetite, worsening cough and exertional breathlessness, and family-reported intermittent confusion. These findings could reflect an acute and potentially treatable process, so they do not establish prognosis; however, their trajectory and functional impact make timely, sensitive planning appropriate. No active advance-care or palliative plan is documented in the available snapshot.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-06-23T07:50:00Z",
+      "detail": "FBC recorded haemoglobin 102 g/L, white-cell count 1.2 ×10⁹/L, and neutrophils 0.7 ×10⁹/L."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-07-18T08:05:00Z",
+      "detail": "CRP was 18.4 mg/L against a reference high of 5 mg/L."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "detail": "The latest GP encounter describes productive cough, breathlessness walking to the bathroom, further appetite decline, and family-reported intermittent confusion."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Progressive cytopenias",
+      "significance": "Serial results show worsening leukopenia/neutropenia and anemia, creating substantial clinical vulnerability and requiring prompt clinician interpretation rather than prognostic assumption.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Earlier FBCs recorded white-cell counts falling from 3.1 to 1.7 to 0.7 ×10⁹/L and haemoglobin falling from 118 to 111 to 106 g/L."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-23T07:50:00Z",
+          "detail": "FBC recorded haemoglobin 102 g/L, white-cell count 1.2 ×10⁹/L, and neutrophils 0.7 ×10⁹/L."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "A later FBC recorded white-cell count 0.7 ×10⁹/L and neutrophils 0.5 ×10⁹/L."
+        }
+      ]
+    },
+    {
+      "signal": "Worsening symptoms and reduced function",
+      "significance": "The documented change from fatigue and reduced intake to productive cough, shortness of breath on minimal activity, further appetite loss, and intermittent confusion warrants urgent review and a conversation about priorities if the patient is able and willing.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "An earlier GP telephone encounter records increased tiredness, reduced eating, dry cough, and chills, without reported resting breathlessness."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The latest GP encounter records productive cough, breathlessness walking to the bathroom, further appetite decline, and family-reported intermittent confusion."
+        }
+      ]
+    },
+    {
+      "signal": "Inflammatory marker elevation",
+      "significance": "The elevated CRP supports possible active inflammation or infection but is nonspecific and does not resolve whether the overall decline is reversible.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-18T08:05:00Z",
+          "detail": "CRP was 18.4 mg/L against a reference high of 5 mg/L."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "no_clear_false_positive",
+    "alternativeExplanations": [
+      "An acute respiratory infection or other inflammatory illness could explain the cough, appetite change, breathlessness, confusion, and CRP rise and may be treatable.",
+      "The causes and reversibility of the persistent cytopenias are not documented in this snapshot."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "A prognostic or end-of-life framing would be inappropriate without clinician assessment of acute reversible causes and the unexplained blood-count abnormalities.",
+      "The conversation should be deferred or adapted if the patient is acutely confused or otherwise lacks capacity at that time."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "Symptoms progressed to breathlessness on walking to the bathroom, further appetite decline, and family-reported intermittent confusion.",
+      "Severe leukopenia and neutropenia recur across the available results rather than appearing as a single isolated measurement."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The latest GP encounter describes a productive cough, breathlessness on minimal activity, reduced appetite, and intermittent confusion."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-18T08:05:00Z",
+        "detail": "CRP was elevated at 18.4 mg/L."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-06-23T07:50:00Z",
+        "detail": "FBC showed white-cell count 1.2 ×10⁹/L and neutrophils 0.7 ×10⁹/L, with additional severe abnormalities elsewhere in the snapshot."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No advance-care plan, DNACPR/ReSPECT form, ADRT, legal proxy record, hospice involvement, palliative-care involvement, or documented goals-of-care discussion was found in the available 35-resource snapshot.",
+      "Absence from this limited snapshot does not establish that such planning does not exist elsewhere and should be checked by a human reviewer."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The available resource list contains reports, GP encounters, and observations but no documented advance-care or palliative-planning resource."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "The manifest reports one successful eligible snapshot containing 35 unique resources and no failed source."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Telephone is recorded as the patient's contact preference."
+    ],
+    "uncertainties": [
+      "The patient's understanding, priorities, preferred place of care, acceptable treatment burden, and willingness to discuss future care are unknown.",
+      "Family identity, relationship, availability, wishes, and the patient's consent to involve them are unknown.",
+      "Decision-making capacity during the reported intermittent confusion is unknown.",
+      "The existence of advance decisions, a legal proxy, DNACPR/ReSPECT documentation, or plans held outside this snapshot is unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Administrative observations record telephone as the contact preference."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The latest encounter attributes intermittent confusion to a family report but does not identify the family member or document wishes, consent, capacity, or legal authority."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown; no residence or current care setting is documented in the available snapshot.",
+    "functionAndMobility": "Baseline function and mobility are unknown. The latest documented function is breathlessness when walking to the bathroom, indicating reduced exercise tolerance at that time.",
+    "currentClinicalSupport": [
+      "GP telephone contacts are documented.",
+      "Diagnostics blood testing is documented, with results visible to GP, hospital, and diagnostics services."
+    ],
+    "familyAndCarerSupport": [
+      "A family report of intermittent confusion is documented, but no family member or carer role is identified."
+    ],
+    "gaps": [
+      "Current location, living arrangements, activities of daily living, falls, frailty, cognition baseline, nutrition or weight trajectory, medication list, diagnoses, and formal care package are unknown.",
+      "It is unknown whether the abnormal blood results and worsening symptoms have already been clinically assessed or acted upon."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The latest GP encounter documents breathlessness walking to the bathroom and family-reported intermittent confusion."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Resources identify GP-owned telephone encounters and diagnostics-owned reports visible to GP and hospital, but do not document residence or a formal care package."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Responsible primary-care clinician",
+      "meetingPriority": "core",
+      "ownership": "Confirm immediate clinical safety, reconcile the trajectory and prior actions, establish capacity and consent, and lead or delegate the priorities conversation.",
+      "reason": "GP encounters contain the symptom trajectory and the diagnostic results are visible to GP, making primary care the clearest documented coordination point in this snapshot.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The worsening symptom encounters are GP-owned, and diagnostic reports are visible to GP."
+        }
+      ]
+    },
+    {
+      "role": "Clinician currently assessing the acute illness",
+      "meetingPriority": "core",
+      "ownership": "Explain likely reversible causes, current treatment options, uncertainties, and what decisions need to be made now; feed the assessment back to the primary-care owner.",
+      "reason": "The combination of productive cough, exertional breathlessness, confusion, inflammation, and severe neutropenia requires current clinical interpretation before goals are linked to treatment choices.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The latest encounter records respiratory symptoms and intermittent confusion, while recent reports document CRP elevation and severe neutropenia."
+        }
+      ]
+    },
+    {
+      "role": "Patient-chosen family member or supporter",
+      "meetingPriority": "optional",
+      "ownership": "Attend only with the patient's consent, support communication, and share observations without being presumed to hold decision-making authority.",
+      "reason": "A family report is documented, but identity, wishes, authority, and the patient's consent to involvement are not documented.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The latest GP note mentions family-reported intermittent confusion but gives no family identity, authority, or preferences."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "Responsible primary-care clinician, after confirming who currently holds clinical responsibility",
+    "urgency": "Same-day clinical safety review is warranted; offer a brief priorities conversation promptly once acute needs and capacity are assessed, without allowing meeting arrangements to delay treatment.",
+    "formatAndAccessibility": "Start with the documented telephone preference if clinically safe, but confirm the patient's current preference, hearing, language, communication needs, privacy, capacity, and whether an in-person assessment is required. Invite a supporter only with consent.",
+    "objectives": [
+      "Clarify the patient's understanding and what matters most now.",
+      "Explain current clinical uncertainty and distinguish potentially reversible treatment from broader future planning.",
+      "Establish preferences for information, supporter involvement, and acceptable treatment burden.",
+      "Identify whether any existing advance-care or legal planning records exist outside the snapshot.",
+      "Agree a named clinical owner and a documented follow-up plan."
+    ],
+    "briefingNotes": [
+      {
+        "note": "Blood counts show a concerning longitudinal pattern, including severe leukopenia/neutropenia and anemia; the cause and prior response are not documented.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-06-23T07:50:00Z",
+            "detail": "FBC recorded haemoglobin 102 g/L, white-cell count 1.2 ×10⁹/L, and neutrophils 0.7 ×10⁹/L."
+          },
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "A later FBC recorded white-cell count 0.7 ×10⁹/L and neutrophils 0.5 ×10⁹/L."
+          }
+        ]
+      },
+      {
+        "note": "Symptoms worsened from tiredness, reduced intake, and occasional dry cough to productive cough, breathlessness on minimal activity, further appetite loss, and intermittent confusion.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "Two GP symptom encounters document the described progression."
+          }
+        ]
+      },
+      {
+        "note": "No active goals-of-care or palliative plan is visible in this snapshot, but external records have not been excluded.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "No advance-care or palliative-planning resource appears among the available reports, encounters, and observations."
+          },
+          {
+            "sourcePath": "record/manifest.json",
+            "detail": "Coverage is limited to one eligible snapshot with 35 unique resources."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Check immediate symptoms, current setting, capacity, and who is clinically responsible.",
+      "Ask permission to discuss priorities and to involve any chosen supporter.",
+      "Share uncertainty in plain language and review potentially reversible issues.",
+      "Elicit what matters, worries, acceptable interventions, and preferred communication.",
+      "Check for existing plans or legal documents and agree ownership and follow-up."
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Draft telephone invitation, subject to clinical safety and confirmation of preference",
+      "draft": "We would like to check how you are feeling and make sure your care reflects what matters most to you. Some recent symptoms and blood results need clinical review, and we would also like to hear your priorities and who, if anyone, you would like involved. This is not a prediction about what will happen. If now is not a good time, please tell us; urgent symptoms still need prompt assessment.",
+      "cautions": [
+        "Do not imply a terminal diagnosis or predetermined outcome.",
+        "Assess acute confusion and capacity before substantive planning.",
+        "Confirm identity, privacy, communication needs, and current contact preference before using this draft.",
+        "Do not let this invitation delay urgent clinical assessment."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Telephone is recorded as the contact preference; worsening symptoms and abnormal blood counts provide the reason for clinical review."
+        }
+      ]
+    },
+    {
+      "audience": "Patient-chosen family member or supporter",
+      "channel": "Draft verbal update only after patient consent or other lawful basis is confirmed",
+      "draft": "With the patient's agreement, we are reviewing current symptoms and discussing what matters most to them so care can be planned around their priorities. We would value any observations they want you to share. No assumptions are being made about the future, and the clinical team is also considering potentially treatable causes.",
+      "cautions": [
+        "Do not disclose information until consent, capacity, and lawful involvement are established.",
+        "Do not assume the family reporter is a carer, proxy, or decision-maker.",
+        "Avoid alarmist or prognostic language."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "A family report of intermittent confusion is documented, but identity, consent, wishes, and authority are absent."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Arrange same-day human clinical triage of the productive cough, exertional breathlessness, appetite decline, intermittent confusion, and severe neutropenia; escalate according to local urgent-care policy and current observations.",
+      "owner": "Clinician currently responsible for reviewing the GP encounter or results",
+      "urgency": "Same day; do not wait for a goals-of-care meeting",
+      "reason": "The symptom cluster with severe neutropenia may represent an acute, potentially treatable illness and requires direct assessment.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The latest encounter records productive cough, breathlessness walking to the bathroom, further appetite decline, and intermittent confusion."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "A later FBC records white-cell count 0.7 ×10⁹/L and neutrophils 0.5 ×10⁹/L."
+        }
+      ]
+    },
+    {
+      "action": "Reconcile the serial blood results, diagnoses, medicines, prior investigations, and any actions already taken, and confirm a named clinical owner.",
+      "owner": "Responsible primary-care clinician",
+      "urgency": "Same day",
+      "reason": "The snapshot shows recurrent severe abnormalities but contains no documented cause, treatment, or response plan.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-23T07:50:00Z",
+          "detail": "FBC recorded haemoglobin 102 g/L, white-cell count 1.2 ×10⁹/L, and neutrophils 0.7 ×10⁹/L."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The resource set contains repeated abnormal laboratory reports but no diagnosis, medication, investigation plan, or documented clinical response."
+        }
+      ]
+    },
+    {
+      "action": "After immediate safety and capacity checks, offer a short priorities conversation and verify whether any advance-care, legal, or emergency-care plans exist in other systems or with the patient.",
+      "owner": "Responsible primary-care clinician",
+      "urgency": "Promptly, ideally within days, adapted to clinical condition and patient preference",
+      "reason": "The documented deterioration supports timely planning, while the available snapshot contains no active plan or recorded wishes.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The latest encounter documents worsening symptoms and functional limitation; no wishes or planning records appear in the snapshot."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "The manifest reports successful collection of the sole eligible 15-day snapshot, with 35 unique resources, no failed sources, no duplicate visibility, and no forced insufficient-evidence safety gate. This is nevertheless a narrow snapshot dominated by laboratory reports and GP contacts, not proof of complete cross-system clinical coverage.",
+    "missingSources": [
+      "No separate medication, diagnosis/problem-list, hospital assessment, treatment-plan, residence, functional assessment, care-package, or advance-care/legal-planning source is represented in the available snapshot.",
+      "No current observations or follow-up response after the latest symptom encounter are documented."
+    ],
+    "failedSources": [],
+    "contradictions": [
+      "Two FBC resources contain identical values for haemoglobin 106, white-cell count 0.7, platelets 344, MCV 82.2, and neutrophils 0.5 despite different collection timestamps; this may be a genuine repeat or duplicated/copied data and requires source-system confirmation.",
+      "Some resource timestamps are numeric epochs while two added reports use ISO strings, limiting transparent chronological review without conversion."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Coverage reports one successful source, zero failures, 35 unique resources, zero resources with duplicate visibility, and forceInsufficientEvidence=false."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The 35-resource snapshot is composed of diagnostic reports, GP encounters, and observations; repeated identical FBC values and mixed timestamp formats are present."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "revised",
+    "falsePositiveChecks": [
+      "Re-read all 35 eligible resources in chronological sequence and compared the serial FBC, CRP, symptom, function, and contact-preference entries.",
+      "Checked for a benign isolated abnormality; severe leukopenia/neutropenia recurs and the symptom trajectory worsens, so a clear false positive is not supported.",
+      "Checked for potentially reversible explanations; an acute respiratory or inflammatory illness remains plausible, so the recommendation explicitly preserves urgent assessment and avoids prognostic claims.",
+      "Checked every resource for documented ACP, DNACPR/ReSPECT, ADRT, legal proxy, hospice, palliative-care involvement, or an implemented goals-of-care plan; none was found in this snapshot.",
+      "Re-checked the manifest safety gate, failed-source list, unique-resource count, and scope limitations.",
+      "Checked for internal data-quality issues and identified repeated identical FBC values under different timestamps and mixed timestamp formats."
+    ],
+    "changesFromPrimary": [
+      "This retry had no usable primary assessment to preserve; a complete assessment was constructed directly from the permitted snapshot and manifest.",
+      "Qualified the proceed recommendation so that a planning conversation occurs alongside, and never delays, same-day assessment of potentially reversible acute illness.",
+      "Limited claims about absent planning, residence, support, and diagnoses to the available snapshot and marked them unknown outside it.",
+      "Added explicit data-quality cautions about repeated identical FBC values and mixed timestamp formats."
+    ]
+  }
+}

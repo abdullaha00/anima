@@ -1,0 +1,381 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000227",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "do_not_proceed",
+  "confidence": 0.88,
+  "summary": "The available snapshot does not support a prompt goals-of-care or palliative-care conversation. The concerning episode is better explained by symptomatic, potentially medication-related electrolyte depletion: near-syncope and ventricular ectopy were treated with intravenous potassium and magnesium, symptoms settled, and no sustained arrhythmia was captured. However, potassium remained low at 2.9 mmol/L on 2026-08-29, so prompt ordinary clinical follow-up remains important. Heart failure is referenced, but the documented examination was stable and the snapshot provides no evidence of progressive decline, repeated admissions, worsening function, escalating support, or active end-of-life planning. A clinician must review this conclusion and check for relevant information absent from the snapshot.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-08-21T12:00:00.000Z",
+      "detail": "Urgent attendance recorded near-syncope, potassium 2.6 mmol/L, frequent ventricular ectopy, and intravenous potassium and magnesium treatment."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-08-22T12:00:00.000Z",
+      "detail": "Discharge summary says symptoms settled after electrolyte correction, no sustained arrhythmia was captured, and repeat blood tests and medication review were arranged."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-08-29T08:00:00.000Z",
+      "detail": "Follow-up U&E recorded potassium 2.9 mmol/L, below the stated 3.5-5.3 reference range."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Persistent hypokalaemia after an acute symptomatic episode",
+      "significance": "This supports prompt medical review and medication reconciliation, but is not itself evidence that a goals-of-care or palliative-care conversation is indicated.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-29T08:00:00.000Z",
+          "detail": "Potassium remained 2.9 mmol/L after the hospital episode."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-22T12:00:00.000Z",
+          "detail": "Hospital requested prompt repeat U&E and magnesium, diuretic reconciliation, and ECG review."
+        }
+      ]
+    },
+    {
+      "signal": "Heart failure is under review",
+      "significance": "Heart failure warrants contextual clinical review, but this snapshot documents a stable examination and does not establish advanced or progressively deteriorating disease.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-11T12:00:00.000Z",
+          "detail": "GP heart-failure review documented unchanged oedema and a stable heart-failure examination."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "clear_false_positive",
+    "alternativeExplanations": [
+      "The acute near-syncope and palpitations have a documented reversible explanation: severe potassium and magnesium depletion with a possible diuretic contribution.",
+      "Symptoms improved after electrolyte replacement, and monitoring did not capture a sustained arrhythmia."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "The record does not document progressive functional decline, escalating care needs, repeated acute admissions, or an advanced-disease trajectory.",
+      "The documented episode was managed as symptomatic hypokalaemia with planned routine clinical follow-up rather than as irreversible deterioration."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "Potassium was still 2.9 mmol/L on 2026-08-29 after the symptomatic episode.",
+      "The snapshot does not establish the patient's current symptoms, medication reconciliation outcome, or completion of requested follow-up."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-28T12:00:00.000Z",
+        "detail": "Marked electrolyte depletion report recorded potassium 2.7, magnesium 0.58, borderline prolonged QTc, and advice for urgent replacement and same-day review."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-22T12:00:00.000Z",
+        "detail": "Discharge summary attributes the episode to symptomatic hypokalaemia with ventricular ectopy, notes improvement after replacement, and identifies possible diuretic contribution."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-29T08:00:00.000Z",
+        "detail": "Latest available U&E still showed potassium 2.9 mmol/L."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No advance care plan, ReSPECT form, DNACPR decision, ADRT, hospice involvement, palliative-care involvement, or documented goals-of-care discussion appears in the 45-resource eligible snapshot.",
+      "Absence from this snapshot does not establish that such planning does not exist elsewhere."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The available resources consist of investigations, primary-care contacts, observations, one hospital attendance, and its discharge summary; none documents end-of-life planning."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "date": "2026-09-12T16:45:22.771Z",
+        "detail": "Manifest reports one successful eligible-snapshot source containing 45 unique resources and no failed source."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "SMS is recorded as an administrative contact preference, but it should be confirmed before sensitive communication."
+    ],
+    "uncertainties": [
+      "The patient's goals, understanding, priorities, and preferred participants are unknown.",
+      "Family identity, involvement, wishes, and carer availability are unknown.",
+      "Mental capacity, communication needs, accessibility needs, and any legal representative are unknown.",
+      "The snapshot does not establish whether legal or advance-care-planning records exist outside the available resources."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-06-24T08:10:00.000Z",
+        "detail": "An administrative observation records SMS as the contact preference; no preferences for sensitive clinical discussions are documented."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "date": "2026-09-12T16:45:22.771Z",
+        "detail": "Coverage is limited to one eligible snapshot of 45 unique resources."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown; no residence or current location is documented in the available snapshot.",
+    "functionAndMobility": "Unknown; the snapshot does not document baseline activities of daily living, frailty, mobility, or dependence.",
+    "currentClinicalSupport": [
+      "GP-led heart-failure review is documented.",
+      "Hospital treatment and discharge follow-up were documented for symptomatic electrolyte depletion."
+    ],
+    "familyAndCarerSupport": [],
+    "gaps": [
+      "Current symptoms and clinical status after 2026-08-29 are unknown.",
+      "Completion of repeat electrolytes, magnesium, ECG review, and diuretic reconciliation is unknown.",
+      "Residence, function, mobility, formal support, family support, and carer support are unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-05-11T12:00:00.000Z",
+        "detail": "A GP encounter is explicitly recorded as a heart-failure review."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-22T12:00:00.000Z",
+        "detail": "Hospital discharge requested repeat blood tests and heart-failure medication review within one week."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "The manifest describes only the 45-resource eligible snapshot, limiting assessment of baseline support and function."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Responsible primary-care clinician",
+      "meetingPriority": "core",
+      "ownership": "Review the residual hypokalaemia, confirm whether requested tests and medication reconciliation occurred, and decide whether any additional clinical information changes the conversation recommendation.",
+      "reason": "GP records contain the longitudinal heart-failure review and the hospital discharge actions were directed to primary care.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-22T12:00:00.000Z",
+          "detail": "Discharge actions ask primary care to repeat U&E and magnesium, reconcile diuretics, and review the ECG result."
+        }
+      ]
+    },
+    {
+      "role": "Heart-failure clinician",
+      "meetingPriority": "optional",
+      "ownership": "Advise on heart-failure medication contribution and optimisation if the responsible primary-care clinician cannot resolve this from the available record.",
+      "reason": "The record links the episode to heart-failure treatment and identifies possible diuretic contribution, but it does not identify a named specialist.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-22T12:00:00.000Z",
+          "detail": "Discharge summary describes possible diuretic contribution and requests a heart-failure medicines review."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "Responsible primary-care clinician",
+    "urgency": "Prompt clinical review; do not convene a goals-of-care meeting on this snapshot alone.",
+    "formatAndAccessibility": "First complete a brief clinician-led record and safety review. If patient discussion is needed, confirm current contact preference, accessibility needs, capacity, desired format, and whom the patient wants involved before arranging it.",
+    "objectives": [
+      "Confirm completion and result of repeat U&E, magnesium, ECG review, and diuretic reconciliation.",
+      "Establish current symptoms and whether there has been any undocumented decline, admission, or escalation of support.",
+      "Verify whether advance-care-planning records or patient priorities exist outside this snapshot.",
+      "Retain the current do-not-proceed recommendation unless additional evidence supports a goals-of-care conversation."
+    ],
+    "briefingNotes": [
+      {
+        "note": "The acute episode involved potassium 2.6 mmol/L, near-syncope, and ventricular ectopy treated with intravenous electrolyte replacement.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-08-21T12:00:00.000Z",
+            "detail": "Hospital attendance records near-syncope, potassium 2.6, frequent ventricular ectopy, and intravenous potassium and magnesium."
+          }
+        ]
+      },
+      {
+        "note": "Symptoms settled and no sustained arrhythmia was captured, supporting a reversible acute explanation.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-08-22T12:00:00.000Z",
+            "detail": "Discharge summary documents symptom resolution after correction and no sustained arrhythmia during monitoring."
+          }
+        ]
+      },
+      {
+        "note": "Residual potassium of 2.9 mmol/L means follow-up cannot be assumed complete or reassuring.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-08-29T08:00:00.000Z",
+            "detail": "Latest available U&E records potassium 2.9 mmol/L."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Immediate electrolyte and medication safety",
+      "Current symptoms and trajectory",
+      "Missing baseline, support, and planning information",
+      "Documented rationale for whether any goals-of-care discussion is appropriate"
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Draft SMS only after a clinician confirms SMS remains appropriate for this clinical contact",
+      "draft": "We would like to review your recent blood-salt results and medicines to make sure the follow-up plan is complete and to hear how you have been feeling. This is a routine safety review. Please seek urgent medical help if you currently feel faint, have persistent palpitations, chest pain, or severe breathlessness.",
+      "cautions": [
+        "Do not mention prognosis or imply that palliative or end-of-life care is indicated.",
+        "Confirm identity, current SMS preference, local urgent-care wording, and clinical accuracy before sending.",
+        "This is a draft; no contact has been made."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-24T08:10:00.000Z",
+          "detail": "SMS is recorded as an administrative contact preference."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-22T12:00:00.000Z",
+          "detail": "Discharge plan requested repeat electrolytes and medication review and gave return advice for palpitations."
+        }
+      ]
+    },
+    {
+      "audience": "Responsible primary-care clinician",
+      "channel": "Draft internal clinical handover",
+      "draft": "Please review whether post-discharge U&E, magnesium, ECG review, and diuretic reconciliation were completed. The latest available potassium is 2.9 mmol/L on 2026-08-29. The current snapshot supports a reversible electrolyte-related episode rather than a goals-of-care trigger, but this conclusion should be reconsidered if omitted records show decline or advanced-disease concerns.",
+      "cautions": [
+        "Clinical decision support only; verify all results and dates in the live record.",
+        "Do not treat absence of planning or decline in this snapshot as proof of absence.",
+        "This is a draft; no message has been sent."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-22T12:00:00.000Z",
+          "detail": "Discharge summary lists the requested GP follow-up and possible diuretic contribution."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-29T08:00:00.000Z",
+          "detail": "Latest available potassium is 2.9 mmol/L."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Verify promptly whether repeat U&E and magnesium were obtained after 2026-08-29 and clinically review any continuing electrolyte abnormality.",
+      "owner": "Responsible primary-care clinician",
+      "urgency": "Prompt; escalate according to current symptoms, repeat results, and local clinical pathways.",
+      "reason": "The latest available potassium remained below range after a symptomatic episode with ventricular ectopy.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-29T08:00:00.000Z",
+          "detail": "Potassium was 2.9 mmol/L on the latest available U&E."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-21T12:00:00.000Z",
+          "detail": "The preceding episode included near-syncope, potassium 2.6, and frequent ventricular ectopy."
+        }
+      ]
+    },
+    {
+      "action": "Confirm medication reconciliation, especially the possible diuretic contribution, and confirm review of the requested ECG.",
+      "owner": "Responsible primary-care clinician",
+      "urgency": "Prompt, alongside electrolyte follow-up.",
+      "reason": "These were explicit discharge actions and their completion is not shown in the snapshot.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-22T12:00:00.000Z",
+          "detail": "Discharge summary requests diuretic reconciliation and ECG review and notes possible diuretic contribution."
+        }
+      ]
+    },
+    {
+      "action": "Do not initiate a goals-of-care or palliative-care meeting solely from this snapshot; first check for omitted trajectory, function, support, patient-priority, and planning information.",
+      "owner": "Responsible primary-care clinician",
+      "urgency": "Before any goals-of-care outreach.",
+      "reason": "The available episode has a reversible explanation and the snapshot lacks the longitudinal and preference evidence needed to support such a conversation.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-22T12:00:00.000Z",
+          "detail": "Symptoms settled following electrolyte correction and no sustained arrhythmia was captured."
+        },
+        {
+          "sourcePath": "record/manifest.json",
+          "detail": "Available coverage is one eligible snapshot containing 45 unique resources."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "The manifest reports successful collection of the single eligible 15-day snapshot, no failed sources, 45 unique resources, no duplicate visibility, and no safety-gate reason. This is complete for the declared source but not equivalent to comprehensive coverage of residence, function, care support, medicines, diagnoses, planning documents, or events after the cutoff.",
+    "missingSources": [
+      "No separate structured medication list or dispensing record is present in the eligible snapshot.",
+      "No residence, function, mobility, frailty, formal-care, or carer assessment is present.",
+      "No family, next-of-kin, legal representative, capacity, or accessibility record is present.",
+      "No explicit advance-care-planning, ReSPECT, DNACPR, ADRT, hospice, or palliative-care record is present.",
+      "No result after 2026-08-29 confirms resolution of hypokalaemia before the 2026-09-09 cutoff."
+    ],
+    "failedSources": [],
+    "contradictions": [
+      "The discharge summary says the immediate electrolyte deficit improved, while the later U&E still records potassium 2.9 mmol/L; this may represent recurrence or incomplete correction and requires clinical verification rather than reconciliation by assumption."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "date": "2026-09-12T16:45:22.771Z",
+        "detail": "Manifest coverage reports one successful source, zero failed sources, 45 unique resources, and forceInsufficientEvidence false."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-09",
+        "detail": "Eligible snapshot declares a 2026-09-09 cutoff and contains 45 resources."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-29T08:00:00.000Z",
+        "detail": "Latest available U&E before the cutoff records potassium 2.9 mmol/L."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "confirmed",
+    "falsePositiveChecks": [
+      "Deliberately re-read all 45 eligible resources for progressive disease, repeated admissions, functional decline, frailty, escalating support, and worsening heart-failure findings; none was documented.",
+      "Re-checked the acute sequence from declining potassium through near-syncope, intravenous replacement, discharge improvement, and residual potassium 2.9 mmol/L.",
+      "Re-checked for ACP, ReSPECT, DNACPR, ADRT, hospice, palliative-care, patient-wish, family-wish, and carer records; none was documented in the snapshot.",
+      "Re-checked the manifest safety gate, failed-source list, resource count, and cutoff coverage.",
+      "This was a deliberate second evidence re-check by the same single agent, not independent verification."
+    ],
+    "changesFromPrimary": [
+      "No material changes after the deliberate second evidence re-check.",
+      "Retained do_not_proceed because the record supports a reversible electrolyte-related false-positive explanation, while preserving prompt ordinary clinical follow-up for persistent hypokalaemia and explicit uncertainty about omitted data."
+    ]
+  }
+}

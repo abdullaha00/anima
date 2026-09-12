@@ -1,0 +1,372 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000391",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "proceed",
+  "confidence": 0.7,
+  "summary": "Prompt clinician review is supported to decide whether and when to offer a priorities-focused goals-of-care conversation. The record shows a worsening chest-symptom trajectory from exertional pressure to pressure after a few steps and then an acuity-1 emergency-department presentation with chest pressure at rest, diaphoresis, and shortness of breath. This may represent a treatable acute cardiac problem and is not, by itself, evidence of terminal illness; discussion should therefore be timed around stabilization and framed as understanding priorities rather than predicting outcome. The snapshot does not establish diagnosis, prognosis, broader functional baseline, residence, patient wishes, family support, decision-making capacity, or active advance-care planning.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-08-14T18:55:00Z",
+      "detail": "Acuity-1 emergency-department arrival for chest pressure at rest with diaphoresis and shortness of breath; cardiology and emergency teams are listed."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "detail": "Earlier GP encounters document progression from exertional pressure settling with rest to pressure after a few steps with breathlessness and advice for urgent assessment."
+    },
+    {
+      "sourcePath": "record/manifest.json",
+      "detail": "The manifest reports one successful eligible snapshot, 40 unique resources, no failed sources, and no forced insufficient-evidence safety gate."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Progressive chest symptoms and reduced exertional threshold",
+      "significance": "The documented change from symptoms on walking uphill to symptoms after only a few steps, with breathlessness and a longer episode, warrants prompt human review of the clinical trajectory and the appropriateness of a priorities conversation alongside acute evaluation.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "GP documentation first describes central pressure after walking uphill and fatigue, settling with rest, and later chest pressure after a few steps with breathlessness and a longer-than-usual episode."
+        }
+      ]
+    },
+    {
+      "signal": "High-acuity emergency presentation",
+      "significance": "Rest pain with autonomic and respiratory symptoms in an acuity-1 emergency attendance creates an immediate need for clinician-led review; it does not establish prognosis but may make a sensitive priorities discussion relevant once clinically appropriate.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-14T18:55:00Z",
+          "detail": "Hospital attendance records acuity 1, emergency-department arrival, and chest pressure at rest with diaphoresis and shortness of breath."
+        }
+      ]
+    },
+    {
+      "signal": "Serial blood-count abnormalities",
+      "significance": "Repeated low haemoglobin and platelet values add clinical complexity that should be interpreted by the treating team rather than assumed to be benign or terminal.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-27T08:20:00Z",
+          "detail": "Anaemia and platelet check reports haemoglobin 108 g/L and platelets 130 ×10⁹/L."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Other serial FBC reports include haemoglobin values below the stated reference range and platelet values of 119, 101, and 111 ×10⁹/L."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "uncertain",
+    "alternativeExplanations": [
+      "The acute chest presentation may have a treatable cardiac or other acute cause; the record does not provide a confirmed diagnosis or prognosis.",
+      "Anaemia could contribute to fatigue, breathlessness, or exertional symptoms, but the record does not establish causation.",
+      "The available record is dominated by routine monitoring and a single acute attendance rather than documented recurrent admissions or established progressive advanced disease."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "An urgent acute-care encounter may be the wrong moment for a broader conversation before pain, breathlessness, and immediate clinical needs are addressed.",
+      "There is no documented advanced-life-limiting diagnosis, prognosis, frailty syndrome, recurrent admission pattern, or palliative-care need in this snapshot.",
+      "A conversation must not be presented as evidence that deterioration or death is expected."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "Symptoms progressed to chest pressure at rest with diaphoresis and shortness of breath and an acuity-1 emergency presentation.",
+      "The exertional threshold worsened from walking uphill to only a few steps before the emergency attendance.",
+      "The snapshot contains repeated anaemia and thrombocytopenia, which remain clinically relevant even though their cause and significance are not established."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-14T18:55:00Z",
+        "detail": "The latest attendance is high-acuity and acute, but no diagnosis, prognosis, or disposition is supplied."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The longitudinal snapshot includes routine GP contacts and diagnostics plus worsening chest symptoms, but no documented recurrent hospital admissions or advanced-life-limiting diagnosis."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No advance care plan, ReSPECT form, DNACPR decision, ADRT, lasting-power-of-attorney record, hospice involvement, specialist palliative-care involvement, or documented goals-of-care discussion was found in the supplied snapshot.",
+      "Absence from this limited snapshot does not prove that no planning exists elsewhere; the treating team should verify before initiating a new discussion."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Review of the 40 supplied resources found encounters, observations, diagnostics, and one hospital attendance, without an identified care-planning or palliative-care resource."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Coverage consists of one consolidated eligible snapshot containing 40 unique resources."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Letter is repeatedly recorded as the administrative contact preference; this should be reconfirmed for sensitive clinical communication and does not replace accessible real-time communication during acute care."
+    ],
+    "uncertainties": [
+      "The patient's understanding, priorities, values, fears, and preferred level of involvement are unknown.",
+      "Family, carer, or other supporter identities and wishes are unknown.",
+      "Consent to involve another person is unknown.",
+      "Decision-making capacity, communication needs, language, sensory needs, and accessibility requirements are unknown.",
+      "The existence of legal representatives or care-planning documents outside this snapshot is unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Multiple GP observations record the administrative contact preference as letter; no patient wishes, family wishes, supporter details, capacity assessment, or legal planning record is supplied."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown; no residence or current home setting is documented in the supplied snapshot.",
+    "functionAndMobility": "Broader baseline activities of daily living and mobility aids are unknown. The symptom record indicates a decline in exertional tolerance from chest pressure walking uphill to pressure after only a few steps, but this does not define the patient's usual functional independence.",
+    "currentClinicalSupport": [
+      "GP involvement is documented through long-term-condition and chest-symptom reviews.",
+      "Cardiology and emergency teams are listed for the latest emergency-department attendance."
+    ],
+    "familyAndCarerSupport": [],
+    "gaps": [
+      "Residence and usual living arrangements are unknown.",
+      "Personal care, instrumental activities, mobility aids, falls, cognition, nutrition, and frailty are not documented.",
+      "Medication list, diagnoses, treatment plan, emergency-attendance outcome, and follow-up arrangements are not supplied.",
+      "Informal and formal care support is unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "GP notes document worsening exertional chest symptoms, while the snapshot provides no structured residence, ADL, mobility-aid, frailty, cognition, or carer information."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-14T18:55:00Z",
+        "detail": "The latest attendance identifies cardiology and emergency teams in the emergency department."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Current cardiology or acute-care clinician",
+      "meetingPriority": "core",
+      "ownership": "Own immediate clinical stabilization, establish diagnosis and prognosis as far as possible, and decide with the patient whether and when a priorities conversation is appropriate.",
+      "reason": "The latest record places the patient in the emergency department under cardiology and emergency teams with acuity 1.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-14T18:55:00Z",
+          "detail": "Emergency attendance lists cardiology and emergency teams and acuity 1."
+        }
+      ]
+    },
+    {
+      "role": "Usual GP clinician",
+      "meetingPriority": "core",
+      "ownership": "Provide longitudinal context, verify existing plans and preferences, and own documented follow-up after the acute episode unless another clinician explicitly assumes this role.",
+      "reason": "GP records contain the preceding symptom trajectory and repeated long-term-condition contacts.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "GP encounters document longitudinal reviews and the progression of chest symptoms before emergency attendance."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "Current cardiology or acute-care clinician initially, with explicit handover of follow-up ownership to the usual GP or another named treating clinician.",
+    "urgency": "Prompt human review during the acute assessment; hold any substantive goals conversation once immediate symptoms are addressed and the patient can participate, unless the patient asks to talk sooner.",
+    "formatAndAccessibility": "Use a brief, private, clinician-led conversation in the care setting, first checking capacity, comfort, preferred communication method, accessibility needs, and whether the patient wants a supporter present. Reconfirm the recorded letter preference before later written communication.",
+    "objectives": [
+      "Ask permission to discuss what matters most during current care and possible next steps.",
+      "Clarify the patient's understanding and priorities without implying a known prognosis.",
+      "Explain current uncertainty and distinguish acute treatment decisions from broader future planning.",
+      "Ask whether any prior plans or legal documents exist and where they can be found.",
+      "Agree who owns follow-up and how the patient wants information communicated."
+    ],
+    "briefingNotes": [
+      {
+        "note": "The clinical trajectory moved from exertional pressure relieved by rest to symptoms after a few steps and then chest pressure at rest with diaphoresis and shortness of breath.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-08-14T18:55:00Z",
+            "detail": "Latest emergency presentation followed earlier GP-documented worsening exertional symptoms."
+          }
+        ]
+      },
+      {
+        "note": "Do not equate this acute presentation with terminal illness: no confirmed diagnosis, prognosis, or advanced-care plan is present in the snapshot.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "The supplied resources do not state a confirmed diagnosis, prognosis, or advance-care plan."
+          }
+        ]
+      },
+      {
+        "note": "Serial low haemoglobin and platelets should be included in clinical context, without assuming they explain symptoms.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-06-27T08:20:00Z",
+            "detail": "FBC reports haemoglobin 108 g/L and platelets 130 ×10⁹/L, with other serial reports also below stated reference ranges."
+          }
+        ]
+      },
+      {
+        "note": "Letter is recorded as an administrative contact preference, but preferences for sensitive or urgent discussion remain unverified.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "Repeated GP observations record letter as the administrative contact preference."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Permission, comfort, communication needs, and desired participants",
+      "Current understanding and immediate questions",
+      "What matters most and unacceptable outcomes",
+      "Clinical uncertainty and treatment options as explained by the treating clinician",
+      "Existing plans, documents, or representatives",
+      "Named follow-up owner and preferred communication method"
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Private spoken discussion in the care setting, followed by written information only if wanted and after reconfirming preferences",
+      "draft": "You have had a worrying change in your symptoms, and the team is assessing what is happening and what treatments may help. When you feel ready, would it be all right to talk about what matters most to you while we plan the next steps? This is not a prediction about what will happen. We want to understand your priorities, who you would like involved, and how you prefer us to share information.",
+      "cautions": [
+        "Address immediate pain, breathlessness, and clinical instability first.",
+        "Do not imply a terminal diagnosis or known outcome.",
+        "Check capacity, accessibility, and consent to involve any supporter.",
+        "Do not rely on the administrative letter preference for urgent or sensitive communication without reconfirmation."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-14T18:55:00Z",
+          "detail": "The draft reflects the acute chest-pressure, diaphoresis, and breathlessness presentation and the need to avoid overinterpreting it."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Letter is recorded as an administrative contact preference, while sensitive-discussion preferences and supporter details are absent."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Treating clinician to review the acute presentation and determine when the patient is stable and comfortable enough to be offered a priorities-focused conversation.",
+      "owner": "Current cardiology or acute-care clinician",
+      "urgency": "Immediate clinical review; conversation timing based on the patient's condition and wishes.",
+      "reason": "The latest event is an acuity-1 emergency presentation with symptoms at rest, so acute needs and capacity to participate take precedence.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-14T18:55:00Z",
+          "detail": "Acuity-1 emergency-department attendance for rest chest pressure, diaphoresis, and shortness of breath."
+        }
+      ]
+    },
+    {
+      "action": "Verify the diagnosis, treatment response, disposition, prognosis, and accountable follow-up clinician before drawing conclusions from the acute episode.",
+      "owner": "Current cardiology or acute-care clinician",
+      "urgency": "During the current assessment and before substantive future-care recommendations.",
+      "reason": "The snapshot identifies the presentation and team but does not include a diagnosis, treatment, outcome, or disposition.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-14T18:55:00Z",
+          "detail": "Attendance is recorded at the arrived stage; no subsequent diagnosis, treatment, or discharge information is supplied."
+        }
+      ]
+    },
+    {
+      "action": "Check the local and shared record for prior goals discussions, advance-care documents, legal representatives, and patient-authorized supporters before creating a new plan.",
+      "owner": "Usual GP clinician or delegated care coordinator",
+      "urgency": "Promptly after immediate acute needs are addressed.",
+      "reason": "No such records are present in the supplied snapshot, but the limited consolidated coverage cannot establish that none exist elsewhere.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "No goals-of-care, legal-planning, supporter, hospice, or palliative-care resource is identified in the supplied resources."
+        },
+        {
+          "sourcePath": "record/manifest.json",
+          "detail": "Coverage is limited to one successful consolidated eligible snapshot."
+        }
+      ]
+    },
+    {
+      "action": "Reconcile the serial blood-count abnormalities and internally unusual renal analyte pairing against the clinical record rather than assuming accuracy or significance.",
+      "owner": "Treating clinician",
+      "urgency": "During clinical record review.",
+      "reason": "Repeated low haemoglobin and platelets may affect interpretation, while one U&E report pairs creatinine 122 µmol/L with eGFR 102 mL/min/1.73m² and requires source verification.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-27T08:20:00Z",
+          "detail": "FBC documents haemoglobin 108 g/L and platelets 130 ×10⁹/L."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "A later U&E panel reports creatinine 122 µmol/L and eGFR 102 mL/min/1.73m² in the same resource."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "The manifest reports one successfully collected eligible 15-day snapshot, 40 unique resources, zero failed sources, no duplicate visibility, and no safety-gate reason to force insufficient evidence. The snapshot supplies useful longitudinal diagnostics, GP contacts, and one acute attendance, but it is not a complete clinical baseline and does not include outcome/disposition after arrival.",
+    "missingSources": [
+      "No separate structured problem list, medication list, residence/function assessment, care-plan repository, family/carer record, legal-planning record, or post-attendance diagnosis/disposition source is included beyond the consolidated eligible snapshot."
+    ],
+    "failedSources": [],
+    "contradictions": [
+      "One U&E panel reports creatinine 122 µmol/L with eGFR 102 mL/min/1.73m²; this internally unusual pairing should be checked against the source system.",
+      "Several U&E panels report urea values of 0.1 mmol/L, far below the supplied reference interval; accuracy and clinical context are not established."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Coverage reports successful 1, failed 0, failedSources empty, 40 unique resources, zero duplicate visibility, and forceInsufficientEvidence false."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The consolidated snapshot contains diagnostics, GP encounters and observations, and an arrived-stage emergency attendance, but no later attendance outcome or structured planning/baseline resources."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "U&E data include repeated urea 0.1 mmol/L values and one panel pairing creatinine 122 µmol/L with eGFR 102 mL/min/1.73m²."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "confirmed",
+    "falsePositiveChecks": [
+      "Re-read all 40 eligible resources for a benign explanation, symptom resolution, or normalization that would make the acute signal clearly false positive; none was documented.",
+      "Re-checked the chronology from exertional symptoms to shorter-walk symptoms and the 2026-08-14 emergency attendance.",
+      "Re-checked for confirmed advanced illness, prognosis, recurrent admissions, frailty, functional dependence, or palliative need; these were not documented.",
+      "Re-checked for ACP, ReSPECT, DNACPR, ADRT, legal representative, hospice, specialist palliative care, and prior goals discussions; none was found in the supplied snapshot.",
+      "Re-checked family/carer and contact-preference fields; only an administrative preference for letter was documented.",
+      "Reconciled manifest coverage and confirmed failedSources is exactly empty and the safety gate is not triggered.",
+      "Re-checked laboratory trends and flagged unusual renal analyte combinations as data-quality uncertainty rather than clinical conclusions."
+    ],
+    "changesFromPrimary": [
+      "Single-agent deliberate second pass retained proceed as a recommendation for prompt clinician review, not an automatic conversation or prognosis claim.",
+      "Emphasized treatable acute disease and timing after stabilization as key alternative explanations and safeguards.",
+      "Kept planning, family support, residence, broader function, diagnosis, prognosis, and disposition explicitly unknown.",
+      "Added verification of serial cytopenias and internally unusual U&E values as issues requiring clinician/source reconciliation."
+    ]
+  }
+}

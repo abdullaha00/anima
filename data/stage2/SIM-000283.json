@@ -1,0 +1,306 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000283",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "proceed",
+  "confidence": 0.82,
+  "summary": "Prompt clinician review is supported for a sensitive priorities-and-future-care conversation. The record describes active heart failure and CKD, reduced appetite and intake, increasing weakness and nausea, and a recent assessment with pulse 104 bpm, blood pressure 96/58 mmHg, and postural light-headedness. These findings also warrant timely clinical assessment for potentially reversible causes; they do not establish prognosis. Later renal results were substantially better than the June abnormal profile, so the trajectory is mixed and should not be overstated. No active advance-care or palliative plan is documented in this snapshot.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "detail": "The longitudinal GP record lists CKD and heart failure as active, and recent GP-owned entries document reduced intake, weakness, nausea, low blood pressure, tachycardia, and postural symptoms."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-06-20T08:00:00Z",
+      "detail": "Renal testing showed potassium 5.7 mmol/L, urea 8.6 mmol/L, creatinine 118 micromol/L, and eGFR 54, while later U&E reports show improved renal indices."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Recent symptomatic decline and reduced intake",
+      "significance": "Less appetite, increased daytime sleep, later increasing weakness and intermittent nausea with difficulty keeping fluids down, and a final observation of reduced intake with postural light-headedness indicate a clinically important change that merits prompt holistic review.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "GP encounters document less appetite and more daytime sleep, then increasing weakness, intermittent nausea, and difficulty keeping fluids down; the latest observation records reduced intake and postural light-headedness."
+        }
+      ]
+    },
+    {
+      "signal": "Low blood pressure with tachycardia",
+      "significance": "The recorded pulse of 104 bpm and blood pressure of 96/58 mmHg alongside poor intake may reflect an acute, potentially reversible problem and requires clinical review rather than prognostic interpretation alone.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The latest GP observation records pulse 104 bpm, blood pressure 96/58 mmHg, reduced oral intake, and postural light-headedness."
+        }
+      ]
+    },
+    {
+      "signal": "Chronic cardiac and renal disease with prior biochemical deterioration",
+      "significance": "Active heart failure and CKD provide relevant chronic-disease context, while the June hyperkalaemia and renal impairment show prior physiological vulnerability despite subsequent improvement.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-15",
+          "detail": "The longitudinal GP problem list records CKD as active."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-02-14",
+          "detail": "The longitudinal GP problem list records heart failure as active."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-20T08:00:00Z",
+          "detail": "The renal report records potassium 5.7 mmol/L, urea 8.6 mmol/L, creatinine 118 micromol/L, and eGFR 54."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "no_clear_false_positive",
+    "alternativeExplanations": [
+      "Poor intake or volume depletion could contribute to weakness, nausea, postural symptoms, tachycardia, and low blood pressure.",
+      "The June renal abnormality may have been transient because later U&E results improved substantially.",
+      "The snapshot does not establish whether medication effects or another acute reversible cause contributed."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "A crisis-framed or prognosis-framed conversation would be premature because the record has mixed renal trajectory and no documented terminal diagnosis or prognosis.",
+      "Immediate assessment of reversible causes should not be displaced by care-planning discussion."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "Symptoms progressed from reduced appetite and intake to weakness, nausea, difficulty retaining fluids, and postural light-headedness.",
+      "Active heart failure and CKD remain relevant even though later renal indices improved.",
+      "The latest low blood pressure and tachycardia are clinically concerning findings that require human interpretation."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The record documents progressive intake-related symptoms and a latest pulse of 104 bpm with blood pressure 96/58 mmHg, but subsequent renal panels improved after the abnormal June panel."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "No palliative diagnosis, terminal prognosis, or explanatory medication list is documented; the EHR medication array is empty."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No advance care plan, ADRT, DNACPR/DNR, ReSPECT plan, hospice involvement, or palliative-care plan is documented in the available snapshot.",
+      "An open GP task exists to confirm follow-up arrangements, but it does not document goals-of-care planning or implementation."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Review of all 48 snapshot resources found no documented advance-care or palliative planning; the only open task is GP-owned and titled 'Confirm follow-up arrangements'."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "The manifest reports one successful eligible snapshot containing 48 unique resources, with no collection failures."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Letter is recorded as the contact preference."
+    ],
+    "uncertainties": [
+      "The patient's priorities, understanding, desired level of involvement, and preferred place of care are unknown.",
+      "Family or carer identity, availability, wishes, and permission to involve them are unknown.",
+      "Decision-making capacity, health and welfare attorney status, ADRT, DNACPR, ReSPECT, and any advance-care plan are unknown.",
+      "It is unknown whether letter remains suitable for urgent clinical contact; the recorded preference should be confirmed directly."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "GP observations record the administrative contact preference as letter; the snapshot does not document patient wishes, family wishes, carers, capacity, attorneys, or legal care-planning records."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown; the snapshot does not document where the patient lives or the care setting.",
+    "functionAndMobility": "Baseline function and mobility are unknown; recent weakness and postural light-headedness are documented, but no activities-of-daily-living or mobility baseline is recorded.",
+    "currentClinicalSupport": [
+      "GP has documented the recent encounters and observations and owns an open task to confirm follow-up arrangements.",
+      "Diagnostics produced the available blood-test reports."
+    ],
+    "familyAndCarerSupport": [],
+    "gaps": [
+      "Residence, usual function, mobility, falls risk, frailty, cognition, and ability to manage food and fluids are not documented.",
+      "No medication list is available in the EHR resource despite active CKD and heart failure.",
+      "No named family member, carer, community service, heart-failure service, renal service, or palliative-care service is documented."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "GP owns the symptomatic encounters, latest observations, and an open follow-up task; diagnostics owns blood reports. Residence, functional baseline, carers, named specialist services, and medications are not documented."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Responsible GP or same-day primary-care clinician",
+      "organisation": "Primary care",
+      "meetingPriority": "core",
+      "ownership": "Own immediate clinical reassessment, reconcile the mixed trajectory, confirm follow-up, and lead any priorities-and-future-care discussion.",
+      "reason": "GP owns the recent symptom assessments and the open follow-up task, making primary care the only clearly documented clinical owner.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Recent appetite, fatigue, weakness, nausea, low-intake, and postural entries are GP-owned, and the open follow-up task is assigned to GP."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "Responsible GP or same-day primary-care clinician",
+    "urgency": "Clinical reassessment should be prompt/same day given the latest low blood pressure, tachycardia, poor intake, and postural symptoms; a priorities conversation should follow when the patient is clinically stable and able to participate.",
+    "formatAndAccessibility": "Start with direct clinical contact using an urgency-appropriate channel rather than relying on post. For the planning conversation, ask the patient about preferred format, communication needs, capacity, and whom they wish to involve; none are documented.",
+    "objectives": [
+      "Assess reversible causes and immediate safety before or alongside broader planning.",
+      "Clarify the patient's understanding, priorities, worries, and acceptable trade-offs.",
+      "Review heart failure, CKD, medication exposure, hydration, nutrition, and the mixed renal trajectory.",
+      "Ask whether the patient wants family or another supporter involved and obtain permission before sharing information.",
+      "Determine whether formal advance-care documentation or specialist input would be useful after clinician review."
+    ],
+    "briefingNotes": [
+      {
+        "note": "Recent course: less appetite and more daytime sleep, followed by increasing weakness, intermittent nausea, difficulty keeping fluids down, and postural light-headedness.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "Sequential GP entries document reduced appetite/intake, daytime sleep, weakness, nausea, difficulty keeping fluids down, and postural light-headedness."
+          }
+        ]
+      },
+      {
+        "note": "Latest recorded assessment includes pulse 104 bpm and blood pressure 96/58 mmHg with reduced intake.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "The latest GP observation records pulse 104 bpm, blood pressure 96/58 mmHg, and reduced oral intake."
+          }
+        ]
+      },
+      {
+        "note": "Renal trajectory is mixed: significant abnormality in June followed by later results with creatinine 62, eGFR 108, and potassium at the upper reference limit of 5.3 mmol/L.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-06-20T08:00:00Z",
+            "detail": "June U&E showed potassium 5.7, urea 8.6, creatinine 118, and eGFR 54; the latest U&E records potassium 5.3, urea 5, creatinine 62, and eGFR 108."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Immediate symptoms, hydration, observations, and safety",
+      "Current conditions, medicines, and recent test trajectory",
+      "What matters most to the patient now",
+      "Preferred involvement of family or supporters",
+      "Proportionate next steps, ownership, and documentation"
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Draft letter for non-urgent planning invitation only, with an urgency-appropriate direct channel used separately for clinical reassessment",
+      "draft": "We would like to talk with you about how you have been feeling recently and what matters most to you in your care. This is an opportunity to review your symptoms, hear your priorities, and agree the support and next steps that suit you. It does not assume anything about what will happen. Please tell us how you would prefer to talk and whether you would like someone you trust to join you.",
+      "cautions": [
+        "Do not use the letter to manage the latest low blood pressure, fast pulse, poor intake, or postural symptoms; a clinician should choose a timely direct method for that assessment.",
+        "Do not imply a terminal prognosis or that decisions have already been made.",
+        "Confirm the patient's current contact and accessibility preferences before relying on the recorded letter preference.",
+        "Do not contact or disclose information to family or carers without the patient's permission or another valid basis."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Letter is recorded as the contact preference, while recent GP entries document symptoms and observations that merit a separate timely clinical response."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Clinically reassess current symptoms, hydration, pulse, blood pressure including postural symptoms, and ability to maintain oral intake; use emergency escalation if the reviewing clinician identifies instability.",
+      "owner": "Responsible GP or same-day primary-care clinician",
+      "urgency": "Prompt/same day",
+      "reason": "The latest record shows pulse 104 bpm, blood pressure 96/58 mmHg, reduced intake, and postural light-headedness after weakness, nausea, and difficulty keeping fluids down.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Recent GP records document difficulty keeping fluids down and a latest assessment with tachycardia, low blood pressure, reduced intake, and postural light-headedness."
+        }
+      ]
+    },
+    {
+      "action": "Review the latest and prior renal results in clinical context and decide whether repeat U&E or other investigations are required; reconcile the absent medication list, including agents that may affect blood pressure, potassium, renal function, or nausea.",
+      "owner": "Responsible GP or reviewing clinician",
+      "urgency": "At prompt clinical reassessment",
+      "reason": "There was June hyperkalaemia and renal impairment followed by improved values, while symptoms and poor intake continued; the EHR medication list is empty.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-20T08:00:00Z",
+          "detail": "June U&E was abnormal, subsequent U&E values improved, and the longitudinal EHR resource contains an empty medications array."
+        }
+      ]
+    },
+    {
+      "action": "Complete the open follow-up task and, once immediate clinical issues are addressed, offer a patient-led priorities-and-future-care conversation.",
+      "owner": "GP",
+      "urgency": "Promptly after clinical safety review",
+      "reason": "Follow-up remains open and no existing goals-of-care plan is documented despite chronic disease and recent symptom change.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "A GP-owned task titled 'Confirm follow-up arrangements' is open; the snapshot contains no documented advance-care or palliative plan."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "The manifest reports successful collection of the single eligible 15-day snapshot, 48 unique resources, no duplicate visibility, no failed sources, and no forced insufficient-evidence safety gate. Clinical-domain completeness remains limited: residence, function, carers, medicines, specialist involvement, and care-planning records are not documented in the snapshot.",
+    "missingSources": [],
+    "failedSources": [],
+    "contradictions": [
+      "The longitudinal problem list contains both active and resolved CKD entries and both active and resolved heart-failure entries from different dates; current entries are active, but coding history should be reconciled.",
+      "The June renal panel showed impairment and hyperkalaemia, whereas later panels improved markedly; this may represent recovery or fluctuation rather than a simple progressive decline."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Coverage is 1 successful source and 0 failed sources; deduplication reports 48 unique resources and 0 with duplicate visibility; forceInsufficientEvidence is false."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The snapshot lacks documented residence, functional baseline, carers, medications, named specialist support, and formal care planning; problem-status history and renal results show mixed longitudinal signals."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "revised",
+    "falsePositiveChecks": [
+      "Re-read all eligible resources for benign or reversible explanations, including poor intake or volume depletion and subsequent renal recovery.",
+      "Re-checked the latest U&E against the June abnormal panel and avoided describing renal function as continuously deteriorating.",
+      "Searched the eligible snapshot for palliative care, hospice, DNACPR/DNR, ReSPECT, ADRT, advance planning, wishes, family, carers, residence, and mobility; none were documented apart from letter contact preference.",
+      "Confirmed the latest low blood pressure, tachycardia, reduced intake, and postural symptoms and the open GP follow-up task.",
+      "Re-checked manifest coverage, failed sources, resource count, and safety-gate status."
+    ],
+    "changesFromPrimary": [
+      "No separate primary assessment was available in this retry; during the deliberate second evidence pass, the assessment was revised to emphasize mixed renal trajectory and potentially reversible volume-related causes.",
+      "Separated same-day clinical reassessment from the non-urgent planning invitation so care planning does not displace acute evaluation.",
+      "Limited the core team to the GP because no named specialist, community, palliative, family, or carer involvement is documented.",
+      "Retained proceed because chronic disease plus progressive intake-related symptoms and latest abnormal observations support a sensitive human-led priorities conversation after immediate safety review."
+    ]
+  }
+}

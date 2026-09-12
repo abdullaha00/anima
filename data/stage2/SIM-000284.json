@@ -1,0 +1,338 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000284",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "proceed",
+  "confidence": 0.72,
+  "summary": "Prompt human review is supported for a sensitive goals-of-care conversation, alongside rather than instead of clinical assessment. The record describes a 91-year-old patient with active heart failure, reduced exercise tolerance, and exertional chest pressure that progressed to occur after shorter walks with sweating. Recurrent leukopenia and intermittent neutropenia also remain clinically relevant. The snapshot does not document an active advance-care or palliative plan, and residence, functional dependence, current treatment, family support, capacity, and wishes are unknown.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "detail": "Demographics give age 91; the GP record lists active heart failure, encounters describe worsening exertional chest pressure, and serial full blood counts show leukopenia."
+    },
+    {
+      "sourcePath": "record/manifest.json",
+      "detail": "The manifest reports one successful eligible snapshot, 50 unique resources, no failed sources, and no forced insufficient-evidence gate."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Progressive exertional cardiovascular symptoms",
+      "significance": "Reduced exercise tolerance and chest pressure progressed to symptoms after shorter walks with sweating; this warrants clinical follow-up and provides a reasonable context for discussing priorities without presuming prognosis.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "GP encounters record reduced exercise tolerance with exertional chest pressure relieved by rest, followed by chest pressure after shorter walks accompanied by sweating."
+        }
+      ]
+    },
+    {
+      "signal": "Active heart failure in an older patient",
+      "significance": "The combination increases the value of anticipatory, preference-led planning, while the record is insufficient to characterize severity or prognosis.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-02-14",
+          "detail": "The longitudinal GP problem list records heart failure as active; demographics report age 91 at index."
+        }
+      ]
+    },
+    {
+      "signal": "Persistent white-cell abnormality requiring reconciliation",
+      "significance": "Serial leukopenia and intermittent neutropenia are additional unresolved clinical complexity but do not themselves establish palliative need.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-24T08:00:00Z",
+          "detail": "A full blood count reports white-cell count 2.8 and neutrophils 1.8 with repeat assessment advised; later results include white-cell counts 2.5, 2.2, and 3.0."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "no_clear_false_positive",
+    "alternativeExplanations": [
+      "The chest symptoms may reflect a potentially treatable cardiovascular cause requiring assessment rather than irreversible deterioration.",
+      "The blood-count abnormalities may have a reversible or manageable cause that is not established in this snapshot."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "The snapshot does not document terminal disease, repeated acute admissions, major functional dependence, or a specialist conclusion that disease-directed options are exhausted.",
+      "A conversation framed as end-of-life care before clarifying recent chest symptoms could be alarming and could distract from clinical assessment."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "Exertional chest pressure became more easily provoked and was accompanied by sweating.",
+      "Heart failure is recorded as active, while severity, treatment, and follow-up are not documented.",
+      "No active advance-care plan was found in the available snapshot."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The eligible snapshot contains progressive exertional chest symptoms, active heart failure, serial blood abnormalities, and no identifiable active palliative or advance-care-plan resource."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No advance decision, DNACPR/ReSPECT form, advance care plan, documented goals-of-care discussion, hospice involvement, or palliative-care involvement was found in the available resources.",
+      "Administrative entries saying the care team was updated do not demonstrate an active goals-of-care plan."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Review of the 50-resource eligible snapshot found routine contacts, investigations, a GP problem list, and administrative codes but no active end-of-life or advance-care-planning record."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Telephone is recorded as the patient's contact preference."
+    ],
+    "uncertainties": [
+      "The patient's understanding, priorities, preferred place of care, acceptable treatment burden, and readiness for a planning conversation are unknown.",
+      "Decision-making capacity and any communication or accessibility needs are unknown.",
+      "Family, chosen supporters, carers, lasting power of attorney, and consent to involve others are unknown.",
+      "No legal or advance-care-planning records were identified in the available snapshot."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Multiple GP observations record telephone as the administrative contact preference; the snapshot contains no documented wishes, family preferences, representative, or legal planning record."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown; no residence or current care setting is documented in the available snapshot.",
+    "functionAndMobility": "Detailed baseline is unknown. The record documents reduced exercise tolerance and chest pressure with walking but does not describe activities of daily living, aids, falls, or dependence.",
+    "currentClinicalSupport": [
+      "GP-owned long-term-condition contacts and longitudinal problem-list review are documented.",
+      "Diagnostics supplied serial routine blood-test results."
+    ],
+    "familyAndCarerSupport": [],
+    "gaps": [
+      "Current medication regimen is unclear because the GP medication list is empty while a hospital pharmacogenomic record references clopidogrel.",
+      "Heart-failure severity, recent examination, investigations, specialist involvement, and treatment plan are not documented.",
+      "Outcome of advice concerning progressive chest pressure is not documented.",
+      "Residence, day-to-day function, frailty, cognition, symptom burden, and informal support are unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Resources show GP contacts, diagnostics, walking-related chest symptoms, an empty GP medication array, and a clopidogrel-related genomic record; no residence, ADL, frailty, cognition, or carer assessment is present."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Usual GP or responsible primary-care clinician",
+      "meetingPriority": "core",
+      "ownership": "Reconcile recent cardiovascular and blood-count follow-up, confirm current diagnoses and medicines, assess conversation readiness, and own any agreed plan and record updates.",
+      "reason": "The relevant symptom encounters and longitudinal problem list are GP-owned, making primary care the clearest documented coordinator.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "GP-owned resources include the heart-failure problem list, long-term-condition contacts, cardiovascular symptom encounters, and contact preference."
+        }
+      ]
+    },
+    {
+      "role": "Patient",
+      "meetingPriority": "core",
+      "ownership": "Choose whether, when, and with whom to discuss priorities; describe goals, acceptable treatment burden, and preferred involvement of supporters.",
+      "reason": "This must be a voluntary, priorities-led conversation, and no wishes are currently documented.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The snapshot records a telephone contact preference but does not document the patient's care priorities or planning wishes."
+        }
+      ]
+    },
+    {
+      "role": "Cardiology or heart-failure clinician, if already involved or requested after review",
+      "meetingPriority": "optional",
+      "ownership": "Clarify cardiac diagnosis, reversibility, treatment options, and likely trade-offs for an accurate planning discussion.",
+      "reason": "Active heart failure and progressive exertional chest symptoms are documented, but specialist involvement and disease severity are unknown.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The GP record lists active heart failure and records increasingly provoked exertional chest pressure with sweating; no cardiology follow-up is shown."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "Usual GP or responsible primary-care clinician",
+    "urgency": "Prompt clinician review, ideally within 1-2 weeks, with faster clinical assessment if symptoms are current, recurrent, prolonged, or otherwise concerning; do not delay symptom assessment for the planning conversation.",
+    "formatAndAccessibility": "Offer a brief telephone introduction because telephone is the recorded preference, then ask the patient whether they prefer telephone or in-person discussion and whether they want a supporter present; accessibility and communication needs must be checked rather than assumed.",
+    "objectives": [
+      "Confirm that recent chest symptoms and blood-count abnormalities have been clinically assessed and establish the current treatment plan.",
+      "Ask permission for a forward-planning conversation and explore what matters most to the patient.",
+      "Clarify acceptable treatment burden, escalation preferences, and who the patient wants involved without presuming an end-of-life trajectory.",
+      "Document agreed preferences, uncertainties, responsible clinician, and review triggers in the appropriate clinical record after human discussion."
+    ],
+    "briefingNotes": [
+      {
+        "note": "The record describes exertional chest pressure progressing to shorter walks with sweating; clinical safety assessment takes priority if symptoms remain active.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "GP cardiovascular encounters describe progression from occasional exertional pressure relieved by rest to pressure after shorter walks with sweating."
+          }
+        ]
+      },
+      {
+        "note": "Heart failure is listed as active, but severity, treatment, medication reconciliation, and specialist follow-up are unknown.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-02-14",
+            "detail": "The GP problem list marks heart failure active; the medication array is empty and no specialist heart-failure plan appears."
+          }
+        ]
+      },
+      {
+        "note": "No patient goals, family wishes, legal planning document, or active palliative plan was identified.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "The available snapshot contains no identifiable resource documenting goals, representatives, advance decisions, DNACPR/ReSPECT, hospice, or palliative involvement."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Check immediate symptoms, clinical follow-up, medicines, and the patient's understanding.",
+      "Ask what matters most and what the patient hopes to preserve or avoid.",
+      "Discuss possible future decisions and trade-offs only to the level the patient wants.",
+      "Ask whom the patient wants involved and confirm communication preferences.",
+      "Agree ownership, documentation, safety-netting, and review timing."
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Draft telephone script; do not send or call automatically",
+      "draft": "Your GP would like to review how you have been feeling, make sure the recent chest symptoms and blood results have been followed up, and hear what matters most to you if your health changes. This is about planning care around your priorities, not making assumptions about the future. Would you be comfortable discussing this, and is there anyone you would like involved?",
+      "cautions": [
+        "A clinician should first check whether chest symptoms are current and respond through usual urgent-care pathways when clinically indicated.",
+        "Do not describe the patient as dying or imply a prognosis that the record does not establish.",
+        "Confirm identity, privacy, preferred format, capacity, accessibility needs, and consent before involving anyone else."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Telephone is the recorded contact preference; GP records contain progressive exertional chest symptoms and blood-count abnormalities, while patient priorities and supporter involvement are undocumented."
+        }
+      ]
+    },
+    {
+      "audience": "Usual GP or responsible primary-care clinician",
+      "channel": "Draft internal clinical briefing; do not transmit automatically",
+      "draft": "Please review the documented progression of exertional chest pressure, active heart-failure entry, serial leukopenia, current medicines, and any follow-up not visible in this snapshot. If clinically appropriate, ask the patient whether they would welcome a priorities-led planning discussion and document ownership and agreed next steps.",
+      "cautions": [
+        "This is decision support from a limited snapshot, not an instruction or prognosis.",
+        "Verify symptoms, medicines, diagnoses, capacity, wishes, existing plans, and other records before acting."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The snapshot documents active heart failure, progressive exertional symptoms, serial leukopenia, an empty medication array, and no identifiable active care plan."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Clinically reconcile whether the progressive exertional chest pressure has been assessed and whether symptoms are ongoing; apply ordinary urgent chest-pain pathways if indicated by current assessment.",
+      "owner": "Usual GP or responsible primary-care clinician",
+      "urgency": "Prompt; same-day if current or recurrent concerning symptoms are disclosed.",
+      "reason": "The latest symptom entry describes chest pressure after shorter walks with sweating, and subsequent assessment is not visible.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "A GP encounter documents worsening exertional chest pressure with sweating and advice for immediate assessment if pain returned or lasted longer."
+        }
+      ]
+    },
+    {
+      "action": "Reconcile heart-failure status, current medicines, cardiac follow-up, and the hospital clopidogrel pharmacogenomic record.",
+      "owner": "Usual GP or responsible primary-care clinician",
+      "urgency": "Before or at the next prompt clinical review.",
+      "reason": "Heart failure is active, the GP medication list is empty, and a hospital genomic resource references clopidogrel without establishing current use.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The GP problem list includes active heart failure and no medications; a hospital CYP2C19 panel names clopidogrel."
+        }
+      ]
+    },
+    {
+      "action": "Review the serial leukopenia/neutropenia and confirm whether the advised repeat assessment and any etiologic work-up have occurred.",
+      "owner": "Usual GP or responsible primary-care clinician",
+      "urgency": "Prompt routine clinical review, adjusted by symptoms and clinician judgement.",
+      "reason": "White-cell counts remained below the stated reference range across several tests, with intermittent low neutrophils.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-24T08:00:00Z",
+          "detail": "The dedicated review advised repeat assessment for white-cell count 2.8 and neutrophils 1.8; later full blood counts show persistent leukopenia."
+        }
+      ]
+    },
+    {
+      "action": "After clinical reconciliation, offer—not impose—a patient-led conversation about priorities and future care, using the recorded contact preference and checking consent to involve supporters.",
+      "owner": "Usual GP or responsible primary-care clinician",
+      "urgency": "Within 1-2 weeks if clinically appropriate.",
+      "reason": "The record supports anticipatory review but contains no documented wishes or active planning.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The snapshot documents telephone preference, active heart failure, progressive exertional symptoms, and no identifiable patient goals or advance-care plan."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "The manifest reports a successful 15-day eligible snapshot containing 50 unique resources, with zero failed sources and no safety-gate reason to force insufficient evidence. Coverage is limited to this consolidated snapshot and does not establish completeness of all clinical systems or events.",
+    "missingSources": [
+      "No separate medication reconciliation, cardiology or heart-failure assessment, hospital attendance outcome, functional or frailty assessment, residence record, carer assessment, capacity assessment, or advance-care-planning document is present in the eligible snapshot."
+    ],
+    "failedSources": [],
+    "contradictions": [
+      "The GP medication array is empty while a hospital pharmacogenomic record references clopidogrel; current use cannot be determined.",
+      "The problem list includes heart-failure and diabetes entries with differing active/resolved statuses across historical dates; current diagnostic status should be clinically reconciled rather than inferred from older entries."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Coverage reports one successful source, zero failed sources, 50 unique resources, no duplicate visibility, and forceInsufficientEvidence false."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The eligible snapshot contains the empty medication list, clopidogrel-related genomic record, mixed historical problem statuses, and lacks the listed baseline and planning records."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "revised",
+    "falsePositiveChecks": [
+      "Re-read all eligible resources for a benign explanation of the trigger and distinguished potentially treatable chest symptoms from evidence of irreversible decline.",
+      "Re-checked the full problem list, symptom encounters, serial blood results, and latest available results for trajectory and reversibility.",
+      "Re-searched the eligible snapshot for ACP, advance decision, DNACPR/DNR, ReSPECT, goals, hospice, palliative care, family, carer, capacity, residence, function, admissions, referrals, and active specialist ownership; none were identifiable.",
+      "Reconciled the manifest coverage, failed-source list, unique-resource count, and safety gate against the assessment.",
+      "Checked every clinical factual claim and citation against record/eligible.json and every coverage claim against record/manifest.json; no independent verifier was used."
+    ],
+    "changesFromPrimary": [
+      "After deliberate second review, retained proceed but bounded it as a voluntary planning conversation alongside clinical assessment, not evidence of terminal decline.",
+      "Elevated unresolved chest-symptom follow-up as the first immediate action and avoided claiming that symptoms remain current.",
+      "Marked residence, detailed function, supporters, capacity, wishes, current medicines, specialist involvement, and disease severity as unknown.",
+      "Added medication and problem-status inconsistencies to data quality and kept confidence moderate because the snapshot lacks key baseline and follow-up information."
+    ]
+  }
+}

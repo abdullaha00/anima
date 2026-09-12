@@ -1,0 +1,371 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000250",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "do_not_proceed",
+  "confidence": 0.78,
+  "summary": "The available snapshot does not support initiating a goals-of-care or palliative-care conversation now. It instead shows a potentially treatable metabolic deterioration requiring prompt human clinical review: capillary glucose 26.2 mmol/L with trace ketones, 4 kg weight loss and variable appetite, alongside HbA1c 72 mmol/mol and sodium 129 mmol/L. No advanced progressive illness, repeated admission, major functional decline, or active care-planning record is documented in the available resources; because collection is limited to one eligible snapshot, these domains remain unknown rather than absent. Prioritise assessment and management of the metabolic abnormalities, then reconsider broader planning if a clinician identifies serious progressive illness, persistent decline, or patient interest.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "detail": "The snapshot documents a diabetes review with 4 kg weight loss, variable appetite, capillary glucose 26.2 mmol/L, trace ketones and urgent sick-day advice, plus latest HbA1c 72 mmol/mol and sodium 129 mmol/L."
+    },
+    {
+      "sourcePath": "record/manifest.json",
+      "detail": "Coverage comprises one successful eligible 15-day snapshot containing 42 unique resources, with no failed sources and no forced insufficient-evidence gate."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Marked hyperglycaemia with symptoms and weight loss",
+      "significance": "This is a clinically actionable and potentially reversible deterioration that warrants prompt clinician assessment rather than being treated as evidence of an end-of-life trajectory.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "A GP telephone review documents 4 kg weight loss since spring, variable appetite, capillary glucose 26.2 mmol/L, ketones 0.6 mmol/L and urgent sick-day advice."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Earlier GP observations document home glucose often above 18 mmol/L, dry mouth, preserved orientation and ability to manage fluids."
+        }
+      ]
+    },
+    {
+      "signal": "Worsening glycaemic and electrolyte results",
+      "significance": "The longitudinal results support escalation of diabetes and electrolyte review, while not by themselves establishing advanced progressive or palliative-stage disease.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "HbA1c rises across available panels from 56 to 60, 67, 71 and 72 mmol/mol; the latest U&E panel reports sodium 129 mmol/L."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "A diagnostics report states that HbA1c 71 mmol/mol and sodium 130 mmol/L were discussed with the practice and medication review was expedited."
+        }
+      ]
+    },
+    {
+      "signal": "Falling platelet count",
+      "significance": "The latest platelet value is below its stated reference range and should be reviewed in clinical context, but it is nonspecific and does not establish a palliative trajectory.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Available FBC panels show platelets falling from 221 to 199, 162 and 133 ×10⁹/L, with the latest reference range stated as 150–400."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "uncertain",
+    "alternativeExplanations": [
+      "The recent deterioration may be explained by uncontrolled diabetes and associated osmotic symptoms, which are potentially treatable.",
+      "The low sodium may partly relate to marked hyperglycaemia, but the record does not provide enough clinical assessment to determine the mechanism.",
+      "The falling platelet count is nonspecific and requires confirmation and clinical correlation."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "The snapshot does not document advanced progressive illness, recurrent hospital use, severe frailty, major functional dependence, or refractory symptom burden.",
+      "The documented response to deterioration is expedited diabetes/medication review and sick-day advice rather than a palliative pathway.",
+      "Starting an end-of-life-framed conversation before assessing reversible metabolic problems could be premature and alarming."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "Capillary glucose 26.2 mmol/L with weight loss and variable appetite is clinically concerning despite trace ketones.",
+      "HbA1c has risen to 72 mmol/mol and sodium has fallen to 129 mmol/L across the available results.",
+      "Platelets have fallen to 133 ×10⁹/L and the cause is not documented."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The record shows worsening glycaemia, recent weight loss, low sodium and a falling platelet count, while encounters remain primary-care diabetes reviews with expedited medication review and sick-day advice."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Only one eligible snapshot was collected, so undocumented prognosis, diagnoses, function and service involvement cannot be assumed absent."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No advance care plan, ReSPECT form, DNACPR/DNR decision, ADRT, hospice involvement, specialist palliative-care involvement, or documented goals-of-care discussion was found in the 42 available resources.",
+      "This is a snapshot finding only and does not establish that such records do not exist elsewhere."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The available resources consist of laboratory reports, primary-care contacts, contact-preference observations and diabetes reviews; none contains an active care-planning record."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "The manifest reports 42 unique resources from one successful eligible snapshot and no duplicate visibility."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Telephone is repeatedly recorded as the contact preference.",
+      "Interpreter support was used for a diabetes review; preferred language and interpreter requirements should be confirmed rather than inferred."
+    ],
+    "uncertainties": [
+      "The patient's understanding, priorities, treatment goals and willingness to discuss future care are not documented.",
+      "Family or carer identity, availability, wishes and permission to involve them are not documented.",
+      "Decision-making capacity, preferred language, communication needs beyond prior interpreter use, and legal representatives are not documented.",
+      "No legal or advance care-planning records are available in this snapshot."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Multiple GP observations record telephone as the administrative contact preference, and one diabetes review was interpreter-supported."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "No available resource documents patient or family wishes, a legal representative, capacity assessment, or advance care-planning instrument."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown; no residence or current care setting is documented in the available snapshot.",
+    "functionAndMobility": "Unknown; the snapshot does not document activities of daily living, mobility, frailty, falls, cognition, or care dependence.",
+    "currentClinicalSupport": [
+      "Primary care has conducted long-term-condition and diabetes reviews, including an interpreter-supported visit and a telephone review after weight loss.",
+      "Diagnostics supplied serial routine blood panels, and the practice was informed of worsening HbA1c and sodium with medication review expedited."
+    ],
+    "familyAndCarerSupport": [],
+    "gaps": [
+      "Current medication list and adherence are not documented.",
+      "Diabetes type, duration, complications and usual treating clinician are not documented.",
+      "Current symptoms, hydration, vital signs, repeat glucose/ketones and follow-up after sick-day advice are not documented.",
+      "Residence, function, mobility, frailty, cognition, nutrition baseline and family/carer support are not documented.",
+      "Hospital attendance, admissions and specialist involvement cannot be established from this snapshot."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The resources document GP long-term-condition and diabetes reviews, serial diagnostics, interpreter use, telephone preference and expedited medication review, but do not document residence, functional baseline or carers."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "The collected coverage is a single eligible snapshot rather than a documented comprehensive set of primary, hospital, community and legal-care records."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Responsible primary-care clinician",
+      "meetingPriority": "core",
+      "ownership": "Own prompt clinical triage, medication review, repeat testing decisions and coordination of follow-up.",
+      "reason": "GP-owned encounters document the hyperglycaemia, weight loss, sick-day advice and expedited medication review.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Recent clinical observations and diabetes reviews are owned by GP, including the review with capillary glucose 26.2 mmol/L and 4 kg weight loss."
+        }
+      ]
+    },
+    {
+      "role": "Diabetes clinician or clinician with diabetes expertise",
+      "meetingPriority": "core",
+      "ownership": "Review the worsening glycaemia, current regimen and sick-day plan, and advise on safe treatment escalation.",
+      "reason": "Serial HbA1c deterioration and very high capillary glucose require focused diabetes expertise; no named diabetes professional is documented.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "HbA1c rises to 72 mmol/mol, capillary glucose reaches 26.2 mmol/L, and medication review was expedited."
+        }
+      ]
+    },
+    {
+      "role": "Interpreter",
+      "meetingPriority": "optional",
+      "ownership": "Support accurate two-way communication if the patient confirms an interpreter is wanted or needed.",
+      "reason": "Interpreter support has previously been used, but preferred language and current need are not documented.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "A GP diabetes and hypertension review explicitly records that an interpreter was present."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "Responsible primary-care clinician",
+    "urgency": "Same-day human clinical triage of the metabolic findings; arrange a focused review promptly according to that triage. Do not convene a palliative-care meeting on the current evidence alone.",
+    "formatAndAccessibility": "Use the recorded telephone preference for initial contact, confirm whether telephone remains suitable, and ask whether an interpreter is wanted or needed before substantive discussion.",
+    "objectives": [
+      "Assess current symptoms and immediate metabolic risk.",
+      "Reconcile medications, adherence and sick-day management.",
+      "Review the significance and follow-up of sodium and platelet changes.",
+      "Clarify baseline function, weight trajectory, supports and the patient's priorities.",
+      "Reassess whether any serious progressive illness or persistent decline warrants a separate future-care discussion."
+    ],
+    "briefingNotes": [
+      {
+        "note": "Most recent documented diabetes review reports 4 kg weight loss, variable appetite, capillary glucose 26.2 mmol/L, ketones 0.6 mmol/L and urgent sick-day advice.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "GP telephone encounter titled Diabetes review after weight loss contains these findings."
+          }
+        ]
+      },
+      {
+        "note": "Serial HbA1c has increased to 72 mmol/mol; latest sodium is 129 mmol/L and platelets are 133 ×10⁹/L.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "Latest available HbA1c, U&E and FBC panels contain these values."
+          }
+        ]
+      },
+      {
+        "note": "Telephone preference is documented repeatedly and an interpreter was used previously, but current accessibility needs require confirmation.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "Administrative observations record telephone preference and an earlier diabetes review records interpreter presence."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Check present symptoms, intake, hydration, glucose, ketones and red flags.",
+      "Review medicines and agree the immediate diabetes plan.",
+      "Plan repeat or confirmatory investigations and follow-up ownership.",
+      "Ask about function, weight, supports, communication needs and priorities.",
+      "Explain that broader future-care planning can be offered if clinically appropriate or desired, without implying a prognosis."
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Telephone initially, subject to confirmation of preference and interpreter need",
+      "draft": "We would like to review your recent high sugar readings, weight change and blood-test results so we can understand how you are feeling and make sure your treatment and follow-up are right for you. This is a review of your current health and priorities, not a statement about what will happen in the future. Please tell us if you would like an interpreter or another communication arrangement.",
+      "cautions": [
+        "Do not frame this as an end-of-life or prognosis discussion on the current evidence.",
+        "Confirm identity, current contact preference, preferred language and interpreter need before discussing clinical details.",
+        "Do not assume family involvement; obtain the patient's permission first."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The communication is grounded in documented high glucose, weight loss, abnormal blood results, repeated telephone preference and prior interpreter use."
+        }
+      ]
+    },
+    {
+      "audience": "Primary-care and diabetes clinicians",
+      "channel": "Sensitive internal clinical handover draft",
+      "draft": "Please clinically review the documented capillary glucose of 26.2 mmol/L with trace ketones, 4 kg weight loss and variable appetite, together with HbA1c 72 mmol/mol, sodium 129 mmol/L and platelets 133 ×10⁹/L. Confirm current status, medicines and follow-up. The snapshot does not currently support a palliative-care conversation; reconsider only after reversible causes and the broader clinical context are assessed.",
+      "cautions": [
+        "This is clinical decision support and requires clinician confirmation against the live record.",
+        "Do not infer prognosis from these findings.",
+        "Check whether newer results or encounters supersede the frozen snapshot."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The handover values and symptoms are documented in the latest available diabetes encounter and laboratory panels."
+        },
+        {
+          "sourcePath": "record/manifest.json",
+          "detail": "The assessment is based on a frozen eligible snapshot with a 2026-08-29 cutoff."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Perform same-day clinician triage of current symptoms and metabolic risk, including whether urgent in-person assessment is needed.",
+      "owner": "Responsible primary-care clinician",
+      "urgency": "Same day",
+      "reason": "The last documented review includes glucose 26.2 mmol/L, weight loss, variable appetite and trace ketones; present status after sick-day advice is unknown.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The GP diabetes review after weight loss documents capillary glucose 26.2 mmol/L, ketones 0.6 mmol/L, 4 kg weight loss and urgent sick-day advice."
+        }
+      ]
+    },
+    {
+      "action": "Reconcile diabetes medicines and adherence, review sick-day guidance, and assign explicit follow-up ownership.",
+      "owner": "Responsible primary-care clinician with diabetes clinician input",
+      "urgency": "Promptly after triage",
+      "reason": "HbA1c and home glucose have worsened, while the medication regimen and outcome of the expedited review are not available.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Serial HbA1c rises from 56 to 72 mmol/mol; a prior report notes medication review was expedited, but no medication list or subsequent plan is included."
+        }
+      ]
+    },
+    {
+      "action": "Clinically review and, if appropriate, confirm the sodium and platelet abnormalities and assess their causes.",
+      "owner": "Responsible primary-care clinician",
+      "urgency": "Promptly, timed by clinical triage",
+      "reason": "Latest available results report sodium 129 mmol/L and platelets 133 ×10⁹/L, with downward trends and no documented explanatory assessment.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Serial U&E and FBC panels show sodium declining to 129 mmol/L and platelets declining to 133 ×10⁹/L."
+        }
+      ]
+    },
+    {
+      "action": "Confirm communication needs, baseline function, weight trajectory, residence, support network and patient priorities during review.",
+      "owner": "Responsible primary-care clinician",
+      "urgency": "At the next substantive contact",
+      "reason": "These factors are necessary for safe contextual review but are missing; telephone preference and prior interpreter use are the only documented communication indicators.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Telephone is repeatedly recorded as preferred and interpreter use is documented, while function, residence, carers and patient priorities are not recorded in the available resources."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "The manifest documents one successful eligible 15-day snapshot, cutoff 2026-08-29, containing 42 unique resources with no duplicate visibility, no failed retrievals and no safety-gate reason. This supports review of the included serial diagnostics and GP contacts but not assumptions about undocumented hospital, community, medication, functional, family, legal or advance-care-planning information.",
+    "missingSources": [
+      "No separately collected identity, medication, hospital, community, specialist, social-care, legal or advance-care-planning sources are listed in the manifest.",
+      "No post-cutoff clinical status or follow-up is available in the frozen snapshot.",
+      "No comprehensive diagnosis/problem list, current medication list, functional assessment, residence record or carer record is included."
+    ],
+    "failedSources": [],
+    "contradictions": [
+      "The patient identifier is present, but individual resources have no record IDs, limiting resource-level citation specificity.",
+      "The snapshot contains resources with timestamps extending across a longitudinal period, while the only explicit snapshot boundary is the 2026-08-29 cutoff; interpretation therefore relies on ordering within the supplied data."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Manifest coverage is 1 successful source, 0 failed sources, 42 unique resources, 0 resources with duplicate visibility, and forceInsufficientEvidence false."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The eligible file states patientId SIM-000250, cutoffDate 2026-08-29, horizonDays 15 and contains laboratory, encounter and observation resources without resource-level IDs."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "revised",
+    "falsePositiveChecks": [
+      "Re-read all 42 eligible resources for advanced progressive disease, repeated admissions, frailty, functional dependence, refractory symptoms and escalating care; none was documented in the supplied snapshot.",
+      "Re-checked for ACP, ReSPECT, DNACPR/DNR, ADRT, hospice, palliative-care involvement and prior goals-of-care discussion; none was documented in the supplied snapshot.",
+      "Re-checked serial HbA1c, sodium, platelet, glucose, ketone, weight and appetite evidence; the deterioration is real within the snapshot and requires clinical review.",
+      "Checked for a reversible or treatable explanation; uncontrolled diabetes is a plausible explanation for several recent findings, but sodium and platelet changes remain insufficiently explained.",
+      "Re-checked manifest coverage, failures and safety gate; one source succeeded, failedSources is empty and forced insufficient evidence is false.",
+      "Checked that no mortality estimate, outcome inference or claim of independent verification was included."
+    ],
+    "changesFromPrimary": [
+      "On deliberate second review, set the recommendation to do_not_proceed rather than initiate a palliative-care conversation, while escalating prompt metabolic clinical review.",
+      "Kept the false-positive verdict uncertain rather than clear because the metabolic explanation is plausible but coverage is limited and sodium and platelet trends remain unexplained.",
+      "Separated documented telephone preference from the unconfirmed current need for interpreter support.",
+      "Made missing function, residence, carers, wishes, medications and broader service records explicitly unknown rather than normal or absent."
+    ]
+  }
+}
