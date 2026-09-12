@@ -29,7 +29,11 @@ function sourceSentence(entries: MedicationEntry[]): string {
  * The medicines on the record, current ones first, with every structured detail the
  * source carries and a plain line saying what it does not.
  */
-export function MedicinesPanel({ medications }: { medications: MedicationEntry[] }) {
+export function MedicinesPanel({ medications: raw }: { medications: MedicationEntry[] }) {
+  // A snapshot taken before medicines were structured carries plain names; read those too.
+  const medications: MedicationEntry[] = (raw as unknown[]).map((entry) =>
+    typeof entry === "string" ? { name: entry, source: "record" } : (entry as MedicationEntry),
+  );
   const ordered = [...medications.filter((entry) => !isEnded(entry)), ...medications.filter(isEnded)];
   const items: PagedItem[] = ordered.map((entry, index) => ({
     key: `${entry.sourceId ?? entry.source}-${entry.name}-${index}`,
