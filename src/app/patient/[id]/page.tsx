@@ -2,7 +2,6 @@ import { loadPatientContext } from "@/lib/patient-context";
 import { PatientStrip } from "@/components/shell/PatientStrip";
 import { EvidenceChain } from "@/components/patient/EvidenceChain";
 import { PlanStatus } from "@/components/patient/PlanStatus";
-import { CaseActions } from "@/components/patient/CaseActions";
 import { RecordReview } from "@/components/patient/RecordReview";
 import { RECOMMENDATION_LABEL } from "@/lib/stage2/present";
 import { PagedList, type PagedItem } from "@/components/patient/PagedList";
@@ -108,34 +107,9 @@ export default async function PatientPage({ params }: { params: Promise<{ id: st
 
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
         <div className="flex min-w-0 flex-col gap-6">
-          <div className="xl:hidden">
-            <CaseActions caseState={caseState} patientId={patient.id} />
-          </div>
-          {/* Why this person is here, with the evidence chain: the first thing on the screen. */}
-          <Panel title={`Why ${firstName} is on the list`} tone="brand">
-            <p className="text-[18px] font-semibold leading-snug tracking-[-0.01em] text-ink">{TIER_SENTENCE[assessment.tier]}</p>
-            {reviewStatus.review ? (
-              <p className="mt-1 text-[14px] leading-6 text-secondary">
-                Record review: {RECOMMENDATION_LABEL[reviewStatus.review.assessment.recommendation].label.toLowerCase()}.
-              </p>
-            ) : null}
-            {facts.length ? (
-              <ul className="mt-3 flex flex-col gap-1.5 text-[14px] leading-6 text-secondary">
-                {facts.map((f) => (
-                  <li key={f}>{f}</li>
-                ))}
-              </ul>
-            ) : null}
-            <div className="mt-5 border-t border-line pt-4">
-              <h3 className="mb-1 text-[13px] font-semibold text-ink">
-                {plural(assessment.signals.length, "indicator")} present in the record
-              </h3>
-              <EvidenceChain signals={assessment.signals} />
-            </div>
-          </Panel>
-
-          {/* The person's own recorded goals, the one bold element on the screen. Only what the
-              directory actually holds: when it holds nothing, there is no block at all. */}
+          {/* The person's own recorded goals, the one bold element on the screen and the first
+              thing read. Only what the directory actually holds: when it holds nothing, there is
+              no block at all. */}
           {patient.goals.length ? (
             <section aria-labelledby="in-their-words" className="overflow-hidden rounded-lg bg-primary text-primary-ink shadow-sm">
               <div className="px-6 pb-6 pt-5 sm:px-7">
@@ -158,6 +132,29 @@ export default async function PatientPage({ params }: { params: Promise<{ id: st
             </section>
           ) : null}
 
+          {/* Why this person is here, with the evidence chain. */}
+          <Panel title={`Why ${firstName} is on the list`} tone="brand">
+            <p className="text-[18px] font-semibold leading-snug tracking-[-0.01em] text-ink">{TIER_SENTENCE[assessment.tier]}</p>
+            {reviewStatus.review ? (
+              <p className="mt-1 text-[14px] leading-6 text-secondary">
+                Record review: {RECOMMENDATION_LABEL[reviewStatus.review.assessment.recommendation].label.toLowerCase()}.
+              </p>
+            ) : null}
+            {facts.length ? (
+              <ul className="mt-3 flex flex-col gap-1.5 text-[14px] leading-6 text-secondary">
+                {facts.map((f) => (
+                  <li key={f}>{f}</li>
+                ))}
+              </ul>
+            ) : null}
+            <div className="mt-5 border-t border-line pt-4">
+              <h3 className="mb-1 text-[13px] font-semibold text-ink">
+                {plural(assessment.signals.length, "indicator")} present in the record
+              </h3>
+              <EvidenceChain signals={assessment.signals} />
+            </div>
+          </Panel>
+
           {/* Stage 2: a read-only reading of the whole record, a prompt for clinical review. */}
           <RecordReview status={reviewStatus} />
 
@@ -165,10 +162,6 @@ export default async function PatientPage({ params }: { params: Promise<{ id: st
         </div>
 
         <aside className="flex min-w-0 flex-col gap-6">
-          <div className="hidden xl:block">
-            <CaseActions caseState={caseState} patientId={patient.id} />
-          </div>
-
           <Panel title="Admissions and contacts" aside={plural(contacts.length, "entry", "entries")}>
             <PagedList items={contacts} empty="No admissions or contacts in this record." />
           </Panel>
