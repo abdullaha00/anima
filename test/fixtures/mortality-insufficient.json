@@ -1,0 +1,22 @@
+{
+  "patientId": "SIM-000003",
+  "indexTime": "2026-09-12T08:00:00.000Z",
+  "provenance": "Authored insufficient-evidence software fixture; no observed mortality outcome",
+  "collectionPartial": true,
+  "patient": {
+    "id": "SIM-000003",
+    "name": "Authored sparse example",
+    "synthetic": true
+  },
+  "records": [
+    {
+      "id": "sparse-note",
+      "patientId": "SIM-000003",
+      "kind": "consultation",
+      "createdAt": "2026-09-11T10:00:00.000Z",
+      "data": {
+        "text": "Administrative note: preferred telephone number needs confirmation. No clinical history, function, observations or recent assessment were supplied in this snapshot."
+      }
+    }
+  ]
+}

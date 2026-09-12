@@ -3,6 +3,10 @@
 Advance care planning, coordinated. A clinician-facing tool for an NHS neighbourhood of
 about 50,000 simulated patients, built at the OpenAI x Anima Health hackathon.
 
+Product direction is defined in [DATA.md](DATA.md), including the agreed three-month Stage 1 target. The three-month full-record LLM baseline now runs through a durable Stage 1 queue into the [Stage 2 worker](docs/STAGE2.md), with a clinician decision and owned preparation action in the existing workspace. The learned ML model still requires verified outcomes. See the [mortality backend runbook](docs/MORTALITY.md#integrated-local-backend-12-september-2026).
+
+The [Stage 1 feature extractor](docs/STAGE1.md) is now runnable with configurable prompts, model settings and evidence checks: `npm run stage1:extract -- --snapshot test/fixtures/stage1-example.json`. It produces source-linked features; the learned scoring step remains to be built.
+
 Cairn does four things:
 
 1. **Find** the people whose records already carry recognised indicators of deteriorating
@@ -15,8 +19,7 @@ Cairn does four things:
    which then reaches the GP, out-of-hours, the ambulance service, the hospice and the
    family, each seeing only what they need.
 
-Cairn reports indicators present in the record as a prompt for clinical review. It makes no prediction
-about any patient. It cannot sign a record. Nothing unsigned is shared.
+Cairn supports clinical review using record indicators and a separate, unvalidated mortality screening prototype. It cannot sign a record. Nothing unsigned is shared.
 
 ## Run it
 
@@ -57,7 +60,7 @@ npm run check       # the language guard on its own (scans src/, README.md and t
 1. **Worklist.** How many carry indicators and no plan, and who is waiting on somebody. Cases in
    progress sit at the top with their next action and owner.
 2. **Patient.** Amira Khan, SIM-000001. Open an indicator: the record entry that fired it, the
-   tool it is shaped after, the date. Cairn reports what is in the record and makes no prediction.
+   tool it is shaped after, the date. The rule-based worklist reports indicators present in the record. The separate screening view displays unvalidated model estimates.
 3. **Care team.** Assemble the team: every person with a reason and the record entry behind it.
    Recipients of the signed record and the family channel sit apart.
 4. **Thread, outcome, record.** Propose, agree, record the outcome, promote a decision into the
@@ -104,7 +107,7 @@ proposal in the thread; in the product they would arrive from the conversation.
 
 | Rule | Where |
 |---|---|
-| Cairn never predicts. No score, percentage or forecast is ever shown for a patient. | `src/lib/domain/types.ts` has no field for one; `scripts/check-language.mjs` fails `npm run lint` on the banned words, in source and in the built pages |
+| Mortality screening is a separate, explicitly unvalidated research view. Rule indicators and Stage 2 confidence retain their original meanings. | Fixed contracts in `src/lib/stage1/mortality-schema.ts`; null failure states, deterministic thresholds and evidence validation have focused tests |
 | Every indicator is traceable to a record entry and a published tool | `Signal.evidence` and `Signal.basis` are required; the evidence chain on the patient screen |
 | Cairn cannot sign. Signing needs a named clinician. | `sign()` in `src/lib/record/record.ts` refuses any signer whose name starts with "Cairn"; the refusal is shown inline and recorded in the audit |
 | Nothing unsigned is shared | `viewFor()` returns nothing until the record is signed; audience tabs render nothing before |
@@ -181,3 +184,7 @@ src/app/         the five screens, server actions, the two API routes
 
 Coordination state persists in `data/state/cases.json` and survives a restart. Two people
 demonstrating on two laptops each have their own file; nothing is kept in the browser.
+
+## Three-month mortality screening
+
+The full-record LLM pipeline is runnable with `npm run stage1:screen -- --snapshot test/fixtures/mortality-example.json`. Above-threshold results enqueue one durable Stage 2 review; run `npm run stage2:worker -- --once` to process it. The clinician research view is `/screening`. Configuration, scoring-only operation, recovery and verified examples are documented in [MORTALITY.md](docs/MORTALITY.md). Outcome-based ML training remains dependent on verified labels and follow-up.

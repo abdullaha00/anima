@@ -1,0 +1,26 @@
+{
+  "version": "narrative-features-v1.1",
+  "model": "openai/gpt-5.6-sol",
+  "reasoning": "low",
+  "temperature": null,
+  "maxOutputTokens": 8000,
+  "timeoutMs": 120000,
+  "maxAttempts": 2,
+  "lookbackDays": 365,
+  "currentEvidenceDays": 30,
+  "maxSources": 100,
+  "maxInputChars": 60000,
+  "promptFile": "../../prompts/stage1/extract-v1.md",
+  "features": [
+    {"id": "functional_decline", "definition": "Documented deterioration in ability to carry out usual daily activities compared with the patient's own earlier baseline."},
+    {"id": "mobility_limitation", "definition": "Documented current difficulty walking or transferring, or restriction to a chair or bed. Difficulty travelling for administrative reasons alone is insufficient."},
+    {"id": "dependent_daily_living", "definition": "Documented need for another person's assistance with personal daily activities such as washing, dressing, toileting or feeding. Family contact alone is insufficient."},
+    {"id": "increased_care_needs", "definition": "Documented increase in formal or informal practical care compared with the previous support baseline. An unconfirmed care package is uncertain, not an increase."},
+    {"id": "reduced_intake", "definition": "Documented reduced food or fluid intake or appetite. Do not infer from diagnosis or laboratory values."},
+    {"id": "unintentional_weight_loss", "definition": "Documented unintended loss of body weight. Do not calculate or invent a percentage from prose."},
+    {"id": "persistent_breathlessness", "definition": "Documented ongoing or recurrent breathlessness. A single acute presenting complaint without duration is uncertain for persistence."},
+    {"id": "recurrent_falls", "definition": "Documented more than one fall or an explicit description of recurrent falls. A fall risk assessment alone is insufficient."},
+    {"id": "progressive_disease", "definition": "Explicit documented progression of an underlying disease. The presence of a chronic condition or older age alone is insufficient."},
+    {"id": "acute_reversible_cause", "definition": "Explicit clinician-documented potentially reversible explanation for the current decline, such as an acute infection being treated. Do not infer reversibility yourself."}
+  ]
+}

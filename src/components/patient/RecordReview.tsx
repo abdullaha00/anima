@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ReactNode } from "react";
 import type { EvidenceReference } from "@/lib/cairn/types";
 import type { ReviewStatus } from "@/lib/stage2/read";
@@ -116,6 +117,8 @@ export function RecordReview({ status }: { status: ReviewStatus }) {
             A fresh record review is {pending.status} since {formatDateTime(pending.createdAt)}.
           </Notice>
         ) : null}
+
+        {review.screeningId && <Link className="text-sm underline" href={`/screening/${review.screeningId}`}>Linked screening: inspect the unvalidated estimate, threshold and sources, and record your decision</Link>}
 
         {/* The verdict in two lines, then the reviewer's summary at a comfortable measure. */}
         <div className="flex flex-col gap-3">

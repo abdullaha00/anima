@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { loadPatientContext } from "@/lib/patient-context";
 import { getReviewStatus } from "@/lib/stage2/read";
 import { PatientStrip } from "@/components/shell/PatientStrip";
@@ -6,6 +7,8 @@ import { TeamSection } from "@/components/team/TeamSection";
 import { ThreadSection } from "@/components/thread/ThreadSection";
 import { OutcomeSection } from "@/components/outcome/OutcomeSection";
 import { RecordSection } from "@/components/record/RecordSection";
+
+import { PreparationSection } from "@/components/screening/PreparationSection";
 
 export const dynamic = "force-dynamic";
 
@@ -25,6 +28,8 @@ export default async function RecordPage({ params }: { params: Promise<{ id: str
       <RecordJumpBar />
       <div className="flex flex-col gap-14">
         <TeamSection ctx={ctx} review={review} />
+        {review?.screeningId && <p className="rounded border p-4"><Link className="underline" href={`/screening/${review.screeningId}`}>Review the linked screening, its threshold and sources, and save the clinician decision</Link></p>}
+        <PreparationSection caseState={ctx.caseState} />
         <ThreadSection ctx={ctx} review={review} />
         <OutcomeSection ctx={ctx} review={review} />
         <RecordSection ctx={ctx} />

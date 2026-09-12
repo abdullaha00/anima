@@ -47,3 +47,7 @@ next-env.d.ts
 
 # coordination state, created at runtime by src/lib/store
 /data/state/
+
+# Local simulator exports
+/data/exports/
+/API-key.txt

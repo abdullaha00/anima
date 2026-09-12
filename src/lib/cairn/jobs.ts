@@ -71,9 +71,11 @@ async function jobsIn(status: "queued" | "running"): Promise<Stage2Job[]> {
 
 export async function enqueueStage2Job(
   inputPatientId: string,
-  options: { idempotencyKey?: string } = {},
+  options: { idempotencyKey?: string; screeningId?: string } = {},
 ): Promise<Stage2Job> {
   const patientId = assertPatientId(inputPatientId);
+  const screening = options.screeningId ? await (await import("../stage1/mortality-store")).readScreeningResult(options.screeningId) : undefined;
+  if (screening && (screening.patientId !== patientId || screening.decision !== "above_threshold")) throw new Error("Screening must match the patient and require escalation");
   const idempotencyKey = options.idempotencyKey?.trim();
   if (idempotencyKey !== undefined && (idempotencyKey.length === 0 || idempotencyKey.length > 200)) {
     throw new Error("Idempotency-Key must contain 1 to 200 characters");
@@ -89,6 +91,7 @@ export async function enqueueStage2Job(
         const mapping = JSON.parse(await readFile(mappingPath, "utf8")) as {
           jobId: string;
           patientId: string;
+          screeningId?: string;
         };
         if (mapping.patientId !== patientId) {
           throw new IdempotencyConflictError(
@@ -96,7 +99,10 @@ export async function enqueueStage2Job(
           );
         }
         const existing = await getStage2Job(mapping.jobId);
-        if (existing) return existing;
+        if (existing) {
+          if ((mapping.screeningId ?? existing.screeningId) !== options.screeningId) throw new IdempotencyConflictError("Idempotency-Key was already used for another screening");
+          return existing;
+        }
       } catch (error) {
         if (
           (error as NodeJS.ErrnoException).code !== "ENOENT" &&
@@ -108,14 +114,47 @@ export async function enqueueStage2Job(
       }
     }
 
+    if (options.screeningId) {
+      try {
+        const link = JSON.parse(await readFile(path.join(JOBS_ROOT, "screening-links", `${options.screeningId}.json`), "utf8"));
+        const existing = await getStage2Job(link.jobId);
+        if (existing && existing.patientId === patientId) {
+          if (idempotencyKey) await writeJsonAtomic(path.join(idempotencyDirectory(), `${createHash("sha256").update(idempotencyKey).digest("hex")}.json`), { jobId: existing.id, patientId, screeningId: options.screeningId });
+          return existing;
+        }
+      } catch (error) { if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error; }
+    }
+
     const [queued, running] = await Promise.all([
       jobsIn("queued"),
       jobsIn("running"),
     ]);
-    const existingPatientJob = [...queued, ...running].find(
-      (job) => job.patientId === patientId,
-    );
-    if (existingPatientJob) return existingPatientJob;
+    // Job-embedded keys also recover an interruption after job write but before mapping write.
+    const all = [...queued, ...running];
+    if (idempotencyKey) for (const status of ["completed", "failed"] as const) {
+      for (const file of (await readdir(jobStatusDirectory(status))).filter(f => f.endsWith(".json"))) {
+        const job = await readStage2Job(path.join(jobStatusDirectory(status), file));
+        if (job.idempotencyKeys?.includes(idempotencyKey)) all.push(job);
+      }
+    }
+    let existingPatientJob = idempotencyKey ? all.find(job => job.idempotencyKeys?.includes(idempotencyKey)) : undefined;
+    if (existingPatientJob && (existingPatientJob.patientId !== patientId || existingPatientJob.screeningId !== options.screeningId)) {
+      throw new IdempotencyConflictError("Idempotency-Key conflicts with an existing job");
+    }
+    for (const job of existingPatientJob ? [] : all) {
+      if (job.patientId !== patientId || !["queued", "running"].includes(job.status)) continue;
+      if (!screening && !job.screeningId) { existingPatientJob = job; break; }
+      if (screening && job.screeningId) {
+        const original = await (await import("../stage1/mortality-store")).readScreeningResult(job.screeningId);
+        if (original.snapshotHash === screening.snapshotHash && original.indexTime === screening.indexTime) { existingPatientJob = job; break; }
+      }
+    }
+    if (existingPatientJob) {
+      // Do not rewrite a running job (the worker owns it); append associations to a sidecar.
+      if (options.screeningId) await writeJsonAtomic(path.join(JOBS_ROOT, "screening-links", `${options.screeningId}.json`), { jobId: existingPatientJob.id, screeningId: options.screeningId });
+      if (idempotencyKey) await writeJsonAtomic(path.join(idempotencyDirectory(), `${createHash("sha256").update(idempotencyKey).digest("hex")}.json`), { jobId: existingPatientJob.id, patientId, screeningId: options.screeningId });
+      return existingPatientJob;
+    }
 
     const configuredCapacity = Number(process.env.CAIRN_QUEUE_CAPACITY ?? 100);
     const capacity =
@@ -134,13 +173,17 @@ export async function enqueueStage2Job(
       createdAt: now,
       updatedAt: now,
       attempts: 0,
+      ...(options.screeningId ? { screeningId: options.screeningId, screeningIds: [options.screeningId] } : {}),
+      ...(idempotencyKey ? { idempotencyKeys: [idempotencyKey] } : {}),
     };
     await writeJsonAtomic(stage2JobPath("queued", job.id), job);
+    if (options.screeningId) await writeJsonAtomic(path.join(JOBS_ROOT, "screening-links", `${options.screeningId}.json`), { jobId: job.id, screeningId: options.screeningId });
     if (idempotencyKey) {
       const digest = createHash("sha256").update(idempotencyKey).digest("hex");
       await writeJsonAtomic(path.join(idempotencyDirectory(), `${digest}.json`), {
         jobId: job.id,
         patientId,
+        screeningId: options.screeningId,
         createdAt: now,
       });
     }

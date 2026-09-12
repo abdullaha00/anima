@@ -42,7 +42,7 @@ function round3(n: number): number {
 
 /** The oldest open or blocked next step (earliest due date), with its owner named from the participants. */
 export function waitingOnFor(c: CaseState | undefined): WorklistRow['waitingOn'] {
-  const steps = c?.outcome?.nextSteps ?? [];
+  const steps = [...(c?.preparationSteps ?? []), ...(c?.outcome?.nextSteps ?? [])];
   const pending: NextStep[] = steps
     .filter((s) => s.status === 'open' || s.status === 'blocked')
     .sort((a, b) => a.due.localeCompare(b.due));

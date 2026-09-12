@@ -9,9 +9,10 @@ import {
   resolveCliModel,
   SessionManager,
 } from "@earendil-works/pi-coding-agent";
-import { Check } from "typebox/value";
+import { Check, Errors } from "typebox/value";
 import { validateSubmittedAssessment } from "./assessment-validation";
 import { compactAgentEvent } from "./agent-events";
+import { DEFAULT_LLM_MODEL, DEFAULT_LLM_REASONING } from "./config";
 import { ensureDirectory } from "./json-files";
 import {
   Stage2AssessmentSchema,
@@ -57,7 +58,8 @@ async function runAgentPass(options: {
         throw new Error("The assessment has already been submitted");
       }
       if (!Check(Stage2AssessmentSchema, params)) {
-        throw new Error("Assessment does not match the required schema");
+        const errors = [...Errors(Stage2AssessmentSchema, params)].slice(0, 12).map(e => `${e.instancePath || "/"}: ${e.message}`);
+        throw new Error(`Assessment schema errors: ${errors.join("; ")}. Omit unknown optional fields; do not use empty strings. Submit the complete assessment again.`);
       }
       const assessment = params as Stage2Assessment;
       await validateSubmittedAssessment({
@@ -84,7 +86,7 @@ async function runAgentPass(options: {
     "xhigh",
     "max",
   ] as const;
-  const configuredThinking = process.env.CAIRN_THINKING;
+  const configuredThinking = process.env.CAIRN_THINKING || DEFAULT_LLM_REASONING;
   if (
     configuredThinking &&
     !thinkingLevels.includes(configuredThinking as (typeof thinkingLevels)[number])
@@ -95,7 +97,7 @@ async function runAgentPass(options: {
     | (typeof thinkingLevels)[number]
     | undefined;
   const modelRuntime = await ModelRuntime.create();
-  const configuredModel = process.env.CAIRN_MODEL;
+  const configuredModel = process.env.CAIRN_MODEL || DEFAULT_LLM_MODEL;
   const resolvedModel = configuredModel
     ? resolveCliModel({
         cliModel: configuredModel,

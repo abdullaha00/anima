@@ -1,5 +1,8 @@
 import path from "node:path";
 
+export const DEFAULT_LLM_MODEL = "openai/gpt-5.6-sol";
+export const DEFAULT_LLM_REASONING = "low";
+
 export const REPO_ROOT = process.cwd();
 export const CAIRN_ROOT = path.resolve(
   /* turbopackIgnore: true */

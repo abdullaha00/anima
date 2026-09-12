@@ -1,0 +1,13 @@
+{
+  "version": "mortality-llm-v1",
+  "model": "openai/gpt-5.6-sol",
+  "reasoning": "low",
+  "temperature": null,
+  "maxOutputTokens": 8000,
+  "timeoutMs": 180000,
+  "maxAttempts": 2,
+  "maxInputChars": 300000,
+  "threshold": 0.2,
+  "thresholdBasis": "Authored demonstration threshold; not clinically selected or validated",
+  "promptFile": "../../prompts/stage1/mortality-v1.md"
+}

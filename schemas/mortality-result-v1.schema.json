@@ -1,0 +1,341 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "screeningId",
+    "patientId",
+    "indexTime",
+    "horizonEnd",
+    "snapshotHash",
+    "generatedAt",
+    "status",
+    "deathProbability3m",
+    "explanation",
+    "supportingEvidence",
+    "contradictoryEvidence",
+    "limitations",
+    "reason",
+    "coverage",
+    "engine",
+    "threshold",
+    "thresholdBasis",
+    "decision",
+    "stage2JobId"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "mortality-result-v1"
+    },
+    "screeningId": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
+    },
+    "patientId": {
+      "type": "string",
+      "pattern": "^SIM-[0-9]{6}$"
+    },
+    "indexTime": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$"
+    },
+    "horizonEnd": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$"
+    },
+    "snapshotHash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "generatedAt": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$"
+    },
+    "status": {
+      "anyOf": [
+        {
+          "type": "string",
+          "const": "scored"
+        },
+        {
+          "type": "string",
+          "const": "abstained"
+        },
+        {
+          "type": "string",
+          "const": "ineligible"
+        },
+        {
+          "type": "string",
+          "const": "failed"
+        }
+      ]
+    },
+    "deathProbability3m": {
+      "anyOf": [
+        {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "explanation": {
+      "type": "string",
+      "minLength": 1
+    },
+    "supportingEvidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "recordId",
+          "sourcePath",
+          "pointer",
+          "quote",
+          "interpretation"
+        ],
+        "properties": {
+          "recordId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sourcePath": {
+            "type": "string",
+            "const": "record/eligible.json"
+          },
+          "pointer": {
+            "type": "string",
+            "pattern": "^/",
+            "description": "RFC 6901 JSON pointer relative to the raw record value, e.g. /data/text or /conditions/0. No /value prefix and no doubled leading slash. Point to a scalar, not an array or object."
+          },
+          "quote": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "interpretation": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "contradictoryEvidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "recordId",
+          "sourcePath",
+          "pointer",
+          "quote",
+          "interpretation"
+        ],
+        "properties": {
+          "recordId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sourcePath": {
+            "type": "string",
+            "const": "record/eligible.json"
+          },
+          "pointer": {
+            "type": "string",
+            "pattern": "^/",
+            "description": "RFC 6901 JSON pointer relative to the raw record value, e.g. /data/text or /conditions/0. No /value prefix and no doubled leading slash. Point to a scalar, not an array or object."
+          },
+          "quote": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "interpretation": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "reason": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "coverage": {
+      "type": "object",
+      "required": [
+        "partial",
+        "failedSources",
+        "excluded",
+        "limitations",
+        "safetyGateReasons"
+      ],
+      "properties": {
+        "partial": {
+          "type": "boolean"
+        },
+        "failedSources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "excluded": {
+          "type": "object",
+          "patternProperties": {
+            "^.*$": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "safetyGateReasons": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "engine": {
+      "type": "object",
+      "required": [
+        "id",
+        "model",
+        "configHash",
+        "promptHash",
+        "validation",
+        "calibrated",
+        "evaluationReference"
+      ],
+      "properties": {
+        "id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "const": "llm_record"
+            },
+            {
+              "type": "string",
+              "const": "tabular_ml"
+            }
+          ]
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1
+        },
+        "configHash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "promptHash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "validation": {
+          "anyOf": [
+            {
+              "type": "string",
+              "const": "unvalidated"
+            },
+            {
+              "type": "string",
+              "const": "synthetic_evaluation"
+            }
+          ]
+        },
+        "calibrated": {
+          "type": "boolean"
+        },
+        "evaluationReference": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "threshold": {
+      "anyOf": [
+        {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "thresholdBasis": {
+      "type": "string",
+      "minLength": 1
+    },
+    "decision": {
+      "anyOf": [
+        {
+          "type": "string",
+          "const": "above_threshold"
+        },
+        {
+          "type": "string",
+          "const": "below_threshold"
+        },
+        {
+          "type": "string",
+          "const": "not_assessed"
+        }
+      ]
+    },
+    "stage2JobId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "additionalProperties": false
+}

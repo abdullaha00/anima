@@ -13,6 +13,8 @@ import { readdir, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { Check } from "typebox/value";
 import { JOBS_ROOT, RUNS_ROOT } from "@/lib/cairn/config";
+import { patientRunAllowed } from "@/lib/stage1/linked-review";
+import { readCoverage } from "@/lib/stage1/coverage";
 import { Stage2AssessmentSchema, type Stage2Assessment, type Stage2Job } from "@/lib/cairn/types";
 
 export interface RecordReview {
@@ -20,6 +22,7 @@ export interface RecordReview {
   /** Where it came from: a worker run under .cairn, or a committed file under data/stage2 */
   source: "run" | "committed";
   runId?: string;
+  screeningId?: string;
   completedAt: string;
   /** True when a phrase the review agent used was replaced by Cairn's wording. Disclosed on screen. */
   wordingAdjusted: boolean;
@@ -99,7 +102,7 @@ export function softenWording<T>(value: T): { value: T; adjusted: boolean } {
     }
     if (Array.isArray(v)) return v.map(walk);
     if (v && typeof v === "object") {
-      return Object.fromEntries(Object.entries(v as Record<string, unknown>).map(([k, x]) => [k, walk(x)]));
+      return Object.fromEntries(Object.entries(v as Record<string, unknown>).map(([k, x]) => [k, ["patientId", "sourcePath", "recordId", "date", "generatedAt", "quote"].includes(k) ? x : walk(x)]));
     }
     return v;
   };
@@ -123,18 +126,18 @@ async function latestRun(patientId: string): Promise<RecordReview | undefined> {
   }
   for (const runId of runIds) {
     const runFile = path.join(RUNS_ROOT, runId, "run.json");
-    let run: { patientId?: string; status?: string; completedAt?: string; resultPath?: string };
+    let run: { patientId?: string; status?: string; completedAt?: string; resultPath?: string; screeningId?: string };
     try {
       run = (await readJson(runFile)) as typeof run;
     } catch {
       continue;
     }
-    if (run.patientId !== patientId || run.status !== "completed") continue;
+    if (run.patientId !== patientId || run.status !== "completed" || !await patientRunAllowed(patientId, runId, run.screeningId)) continue;
     // run.json records the absolute path on the machine that ran it; a run copied from
     // elsewhere still has its result beside it, so prefer the local file.
     const localResult = path.join(RUNS_ROOT, runId, "analysis", "final.json");
     let read: ReturnType<typeof asAssessment>;
-    for (const candidate of [localResult, run.resultPath].filter((c): c is string => !!c)) {
+    for (const candidate of [localResult]) {
       try {
         read = asAssessment(await readJson(candidate));
         if (read) break;
@@ -142,9 +145,9 @@ async function latestRun(patientId: string): Promise<RecordReview | undefined> {
         // try the next location
       }
     }
-    if (!read) continue;
+    if (!read || read.assessment.patientId !== patientId) continue;
     const completedAt = run.completedAt ?? read.assessment.generatedAt;
-    if (!best || completedAt > best.completedAt) best = { ...read, source: "run", runId, completedAt };
+    if (!best || completedAt > best.completedAt) best = { ...read, source: "run", runId, screeningId: run.screeningId, completedAt };
   }
   return best;
 }
@@ -154,7 +157,7 @@ async function committed(patientId: string): Promise<RecordReview | undefined> {
   const file = path.join(COMMITTED_ROOT, `${patientId}.json`);
   try {
     const read = asAssessment(await readJson(file));
-    if (!read) return undefined;
+    if (!read || read.assessment.patientId !== patientId) return undefined;
     const st = await stat(file);
     return { ...read, source: "committed", completedAt: read.assessment.generatedAt || st.mtime.toISOString() };
   } catch {
@@ -169,7 +172,7 @@ async function jobsFor(patientId: string): Promise<Stage2Job[]> {
     for (const file of await listJson(path.join(JOBS_ROOT, status))) {
       try {
         const job = (await readJson(file)) as Stage2Job;
-        if (job.patientId === patientId) out.push({ ...job, status });
+        if (job.patientId === patientId && (!job.screeningId || (await readCoverage(job.screeningId)).kind === "live")) out.push({ ...job, status });
       } catch {
         // an unreadable job file is not this screen's problem
       }
@@ -208,13 +211,16 @@ export async function reviewedPatientIds(): Promise<Map<string, Stage2Assessment
         patientId?: string;
         status?: string;
         completedAt?: string;
+        screeningId?: string;
         recommendation?: Stage2Assessment["recommendation"];
       };
-      if (run.status !== "completed" || !run.patientId || !run.recommendation) continue;
+      if (run.status !== "completed" || !run.patientId || !run.recommendation || !await patientRunAllowed(run.patientId, runId, run.screeningId)) continue;
+      const assessment = asAssessment(await readJson(path.join(RUNS_ROOT, runId, "analysis/final.json")))?.assessment;
+      if (!assessment || assessment.patientId !== run.patientId) continue;
       const at = run.completedAt ?? "";
       if ((seen.get(run.patientId) ?? "") <= at) {
         seen.set(run.patientId, at);
-        out.set(run.patientId, run.recommendation);
+        out.set(run.patientId, assessment.recommendation);
       }
     } catch {
       // skip
@@ -223,7 +229,7 @@ export async function reviewedPatientIds(): Promise<Map<string, Stage2Assessment
   for (const file of await listJson(COMMITTED_ROOT)) {
     try {
       const a = asAssessment(await readJson(file))?.assessment;
-      if (a && (seen.get(a.patientId) ?? "") <= a.generatedAt) out.set(a.patientId, a.recommendation);
+      if (a && path.basename(file, ".json") === a.patientId && (seen.get(a.patientId) ?? "") <= a.generatedAt) out.set(a.patientId, a.recommendation);
     } catch {
       // skip
     }

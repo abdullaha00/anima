@@ -1,0 +1,102 @@
+{
+  "patientId": "SIM-000001",
+  "indexTime": "2026-09-12T08:00:00.000Z",
+  "provenance": "Authored high-risk software demonstration; no observed outcome or clinical validation",
+  "collectionPartial": true,
+  "records": [
+    {
+      "id": "example-gp-note",
+      "patientId": "SIM-000001",
+      "kind": "consultation",
+      "version": 1,
+      "createdAt": "2026-09-11T10:00:00.000Z",
+      "status": "signed",
+      "data": {
+        "text": "Over the past six weeks the patient has become less able to manage usual activities. They now need help with washing and dressing, and can only walk across one room with a frame. The patient reports breathlessness every day for the past month. Appetite and fluid intake remain normal. No unintentional weight loss is reported."
+      }
+    },
+    {
+      "id": "example-family-note",
+      "patientId": "SIM-000001",
+      "kind": "consultation",
+      "version": 1,
+      "createdAt": "2026-09-11T11:00:00.000Z",
+      "status": "signed",
+      "data": {
+        "text": "The daughter reports that carers have increased from two visits to four visits daily this week."
+      }
+    },
+    {
+      "id": "example-patient-note",
+      "patientId": "SIM-000001",
+      "kind": "consultation",
+      "version": 1,
+      "createdAt": "2026-09-11T12:00:00.000Z",
+      "status": "signed",
+      "data": {
+        "text": "The patient says carers still visit twice daily and there has been no increase. The discrepancy with the daughter's account remains unresolved."
+      }
+    },
+    {
+      "id": "example-uncertain-note",
+      "patientId": "SIM-000001",
+      "kind": "hospital-note",
+      "version": 1,
+      "createdAt": "2026-09-10T09:00:00.000Z",
+      "status": "signed",
+      "data": {
+        "sections": {
+          "assessment": "It is unclear whether the underlying disease is progressing. The clinician documents an acute infection as a potentially reversible contributor to the current decline; treatment has started."
+        }
+      }
+    },
+    {
+      "id": "example-foreign-note",
+      "patientId": "SIM-000002",
+      "kind": "consultation",
+      "version": 1,
+      "createdAt": "2026-09-11T09:00:00.000Z",
+      "status": "signed",
+      "data": {
+        "text": "This other patient has recurrent falls and reduced oral intake."
+      }
+    },
+    {
+      "id": "example-future-note",
+      "patientId": "SIM-000001",
+      "kind": "consultation",
+      "version": 1,
+      "createdAt": "2026-10-01T09:00:00.000Z",
+      "status": "signed",
+      "data": {
+        "text": "A later outcome was recorded. This note must not reach the extractor."
+      }
+    },
+    {
+      "id": "mortality-clinical-note",
+      "patientId": "SIM-000001",
+      "kind": "hospital-note",
+      "createdAt": "2026-09-11T14:00:00.000Z",
+      "version": 1,
+      "status": "signed",
+      "data": {
+        "text": "Oncology documents progressive metastatic pancreatic cancer despite treatment. The patient is now bedbound most of the day, needs assistance with all personal care, has lost 12% of body weight in three months and is taking only small amounts of fluids. The treating consultant documents a limited prognosis measured in weeks to a few months. The patient requests a discussion about care at home. Community palliative team involvement is being considered; no active plan is confirmed. The documented lead clinician is the oncology consultant, with the GP coordinating home support."
+      }
+    }
+  ],
+  "patient": {
+    "id": "SIM-000001",
+    "name": "Authored screening example",
+    "birthDate": "1942-05-12",
+    "conditions": [
+      "Progressive metastatic cancer"
+    ],
+    "needs": [
+      "Home visit"
+    ],
+    "goals": [
+      "Remain at home with support"
+    ],
+    "synthetic": true
+  }
+}

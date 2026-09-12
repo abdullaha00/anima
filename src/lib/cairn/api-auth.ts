@@ -7,7 +7,7 @@ export function authorizeStage2Request(request: Request): NextResponse | undefin
   const expected = process.env.CAIRN_TRIGGER_TOKEN;
   if (!expected) {
     return NextResponse.json(
-      { error: "Stage 2 API authentication is not configured" },
+      { error: "Pipeline API authentication is not configured" },
       { status: 503 },
     );
   }
@@ -37,7 +37,7 @@ export function enforceStage2RateLimit(): NextResponse | undefined {
       : 30;
   if (requestTimes.length >= limit) {
     return NextResponse.json(
-      { error: "Stage 2 trigger rate limit exceeded" },
+      { error: "Pipeline trigger rate limit exceeded" },
       { status: 429, headers: { "Retry-After": "60" } },
     );
   }
