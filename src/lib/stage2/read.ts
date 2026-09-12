@@ -62,7 +62,7 @@ async function listJson(dir: string): Promise<string[]> {
 const w = (...parts: string[]) => parts.join("");
 const B = "\\b";
 const WORDING: [RegExp, string][] = [
-  [new RegExp(`${B}${w("termin", "al")} illness${B}`, "gi"), "a life-limiting illness"],
+  [new RegExp(`${B}${w("termin", "al")} illness${B}`, "gi"), "life-limiting illness"],
   [new RegExp(`${B}${w("termin", "al")}(ly)?${B}`, "gi"), "life-limiting"],
   // "is going to X", "will X", "expected to X": the leading auxiliary is absorbed too.
   [new RegExp(`${B}(?:(?:is|are|was|were) )?(?:will|going to|expected to) ${w("d", "ie")}${B}`, "gi"), "may be approaching the end of life"],
@@ -77,9 +77,9 @@ const WORDING: [RegExp, string][] = [
   [new RegExp(`${B}${w("pred", "ict")}(s|ed|ion|ions)?${B}`, "gi"), "suggest$1"],
   [new RegExp(`${B}risk ${w("sc", "ore")}${B}`, "gi"), "score"],
   // The review speaks for itself, not in the first person.
-  [/I found no/g, "The review found no"],
-  [/I found/g, "The review found"],
-  [/I did not find/g, "The review did not find"],
+  [new RegExp(`${B}I found no${B}`, "g"), "The review found no"],
+  [new RegExp(`${B}I found${B}`, "g"), "The review found"],
+  [new RegExp(`${B}I did not find${B}`, "g"), "The review did not find"],
 ];
 
 /**

@@ -1,9 +1,8 @@
 import type { ReactNode } from "react";
 import type { Participant } from "@/lib/domain/types";
-import { removeParticipantForm, setParticipantRequiredForm } from "@/app/actions";
+import { removeParticipantForm } from "@/app/actions";
 import { CLINICIAN } from "@/lib/copy";
-import { Button, Chip, Disclosure, Mono, SimulatedTag } from "@/components/ui";
-import { INPUT_CLASS } from "./form-classes";
+import { Button, Mono, SimulatedTag } from "@/components/ui";
 
 /**
  * The parts of an evidence sentence a clinician checks against the record: indicator codes
@@ -28,10 +27,9 @@ export function EvidenceText({ text }: { text: string }): ReactNode {
 }
 
 /**
- * One participant: the name, then role and organisation set as prominently as the name,
- * then the reason and the evidence underneath. Every row can be checked against the
- * record; nobody is here without a reason. Removal sits behind a disclosure so the
- * everyday view carries only what a clinician reads.
+ * One participant: the name, then role and organisation, then the reason and the evidence
+ * underneath. Every row can be checked against the record; nobody is here without a
+ * reason. Removal is one quiet button; the signed-in clinician holds the record and stays.
  */
 export function ParticipantRow({
   participant: p,
@@ -44,10 +42,9 @@ export function ParticipantRow({
 }) {
   const holdsRecord = p.id === CLINICIAN.id;
   const canRemove = controls !== "none" && !holdsRecord;
-  const canToggle = controls === "full" && !holdsRecord;
 
   return (
-    <li className="flex flex-col gap-4 py-5 first:pt-0 last:pb-0 md:flex-row md:items-start md:justify-between">
+    <li className="flex flex-col gap-3 py-5 first:pt-0 last:pb-0 md:flex-row md:items-start md:justify-between">
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
           <span className="text-[15px] font-bold leading-6 text-ink">{p.name}</span>
@@ -62,46 +59,17 @@ export function ParticipantRow({
           <EvidenceText text={p.evidence} />
           {p.source === "added by clinician" ? <span className="text-faint"> · added by clinician</span> : null}
         </p>
-        <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
-          <Chip>{p.required ? "required" : "optional"}</Chip>
-          <Chip>{p.status}</Chip>
-          {holdsRecord ? <Mono className="ml-1 text-faint">signed-in clinician; holds the record</Mono> : null}
-        </div>
       </div>
 
-      {canToggle || canRemove ? (
-        <div className="flex shrink-0 flex-col items-stretch gap-1 md:items-end">
-          {canToggle ? (
-            <form action={setParticipantRequiredForm}>
-              <input type="hidden" name="patientId" value={patientId} />
-              <input type="hidden" name="participantId" value={p.id} />
-              <input type="hidden" name="required" value={p.required ? "false" : "true"} />
-              <Button type="submit" variant="quiet" className="w-full px-3.5 text-[13px] md:w-auto">
-                <span aria-hidden="true">{p.required ? "Mark optional" : "Mark required"}</span><span className="sr-only">{p.required ? `Mark ${p.name} optional` : `Mark ${p.name} required`}</span>
-              </Button>
-            </form>
-          ) : null}
-          {canRemove ? (
-            <Disclosure label={<><span aria-hidden="true">Remove from the team</span><span className="sr-only">Remove {p.name} from the team</span></>}>
-              {/* A sibling of the toggle form above, never nested inside it. */}
-              <form action={removeParticipantForm} className="flex flex-wrap items-center gap-2 md:justify-end">
-                <input type="hidden" name="patientId" value={patientId} />
-                <input type="hidden" name="participantId" value={p.id} />
-                <div className="w-64 max-w-full text-[13px]">
-                  <input
-                    name="reason"
-                    aria-label={`Reason for removing ${p.name}, optional`}
-                    placeholder="reason for removal, optional"
-                    className={INPUT_CLASS}
-                  />
-                </div>
-                <Button type="submit" variant="quiet" className="px-3.5 text-[13px]">
-                  <span aria-hidden="true">Remove</span><span className="sr-only">Remove {p.name}</span>
-                </Button>
-              </form>
-            </Disclosure>
-          ) : null}
-        </div>
+      {canRemove ? (
+        <form action={removeParticipantForm} className="shrink-0 md:pt-0.5">
+          <input type="hidden" name="patientId" value={patientId} />
+          <input type="hidden" name="participantId" value={p.id} />
+          <Button type="submit" variant="quiet" className="px-3.5 text-[13px]">
+            <span aria-hidden="true">Remove</span>
+            <span className="sr-only">Remove {p.name} from the team</span>
+          </Button>
+        </form>
       ) : null}
     </li>
   );

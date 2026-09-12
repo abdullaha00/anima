@@ -68,8 +68,6 @@ export function AccountMenu({ name, organisation }: { name: string; organisation
         >
           <p className="text-[14px] font-semibold leading-5 text-ink">{name}</p>
           <p className="text-[13px] leading-5 text-secondary">{organisation}</p>
-          <div className="my-3 border-t border-line" />
-          <p className="text-[12px] leading-5 text-faint">Signed in as the usual GP for this demonstration</p>
           <div className="mt-3 flex justify-end">
             <button
               type="button"

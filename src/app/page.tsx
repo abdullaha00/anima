@@ -1,15 +1,12 @@
 import Link from "next/link";
-import type { ReviewTier, WorklistRow } from "@/lib/domain/types";
-import { TIER_ORDER } from "@/lib/domain/types";
+import type { WorklistRow } from "@/lib/domain/types";
 import { getPatients } from "@/lib/data/source";
 import { getEngine } from "@/lib/scoring";
 import { sweep } from "@/lib/scoring/sweep";
 import { casesById } from "@/lib/store";
-import { WORKLIST_ORDER, planGroupFor, type PlanGroup } from "@/lib/coordination/state";
+import { WORKLIST_ORDER, planGroupForRow, type PlanGroup } from "@/lib/coordination/state";
 import { formatDate, plural } from "@/lib/format";
-import { reviewedPatientIds } from "@/lib/stage2/read";
-import { RECOMMENDATION_LABEL } from "@/lib/stage2/present";
-import { Chip, Mono, Notice, StateBadge, TierLabel, TIER_TONE } from "@/components/ui";
+import { Chip, Mono, Notice, StateBadge } from "@/components/ui";
 import { WorklistFilters, type FilterValues } from "@/components/worklist/WorklistFilters";
 import { RowLink } from "@/components/worklist/RowLink";
 
@@ -26,10 +23,11 @@ const CONDITION_GROUPS: Record<string, RegExp> = {
   cancer: /cancer|carcinoma|metastatic|lymphoma|leukaemia|myeloma/i,
 };
 
-/** The left-edge stripe encodes progress, never urgency: amber in progress, green complete. */
+/** The left-edge stripe encodes progress, never urgency: amber in progress or due a review, green complete. */
 const STRIPE: Record<PlanGroup, string> = {
   "no plan": "bg-transparent",
   "plan in progress": "bg-warn-stripe",
+  "review plan": "bg-warn-stripe",
   "plan complete": "bg-cairn-400",
 };
 
@@ -60,11 +58,11 @@ function one(v: string | string[] | undefined): string {
   return Array.isArray(v) ? (v[0] ?? "") : (v ?? "");
 }
 
-function applyFilters(rows: WorklistRow[], f: FilterValues): WorklistRow[] {
+function applyFilters(rows: WorklistRow[], f: FilterValues, nowIso: string): WorklistRow[] {
   const q = f.q.trim().toLowerCase();
   return rows.filter((r) => {
     if (q && !(r.name ?? "").toLowerCase().includes(q) && !r.patientId.toLowerCase().includes(q)) return false;
-    if (f.plan && planGroupFor(r.state) !== f.plan) return false;
+    if (f.plan && planGroupForRow(r.state, r.lastTouchedAt, nowIso) !== f.plan) return false;
     if (f.tier && r.assessment.tier !== f.tier) return false;
     if (f.noPlan === "yes" && (r.assessment.hasPlan || r.assessment.alreadyOnRegister)) return false;
     if (f.group && !r.conditions.some((c) => CONDITION_GROUPS[f.group]?.test(c))) return false;
@@ -74,15 +72,12 @@ function applyFilters(rows: WorklistRow[], f: FilterValues): WorklistRow[] {
   });
 }
 
-function groupRows(rows: WorklistRow[]): { plan: PlanGroup; tiers: { tier: ReviewTier; rows: WorklistRow[] }[] }[] {
-  const out: { plan: PlanGroup; tiers: { tier: ReviewTier; rows: WorklistRow[] }[] }[] = [];
+/** Rows keep the sweep's order (state, then tier, then rank) inside each plan group. */
+function groupRows(rows: WorklistRow[], nowIso: string): { plan: PlanGroup; rows: WorklistRow[] }[] {
+  const out: { plan: PlanGroup; rows: WorklistRow[] }[] = [];
   for (const plan of WORKLIST_ORDER) {
-    const inGroup = rows.filter((r) => planGroupFor(r.state) === plan);
-    if (!inGroup.length) continue;
-    const tiers = (Object.keys(TIER_ORDER) as ReviewTier[])
-      .map((tier) => ({ tier, rows: inGroup.filter((r) => r.assessment.tier === tier) }))
-      .filter((t) => t.rows.length);
-    out.push({ plan, tiers });
+    const inGroup = rows.filter((r) => planGroupForRow(r.state, r.lastTouchedAt, nowIso) === plan);
+    if (inGroup.length) out.push({ plan, rows: inGroup });
   }
   return out;
 }
@@ -99,14 +94,14 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
     owner: one(sp.owner),
   };
 
-  const [{ patients, meta }, cases, reviewed] = await Promise.all([getPatients(), casesById(), reviewedPatientIds()]);
+  const [{ patients, meta }, cases] = await Promise.all([getPatients(), casesById()]);
   const engine = getEngine();
   const nowIso = meta.simulationNow;
   const assessments = await engine.assessMany(patients, { nowIso });
   const result = sweep(patients, assessments, cases, nowIso);
 
-  const rows = applyFilters(result.rows, filters);
-  const groups = groupRows(rows);
+  const rows = applyFilters(result.rows, filters, nowIso);
+  const groups = groupRows(rows, nowIso);
   const owners = Array.from(new Set(result.rows.map((r) => r.waitingOn?.ownerName).filter((x): x is string => !!x))).sort();
 
   return (
@@ -129,12 +124,7 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
                 <h2 id={`plan-${g.plan.replace(/ /g, "-")}`} className="text-[18px] font-semibold tracking-[-0.01em] text-ink first-letter:uppercase">
                   {g.plan}
                 </h2>
-                <span className="text-[13px] font-medium text-secondary tnum">
-                  {plural(
-                    g.tiers.reduce((n, t) => n + t.rows.length, 0),
-                    "patient",
-                  )}
-                </span>
+                <span className="text-[13px] font-medium text-secondary tnum">{plural(g.rows.length, "patient")}</span>
               </div>
               <div className="overflow-x-auto rounded-lg bg-surface shadow-sm">
                 <table className="w-full min-w-[720px] table-fixed text-[13px]">
@@ -148,79 +138,69 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
                       <th className="microlabel px-3 py-2.5">Next action · owner</th>
                     </tr>
                   </thead>
-                  {g.tiers.map((t) => (
-                    <tbody key={t.tier}>
-                      <tr className={`border-b border-line ${TIER_TONE[t.tier].band}`}>
-                        <td className="p-0" />
-                        <td colSpan={5} className="px-3 py-1.5">
-                          <TierLabel tier={t.tier} />
-                          <span className="ml-2 text-[12px] text-faint tnum">{t.rows.length}</span>
-                        </td>
-                      </tr>
-                      {t.rows.map((r) => {
-                        const rec = reviewed.get(r.patientId);
-                        const showState = r.state !== "flagged";
-                        const signals = r.assessment.signals;
-                        return (
-                          <RowLink key={r.patientId} href={`/patient/${r.patientId}`} className="border-b border-line last:border-b-0">
-                            <td className="p-0">
-                              <span aria-hidden="true" className={`block h-full min-h-[3.25rem] w-1 ${STRIPE[g.plan]}`} />
-                            </td>
-                            <td className="px-3 py-3 align-top">
-                              <Link
-                                href={`/patient/${r.patientId}`}
-                                className="rounded-xs text-[15px] font-bold tracking-[-0.01em] text-ink hover:text-primary"
-                              >
-                                {r.name ?? r.patientId}
-                              </Link>
-                              <div className="mt-0.5">
-                                <Mono className="text-faint">{r.patientId}</Mono>
+                  <tbody>
+                    {g.rows.map((r) => {
+                      const showState = r.state !== "flagged";
+                      const signals = r.assessment.signals;
+                      return (
+                        <RowLink key={r.patientId} href={`/patient/${r.patientId}`} className="border-b border-line last:border-b-0">
+                          <td className="p-0">
+                            <span aria-hidden="true" className={`block h-full min-h-[3.25rem] w-1 ${STRIPE[g.plan]}`} />
+                          </td>
+                          <td className="px-3 py-3 align-top">
+                            <Link
+                              href={`/patient/${r.patientId}`}
+                              className="rounded-xs text-[15px] font-bold tracking-[-0.01em] text-ink hover:text-primary"
+                            >
+                              {r.name ?? r.patientId}
+                            </Link>
+                            <div className="mt-0.5">
+                              <Mono className="text-faint">{r.patientId}</Mono>
+                            </div>
+                            {showState ? (
+                              <div className="mt-1.5">
+                                <StateBadge state={r.state} />
                               </div>
-                              {showState || rec ? (
-                                <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-                                  {showState ? <StateBadge state={r.state} /> : null}
-                                  {rec ? <Chip tone={RECOMMENDATION_LABEL[rec].tone}>{RECOMMENDATION_LABEL[rec].label}</Chip> : null}
-                                </div>
-                              ) : null}
-                            </td>
-                            <td className="px-2 py-3 align-top text-secondary tnum">{r.age !== undefined ? r.age : "—"}</td>
-                            <td className="px-3 py-3 align-top">
-                              <div className="flex flex-wrap gap-1">
-                                {r.conditions.length ? (
-                                  r.conditions.map((c) => <Chip key={c}>{c}</Chip>)
-                                ) : (
-                                  <span className="text-muted">none coded</span>
-                                )}
-                              </div>
-                            </td>
-                            <td className="px-3 py-3 align-top">
-                              <span className="font-semibold text-ink tnum">{plural(signals.length, "indicator")}</span>
-                              {signals.length ? (
-                                <span className="text-secondary"> · {signals.map((s) => SHORT_LABEL[s.id] ?? s.label).join(" · ")}</span>
-                              ) : null}
-                            </td>
-                            <td className="px-3 py-3 align-top">
-                              {r.state === "paused" && r.pausedReason ? (
-                                <span className="text-secondary">paused: {r.pausedReason}</span>
-                              ) : r.waitingOn ? (
-                                <span>
-                                  <span className="font-semibold text-ink">{r.waitingOn.ownerName}</span>
-                                  <span className="text-secondary">
-                                    , {r.waitingOn.ownerRole}
-                                    <br />
-                                    {r.waitingOn.what} · due {formatDate(r.waitingOn.due)}
-                                    {r.waitingOn.status === "blocked" ? " · blocked" : ""}
-                                  </span>
-                                </span>
+                            ) : null}
+                          </td>
+                          <td className="px-2 py-3 align-top text-secondary tnum">{r.age !== undefined ? r.age : "—"}</td>
+                          <td className="px-3 py-3 align-top">
+                            <div className="flex flex-wrap gap-1">
+                              {r.conditions.length ? (
+                                r.conditions.map((c) => <Chip key={c}>{c}</Chip>)
                               ) : (
-                                <span className="text-muted">no action recorded</span>
+                                <span className="text-muted">none coded</span>
                               )}
-                            </td>
-                          </RowLink>
-                        );
-                      })}
-                    </tbody>
-                  ))}
+                            </div>
+                          </td>
+                          <td className="px-3 py-3 align-top text-[13px] text-ink">
+                            {signals.length ? (
+                              signals.map((s) => SHORT_LABEL[s.id] ?? s.label).join(" · ")
+                            ) : (
+                              <span aria-label="no indicators recorded" className="text-faint">—</span>
+                            )}
+                          </td>
+                          <td className="px-3 py-3 align-top">
+                            {r.state === "paused" && r.pausedReason ? (
+                              <span className="text-secondary">paused: {r.pausedReason}</span>
+                            ) : r.waitingOn ? (
+                              <span>
+                                <span className="font-semibold text-ink">{r.waitingOn.ownerName}</span>
+                                <span className="text-secondary">
+                                  , {r.waitingOn.ownerRole}
+                                  <br />
+                                  {r.waitingOn.what} · due {formatDate(r.waitingOn.due)}
+                                  {r.waitingOn.status === "blocked" ? " · blocked" : ""}
+                                </span>
+                              </span>
+                            ) : (
+                              <span aria-label="no action recorded" className="text-faint">—</span>
+                            )}
+                          </td>
+                        </RowLink>
+                      );
+                    })}
+                  </tbody>
                 </table>
               </div>
             </section>

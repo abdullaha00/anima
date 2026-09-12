@@ -1,64 +1,56 @@
 import type { CairnRecord } from "@/lib/domain/types";
 import { readiness } from "@/lib/record/record";
-import { RECORD_FIELDS, fieldLabel } from "@/lib/record/fields";
-import { Microlabel, Panel } from "@/components/ui";
+import { REQUIRED_FIELDS, fieldLabel } from "@/lib/record/fields";
 
-/** What still stands between this draft and a signature. Computed from the record itself. */
-export function ReadinessPanel({ record }: { record: CairnRecord }) {
+/**
+ * One compact line at the top of the signature section: how many required fields are
+ * recorded, and a link to each one still missing. Computed from the record itself.
+ */
+export function ReadinessLine({ record }: { record: CairnRecord }) {
   const r = readiness(record);
-  const recorded = RECORD_FIELDS.filter((f) => record.fields[f.name] !== undefined).length;
+  const recorded = REQUIRED_FIELDS.filter((f) => record.fields[f] !== undefined).length;
   const signed = record.status === "signed" || record.status === "shared";
 
+  if (signed) {
+    return <p className="text-[14px] font-medium leading-6 text-affirm">Signed. The record is complete and immutable.</p>;
+  }
+
   return (
-    <Panel heading="h3"
-      as="aside"
-      title="Required before signing"
-      aside={
-        <span className="tnum">
-          {recorded} of {RECORD_FIELDS.length} recorded
-        </span>
-      }
-      className="lg:sticky lg:top-[116px]"
-    >
-      {signed ? (
-        <p className="text-[15px] font-medium leading-6 text-affirm">Signed. The record is complete and immutable.</p>
-      ) : r.ready ? (
-        <p className="text-[15px] font-medium leading-6 text-affirm">Ready to sign</p>
-      ) : (
-        <div className="flex flex-col gap-4">
-          {r.missing.length ? (
-            <div className="flex flex-col gap-1.5">
-              <Microlabel>Required, not yet recorded</Microlabel>
-              <ul className="flex flex-col divide-y divide-line">
-                {r.missing.map((f) => (
-                  <li key={f} className="py-1.5 text-[15px] leading-6">
-                    <a href={`#field-${f}`} className="text-primary-hover hover:underline">
-                      {fieldLabel(f)}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
-          {r.unsourced.length ? (
-            <div className="flex flex-col gap-1.5">
-              <Microlabel>Recorded without a source</Microlabel>
-              <ul className="flex flex-col divide-y divide-line">
-                {r.unsourced.map((f) => (
-                  <li key={f} className="py-1.5 text-[15px] leading-6">
-                    <a href={`#field-${f}`} className="text-primary-hover hover:underline">
-                      {fieldLabel(f)}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
-          <p className="text-[12px] leading-5 text-faint">
-            Each field needs a value, a source and a named recorder before a clinician can sign.
-          </p>
-        </div>
-      )}
-    </Panel>
+    <div className="flex flex-col gap-1 text-[14px] leading-6">
+      <p className={r.ready ? "font-medium text-affirm" : "text-ink"}>
+        <span className="font-semibold tnum">
+          {recorded} of {REQUIRED_FIELDS.length}
+        </span>{" "}
+        required fields recorded{r.ready ? ". Ready to sign." : "."}
+      </p>
+      {r.missing.length ? (
+        <p className="text-[13px] leading-5 text-secondary">
+          Still needed:{" "}
+          {r.missing.map((f, i) => (
+            <span key={f}>
+              {i > 0 ? ", " : ""}
+              <a href={`#field-${f}`} className="text-primary-hover underline-offset-4 hover:underline">
+                {fieldLabel(f)}
+              </a>
+            </span>
+          ))}
+          .
+        </p>
+      ) : null}
+      {r.unsourced.length ? (
+        <p className="text-[13px] leading-5 text-secondary">
+          Recorded without a source:{" "}
+          {r.unsourced.map((f, i) => (
+            <span key={f}>
+              {i > 0 ? ", " : ""}
+              <a href={`#field-${f}`} className="text-primary-hover underline-offset-4 hover:underline">
+                {fieldLabel(f)}
+              </a>
+            </span>
+          ))}
+          .
+        </p>
+      ) : null}
+    </div>
   );
 }

@@ -98,7 +98,7 @@ Stage 2 job `05501539-1e9d-49a0-932c-b908c9d32a03` completed both Sol low passes
 
 ## Integrated local backend (12 September 2026)
 
-The integration is based on `origin/main` at `ce9af37`. It uses the new care-team, thread, outcome and record panels. Public mortality input/result schemas and `Stage2AssessmentSchema` are unchanged. Both model stages use `openai/gpt-5.6-sol` with `low` reasoning by default.
+The initial integration used `origin/main` at `ce9af37`; the review branch also incorporates `9ff84ca`, including the front-end team’s ReSPECT form. Screening links and preparation actions sit below the existing care-team panel, followed by the unchanged personal-details, ReSPECT-field and signature components. Public mortality input/result schemas and `Stage2AssessmentSchema` are unchanged. Both model stages use `openai/gpt-5.6-sol` with `low` reasoning by default.
 
 Start the Next.js app and both workers against the same persistent local directories:
 
@@ -152,3 +152,16 @@ A **separate routing test**, screening `221d0d41-abe9-449a-9e17-0af99425500e`, u
 The fresh collection audit found 478 distinct patient-scoped resources across five patients and 11 `followUp` fields, all requiring interpretation/adjudication. These are follow-up plans, not verified survival observations. No mortality labels were generated. Audit the retained collections with `scripts/audit-mortality-labels.py --collection DIRECTORY [--collection DIRECTORY ...] --output FILE`. The conditional ML milestone remains dependent on independently verified death events and survival through the three-calendar-month horizon; do not train on model guesses.
 
 Final integration checks: 165 tests passed, including job idempotency/recovery, record tampering, authored/live isolation, owner validation, stale clinician forms, amendment/dismissal and evidence-identifier preservation. `npm run lint`, `npm run typecheck` and `npm run build -- --webpack` passed. The browser-created job completed; the running API returned 401 without credentials and 200 with the server-side token. A browser save and a fresh patient-page read verified the fictional preparation action and audit, with no meeting outcome created.
+
+
+## Front-end review handoff
+
+The review branch is `codex/mortality-pipeline-integration`, based on shared main through `9ff84ca` (ReSPECT form). Review the branch against `main`; the merge retains the front-end team's six-section record layout and wording fixes.
+
+The integration points are intentionally small: the shell links to `/screening`; `RecordReview` links a verified Stage 2 review back to its screening; the ReSPECT page renders the existing team and form plus `PreparationSection`; and `CaseState` gains optional `screeningReviews` and `preparationSteps`. The three-month input/result and Stage 2 assessment contracts have not changed. Authored fixtures cannot populate a live patient’s review or ReSPECT drafts through the screening reader. The existing rule-based worklist remains distinct from the all-screenings research list.
+
+Start review at `src/app/screening/`, `src/components/screening/`, and `src/lib/stage1/`. The UI's local-demo server actions and the Bearer-authenticated job API both call the same queue. Existing cases need no migration for the added optional fields. Keep the clinician confirmation and source checks when restyling these controls. Preparation actions are separate from both ReSPECT signatures and simulator writes.
+
+The branch includes authored test fixtures and the runbook, but no newly collected simulator snapshots, credentials, model-call logs or local case state. Historical run IDs in this guide refer to local verification artifacts and will not produce populated screens on a fresh checkout. Configure server-side credentials and use the documented CLI or fresh-screening button to generate review data. The summary of earlier live checks is retained as development evidence, not a bundled clinical dataset.
+
+Post-merge verification against `9ff84ca`: 167 tests, lint, typecheck and the production webpack build passed. The merged ReSPECT page was also checked in the browser: the linked screening, owned preparation action, personal details, form sections and signatures render together.

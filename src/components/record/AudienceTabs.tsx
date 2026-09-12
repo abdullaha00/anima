@@ -27,10 +27,16 @@ function valueOf(view: AudienceView, name: RecordFieldName): string | undefined 
   return view.fields.find((f) => f.name === name)?.value;
 }
 
-/** Four lines, large, high contrast, on the dark ground. CPR first. Nothing else. */
+/** A few lines, large, high contrast, on the dark ground. CPR first, its rationale under it. Nothing else. */
 function AmbulanceView({ view, patientLine }: { view: AudienceView; patientLine?: string }) {
   const cpr = valueOf(view, "cpr_recommendation");
-  const rest: RecordFieldName[] = ["preferences_for_care", "not_recommended", "preferred_place_of_care"];
+  const rest: RecordFieldName[] = [
+    "cpr_rationale",
+    "escalation_ceiling",
+    "recommended_interventions",
+    "preferences_for_care",
+    "preferred_place_of_care",
+  ];
   const label = "text-[11px] font-semibold uppercase tracking-[0.06em] opacity-70";
   return (
     <div className="rounded-lg bg-ink p-8 text-[#F4EFE7]">
@@ -42,6 +48,8 @@ function AmbulanceView({ view, patientLine }: { view: AudienceView; patientLine?
         </div>
         {rest.map((name) => {
           const v = valueOf(view, name);
+          // Only fields on this audience's allowlist are shown; an allowed, absent field says so.
+          if (v === undefined && !view.missing.includes(name)) return null;
           return (
             <div key={name} className="flex flex-col gap-1">
               <span className={label}>{fieldLabel(name)}</span>

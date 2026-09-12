@@ -36,6 +36,8 @@ export const CLINICIAN = {
   name: "Dr Maya Shah",
   role: "usual gp" as const,
   organisation: "Riverside Practice",
+  /** A simulated registration number for the demonstration clinician. Not a real GMC number. */
+  gmc: "7654321",
 };
 
 export const ORGANISATIONS = {

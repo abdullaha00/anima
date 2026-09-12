@@ -19,12 +19,24 @@ export const AUDIENCE_LABELS: Record<Audience, string> = {
 
 /** Fields in the order they are shown. 'all' means the full record in RECORD_FIELDS order. */
 export const AUDIENCE_FIELDS: Record<Audience, RecordFieldName[] | "all"> = {
-  ambulance: ["cpr_recommendation", "preferences_for_care", "not_recommended", "preferred_place_of_care"],
+  ambulance: [
+    "cpr_recommendation",
+    "cpr_rationale",
+    "escalation_ceiling",
+    "recommended_interventions",
+    "preferences_for_care",
+    "preferred_place_of_care",
+  ],
   out_of_hours: [
     "clinical_summary",
+    "clinical_trajectory",
     "preferences_for_care",
+    "escalation_ceiling",
+    "escalation_rationale",
     "recommended_interventions",
     "not_recommended",
+    "cpr_rationale",
+    "active_medications",
     "preferred_place_of_care",
     "preferred_place_of_death",
   ],
@@ -40,8 +52,8 @@ export const AUDIENCE_NOTES: Partial<Record<Audience, string>> = {
 };
 
 export const AUDIENCE_DESCRIPTIONS: Record<Audience, string> = {
-  ambulance: "Four lines, readable at arm's length. CPR recommendation first.",
-  out_of_hours: "The clinical picture and the ceilings of treatment.",
+  ambulance: "A few lines, readable at arm's length. CPR recommendation first.",
+  out_of_hours: "The clinical picture, the escalation ceiling and the medicines.",
   hospice: "The full record.",
   gp: "The full record, as held by the practice.",
   hospital: "The full record, for the admitting team.",
