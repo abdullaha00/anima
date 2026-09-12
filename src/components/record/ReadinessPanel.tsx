@@ -10,7 +10,7 @@ export function ReadinessPanel({ record }: { record: CairnRecord }) {
   const signed = record.status === "signed" || record.status === "shared";
 
   return (
-    <Panel
+    <Panel heading="h3"
       as="aside"
       title="Required before signing"
       aside={

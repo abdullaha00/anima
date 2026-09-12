@@ -31,7 +31,7 @@ export function PatientStrip({
         <div className="min-w-0">
           <Link
             href="/"
-            className="inline-flex min-h-8 items-center text-[13px] font-semibold text-primary underline-offset-4 hover:underline"
+            className="-my-1.5 inline-flex min-h-11 items-center text-[13px] font-semibold text-primary underline-offset-4 hover:underline"
           >
             Worklist
           </Link>

@@ -192,7 +192,7 @@ export function AudienceTabs({ views: unordered, provenance, sharedWith, patient
 
   return (
     <div className="flex flex-col gap-5">
-      <div role="tablist" aria-label="Audience views" className="-mb-px flex flex-wrap gap-x-1 overflow-x-auto border-b border-line">
+      <div role="tablist" aria-label="Audience views" className="-mb-px flex flex-nowrap gap-x-1 overflow-x-auto border-b border-line pb-px">
         {views.map((v, i) => {
           const selected = i === index;
           return (
@@ -205,14 +205,14 @@ export function AudienceTabs({ views: unordered, provenance, sharedWith, patient
               type="button"
               role="tab"
               aria-selected={selected}
-              aria-controls={`${baseId}-panel-${v.audience}`}
+              aria-controls={selected ? `${baseId}-panel-${v.audience}` : undefined}
               tabIndex={i === focused ? 0 : -1}
               onClick={() => {
                 setIndex(i);
                 setFocused(i);
               }}
               onKeyDown={(e) => onKeyDown(e, i)}
-              className={`-mb-px inline-flex min-h-11 items-center gap-2 whitespace-nowrap border-b-2 px-3 text-[13px] font-semibold ${
+              className={`-mb-px inline-flex min-h-11 shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-3 text-[13px] font-semibold ${
                 selected ? "border-primary text-primary" : "border-transparent text-muted hover:border-line-strong hover:text-ink"
               }`}
             >

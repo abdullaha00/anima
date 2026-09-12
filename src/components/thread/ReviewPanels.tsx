@@ -79,7 +79,7 @@ export function MeetingBriefing({
   const hasMore =
     furtherObjectives.length > 0 || meeting.agenda.length > 0 || meeting.briefingNotes.length > 0;
   return (
-    <Panel title="Meeting briefing, from the record review">
+    <Panel heading="h3" title="Meeting briefing, from the record review">
       <Collapsible collapsed={collapsed} summary="Show the briefing">
         <div className="flex flex-col gap-4">
           <Field label="Who should lead">{meeting.proposedOwner}</Field>
@@ -138,7 +138,7 @@ export function DraftCommunications({
   if (communications.length === 0) return null;
   const family = audience === "family";
   return (
-    <Panel
+    <Panel heading="h3"
       title={
         family
           ? "Draft for the family, from the record review"

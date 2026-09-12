@@ -45,7 +45,7 @@ export function TeamSection({ ctx, review }: { ctx: PatientContext; review?: Rec
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_340px] xl:items-start">
         <div className="flex min-w-0 flex-col gap-6">
           {participants.length === 0 ? (
-            <Panel as="div" tone="brand">
+            <Panel heading="h3" as="div" tone="brand">
               <h3 className={SUBHEADING}>Who needs to be involved, and why</h3>
               {state === "flagged" ? (
                 <form action={assembleTeamForm} className="mt-4 flex flex-col gap-4">
@@ -74,7 +74,7 @@ export function TeamSection({ ctx, review }: { ctx: PatientContext; review?: Rec
             </Panel>
           ) : (
             <>
-              <Panel as="div" tone="brand">
+              <Panel heading="h3" as="div" tone="brand">
                 <h3 className={SUBHEADING}>Who needs to be involved, and why</h3>
                 <p className="prose-clinical mt-2 mb-5 text-[13px] font-medium leading-5 text-secondary">
                   Every participant carries a reason and the record entry behind it, so the list can be checked rather
@@ -146,7 +146,7 @@ export function TeamSection({ ctx, review }: { ctx: PatientContext; review?: Rec
         </div>
 
         <aside className="flex min-w-0 flex-col gap-4">
-          <Panel title="Next action">
+          <Panel heading="h3" title="Next action">
             {professionalThread ? (
               <div className="flex min-w-0 flex-col gap-4">
                 <p className="text-[15px] leading-6 text-secondary">
@@ -179,7 +179,7 @@ export function TeamSection({ ctx, review }: { ctx: PatientContext; review?: Rec
             )}
           </Panel>
 
-          <Panel title="How the team was proposed">
+          <Panel heading="h3" title="How the team was proposed">
             <p className="prose-clinical text-[13px] font-medium leading-5 text-secondary">
               The usual GP is always included and holds the record. Specialists follow the indicators present. Frailty
               or a change in care needs brings the community matron and social care. Five or more medicines brings a

@@ -137,7 +137,7 @@ export function RecordFields({
                             not recorded{f.required ? ", and required before signature" : ""}
                           </p>
                           {!locked ? (
-                            <Disclosure label="Record this from the conversation">
+                            <Disclosure label={<><span aria-hidden="true">Record this from the conversation</span><span className="sr-only">Record {f.label} from the conversation</span></>}>
                               <FieldEntryForm
                                 patientId={patientId}
                                 field={f.name}

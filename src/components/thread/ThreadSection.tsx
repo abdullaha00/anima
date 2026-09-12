@@ -68,7 +68,7 @@ export function ThreadSection({ ctx, review }: { ctx: PatientContext; review?: R
     const fields = RECORD_FIELDS.filter((f) => !isFamily || f.familySafe).map((f) => ({ name: f.name, label: f.label }));
     return (
       <>
-        <Panel as="div">
+        <Panel heading="h3" as="div">
           <div className="mb-5 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-line pb-4">
             <h4 className="text-[15px] font-bold leading-6 tracking-[-0.01em] text-ink">Contributions</h4>
             <span className="text-[13px] font-medium text-secondary tnum">
@@ -78,7 +78,7 @@ export function ThreadSection({ ctx, review }: { ctx: PatientContext; review?: R
           <ThreadEntries thread={thread} caseState={caseState} />
         </Panel>
 
-        <Panel as="div">
+        <Panel heading="h3" as="div">
           <h4 className="mb-5 border-b border-line pb-4 text-[15px] font-bold leading-6 tracking-[-0.01em] text-ink">
             Add to the {isFamily ? "family channel" : "thread"}
           </h4>
@@ -142,7 +142,7 @@ export function ThreadSection({ ctx, review }: { ctx: PatientContext; review?: R
                 </div>
               </>
             ) : (
-              <Panel as="div">
+              <Panel heading="h3" as="div">
                 <h4 className="text-[15px] font-bold leading-6 tracking-[-0.01em] text-ink">No coordination thread is open</h4>
                 {!teamProposed ? (
                   teamFirst
@@ -166,7 +166,7 @@ export function ThreadSection({ ctx, review }: { ctx: PatientContext; review?: R
 
           <aside className="flex min-w-0 flex-col gap-4">
             {professional ? professionalReview(true) : null}
-            <Panel title="Professional thread">
+            <Panel heading="h3" title="Professional thread">
               <div className="flex flex-col gap-2 text-[13px] font-medium leading-5 text-secondary">
                 <p>A proposal names a record field and a value. Agreements and concerns attach to it.</p>
                 <p>
@@ -196,7 +196,7 @@ export function ThreadSection({ ctx, review }: { ctx: PatientContext; review?: R
                 {composerFor(family, "family")}
               </>
             ) : (
-              <Panel as="div">
+              <Panel heading="h3" as="div">
                 <h4 className="text-[15px] font-bold leading-6 tracking-[-0.01em] text-ink">No family channel is open</h4>
                 {!teamProposed ? (
                   teamFirst
@@ -235,7 +235,7 @@ export function ThreadSection({ ctx, review }: { ctx: PatientContext; review?: R
           </div>
 
           <aside className="flex min-w-0 flex-col gap-4">
-            <Panel title="Family channel rules">
+            <Panel heading="h3" title="Family channel rules">
               <div className="flex flex-col gap-2 text-[13px] font-medium leading-5 text-secondary">
                 <p>Content limited to:</p>
                 <ul className="list-disc pl-5">

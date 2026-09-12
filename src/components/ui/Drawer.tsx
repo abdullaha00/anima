@@ -49,7 +49,7 @@ export function Drawer({
         </span>
         <span className="flex-1">{summary}</span>
       </button>
-      <div id={id} className="drawer" data-open={open} aria-hidden={!open}>
+      <div id={id} className="drawer" data-open={open} inert={!open}>
         <div>
           <div className="pb-3 pl-9">{children}</div>
         </div>

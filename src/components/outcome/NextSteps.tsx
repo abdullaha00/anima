@@ -88,7 +88,7 @@ export function NextSteps({
                           <input type="hidden" name="nextStepId" value={s.id} />
                           <input type="hidden" name="status" value="done" />
                           <Button type="submit" variant="quiet" className="px-3.5 text-[13px]">
-                            Mark done
+                            <span aria-hidden="true">Mark done</span><span className="sr-only">Mark done: {s.what}</span>
                           </Button>
                         </form>
                       ) : (

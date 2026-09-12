@@ -22,7 +22,7 @@ export function mergeAudit(recordAudit: AuditEvent[], caseAudit: AuditEvent[]): 
 export function AuditPanel({ recordAudit, caseAudit }: { recordAudit: AuditEvent[]; caseAudit: AuditEvent[] }) {
   const events = mergeAudit(recordAudit, caseAudit);
   return (
-    <Panel title="Audit: every set, promotion, signature and share, in order" aside={`${events.length} events`}>
+    <Panel heading="h3" title="Audit: every set, promotion, signature and share, in order" aside={`${events.length} events`}>
       {events.length === 0 ? (
         <EmptyLine>Nothing recorded yet.</EmptyLine>
       ) : (

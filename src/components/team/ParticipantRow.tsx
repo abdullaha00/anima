@@ -77,12 +77,12 @@ export function ParticipantRow({
               <input type="hidden" name="participantId" value={p.id} />
               <input type="hidden" name="required" value={p.required ? "false" : "true"} />
               <Button type="submit" variant="quiet" className="w-full px-3.5 text-[13px] md:w-auto">
-                {p.required ? "Mark optional" : "Mark required"}
+                <span aria-hidden="true">{p.required ? "Mark optional" : "Mark required"}</span><span className="sr-only">{p.required ? `Mark ${p.name} optional` : `Mark ${p.name} required`}</span>
               </Button>
             </form>
           ) : null}
           {canRemove ? (
-            <Disclosure label="Remove from the team">
+            <Disclosure label={<><span aria-hidden="true">Remove from the team</span><span className="sr-only">Remove {p.name} from the team</span></>}>
               {/* A sibling of the toggle form above, never nested inside it. */}
               <form action={removeParticipantForm} className="flex flex-wrap items-center gap-2 md:justify-end">
                 <input type="hidden" name="patientId" value={patientId} />
@@ -96,7 +96,7 @@ export function ParticipantRow({
                   />
                 </div>
                 <Button type="submit" variant="quiet" className="px-3.5 text-[13px]">
-                  Remove
+                  <span aria-hidden="true">Remove</span><span className="sr-only">Remove {p.name}</span>
                 </Button>
               </form>
             </Disclosure>

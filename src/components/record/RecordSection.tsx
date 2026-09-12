@@ -89,7 +89,7 @@ export function RecordSection({ ctx }: { ctx: PatientContext }) {
             />
           )}
 
-          <Panel as="div">
+          <Panel heading="h3" as="div">
             <div className="flex flex-col gap-5">
               <h3 className="border-b border-line pb-4 text-[18px] font-semibold leading-tight tracking-[-0.01em] text-ink">
                 What each recipient sees

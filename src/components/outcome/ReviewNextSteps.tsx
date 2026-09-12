@@ -122,7 +122,7 @@ export function ReviewNextSteps({
   const rest = actions.slice(SHOWN);
   const rowProps = { patientId, owners, due, enabled };
   return (
-    <Panel title="Suggested next steps, from the record review" aside={`${actions.length} suggested`}>
+    <Panel heading="h3" title="Suggested next steps, from the record review" aside={`${actions.length} suggested`}>
       <div className="flex flex-col gap-5">
         {!enabled ? (
           <Notice kind="quiet">

@@ -5,26 +5,9 @@ import { formatDateTime } from "@/lib/format";
 
 /** Shared primitives, following the Cairn design system. Quiet by default. */
 
-type ButtonVariant = "primary" | "quiet" | "refuse" | "link";
+import { BUTTON, BUTTON_BASE, Button, type ButtonVariant } from "./Button";
 
-const BUTTON: Record<ButtonVariant, string> = {
-  primary: "bg-primary text-primary-ink hover:bg-primary-hover disabled:bg-stone-200 disabled:text-faint disabled:cursor-not-allowed",
-  quiet:
-    "bg-surface text-ink border border-line-strong shadow-xs hover:bg-surface-2 disabled:bg-stone-200 disabled:text-faint disabled:cursor-not-allowed",
-  refuse: "bg-refuse-soft text-refuse border border-refuse-border hover:bg-surface disabled:opacity-50",
-  link: "text-primary-hover hover:bg-primary-soft px-3",
-};
-
-const BUTTON_BASE =
-  "inline-flex items-center justify-center gap-2 rounded-md px-[18px] py-[9px] text-[14px] font-semibold leading-none min-h-11 transition-colors duration-150";
-
-export function Button({
-  variant = "quiet",
-  className = "",
-  ...rest
-}: React.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: ButtonVariant }) {
-  return <button className={`${BUTTON_BASE} ${BUTTON[variant]} ${className}`} {...rest} />;
-}
+export { Button };
 
 export function ButtonLink({
   href,
@@ -262,6 +245,7 @@ export function Panel({
   className = "",
   as: Tag = "section",
   tone = "plain",
+  heading: Heading = "h2",
 }: {
   title?: ReactNode;
   aside?: ReactNode;
@@ -270,6 +254,8 @@ export function Panel({
   as?: "section" | "div" | "aside";
   /** 'brand' tints the header Cairn green, for the one panel that carries the screen's purpose. */
   tone?: "plain" | "brand";
+  /** Heading level of the title: h2 on a page, h3 inside a section that already has an h2. */
+  heading?: "h2" | "h3";
 }) {
   const header = tone === "brand" ? "border-b border-cairn-100 bg-primary-soft" : "border-b border-line";
   const titleColour = tone === "brand" ? "text-affirm" : "text-ink";
@@ -278,7 +264,7 @@ export function Panel({
     <Tag className={`overflow-hidden rounded-lg border border-line bg-surface shadow-sm ${className}`}>
       {title ? (
         <header className={`flex items-baseline justify-between gap-4 px-6 py-3.5 ${header}`}>
-          <h2 className={`min-w-0 text-[14px] font-bold tracking-[-0.01em] ${titleColour}`}>{title}</h2>
+          <Heading className={`min-w-0 text-[14px] font-bold tracking-[-0.01em] ${titleColour}`}>{title}</Heading>
           {aside ? <div className={`min-w-0 text-right text-[12px] ${asideColour}`}>{aside}</div> : null}
         </header>
       ) : null}

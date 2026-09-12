@@ -72,7 +72,7 @@ export function OutcomeView({
         </div>
       </Section>
 
-      <Panel
+      <Panel heading="h3"
         title="Decisions"
         aside={promotable ? `${promotable} carry a record field` : "none carry a record field"}
       >
@@ -151,7 +151,7 @@ export function OutcomeView({
         ) : null}
       </Panel>
 
-      <Panel title="Next steps" aside={`${outcome.nextSteps.filter((s) => s.status === "open").length} open`}>
+      <Panel heading="h3" title="Next steps" aside={`${outcome.nextSteps.filter((s) => s.status === "open").length} open`}>
         <NextSteps patientId={caseState.patientId} steps={outcome.nextSteps} owners={owners} messages={messageLabels} />
       </Panel>
     </div>
