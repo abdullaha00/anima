@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { WorklistRow } from "@/lib/domain/types";
 import { getPatients } from "@/lib/data/source";
 import { getEngine } from "@/lib/scoring";
-import { sweep } from "@/lib/scoring/sweep";
+import { screeningMarkers, sweep } from "@/lib/scoring/sweep";
 import { casesById } from "@/lib/store";
 import { WORKLIST_ORDER, planGroupForRow, type PlanGroup } from "@/lib/coordination/state";
 import { plural } from "@/lib/format";
@@ -97,11 +97,11 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
     owner: one(sp.owner),
   };
 
-  const [{ patients, meta }, cases] = await Promise.all([getPatients(), casesById()]);
+  const [{ patients, meta }, cases, screenings] = await Promise.all([getPatients(), casesById(), screeningMarkers()]);
   const engine = getEngine();
   const nowIso = meta.simulationNow;
   const assessments = await engine.assessMany(patients, { nowIso });
-  const result = sweep(patients, assessments, cases, nowIso);
+  const result = sweep(patients, assessments, cases, nowIso, { screenings });
 
   const rows = applyFilters(result.rows, filters, nowIso);
   const groups = groupRows(rows, nowIso);
@@ -162,9 +162,10 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
                             <div className="mt-0.5">
                               <Mono className="text-faint">{r.patientId}</Mono>
                             </div>
-                            {showState ? (
-                              <div className="mt-1.5">
-                                <StateBadge state={r.state} />
+                            {showState || r.screening === "above" ? (
+                              <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+                                {showState ? <StateBadge state={r.state} /> : null}
+                                {r.screening === "above" ? <Chip tone="info">Screening: above threshold</Chip> : null}
                               </div>
                             ) : null}
                           </td>

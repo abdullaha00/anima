@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { CaseState } from "@/lib/domain/types";
 import { PreparationStatus } from "./ClinicalReview";
 export function PreparationSection({ caseState }: { caseState: CaseState }) {
@@ -8,7 +7,7 @@ export function PreparationSection({ caseState }: { caseState: CaseState }) {
       const decision = caseState.screeningReviews?.find(r => r.preparationStepId === step.id);
       const owner = caseState.participants.find(p => p.id === step.ownerId);
       return <article key={step.id} className="rounded border p-4"><h3 className="font-semibold">{step.what}</h3><p>Owner: {owner?.name ?? "Owner no longer on the care team — clarify ownership"} · due {step.due} · {step.status}</p>{step.blockedReason && <p>{step.blockedReason}</p>}
-        {decision && <p><Link className="underline" href={`/screening/${decision.screeningId}`}>Source screening and clinician decision</Link></p>}
+        {decision && <p>From the screening decision recorded on the patient page ({decision.decision}, revision {decision.revision}).</p>}
         <p className="text-xs text-secondary">Saved action {step.id}</p>
         {step.status === "open" && <PreparationStatus patientId={caseState.patientId} step={step} enabled={process.env.CAIRN_DEMO_ACTIONS === "true"} />}
       </article>;

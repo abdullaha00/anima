@@ -4,6 +4,7 @@ import { PatientStrip } from "@/components/shell/PatientStrip";
 import { EvidenceChain } from "@/components/patient/EvidenceChain";
 import { PlanStatus } from "@/components/patient/PlanStatus";
 import { RecordReview } from "@/components/patient/RecordReview";
+import { ScreeningPanel } from "@/components/patient/ScreeningPanel";
 import { RECOMMENDATION_LABEL } from "@/lib/stage2/present";
 import { PagedList, type PagedItem } from "@/components/patient/PagedList";
 import { MedicinesPanel } from "@/components/patient/MedicinesPanel";
@@ -152,6 +153,9 @@ export default async function PatientPage({ params }: { params: Promise<{ id: st
               <EvidenceChain signals={assessment.signals} />
             </div>
           </Panel>
+
+          {/* The three-month screening: its decision in words and the record entries behind it. */}
+          <ScreeningPanel patientId={patient.id} caseState={caseState} />
 
           {/* Stage 2: a read-only reading of the whole record, a prompt for clinical review. */}
           <RecordReview status={reviewStatus} />

@@ -91,9 +91,38 @@ function compareRows(a: WorklistRow, b: WorklistRow): number {
   return b.assessment.signals.length - a.assessment.signals.length;
 }
 
+export type ScreeningMarker = NonNullable<WorklistRow['screening']>;
+
 export interface SweepOptions {
   /** Defaults to 'rules+model' when any assessment carries a model rank, else 'rules'. */
   engineId?: string;
+  /** The latest screening decision per patient, from screeningMarkers(). Absent when none has run. */
+  screenings?: ReadonlyMap<string, ScreeningMarker>;
+}
+
+const DECISION_MARKER: Record<string, ScreeningMarker> = {
+  above_threshold: 'above',
+  below_threshold: 'below',
+  not_assessed: 'not_assessed',
+};
+
+/**
+ * The latest completed screening decision for every patient, read once for the whole list.
+ * Loaded lazily so the sweep itself stays a pure function of its inputs. An empty or missing
+ * screenings directory gives an empty map, and any unreadable screening is left out.
+ */
+export async function screeningMarkers(): Promise<Map<string, ScreeningMarker>> {
+  const out = new Map<string, ScreeningMarker>();
+  try {
+    const { latestScreeningsByPatient } = await import('@/lib/stage1/linked-review');
+    for (const [patientId, s] of await latestScreeningsByPatient()) {
+      const marker = DECISION_MARKER[s.result.decision];
+      if (marker) out.set(patientId, marker);
+    }
+  } catch {
+    // The worklist does not depend on the screening store being present or readable.
+  }
+  return out;
 }
 
 export function sweep(
@@ -146,6 +175,7 @@ export function sweep(
       isCancer: isCancer(p),
       imdQuintile: p.imdQuintile,
       lastTouchedAt: lastTouchedFor(c),
+      screening: opts.screenings?.get(p.id),
     });
   }
 

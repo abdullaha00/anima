@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { ensureTeamAssembled, loadPatientContext } from "@/lib/patient-context";
 import { getReviewStatus } from "@/lib/stage2/read";
 import { PatientStrip } from "@/components/shell/PatientStrip";
@@ -30,7 +29,9 @@ export default async function RecordPage({ params }: { params: Promise<{ id: str
       <RecordJumpBar />
       <div className="mx-auto flex w-full max-w-[860px] flex-col gap-10">
         <TeamSection ctx={ctx} review={review} />
-        {review?.screeningId && <p className="rounded border p-4"><Link className="underline" href={`/screening/${review.screeningId}`}>Review the linked screening, its threshold and sources, and save the clinician decision</Link></p>}
+        {review?.screeningId ? (
+          <p className="text-[13px] leading-5 text-muted">A screening is linked to this record; see the patient page.</p>
+        ) : null}
         <PreparationSection caseState={ctx.caseState} />
         <RecordPersonalDetails patient={ctx.patient} />
         <RespectFields record={record} patient={ctx.patient} review={review} nowIso={ctx.nowIso} locked={locked} />
