@@ -69,7 +69,6 @@ function applyFilters(rows: WorklistRow[], f: FilterValues, nowIso: string): Wor
     if (f.tier && r.assessment.tier !== f.tier) return false;
     if (f.noPlan === "yes" && (r.assessment.hasPlan || r.assessment.alreadyOnRegister)) return false;
     if (f.group && !r.conditions.some((c) => CONDITION_GROUPS[f.group]?.test(c))) return false;
-    if (f.imd && String(r.imdQuintile ?? "") !== f.imd) return false;
     if (f.owner && r.clinician !== f.owner) return false;
     return true;
   });
@@ -93,7 +92,6 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
     tier: one(sp.tier),
     noPlan: one(sp.noPlan),
     group: one(sp.group),
-    imd: one(sp.imd),
     owner: one(sp.owner),
   };
 
@@ -116,7 +114,7 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
       {result.modelDisclosure ? <Notice kind="info">{result.modelDisclosure}</Notice> : null}
 
       <div className="flex min-w-0 flex-col gap-6">
-        <WorklistFilters values={filters} owners={owners} imdAvailable={result.equity.imdAvailable} />
+        <WorklistFilters values={filters} owners={owners} />
 
         {groups.length === 0 ? (
           <Notice kind="quiet">No patients match this search.</Notice>
@@ -130,8 +128,9 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
                 <span className="text-[13px] font-medium text-secondary tnum">{plural(g.rows.length, "patient")}</span>
               </div>
               <div className="overflow-x-auto rounded-lg bg-surface shadow-sm">
-                <table className="w-full min-w-[720px] table-fixed text-[13px]">
-                  <thead className="text-left">
+                {/* Below md each row stacks as a card; from md up it is the same fixed table as before. */}
+                <table className="w-full text-[13px] md:min-w-[720px] md:table-fixed">
+                  <thead className="hidden text-left md:table-header-group">
                     <tr className="border-b-2 border-line">
                       <th className="w-1 p-0" aria-hidden="true" />
                       <th className="microlabel w-[24%] px-3 py-2.5">Patient</th>
@@ -149,10 +148,10 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
                       const signals = r.assessment.signals;
                       return (
                         <RowLink key={r.patientId} href={`/patient/${r.patientId}`} className="border-b border-line last:border-b-0">
-                          <td className="p-0">
+                          <td className="hidden p-0 md:table-cell">
                             <span aria-hidden="true" className={`block h-full min-h-[3.25rem] w-1 ${STRIPE[g.plan]}`} />
                           </td>
-                          <td className="px-3 py-3 align-top">
+                          <td className="block w-full p-0 md:table-cell md:w-auto md:px-3 md:py-3 md:align-top">
                             <Link
                               href={`/patient/${r.patientId}`}
                               className="rounded-xs text-[15px] font-bold tracking-[-0.01em] text-ink hover:text-primary"
@@ -169,8 +168,11 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
                               </div>
                             ) : null}
                           </td>
-                          <td className="px-2 py-3 align-top text-secondary tnum">{r.age !== undefined ? r.age : "—"}</td>
-                          <td className="px-3 py-3 align-top">
+                          <td className="mr-3 mt-2 block p-0 text-secondary tnum md:mr-0 md:mt-0 md:table-cell md:px-2 md:py-3 md:align-top">
+                            <span className="mr-1 text-[12px] font-semibold text-muted md:hidden">Age</span>
+                            {r.age !== undefined ? r.age : "—"}
+                          </td>
+                          <td className="mt-2 block min-w-0 flex-1 p-0 md:mt-0 md:table-cell md:px-3 md:py-3 md:align-top">
                             <div className="flex flex-wrap gap-1">
                               {r.conditions.length ? (
                                 r.conditions.map((c) => <Chip key={c}>{c}</Chip>)
@@ -179,14 +181,16 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
                               )}
                             </div>
                           </td>
-                          <td className="px-3 py-3 align-top text-[13px] text-ink">
+                          <td className="mt-2 block w-full p-0 text-[13px] text-ink md:mt-0 md:table-cell md:w-auto md:px-3 md:py-3 md:align-top">
+                            <span className="block text-[12px] font-semibold text-muted md:hidden">Indicators</span>
                             {signals.length ? (
                               signals.map((s) => SHORT_LABEL[s.id] ?? s.label).join(" · ")
                             ) : (
                               <span aria-label="no indicators recorded" className="text-faint">—</span>
                             )}
                           </td>
-                          <td className="px-3 py-3 align-top text-[13px] text-ink">
+                          <td className="mt-1.5 block w-full p-0 text-[13px] text-secondary md:mt-0 md:table-cell md:w-auto md:px-3 md:py-3 md:align-top md:text-ink">
+                            <span className="mr-1 text-[12px] font-semibold text-muted md:hidden">Clinician</span>
                             {r.clinician}
                             {r.state === "paused" && r.pausedReason ? (
                               <div className="mt-0.5 text-secondary">paused: {r.pausedReason}</div>
