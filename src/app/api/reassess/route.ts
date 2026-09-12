@@ -15,12 +15,14 @@ import {
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-// Re-assessment deliberately stays in one streamed Node function invocation. This is within
-// Vercel Fluid Compute's supported function model and avoids an unsupported background worker.
-export const maxDuration = 800;
+// Re-assessment deliberately stays in one streamed Node function invocation. The individual
+// agent deadlines below leave headroom inside Vercel's 300-second serverless ceiling.
+export const maxDuration = 300;
 
 const MODEL = "openai/gpt-5.6-sol";
 const THINKING = "medium" as const;
+const STAGE_ONE_TIMEOUT_MS = 65_000;
+const STAGE_TWO_PASS_TIMEOUT_MS = 80_000;
 
 type Event =
   | { type: "phase"; phase: "stage1" | "stage2"; message: string }
@@ -61,7 +63,12 @@ export async function POST(request: Request): Promise<Response> {
           const input = prepareMortalityInput(source, screeningId);
           const { config, prompt } = await loadMortalityConfig(
             path.join(REPO_ROOT, "config/stage1/mortality.json"),
-            { model: MODEL, reasoning: THINKING },
+            {
+              model: MODEL,
+              reasoning: THINKING,
+              timeoutMs: STAGE_ONE_TIMEOUT_MS,
+              maxAttempts: 1,
+            },
           );
           await createScreening(input, { config, prompt, invariants: MORTALITY_INVARIANTS });
 
@@ -75,6 +82,7 @@ export async function POST(request: Request): Promise<Response> {
           const review = await runStage2Pipeline(patientId, crypto.randomUUID(), screeningId, {
             model: MODEL,
             thinking: THINKING,
+            timeoutMs: STAGE_TWO_PASS_TIMEOUT_MS,
           });
           send({
             type: "complete",

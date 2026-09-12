@@ -32,7 +32,7 @@ export async function runStage2Pipeline(
   inputPatientId: string,
   requestedRunId?: string,
   screeningId?: string,
-  overrides?: { model?: string; thinking?: LlmReasoning },
+  overrides?: { model?: string; thinking?: LlmReasoning; timeoutMs?: number },
 ): Promise<{ runId: string; runDirectory: string; result: Stage2Assessment }> {
   const patientId = assertPatientId(inputPatientId);
   const runId = requestedRunId ?? crypto.randomUUID();
@@ -81,6 +81,7 @@ export async function runStage2Pipeline(
     const primary = await runPrimaryAssessment(runDirectory, patientId, {
       model: agentConfiguration.model,
       thinking: agentConfiguration.thinkingLevel as LlmReasoning,
+      timeoutMs: overrides?.timeoutMs,
     });
     await writeJsonAtomic(
       path.join(runDirectory, "analysis", "primary.json"),
@@ -100,6 +101,7 @@ export async function runStage2Pipeline(
     const result = await runVerificationAssessment(runDirectory, patientId, {
       model: agentConfiguration.model,
       thinking: agentConfiguration.thinkingLevel as LlmReasoning,
+      timeoutMs: overrides?.timeoutMs,
     });
     const resultPath = path.join(runDirectory, "analysis", "final.json");
     await writeJsonAtomic(resultPath, result);

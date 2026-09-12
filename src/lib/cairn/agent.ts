@@ -40,6 +40,7 @@ async function runAgentPass(options: {
   generatedAt: string;
   model?: string;
   thinking?: LlmReasoning;
+  timeoutMs?: number;
 }): Promise<Stage2Assessment> {
   const logsDirectory = path.join(options.runDirectory, "logs");
   await ensureDirectory(logsDirectory);
@@ -147,7 +148,7 @@ async function runAgentPass(options: {
       options.pass === "primary"
         ? buildPrimaryPrompt(options.patientId, options.generatedAt)
         : verificationPrompt(options.patientId, options.generatedAt);
-    const configuredTimeout = Number(process.env.CAIRN_AGENT_TIMEOUT_MS ?? 1_200_000);
+    const configuredTimeout = Number(options.timeoutMs ?? process.env.CAIRN_AGENT_TIMEOUT_MS ?? 1_200_000);
     const timeoutMilliseconds =
       Number.isFinite(configuredTimeout) && configuredTimeout > 0
         ? configuredTimeout
@@ -194,7 +195,7 @@ async function runAgentPass(options: {
 export async function runPrimaryAssessment(
   runDirectory: string,
   patientId: string,
-  agent?: { model?: string; thinking?: LlmReasoning },
+  agent?: { model?: string; thinking?: LlmReasoning; timeoutMs?: number },
 ): Promise<Stage2Assessment> {
   return runAgentPass({
     pass: "primary",
@@ -208,7 +209,7 @@ export async function runPrimaryAssessment(
 export async function runVerificationAssessment(
   runDirectory: string,
   patientId: string,
-  agent?: { model?: string; thinking?: LlmReasoning },
+  agent?: { model?: string; thinking?: LlmReasoning; timeoutMs?: number },
 ): Promise<Stage2Assessment> {
   return runAgentPass({
     pass: "verification",
