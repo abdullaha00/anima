@@ -26,7 +26,7 @@ This describes how we use data input from wide range of sources in the anima sim
 
 ## Live simulator inventory (verified 2026-09-12)
 
-The public API currently reports **50,000 synthetic patients** (`GET /api/sites/gp/patients`, `total`; results are paged in groups of 30). This is the available screening cohort, but it is **not 50,000 labelled palliative-care evaluation cases**. There are no native mortality, palliative-care, hospice, ADRT, DNACPR/ReSPECT, or death-outcome labels. THESE ARE COMING DONT WORRY, the simulation is being updated with dying patients/dead.!! Performance claims therefore require an authored and clinician-labelled subset.
+The public API currently reports **50,000 synthetic patients** (`GET /api/sites/gp/patients`, `total`; results are paged in groups of 30). This is the available screening cohort, but it is **not 50,000 labelled palliative-care evaluation cases**. The patient schema now has an authored synthetic `death` outcome (`date`, `cause`, `synthetic`, `source`), projected by PDS as `deceasedDateTime`. A complete 50,000-patient directory sweep on 2026-09-12 found only **five** deaths: four medically related deaths and one road-traffic collision. A same-time 50,000-patient PDS sweep returned zero `deceasedDateTime` values despite those five directory outcomes, so the PDS death projection is currently inconsistent and must not be used as the mortality inventory. There are still no native palliative-care, hospice, ADRT or DNACPR/ReSPECT outcome labels. The four eligible mortality outcomes are useful for pipeline development only and are far too few for performance claims.
 
 A team key creates an isolated world over the shared fictional population. Patient-specific additions and workflow changes remain in that world. Site views can contain the same resource in several sites and can also contain non-patient resources; deduplicate by resource `id` and filter on exact `patientId` before counting.
 
@@ -100,15 +100,43 @@ During the count, full `gp`, `hospital`, and `diagnostics` site-view calls repea
 
 `GET /api/clock` reads the isolated world's clock and up to 100 recent visible events. `POST /api/clock` accepts `paused`, `speed` (0–3600), and `advanceMinutes` (0–10,080). Thus a deterministic time skip is at most **one week per call**; pause and call repeatedly to test longer ranges. Advancing executes due jobs, but it does not guarantee that every patient acquires new natural-history records or outcomes.
 
-A four-week advance was attempted in the isolated audit world, but the deployment returned HTTP 502 before the first clock mutation completed. No before/after growth statistic is claimed here. Re-run when the service is healthy, snapshot all sites before and after, exact-filter `patientId`, deduplicate IDs, and compare both resource count and resource version/status changes. Because there is no death/prognosis ground truth, time advancement tests workflow behavior and delayed results—not mortality-prediction accuracy.
+A four-week advance was attempted in the isolated audit world, but the deployment returned HTTP 502 before the first clock mutation completed. No before/after growth statistic is claimed here. Re-run when the service is healthy, snapshot all sites before and after, exact-filter `patientId`, deduplicate IDs, and compare both resource count and resource version/status changes. The small authored death set supplies outcome ground truth, but advancing time still changes an isolated world and must not be treated as a substitute for a frozen retrospective cohort.
 
 ## Evaluation-volume recommendation
 
-Use the 50,000-patient directory for high-recall screening and retrieval/load tests. For quality evaluation, author a stratified labelled set in isolated worlds (clear positive, clear negative and difficult/contradictory cases), freeze raw API snapshots, and have clinicians label whether a **goals-of-care/palliative-care conversation review** is appropriate. Report patient-level sensitivity, specificity/precision, abstention and evidence-citation accuracy separately; do not treat simulator prevalence as clinical prevalence.
+Use the 50,000-patient directory for high-recall screening and retrieval/load tests. For quality evaluation, author a stratified labelled set in isolated worlds (clear positive, clear negative and difficult/contradictory cases), freeze raw API snapshots, and have clinicians label whether a **goals-of-care/palliative-care conversation review** is appropriate. Report patient-level sensitivity, specificity/precision, abstention and evidence-citation accuracy separately; do not treat simulator prevalence as clinical prevalence. The four medically related deaths cannot support a stable held-out estimate.
 
-## Temporary Stage 2 candidate cohort
+## Synthetic mortality model cohort (2026-09-12)
 
-Until explicit mortality and end-of-life cases are available, the following synthetic patients are useful high-recall inputs for exercising Stage 2. They were selected from the live simulator snapshot using documented acute episodes, age, frailty, multimorbidity, repeated hospital contact and unresolved care transitions. This is a test-prioritisation list, **not a mortality prediction or clinical label**.
+A reproducible 100-patient pipeline-development cohort is in [`data/mortality-cohort/`](data/mortality-cohort/):
+
+- **4 cases** with medically related recorded deaths (cancer, pneumonia, sepsis and stroke);
+- **96 living controls** with significant current medical history, including all 33 supplied high-comorbidity IDs;
+- `SIM-000009` excluded because its recorded death was caused by a road traffic collision;
+- a separate [`cohort-index.csv`](data/mortality-cohort/cohort-index.csv) and [`labels.ndjson`](data/mortality-cohort/labels.ndjson);
+- leakage-controlled model inputs at 30, 60 and 90 days before the common matched index date; and
+- the uncut [`raw-records.ndjson`](data/mortality-cohort/raw-records.ndjson) for audit only, never direct model input.
+
+Use [`asof-90d.ndjson`](data/mortality-cohort/asof-90d.ndjson) as the primary model input. Cases use their death date as the index date; controls use the same calendar-matched pseudo-index date. Current directory conditions, needs, goals and the death field are omitted from model inputs because the API cannot reconstruct their historical state. Resources created after the cutoff, or changed after it, are also excluded. See the cohort [README](data/mortality-cohort/README.md) and [`manifest.json`](data/mortality-cohort/manifest.json) for exact selection, coverage and limitations. Rebuild with `node scripts/build-mortality-cohort.mjs`.
+
+With only four positive outcomes, use the four provided folds only to debug a leave-one-positive-out training pipeline. Do not claim model quality, clinical validation or generalisability from this cohort. Living controls are right-censored (alive at snapshot), not guaranteed never to die.
+
+## Enriched synthetic mortality cohort
+
+The preserved `data/mortality-cohort/` snapshot is augmented separately in [`data/mortality-cohort-enriched/`](data/mortality-cohort-enriched/). This is **invented synthetic data** for pipeline development, not a live simulator observation, clinical outcome set or validation cohort. The enriched cohort has exactly 100 unique patients: **5 simulator-recorded deaths**, **34 invented authored deaths**, and **61 living controls**. The 39 observed deaths include `SIM-000009`, whose road-traffic-collision cause is retained for audit but marked ineligible; 38 deaths are medically eligible labels.
+
+The builder [`scripts/build-enriched-mortality-cohort.mjs`](scripts/build-enriched-mortality-cohort.mjs) reads the preserved snapshot and embeds the four supplied compact plan artifacts. It performs no API calls and does not mutate the simulator or the preserved cohort. Authored compact events are converted to simulator-shaped resources, then each `asof-{30,60,90}d.ndjson` file applies a per-patient cutoff based on the death date or a deterministic matched control date. Model inputs keep only the row-level `patientId` join key and strip outcomes, generator/audit/source/provenance markers, internal resource IDs and resource-level patient IDs. Run the deterministic checks with:
+
+```bash
+node scripts/build-enriched-mortality-cohort.mjs
+node scripts/build-enriched-mortality-cohort.mjs --validate
+```
+
+See the enriched `README.md` and `manifest.json` for label provenance, target coverage, leakage policy, resource bounds and limitations. The original mortality cohort remains unchanged.
+
+## Historical Stage 2 candidate cohort
+
+Before mortality outcomes were added, the following synthetic patients were selected as high-recall inputs for exercising Stage 2. This remains a test-prioritisation list, **not a mortality prediction or clinical label**.
 
 | Rank | Patient ID | Selection signals |
 |---:|---|---|

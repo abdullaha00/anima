@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "syntheticDataOnly": true,
+  "generatedAt": "2026-09-12T14:20:45.319Z",
+  "simulator": {
+    "baseUrl": "https://sim.animahealth.com",
+    "simulationNow": "2026-09-12T08:00:00.000Z",
+    "directoryRowsScreened": 510
+  },
+  "cohort": {
+    "patientCount": 100,
+    "medicallyRelatedDeaths": 4,
+    "livingHighComorbidityControls": 96,
+    "excludedNonMedicalDeaths": [
+      {
+        "patientId": "SIM-000009",
+        "date": "2026-09-05",
+        "cause": "Road traffic collision"
+      }
+    ],
+    "requestedConfirmedControlsIncluded": 33,
+    "indexDate": "2026-09-05",
+    "selection": "All medically related deaths in the first 510 simulator patients; supplied living high-comorbidity IDs; remaining controls ranked by condition count, age, then patient ID. Controls have at least two current directory conditions."
+  },
+  "modelInputs": {
+    "recommended": "asof-90d.ndjson",
+    "horizonsDays": [
+      30,
+      60,
+      90
+    ],
+    "labelFile": "labels.ndjson",
+    "rule": "Include resources created by cutoff only; exclude resources with any provenance change after cutoff; omit current directory conditions, needs, goals, and death outcome. Demographics contain birth date and age at index only.",
+    "limitations": [
+      "The API exposes current resource payloads, not historical versions. Updated-after-cutoff resources are excluded rather than reconstructed.",
+      "Living controls are alive at snapshot, not guaranteed never to die later; this is right-censored follow-up.",
+      "Only four medically related deaths are currently exposed. This is insufficient for a reliable held-out performance estimate or production model.",
+      "All observed deaths share one date, so controls use the same matched index date to avoid calendar-time leakage."
+    ]
+  },
+  "crossValidation": "fold is 0..3. With four positives, use leave-one-positive-out grouped CV only for pipeline debugging; do not report it as clinical validation.",
+  "horizonCoverage": {
+    "30d": {
+      "cutoffDate": "2026-08-06",
+      "patientsWithRecords": 100,
+      "resourceCount": 3032,
+      "medianResources": 30
+    },
+    "60d": {
+      "cutoffDate": "2026-07-07",
+      "patientsWithRecords": 100,
+      "resourceCount": 2388,
+      "medianResources": 24
+    },
+    "90d": {
+      "cutoffDate": "2026-06-07",
+      "patientsWithRecords": 100,
+      "resourceCount": 2232,
+      "medianResources": 22
+    }
+  },
+  "sitesPulled": [
+    "gp",
+    "hospital",
+    "diagnostics",
+    "community",
+    "pharmacy",
+    "referrals",
+    "wearables",
+    "patient"
+  ]
+}

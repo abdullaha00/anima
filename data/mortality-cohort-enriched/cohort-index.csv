@@ -1,0 +1,101 @@
+patient_id,label,death_observed,cohort_role,label_source,death_source,eligible_for_mortality_label,medically_eligible_death,ineligible_reason,index_date,matched_control_date,death_date,death_cause,condition_count_current_audit_only,fold
+SIM-000011,1,true,true-death,simulator-recorded-death,simulator-recorded-death,true,true,,2026-09-05,,2026-09-05,Pneumonia,2,0
+SIM-000012,1,true,true-death,simulator-recorded-death,simulator-recorded-death,true,true,,2026-09-05,,2026-09-05,Sepsis,0,1
+SIM-000018,1,true,true-death,simulator-recorded-death,simulator-recorded-death,true,true,,2026-09-05,,2026-09-05,Cancer,0,2
+SIM-000019,1,true,true-death,simulator-recorded-death,simulator-recorded-death,true,true,,2026-09-05,,2026-09-05,Stroke,2,3
+SIM-000009,,true,true-death,simulator-recorded-death-ineligible,simulator-recorded-death,false,false,non-medical cause: Road traffic collision,2026-09-05,,2026-09-05,Road traffic collision,0,4
+SIM-000499,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-08-24,,2026-08-24,Acute-on-chronic heart failure,3,0
+SIM-000472,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-08-26,,2026-08-26,Pneumonia with sepsis,3,1
+SIM-000464,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-08-28,,2026-08-28,Diabetic ketoacidosis,3,2
+SIM-000437,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-08-31,,2026-08-31,Hyperkalaemic arrhythmia complicating acute kidney injury,3,3
+SIM-000417,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-09-02,,2026-09-02,Acute respiratory failure from decompensated heart failure,4,4
+SIM-000416,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-09-04,,2026-09-04,Intracerebral haemorrhage,3,0
+SIM-000395,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-09-07,,2026-09-07,Acute-on-chronic kidney failure,3,1
+SIM-000391,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-09-08,,2026-09-08,Acute myocardial infarction,3,2
+SIM-000378,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-09-10,,2026-09-10,Pneumonia causing respiratory failure,3,3
+SIM-000371,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-09-11,,2026-09-11,Ischaemic stroke,5,4
+SIM-000349,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-09-17,,2026-09-17,Acute decompensated heart failure with pulmonary oedema,4,0
+SIM-000348,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-09-20,,2026-09-20,Status asthmaticus with acute hypoxic respiratory failure,3,1
+SIM-000333,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-09-23,,2026-09-23,Community-acquired pneumonia with acute respiratory failure,3,2
+SIM-000327,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-09-25,,2026-09-25,Hyperosmolar hyperglycaemic state with acute kidney injury,3,3
+SIM-000304,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-09-27,,2026-09-27,Hypertensive intracerebral haemorrhage,3,4
+SIM-000294,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-09-30,,2026-09-30,Aspiration pneumonia with acute-on-chronic heart failure,3,0
+SIM-000292,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-10-02,,2026-10-02,Urosepsis with acute kidney injury,3,1
+SIM-000284,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-10-05,,2026-10-05,Acute myocardial infarction with cardiogenic shock,3,2
+SIM-000283,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-10-07,,2026-10-07,Acute kidney injury with hyperkalaemia in chronic kidney disease,3,3
+SIM-000275,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-10-11,,2026-10-11,Hypertensive encephalopathy with acute kidney injury,3,4
+SIM-000272,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-09-16,,2026-09-16,Pneumonia with acute hypoxic respiratory failure,3,0
+SIM-000261,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-09-22,,2026-09-22,Decompensated heart failure with cardiorenal syndrome,4,1
+SIM-000250,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-09-13,,2026-09-13,Hyperosmolar hyperglycaemic state due to diabetes,3,2
+SIM-000245,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-09-18,,2026-09-18,Acute pulmonary oedema from decompensated heart failure,3,3
+SIM-000236,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-09-15,,2026-09-15,Large ischaemic stroke with aspiration pneumonia,3,4
+SIM-000227,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-09-24,,2026-09-24,Fatal ventricular arrhythmia precipitated by severe hypokalaemia,3,0
+SIM-000222,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-09-19,,2026-09-19,Acute myocardial infarction with cardiogenic shock,3,1
+SIM-000220,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-09-21,,2026-09-21,Aspiration pneumonia with sepsis,3,2
+SIM-000170,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-09-28,,2026-09-28,Acute-on-chronic kidney failure with uraemic encephalopathy,4,3
+SIM-000168,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-09-29,,2026-09-29,Status asthmaticus with acute respiratory failure,4,4
+SIM-000115,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-10-04,,2026-10-04,Community-acquired pneumonia,3,0
+SIM-000111,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-10-10,,2026-10-10,Acute myocardial infarction,3,1
+SIM-000108,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-10-14,,2026-10-14,Urosepsis,3,2
+SIM-000001,1,true,authored-death,authored-synthetic-mortality-v2,authored-synthetic-mortality-v2,true,true,,2026-10-18,,2026-10-18,Acute decompensated heart failure,2,3
+SIM-000107,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-08-24,2026-08-24,,,4,4
+SIM-000094,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-08-26,2026-08-26,,,4,0
+SIM-000091,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-08-28,2026-08-28,,,4,1
+SIM-000105,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-08-31,2026-08-31,,,4,2
+SIM-000052,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-02,2026-09-02,,,4,3
+SIM-000317,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-04,2026-09-04,,,4,4
+SIM-000047,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-05,2026-09-05,,,3,0
+SIM-000074,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-05,2026-09-05,,,3,1
+SIM-000050,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-05,2026-09-05,,,3,2
+SIM-000071,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-05,2026-09-05,,,3,3
+SIM-000015,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-05,2026-09-05,,,3,4
+SIM-000262,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-07,2026-09-07,,,3,0
+SIM-000235,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-08,2026-09-08,,,3,1
+SIM-000408,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-10,2026-09-10,,,3,2
+SIM-000178,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-11,2026-09-11,,,3,3
+SIM-000088,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-13,2026-09-13,,,3,4
+SIM-000206,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-15,2026-09-15,,,3,0
+SIM-000017,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-16,2026-09-16,,,2,1
+SIM-000242,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-17,2026-09-17,,,2,2
+SIM-000159,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-18,2026-09-18,,,2,3
+SIM-000177,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-19,2026-09-19,,,2,4
+SIM-000026,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-20,2026-09-20,,,2,0
+SIM-000200,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-21,2026-09-21,,,2,1
+SIM-000320,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-22,2026-09-22,,,2,2
+SIM-000321,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-23,2026-09-23,,,2,3
+SIM-000458,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-24,2026-09-24,,,2,4
+SIM-000191,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-25,2026-09-25,,,2,0
+SIM-000204,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-27,2026-09-27,,,2,1
+SIM-000326,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-28,2026-09-28,,,2,2
+SIM-000347,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-29,2026-09-29,,,2,3
+SIM-000167,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-30,2026-09-30,,,2,4
+SIM-000280,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-10-02,2026-10-02,,,2,0
+SIM-000438,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-10-04,2026-10-04,,,2,1
+SIM-000429,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-10-05,2026-10-05,,,2,2
+SIM-000036,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-10-07,2026-10-07,,,2,3
+SIM-000255,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-10-10,2026-10-10,,,2,4
+SIM-000256,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-10-11,2026-10-11,,,2,0
+SIM-000403,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-10-14,2026-10-14,,,2,1
+SIM-000415,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-10-18,2026-10-18,,,2,2
+SIM-000461,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-08-24,2026-08-24,,,2,3
+SIM-000446,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-08-26,2026-08-26,,,2,4
+SIM-000210,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-08-28,2026-08-28,,,2,0
+SIM-000269,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-08-31,2026-08-31,,,2,1
+SIM-000468,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-02,2026-09-02,,,2,2
+SIM-000459,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-04,2026-09-04,,,2,3
+SIM-000319,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-05,2026-09-05,,,2,4
+SIM-000420,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-05,2026-09-05,,,2,0
+SIM-000077,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-05,2026-09-05,,,2,1
+SIM-000155,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-05,2026-09-05,,,2,2
+SIM-000251,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-05,2026-09-05,,,2,3
+SIM-000223,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-07,2026-09-07,,,2,4
+SIM-000380,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-08,2026-09-08,,,2,0
+SIM-000506,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-10,2026-09-10,,,2,1
+SIM-000241,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-11,2026-09-11,,,2,2
+SIM-000244,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-13,2026-09-13,,,2,3
+SIM-000462,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-15,2026-09-15,,,2,4
+SIM-000234,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-16,2026-09-16,,,2,0
+SIM-000268,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-17,2026-09-17,,,2,1
+SIM-000493,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-18,2026-09-18,,,2,2
+SIM-000179,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-19,2026-09-19,,,2,3
+SIM-000281,0,false,living-control,alive-at-base-snapshot,,true,false,,2026-09-20,2026-09-20,,,2,4
