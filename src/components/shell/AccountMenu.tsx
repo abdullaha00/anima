@@ -64,23 +64,33 @@ export function AccountMenu({ name, organisation }: { name: string; organisation
           id={menuId}
           role="dialog"
           aria-label="Account"
-          className="absolute right-0 top-full z-30 mt-2 w-64 rounded-lg border border-line bg-surface p-4 shadow-lg"
+          className="absolute right-0 top-full z-30 mt-2 w-64 max-w-[calc(100vw-2rem)] rounded-lg border border-line bg-surface py-4 pl-4 pr-12 shadow-lg"
         >
-          <p className="text-[14px] font-semibold leading-5 text-ink">{name}</p>
-          <p className="text-[13px] leading-5 text-secondary">{organisation}</p>
-          <div className="mt-3 flex justify-end">
-            <button
-              type="button"
-              autoFocus
-              onClick={() => {
-                setOpen(false);
-                button.current?.focus();
-              }}
-              className="inline-flex min-h-11 items-center rounded-md border border-line-strong bg-surface px-3 text-[13px] font-semibold text-ink shadow-xs hover:bg-surface-2"
+          <p className="break-words text-[14px] font-semibold leading-5 text-ink">{name}</p>
+          <p className="break-words text-[13px] leading-5 text-secondary">{organisation}</p>
+          {/* A small round close in the corner: the card is two lines of text and needs no button row. */}
+          <button
+            type="button"
+            autoFocus
+            aria-label="Close"
+            onClick={() => {
+              setOpen(false);
+              button.current?.focus();
+            }}
+            className="absolute right-2 top-2 inline-flex h-8 w-8 items-center justify-center rounded-full text-muted transition-colors hover:bg-stone-100 hover:text-ink"
+          >
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 14 14"
+              className="h-3.5 w-3.5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.75"
+              strokeLinecap="round"
             >
-              Close
-            </button>
-          </div>
+              <path d="M3 3l8 8M11 3l-8 8" />
+            </svg>
+          </button>
         </div>
       ) : null}
     </div>

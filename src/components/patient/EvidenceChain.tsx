@@ -25,9 +25,9 @@ export function EvidenceChain({ signals }: { signals: Signal[] }) {
               </span>
             }
           >
-            <div className="flex flex-col gap-1.5 pb-2 pr-4">
-              <p className="prose-clinical text-[15px] leading-relaxed text-ink">{s.evidence}</p>
-              <p className="font-mono text-[12px] leading-5 text-faint tnum">
+            <div className="flex min-w-0 flex-col gap-1.5 pb-2 pr-4">
+              <p className="prose-clinical break-words text-[15px] leading-relaxed text-ink">{s.evidence}</p>
+              <p className="break-words font-mono text-[12px] leading-5 text-faint tnum">
                 Shaped after <span className="text-muted">{s.basis}</span> <Mono className="ml-1 text-faint">{s.id}</Mono>
                 <br />
                 Recorded {s.recordedAt ? formatDate(s.recordedAt) : "date not carried by this entry"}
