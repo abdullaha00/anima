@@ -1,7 +1,7 @@
 import type { NextStep, Participant } from "@/lib/domain/types";
 import { addNextStepForm, setNextStepStatusForm } from "@/app/actions";
 import { formatDate } from "@/lib/format";
-import { Button, Chip, EmptyLine, Mono, SimulatedTag } from "@/components/ui";
+import { Button, Chip, Disclosure, EmptyLine, Mono, SimulatedTag } from "@/components/ui";
 import { FIELD_CLASS, INPUT_CLASS, LABEL_CLASS, SELECT_CLASS } from "@/components/team/form-classes";
 
 function personLine(p: Participant | undefined, id: string) {
@@ -102,11 +102,8 @@ export function NextSteps({
                         </form>
                       )}
                       {s.status !== "blocked" ? (
-                        <details className="text-[13px]">
-                          <summary className="inline-flex min-h-11 cursor-pointer list-none items-center px-2 font-semibold text-muted hover:text-ink">
-                            Blocked
-                          </summary>
-                          <form action={setNextStepStatusForm} className="flex flex-col gap-2 pt-1">
+                        <Disclosure label="Mark blocked" className="px-2">
+                          <form action={setNextStepStatusForm} className="flex flex-col gap-2">
                             <input type="hidden" name="patientId" value={patientId} />
                             <input type="hidden" name="nextStepId" value={s.id} />
                             <input type="hidden" name="status" value="blocked" />
@@ -116,11 +113,11 @@ export function NextSteps({
                             </label>
                             <div>
                               <Button type="submit" variant="quiet" className="px-3.5 text-[13px]">
-                                Mark blocked
+                                Save as blocked
                               </Button>
                             </div>
                           </form>
-                        </details>
+                        </Disclosure>
                       ) : null}
                     </div>
                   </td>

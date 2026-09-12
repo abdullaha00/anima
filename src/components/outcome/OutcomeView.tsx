@@ -3,7 +3,7 @@ import type { CaseState, MeetingOutcome, Participant, ThreadMessage } from "@/li
 import { CLINICIAN } from "@/lib/copy";
 import { formatDate, formatDateTime } from "@/lib/format";
 import { fieldLabel } from "@/lib/record/fields";
-import { EmptyLine, Microlabel, Mono, Notice, Panel, ProvenanceLine, SimulatedTag } from "@/components/ui";
+import { EmptyLine, Microlabel, Mono, Notice, Panel, ProvenanceLine, Section, SimulatedTag } from "@/components/ui";
 import { PromotionBlock } from "./PromotionBlock";
 import { NextSteps } from "./NextSteps";
 
@@ -59,14 +59,18 @@ export function OutcomeView({
         <p className="mt-3 font-mono text-[12px] leading-5 text-faint">recorded by {outcome.recordedBy}</p>
       </Panel>
 
-      <div className="grid gap-6 sm:grid-cols-2">
-        <Panel title="Attended">
-          <PersonList ids={outcome.attendees} byId={byId} />
-        </Panel>
-        <Panel title="Apologies">
-          <PersonList ids={outcome.apologies} byId={byId} />
-        </Panel>
-      </div>
+      <Section title="Attendance">
+        <div className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
+          <div className="flex flex-col gap-2">
+            <Microlabel>Attended</Microlabel>
+            <PersonList ids={outcome.attendees} byId={byId} />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Microlabel>Apologies</Microlabel>
+            <PersonList ids={outcome.apologies} byId={byId} />
+          </div>
+        </div>
+      </Section>
 
       <Panel
         title="Decisions"
@@ -100,9 +104,9 @@ export function OutcomeView({
                   </div>
 
                   {d.intoRecordField ? (
-                    <div className="ml-8 grid grid-cols-1 gap-4 border-t border-dashed border-line-strong pt-4 md:grid-cols-2">
+                    <div className="ml-8 grid grid-cols-1 gap-4 border-t border-line pt-4 md:grid-cols-2">
                       <div className="flex flex-col gap-1">
-                        <span className="microlabel">Current record: {fieldLabel(d.intoRecordField)}</span>
+                        <Microlabel>Current record: {fieldLabel(d.intoRecordField)}</Microlabel>
                         {current ? (
                           <>
                             <p className="text-[15px] leading-6 text-ink">{current.value}</p>
@@ -118,7 +122,7 @@ export function OutcomeView({
                       </div>
                       {d.promotedAt ? (
                         <div className="flex flex-col gap-1">
-                          <span className="microlabel">Proposed</span>
+                          <Microlabel>Proposed</Microlabel>
                           <p className="text-[15px] font-medium leading-6 text-ink">{d.proposedValue ?? "no value carried"}</p>
                           <Notice kind="affirm" className="mt-2">
                             Promoted into the record on {formatDateTime(d.promotedAt)}, recorded by {CLINICIAN.name}. The
@@ -129,7 +133,7 @@ export function OutcomeView({
                         <PromotionBlock patientId={caseState.patientId} decisionIndex={i} proposedValue={d.proposedValue} />
                       ) : (
                         <div className="flex flex-col gap-1">
-                          <span className="microlabel">Proposed</span>
+                          <Microlabel>Proposed</Microlabel>
                           <EmptyLine>no value carried, so there is nothing to promote</EmptyLine>
                         </div>
                       )}

@@ -1,9 +1,9 @@
 import type { Participant } from "@/lib/domain/types";
 import type { Stage2Assessment } from "@/lib/cairn/types";
 import { addNextStepForm } from "@/app/actions";
-import { Button, Notice, Panel } from "@/components/ui";
+import { Button, Disclosure, Notice, Panel } from "@/components/ui";
 import { Citations, keywords } from "@/components/review/Citations";
-import { FIELD_CLASS, INPUT_CLASS, LABEL_CLASS, SELECT_CLASS } from "@/components/team/form-classes";
+import { FIELD_CLASS, HINT_CLASS, INPUT_CLASS, LABEL_CLASS, SELECT_CLASS } from "@/components/team/form-classes";
 
 /**
  * The owner whose role, role label or name best matches the suggested owner. The whole
@@ -34,10 +34,73 @@ function plusDays(iso: string, days: number): string {
   return d.toISOString().slice(0, 10);
 }
 
+type SuggestedAction = Stage2Assessment["immediateActions"][number];
+
+/** How many suggestions show before the rest fold away. */
+const SHOWN = 2;
+
 /**
- * Immediate actions the record review suggests, each with a form that records it as a next
- * step with one named owner and a date. Until the outcome is recorded the forms are shown
- * disabled, because next steps belong to the outcome.
+ * One suggested action with the form that records it as a next step. The review names a
+ * team as owner; that appears only as a hint under the select, which needs a named person.
+ */
+function SuggestionRow({
+  action: a,
+  patientId,
+  owners,
+  due,
+  enabled,
+}: {
+  action: SuggestedAction;
+  patientId: string;
+  owners: Participant[];
+  due: string;
+  enabled: boolean;
+}) {
+  return (
+    <li className="flex flex-col gap-4 py-5 first:pt-0 last:pb-0 md:flex-row md:items-start md:justify-between">
+      <div className="min-w-0 flex-1">
+        <p className="text-[15px] font-semibold leading-6 text-ink">{a.action}</p>
+        <p className="prose-clinical mt-1 text-[13px] leading-5 text-secondary">{a.reason}</p>
+        <Citations evidence={a.evidence} className="mt-1" />
+      </div>
+      <form action={addNextStepForm} className="shrink-0 md:w-72">
+        <fieldset disabled={!enabled} className="flex flex-col gap-2 disabled:opacity-60">
+          <input type="hidden" name="patientId" value={patientId} />
+          <input type="hidden" name="what" value={a.action} />
+          <input type="hidden" name="createdFrom" value="record review" />
+          <label className={FIELD_CLASS}>
+            <span className={LABEL_CLASS}>Owner, one named person</span>
+            <select name="ownerId" required defaultValue={guessOwner(owners, a.owner)} className={SELECT_CLASS}>
+              <option value="" disabled>
+                choose a person
+              </option>
+              {owners.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.name} · {p.roleLabel ?? p.role}
+                </option>
+              ))}
+            </select>
+            <span className={HINT_CLASS}>suggested: {a.owner}</span>
+          </label>
+          <label className={FIELD_CLASS}>
+            <span className={LABEL_CLASS}>Due, a date</span>
+            <input type="date" name="due" required defaultValue={due} className={INPUT_CLASS} />
+          </label>
+          <div>
+            <Button type="submit" variant="quiet" disabled={!enabled} className="w-full md:w-auto">
+              Add as a next step
+            </Button>
+          </div>
+        </fieldset>
+      </form>
+    </li>
+  );
+}
+
+/**
+ * Actions the record review suggests, each with a form that records it as a next step with
+ * one named owner and a date. The first two show; the rest fold. Until the outcome is
+ * recorded the forms are shown disabled, because next steps belong to the outcome.
  */
 export function ReviewNextSteps({
   patientId,
@@ -55,6 +118,9 @@ export function ReviewNextSteps({
 }) {
   if (actions.length === 0) return null;
   const due = plusDays(nowIso, 7);
+  const shown = actions.slice(0, SHOWN);
+  const rest = actions.slice(SHOWN);
+  const rowProps = { patientId, owners, due, enabled };
   return (
     <Panel title="Suggested next steps, from the record review" aside={`${actions.length} suggested`}>
       <div className="flex flex-col gap-5">
@@ -64,51 +130,19 @@ export function ReviewNextSteps({
           </Notice>
         ) : null}
         <ul className="flex flex-col divide-y divide-line">
-          {actions.map((a, i) => (
-            <li
-              key={i}
-              className="flex flex-col gap-4 py-5 first:pt-0 last:pb-0 md:flex-row md:items-start md:justify-between"
-            >
-              <div className="min-w-0 flex-1">
-                <p className="text-[15px] font-semibold leading-6 text-ink">{a.action}</p>
-                <p className="text-[13px] font-medium leading-5 text-secondary">
-                  owner: {a.owner} · urgency: {a.urgency}
-                </p>
-                <p className="prose-clinical mt-2 text-[14px] leading-6 text-ink">{a.reason}</p>
-                <Citations evidence={a.evidence} className="mt-1" />
-              </div>
-              <form action={addNextStepForm} className="shrink-0 md:w-72">
-                <fieldset disabled={!enabled} className="flex flex-col gap-2 disabled:opacity-60">
-                  <input type="hidden" name="patientId" value={patientId} />
-                  <input type="hidden" name="what" value={a.action} />
-                  <input type="hidden" name="createdFrom" value="record review" />
-                  <label className={FIELD_CLASS}>
-                    <span className={LABEL_CLASS}>Owner, one named person</span>
-                    <select name="ownerId" required defaultValue={guessOwner(owners, a.owner)} className={SELECT_CLASS}>
-                      <option value="" disabled>
-                        choose a person
-                      </option>
-                      {owners.map((p) => (
-                        <option key={p.id} value={p.id}>
-                          {p.name} · {p.roleLabel ?? p.role}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-                  <label className={FIELD_CLASS}>
-                    <span className={LABEL_CLASS}>Due, a date</span>
-                    <input type="date" name="due" required defaultValue={due} className={INPUT_CLASS} />
-                  </label>
-                  <div>
-                    <Button type="submit" variant="quiet" disabled={!enabled} className="w-full md:w-auto">
-                      Add as a next step
-                    </Button>
-                  </div>
-                </fieldset>
-              </form>
-            </li>
+          {shown.map((a, i) => (
+            <SuggestionRow key={i} action={a} {...rowProps} />
           ))}
         </ul>
+        {rest.length > 0 ? (
+          <Disclosure label={`${rest.length} more ${rest.length === 1 ? "suggestion" : "suggestions"}`} className="border-t border-line pt-2">
+            <ul className="flex flex-col divide-y divide-line pt-2">
+              {rest.map((a, i) => (
+                <SuggestionRow key={SHOWN + i} action={a} {...rowProps} />
+              ))}
+            </ul>
+          </Disclosure>
+        ) : null}
         <p className="text-[12px] leading-5 text-faint">
           Suggestions, not decisions. A next step exists only once you add it, with an owner and a date.
         </p>
