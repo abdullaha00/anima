@@ -124,6 +124,35 @@ export interface TimelineEvent {
   sourceId?: string;
 }
 
+/**
+ * A value the adapter found in free text rather than a structured field. Kept so the
+ * evidence chain can quote the sentence and its date. The value is never invented: if the
+ * record does not say it, there is no finding.
+ */
+export interface ExtractedFinding {
+  field:
+    | 'nyha'
+    | 'mrcDyspnoea'
+    | 'frailtyCfs'
+    | 'weightLossPct'
+    | 'performanceStatus'
+    | 'carePackageIncreasedAt'
+    | 'careHomeResident'
+    | 'onPalliativeRegister'
+    | 'hasAcpRecord'
+    | 'dnacpr'
+    | 'adrt'
+    | 'nextOfKin'
+    | 'condition';
+  value: string | number | boolean;
+  /** The sentence in the record that carried it */
+  quote: string;
+  at?: string;
+  sourceId?: string;
+  /** e.g. 'consultation', 'discharge summary', 'hospital note', 'message' */
+  sourceKind: string;
+}
+
 export interface Patient {
   id: string;
   name?: string;
@@ -160,6 +189,12 @@ export interface Patient {
   hasAcpRecord: boolean;
   /** Free text the ML stage may consume. The rules engine ignores it. */
   narratives?: Narrative[];
+  /** Values found in free text, each with the sentence that carried it. */
+  extracted?: ExtractedFinding[];
+  /** A named contact found in the record, if any */
+  nextOfKin?: string;
+  /** What the record says about an existing plan, DNACPR or ADRT, quoted, if anything */
+  existingPlanNote?: string;
   /** True when the deep GP record was pulled for this patient, not only the directory row. */
   recordDepth: 'directory' | 'full';
 }

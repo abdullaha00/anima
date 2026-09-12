@@ -1,6 +1,6 @@
 import type { Signal } from "@/lib/domain/types";
 import { Drawer } from "@/components/ui/Drawer";
-import { EmptyLine, Mono } from "@/components/ui";
+import { Chip, EmptyLine, Mono } from "@/components/ui";
 import { formatDate } from "@/lib/format";
 
 /**
@@ -13,24 +13,24 @@ export function EvidenceChain({ signals }: { signals: Signal[] }) {
     return <EmptyLine>No recognised indicators are present in this record.</EmptyLine>;
   }
   return (
-    <ol className="divide-y divide-line border-y border-line">
+    <ol className="-mx-6 -my-5 divide-y divide-line">
       {signals.map((s) => (
-        <li key={s.id}>
+        <li key={s.id} className="px-6">
           <Drawer
             summary={
-              <span className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                <span className="text-[1rem] font-medium text-ink">{s.label}</span>
-                <span className="text-[0.8125rem] text-muted">{s.family}</span>
-                <Mono className="ml-auto text-muted">{s.id}</Mono>
+              <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                <span className="text-[15px] font-semibold text-ink">{s.label}</span>
+                <Chip>{s.family}</Chip>
+                <Mono className="ml-auto text-faint">{s.id}</Mono>
               </span>
             }
           >
-            <div className="flex flex-col gap-2">
-              <p className="prose-clinical text-[0.9375rem] text-ink">{s.evidence}</p>
-              <p className="font-mono text-[0.75rem] leading-5 text-muted">
-                shaped after: {s.basis}
+            <div className="flex flex-col gap-2 rounded-md bg-surface-2 px-4 py-3">
+              <p className="prose-clinical text-[15px] leading-relaxed text-ink">{s.evidence}</p>
+              <p className="text-[12px] leading-5 text-faint tnum">
+                Shaped after <span className="text-muted">{s.basis}</span>
                 <br />
-                recorded: {s.recordedAt ? formatDate(s.recordedAt) : "date not carried by this entry"}
+                Recorded {s.recordedAt ? formatDate(s.recordedAt) : "date not carried by this entry"}
               </p>
             </div>
           </Drawer>

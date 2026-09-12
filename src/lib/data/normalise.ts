@@ -15,6 +15,7 @@ import type {
   Patient,
   TimelineEvent,
 } from '@/lib/domain/types';
+import { applyFindings, extractFindings } from './extract';
 
 // ---------------------------------------------------------------------------
 // Raw shapes, as the simulator returns them today
@@ -137,6 +138,44 @@ function dedupeTerms(terms: string[]): string[] {
 /** The simulator's placeholder consultation text. Kept on the timeline, not in narratives. */
 const GENERIC_CONSULTATION_TEXT =
   'Fictional consultation. The patient discussed their next appointment and contact preferences.';
+
+function isPlaceholderText(text: string): boolean {
+  return text.trim() === GENERIC_CONSULTATION_TEXT;
+}
+
+/** Free-text keys a resource's `data` may carry, in the order worth reading. */
+const TEXT_KEYS = ['text', 'notes', 'note', 'body', 'summary', 'plan', 'content', 'reason', 'description'];
+
+/** Every free-text value under `data`, plus one level of nested records and string arrays. */
+function freeText(data: Rec, keys: string[] = TEXT_KEYS): string[] {
+  const out: string[] = [];
+  for (const key of keys) {
+    const value = data[key];
+    const text = asString(value);
+    if (text) {
+      out.push(text);
+      continue;
+    }
+    for (const item of asArray(value)) {
+      const itemText = asString(item) ?? asString(asRecord(item).text) ?? asString(asRecord(item).body);
+      if (itemText) out.push(itemText);
+    }
+  }
+  return out;
+}
+
+/** All string values of a `sections` record, ordered so the clinical sections read first. */
+const DISCHARGE_SECTION_ORDER = ['reason', 'course', 'diagnoses', 'results', 'medicationChanges', 'followUp', 'gpActions'];
+
+function sectionTexts(sections: Rec): string[] {
+  const ordered = [...DISCHARGE_SECTION_ORDER, ...Object.keys(sections).filter((key) => !DISCHARGE_SECTION_ORDER.includes(key))];
+  const out: string[] = [];
+  for (const key of ordered) {
+    const text = asString(sections[key]);
+    if (text) out.push(text);
+  }
+  return out;
+}
 
 /** Analytes kept in the snapshot. The others exist but are not needed by any indicator. */
 const KEPT_ANALYTES = new Set(['egfr', 'creatinine', 'albumin', 'haemoglobin', 'crp', 'potassium', 'sodium']);
@@ -262,12 +301,14 @@ function applyEhrRecord(acc: Accumulator, resource: RawResource): void {
     if (status === 'active') acc.activeProblemTerms.push(term);
   }
 
-  // A medicines list that exists but is empty is a real count of zero.
-  const medicines = asArray(data.medications);
-  acc.medicationCount = medicines.length;
-  for (const raw of medicines) {
-    const medicine = asRecord(raw);
-    const name = asString(medicine.drug) ?? asString(medicine.name) ?? asString(medicine.note);
+  // A medicines list that exists but is empty is a real count of zero. Each entry is
+  // one issue of a medicine: `term` names it, `isCurrent: false` marks an ended earlier
+  // issue kept for reconciliation, and `note` is a remark, never a name.
+  const medicines = asArray(data.medications).map(asRecord);
+  const current = medicines.filter((medicine) => medicine.isCurrent !== false);
+  acc.medicationCount = current.length;
+  for (const medicine of current) {
+    const name = asString(medicine.term) ?? asString(medicine.drug) ?? asString(medicine.name);
     if (name) addUnique(acc.medications, name);
   }
 }
@@ -306,17 +347,35 @@ function applyBloodResult(acc: Accumulator, resource: RawResource): void {
   pushEvent(acc, resource, 'blood result', atIso, title, detail);
 }
 
-/** encounter: a consultation narrative and a timeline entry. */
+/** encounter or consultation: a consultation narrative and a timeline entry. */
 function applyEncounter(acc: Accumulator, resource: RawResource): void {
   const data = asRecord(resource.data);
-  const text = asString(data.text);
+  const text = asString(data.text) ?? asString(data.notes) ?? asString(data.note);
   const atIso = createdAtIso(resource, acc);
   const title = asString(data.reason) ?? asString(resource.title) ?? 'Consultation';
 
   pushEvent(acc, resource, 'consultation', atIso, title, text);
-  if (text && text.trim() !== GENERIC_CONSULTATION_TEXT) {
+  if (text && !isPlaceholderText(text)) {
     acc.narratives.push({ at: atIso, kind: 'consultation', text, title, sourceId: resource.id });
   }
+}
+
+/**
+ * hospital-note: sections and addenda, folded into one narrative so the extractor
+ * sees every sentence. Draft and signed stages are both read; a draft is still what
+ * the record says.
+ */
+function applyHospitalNote(acc: Accumulator, resource: RawResource): void {
+  const data = asRecord(resource.data);
+  const parts = [...sectionTexts(asRecord(data.sections)), ...freeText(data, ['text', 'body', 'summary'])];
+  for (const raw of asArray(data.addenda)) {
+    const addendum = asString(raw) ?? asString(asRecord(raw).text) ?? asString(asRecord(raw).body);
+    if (addendum) parts.push(addendum);
+  }
+  const atIso = createdAtIso(resource, acc);
+  const text = parts.join('\n');
+  pushEvent(acc, resource, 'other', atIso, asString(resource.title) ?? 'Hospital note', parts[0]);
+  if (text) acc.narratives.push({ at: atIso, kind: 'other', text, title: 'Hospital note', sourceId: resource.id });
 }
 
 /** Unplanned only when the wording says so and nothing says it was planned. */
@@ -332,11 +391,14 @@ function applyDischargeSummary(acc: Accumulator, resource: RawResource): void {
   const course = asString(sections.course);
   const atIso = msToIso(asNumber(data.sentAt), createdAtIso(resource, acc));
   const title = asString(resource.title) ?? 'Discharge summary';
-  const text = [reason, course].filter((part): part is string => Boolean(part)).join(' ');
+  // Planned-or-unplanned is judged on the reason and course alone, as before; the
+  // narrative carries every section so diagnoses and follow-up text are searchable.
+  const episodeText = [reason, course].filter((part): part is string => Boolean(part)).join(' ');
+  const text = [...sectionTexts(sections), ...freeText(data, ['text', 'summary'])].join('\n');
 
   acc.admissions.push({
     at: atIso,
-    emergency: isUnplannedEpisode(text),
+    emergency: isUnplannedEpisode(episodeText),
     kind: 'discharge summary',
     summary: reason,
     sourceId: resource.id,
@@ -370,7 +432,40 @@ function applyTask(acc: Accumulator, resource: RawResource): void {
   const detail = [asString(resource.status), due !== undefined ? `due ${msToIso(due, acc.nowIso).slice(0, 10)}` : undefined]
     .filter((part): part is string => Boolean(part))
     .join(', ');
-  pushEvent(acc, resource, 'task', createdAtIso(resource, acc), asString(resource.title) ?? 'Task', detail);
+  const atIso = createdAtIso(resource, acc);
+  const title = asString(resource.title) ?? 'Task';
+  pushEvent(acc, resource, 'task', atIso, title, detail);
+  const text = freeText(asRecord(resource.data)).join('\n');
+  if (text) acc.narratives.push({ at: atIso, kind: 'other', text, title: `Task: ${title}`, sourceId: resource.id });
+}
+
+/** community visit or care-plan: any free text is a narrative; the rest is a timeline entry. */
+function applyCommunityRecord(acc: Accumulator, resource: RawResource, label: string): void {
+  const atIso = createdAtIso(resource, acc);
+  const title = asString(resource.title) ?? label;
+  const text = freeText(asRecord(resource.data)).join('\n');
+  pushEvent(acc, resource, 'other', atIso, title, text || asString(resource.status));
+  if (text) acc.narratives.push({ at: atIso, kind: 'other', text, title: `Community record: ${title}`, sourceId: resource.id });
+}
+
+/** referral: the title and its reason, as a referral narrative. */
+function applyReferral(acc: Accumulator, resource: RawResource): void {
+  const data = asRecord(resource.data);
+  const atIso = createdAtIso(resource, acc);
+  const title = asString(resource.title) ?? 'Referral';
+  const reason = asString(data.reason) ?? asString(data.text);
+  pushEvent(acc, resource, 'other', atIso, title, reason);
+  const text = [title, reason].filter((part): part is string => Boolean(part)).join('. ');
+  acc.narratives.push({ at: atIso, kind: 'referral', text, title: `Referral: ${title}`, sourceId: resource.id });
+}
+
+/** shared-care or SCR projection: whatever free text it carries. */
+function applySharedCare(acc: Accumulator, resource: RawResource): void {
+  const atIso = createdAtIso(resource, acc);
+  const title = asString(resource.title) ?? 'Shared care record';
+  const text = freeText(asRecord(resource.data)).join('\n');
+  pushEvent(acc, resource, 'other', atIso, title, text);
+  if (text) acc.narratives.push({ at: atIso, kind: 'other', text, title: `Shared care record: ${title}`, sourceId: resource.id });
 }
 
 function applyAppointment(acc: Accumulator, resource: RawResource): void {
@@ -382,9 +477,14 @@ function applyAppointment(acc: Accumulator, resource: RawResource): void {
   pushEvent(acc, resource, 'appointment', startsIso, asString(resource.title) ?? 'Appointment', clinician);
 }
 
+/** message between services: the title often carries the clinical point, so it is read too. */
 function applyMessage(acc: Accumulator, resource: RawResource): void {
   const data = asRecord(resource.data);
-  pushEvent(acc, resource, 'message', createdAtIso(resource, acc), asString(resource.title) ?? 'Message', asString(data.channel));
+  const atIso = createdAtIso(resource, acc);
+  const title = asString(resource.title) ?? 'Message';
+  pushEvent(acc, resource, 'message', atIso, title, asString(data.channel));
+  const text = [title, ...freeText(data, ['body', 'text', 'summary', 'content'])].join('\n');
+  acc.narratives.push({ at: atIso, kind: 'other', text, title: `Message: ${title}`, sourceId: resource.id });
 }
 
 /** observation: skip the contact-preference marker; keep anything with narrative text. */
@@ -401,11 +501,13 @@ function applyObservation(acc: Accumulator, resource: RawResource): void {
 /** document: a hospital free-text note. */
 function applyDocument(acc: Accumulator, resource: RawResource): void {
   const data = asRecord(resource.data);
-  const text = asString(data.text);
+  const text = freeText(data).join('\n');
   const atIso = createdAtIso(resource, acc);
   const title = asString(resource.title) ?? 'Document';
-  pushEvent(acc, resource, 'other', atIso, title, text);
-  if (text) acc.narratives.push({ at: atIso, kind: 'other', text, title, sourceId: resource.id });
+  pushEvent(acc, resource, 'other', atIso, title, text || undefined);
+  if (text && !isPlaceholderText(text)) {
+    acc.narratives.push({ at: atIso, kind: 'other', text, title: `Document: ${title}`, sourceId: resource.id });
+  }
 }
 
 function applyPrescription(acc: Accumulator, resource: RawResource): void {
@@ -431,9 +533,22 @@ function applyResource(acc: Accumulator, resource: RawResource): void {
       if (asString(asRecord(resource.data).kind) === 'blood-result') applyBloodResult(acc, resource);
       return;
     case 'encounter':
+    case 'consultation':
       return applyEncounter(acc, resource);
+    case 'hospital-note':
+      return applyHospitalNote(acc, resource);
     case 'discharge-summary':
       return applyDischargeSummary(acc, resource);
+    case 'referral':
+      return applyReferral(acc, resource);
+    case 'visit':
+      return applyCommunityRecord(acc, resource, 'Community visit');
+    case 'care-plan':
+      return applyCommunityRecord(acc, resource, 'Care plan');
+    case 'shared-care':
+    case 'shared-care-record':
+    case 'scr':
+      return applySharedCare(acc, resource);
     case 'hospital-attendance':
       return applyAttendance(acc, resource);
     case 'task':
@@ -508,21 +623,28 @@ export function enrichWithView(
   const conditions = dedupeTerms([...directoryTerms, ...acc.activeProblemTerms]).filter(
     (term) => !isAdministrativeTerm(term),
   );
+  const narratives = dedupeBySource(acc.narratives).sort(newestFirst);
 
-  return {
+  const enriched: Patient = {
     ...patient,
     conditions,
+    // A directory condition the problem list marks resolved stays in both places: the
+    // contradiction is evidence and the catalogue says so when it cites it.
     conditionDetail: [...directoryDetail, ...acc.problems],
     admissions: dedupeBySource(acc.admissions).sort(newestFirst),
     labs: acc.labs.sort(oldestFirst),
     medicationCount: acc.medicationCount,
     medications: acc.medications.length > 0 ? acc.medications : undefined,
     timeline: dedupeBySource(acc.timeline).sort(newestFirst),
-    narratives: acc.narratives.length > 0 ? dedupeBySource(acc.narratives).sort(newestFirst) : undefined,
+    narratives: narratives.length > 0 ? narratives : undefined,
     usualGp: acc.usualGp,
     practice: gpViewPresent ? GP_PRACTICE_NAME : patient.practice,
     recordDepth: gpViewPresent ? 'full' : patient.recordDepth,
   };
+
+  // Last: whatever the prose says that the structured fields do not. Text never
+  // overrides a structured value, and every value it fills carries its quote.
+  return applyFindings(enriched, extractFindings(narratives));
 }
 
 /** Add a medicine named outside the site views (for example from the EPS bundle). */

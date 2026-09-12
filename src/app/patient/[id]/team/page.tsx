@@ -33,7 +33,7 @@ export default async function TeamPage({ params }: { params: Promise<{ id: strin
 
       {participants.length === 0 ? (
         <div className="max-w-2xl">
-          <h2 className="font-serif text-[1.5rem] font-medium leading-tight">Who needs to be involved, and why</h2>
+          <h2 className="font-display text-[1.5rem] font-medium leading-tight">Who needs to be involved, and why</h2>
           {state === "flagged" ? (
             <form action={assembleTeamForm} className="mt-4 flex flex-col gap-3">
               <input type="hidden" name="patientId" value={patient.id} />
@@ -63,7 +63,7 @@ export default async function TeamPage({ params }: { params: Promise<{ id: strin
           <div className="flex flex-col gap-8">
             <section aria-labelledby="team-heading">
               <div className="flex items-baseline justify-between gap-4 pb-1">
-                <h2 id="team-heading" className="font-serif text-[1.5rem] font-medium leading-tight">
+                <h2 id="team-heading" className="font-display text-[1.5rem] font-medium leading-tight">
                   Who needs to be involved, and why
                 </h2>
                 <span className="text-[0.8125rem] text-muted tnum">
@@ -87,7 +87,7 @@ export default async function TeamPage({ params }: { params: Promise<{ id: strin
             </section>
 
             <section aria-labelledby="family-heading">
-              <h2 id="family-heading" className="font-serif text-[1.25rem] font-medium leading-tight">
+              <h2 id="family-heading" className="font-display text-[1.25rem] font-medium leading-tight">
                 Family channel
               </h2>
               <p className="prose-clinical pb-2 text-[0.875rem] leading-5 text-muted">
@@ -109,7 +109,7 @@ export default async function TeamPage({ params }: { params: Promise<{ id: strin
               aria-labelledby="recipients-heading"
               className="border-t border-dashed border-line-strong pt-4 text-muted"
             >
-              <h2 id="recipients-heading" className="font-serif text-[1.25rem] font-medium leading-tight">
+              <h2 id="recipients-heading" className="font-display text-[1.25rem] font-medium leading-tight">
                 Recipients of the signed record
               </h2>
               <p className="prose-clinical pb-2 text-[0.875rem] leading-5">

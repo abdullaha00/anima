@@ -22,36 +22,37 @@ export function CaseActions({ caseState, patientId }: { caseState: CaseState; pa
             </form>
           </>
         ) : caseState.state === "flagged" ? (
-          <form action={assembleTeamForm} className="flex flex-col gap-2">
+          <form action={assembleTeamForm} className="flex flex-col gap-2.5">
             <input type="hidden" name="patientId" value={patientId} />
-            <Button type="submit" variant="primary">
+            <Button type="submit" variant="primary" className="w-full">
               Assemble the team
             </Button>
-            <p className="text-[0.8125rem] leading-5 text-muted">
+            <p className="text-[12px] leading-5 text-muted">
               Cairn proposes who needs to be involved, each with a reason traced to the record. You add and remove.
             </p>
           </form>
         ) : (
-          <ButtonLink href={`/patient/${patientId}${next.path}`} variant="primary">
+          <ButtonLink href={`/patient/${patientId}${next.path}`} variant="primary" className="w-full">
             {next.label}
           </ButtonLink>
         )}
 
         {caseState.state !== "paused" && caseState.state !== "shared" ? (
-          <details className="text-[0.875rem]">
-            <summary className="min-h-11 cursor-pointer list-none py-2 text-muted hover:text-ink">
+          <details className="border-t border-line pt-2 text-[13px]">
+            <summary className="min-h-11 cursor-pointer list-none py-2 font-medium text-muted hover:text-ink">
               Not yet: pause with a reason
             </summary>
-            <form action={pauseCaseForm} className="flex flex-col gap-2 pt-1">
+            <form action={pauseCaseForm} className="flex flex-col gap-2.5 pt-1">
               <input type="hidden" name="patientId" value={patientId} />
-              <label className="flex flex-col gap-1">
-                <span className="microlabel">Reason, required and shown on the worklist</span>
+              <label className="flex flex-col gap-1.5">
+                <span className="text-[13px] font-semibold text-ink">Reason</span>
+                <span className="text-[12px] text-faint">Required, and shown on the worklist.</span>
                 <input
                   id="pause-reason"
                   name="reason"
                   required
                   minLength={4}
-                  className="min-h-11 rounded-sm border border-line bg-surface px-2.5 text-ink"
+                  className="field"
                   placeholder="e.g. patient asked to revisit after the cardiology review"
                 />
               </label>

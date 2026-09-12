@@ -38,7 +38,7 @@ export function WorklistFilters({
   }
 
   const selectClass =
-    "min-h-11 rounded-sm border border-line bg-surface px-2.5 text-[0.875rem] text-ink focus:border-primary";
+    "field min-w-[9rem] text-[13px]";
 
   return (
     <form
@@ -47,7 +47,7 @@ export function WorklistFilters({
       aria-label="Filter the worklist"
     >
       <label className="flex flex-col gap-1">
-        <span className="microlabel">State</span>
+        <span className="text-[12px] font-semibold text-ink">State</span>
         <select id="filter-state" className={selectClass} value={values.state} onChange={(e) => update({ state: e.target.value })}>
           <option value="">all</option>
           {WORKLIST_STATE_ORDER.map((s) => (
@@ -58,7 +58,7 @@ export function WorklistFilters({
         </select>
       </label>
       <label className="flex flex-col gap-1">
-        <span className="microlabel">Tier</span>
+        <span className="text-[12px] font-semibold text-ink">Tier</span>
         <select id="filter-tier" className={selectClass} value={values.tier} onChange={(e) => update({ tier: e.target.value })}>
           <option value="">all</option>
           {Object.keys(TIER_ORDER)
@@ -71,14 +71,14 @@ export function WorklistFilters({
         </select>
       </label>
       <label className="flex flex-col gap-1">
-        <span className="microlabel">Plan</span>
+        <span className="text-[12px] font-semibold text-ink">Plan</span>
         <select id="filter-plan" className={selectClass} value={values.noPlan} onChange={(e) => update({ noPlan: e.target.value })}>
           <option value="">any</option>
           <option value="yes">no plan recorded</option>
         </select>
       </label>
       <label className="flex flex-col gap-1">
-        <span className="microlabel">Condition group</span>
+        <span className="text-[12px] font-semibold text-ink">Condition group</span>
         <select id="filter-group" className={selectClass} value={values.group} onChange={(e) => update({ group: e.target.value })}>
           <option value="">all</option>
           {GROUPS.map((g) => (
@@ -89,7 +89,7 @@ export function WorklistFilters({
         </select>
       </label>
       <label className="flex flex-col gap-1">
-        <span className="microlabel">Deprivation quintile</span>
+        <span className="text-[12px] font-semibold text-ink">Deprivation quintile</span>
         <select
           id="filter-imd"
           className={selectClass}
@@ -107,7 +107,7 @@ export function WorklistFilters({
         </select>
       </label>
       <label className="flex flex-col gap-1">
-        <span className="microlabel">Owner of next step</span>
+        <span className="text-[12px] font-semibold text-ink">Owner of next step</span>
         <select id="filter-owner" className={selectClass} value={values.owner} onChange={(e) => update({ owner: e.target.value })}>
           <option value="">anyone</option>
           {owners.map((o) => (
@@ -120,7 +120,7 @@ export function WorklistFilters({
       {Object.values(values).some(Boolean) ? (
         <button
           type="button"
-          className="min-h-11 text-[0.875rem] text-primary underline-offset-4 hover:underline"
+          className="min-h-11 text-[13px] font-semibold text-primary-hover hover:underline"
           onClick={() => update({ state: "", tier: "", noPlan: "", group: "", imd: "", owner: "" })}
         >
           clear filters

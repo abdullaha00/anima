@@ -1,68 +1,69 @@
 @import "tailwindcss";
 
 /*
-  Cairn design tokens. Defined once, light and dark both designed rather than inverted.
-  Warm stone ground, warm ink, one calm slate blue, a muted moss for confirmed states,
-  and a restrained clay red reserved for the signature refusal and blocking validation.
-  The refuse colour never marks a patient.
+  Cairn design tokens, from the Cairn Design System v1.0.
+  Two scales: Cairn green (from the mark) and Stone (warm neutral, from the mark's ground).
+  Green is an accent: actions, confirmed states, the mark. Stone does the structural work.
+  Semantic colours are separate from the accent. Critical red is reserved for the signature
+  refusal and blocking validation; it never marks a patient. Light mode only, by design.
 */
 :root {
-  --ground: #f3efe8;
-  --surface: #faf7f2;
-  --surface-2: #eae4da;
-  --line: #d8d0c4;
-  --line-strong: #b9ad9d;
-  --ink: #221e19;
-  --muted: #6a6157;
-  --primary: #4b6a86;
-  --primary-ink: #fbfaf7;
-  --primary-soft: #e2e9f0;
-  --affirm: #5b7a4f;
-  --affirm-soft: #e5ecdd;
-  --refuse: #a44e3a;
-  --refuse-soft: #f4e2db;
-  --focus: #4b6a86;
+  --cairn-50: #eef4ef;
+  --cairn-100: #d4e5d6;
+  --cairn-200: #abcbae;
+  --cairn-300: #7faf84;
+  --cairn-400: #609166;
+  --cairn-500: #506b53;
+  --cairn-600: #3c5240;
+  --cairn-700: #2a3a2c;
+  --cairn-800: #1b261d;
+
+  --stone-50: #fafaf7;
+  --stone-100: #f4efe7;
+  --stone-200: #e8e1d4;
+  --stone-300: #d1c9bb;
+  --stone-400: #afa79a;
+  --stone-500: #8a8275;
+  --stone-600: #676158;
+  --stone-700: #4a4540;
+  --stone-800: #2e2b26;
+  --stone-900: #181612;
+
+  --ground: var(--stone-100);
+  --surface: #ffffff;
+  --surface-2: var(--stone-50);
+  --line: var(--stone-200);
+  --line-strong: var(--stone-300);
+  --ink: var(--stone-900);
+  --secondary: var(--stone-700);
+  --muted: var(--stone-600);
+  --faint: var(--stone-500);
+
+  --primary: var(--cairn-500);
+  --primary-hover: var(--cairn-600);
+  --primary-ink: #ffffff;
+  --primary-soft: var(--cairn-50);
+  --primary-border: var(--cairn-200);
+
+  --affirm: var(--cairn-600);
+  --affirm-soft: var(--cairn-50);
+  --affirm-border: var(--cairn-200);
+
+  --refuse: #991b1b;
+  --refuse-soft: #fef2f2;
+  --refuse-border: #fecaca;
+
+  --warn: #92400e;
+  --warn-soft: #fffbeb;
+  --warn-border: #fde68a;
+  --warn-stripe: #d97706;
+
+  --info: #1e4d7b;
+  --info-soft: #eff6ff;
+  --info-border: #bfdbfe;
+
+  --focus: var(--cairn-500);
   color-scheme: light;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --ground: #1a1815;
-    --surface: #23201b;
-    --surface-2: #2d2923;
-    --line: #3d372f;
-    --line-strong: #5a5247;
-    --ink: #ece6dc;
-    --muted: #a89e91;
-    --primary: #93b2ce;
-    --primary-ink: #14202b;
-    --primary-soft: #26333f;
-    --affirm: #9cb887;
-    --affirm-soft: #27301f;
-    --refuse: #d6917c;
-    --refuse-soft: #3e2721;
-    --focus: #93b2ce;
-    color-scheme: dark;
-  }
-}
-
-:root[data-theme="dark"] {
-  --ground: #1a1815;
-  --surface: #23201b;
-  --surface-2: #2d2923;
-  --line: #3d372f;
-  --line-strong: #5a5247;
-  --ink: #ece6dc;
-  --muted: #a89e91;
-  --primary: #93b2ce;
-  --primary-ink: #14202b;
-  --primary-soft: #26333f;
-  --affirm: #9cb887;
-  --affirm-soft: #27301f;
-  --refuse: #d6917c;
-  --refuse-soft: #3e2721;
-  --focus: #93b2ce;
-  color-scheme: dark;
 }
 
 @theme inline {
@@ -72,17 +73,52 @@
   --color-line: var(--line);
   --color-line-strong: var(--line-strong);
   --color-ink: var(--ink);
+  --color-secondary: var(--secondary);
   --color-muted: var(--muted);
+  --color-faint: var(--faint);
   --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
   --color-primary-ink: var(--primary-ink);
   --color-primary-soft: var(--primary-soft);
+  --color-primary-border: var(--primary-border);
   --color-affirm: var(--affirm);
   --color-affirm-soft: var(--affirm-soft);
+  --color-affirm-border: var(--affirm-border);
   --color-refuse: var(--refuse);
   --color-refuse-soft: var(--refuse-soft);
-  --font-serif: var(--font-newsreader), "Iowan Old Style", "Palatino Linotype", Georgia, serif;
-  --font-sans: var(--font-public-sans), "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  --font-mono: var(--font-plex-mono), "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --color-refuse-border: var(--refuse-border);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-warn-border: var(--warn-border);
+  --color-warn-stripe: var(--warn-stripe);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --color-info-border: var(--info-border);
+  --color-cairn-100: var(--cairn-100);
+  --color-cairn-200: var(--cairn-200);
+  --color-cairn-300: var(--cairn-300);
+  --color-cairn-400: var(--cairn-400);
+  --color-stone-100: var(--stone-100);
+  --color-stone-200: var(--stone-200);
+  --color-stone-300: var(--stone-300);
+
+  /* Single typeface; hierarchy comes from weight and size. */
+  --font-sans: var(--font-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: var(--font-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+
+  /* Shape: substantial but not pill-like. Pills only for status badges. */
+  --radius-xs: 3px;
+  --radius-sm: 5px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* Shadows tinted warm so they do not go blue-cold on the stone ground. */
+  --shadow-xs: 0 1px 2px rgba(26, 22, 18, 0.04);
+  --shadow-sm: 0 1px 4px rgba(26, 22, 18, 0.06), 0 1px 2px rgba(26, 22, 18, 0.04);
+  --shadow-md: 0 3px 10px rgba(26, 22, 18, 0.08), 0 1px 3px rgba(26, 22, 18, 0.05);
+  --shadow-lg: 0 6px 20px rgba(26, 22, 18, 0.1), 0 2px 6px rgba(26, 22, 18, 0.06);
 }
 
 html {
@@ -94,8 +130,15 @@ body {
   color: var(--ink);
   font-family: var(--font-sans);
   font-size: 15px;
-  line-height: 1.5;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Display text: page titles, patient name, section headings. Weight and tracking do the work. */
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 /* Clinical prose: generous line height, a measure near 65 characters. */
@@ -104,20 +147,40 @@ body {
   max-width: 65ch;
 }
 
-/* Uppercase micro-labels get letter-spacing. */
+/* Uppercase micro-labels: 11px / 600 / +0.06em. */
 .microlabel {
   font-size: 0.6875rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--muted);
-  font-weight: 500;
+  font-weight: 600;
 }
 
-/* Visible focus in the primary colour, keyboard reachable throughout. */
+/* Visible focus in Cairn green, keyboard reachable throughout. */
 :focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 2px;
-  border-radius: 2px;
+  border-radius: 3px;
+}
+
+/* Inputs use the card surface on the stone ground. Focus: cairn-400 plus a soft ring. */
+.field {
+  font: inherit;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1.5px solid var(--line-strong);
+  border-radius: 8px;
+  padding: 9px 13px;
+  min-height: 44px;
+  width: 100%;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.field:focus {
+  outline: none;
+  border-color: var(--cairn-400);
+  box-shadow: 0 0 0 3px rgba(80, 107, 83, 0.12);
 }
 
 /* The evidence drawer: height and opacity together over 150ms. Instant under reduced motion. */
@@ -125,7 +188,9 @@ body {
   display: grid;
   grid-template-rows: 0fr;
   opacity: 0;
-  transition: grid-template-rows 150ms ease, opacity 150ms ease;
+  transition:
+    grid-template-rows 150ms ease,
+    opacity 150ms ease;
 }
 .drawer[data-open="true"] {
   grid-template-rows: 1fr;
@@ -139,12 +204,19 @@ body {
   *,
   *::before,
   *::after {
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
+    transition: none !important;
+    animation: none !important;
   }
 }
 
 /* Tabular numerals wherever digits align. */
 .tnum {
   font-variant-numeric: tabular-nums;
+}
+
+/* The person's own words and the human summary: set larger, medium weight, never bold. */
+.font-voice {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.01em;
 }

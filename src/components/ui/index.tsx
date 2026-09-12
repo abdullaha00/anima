@@ -3,20 +3,20 @@ import type { ReactNode } from "react";
 import type { ReviewTier, WorklistState } from "@/lib/domain/types";
 import { formatDateTime } from "@/lib/format";
 
-/** Shared primitives. Quiet by default; emphasis is carried by weight and position. */
+/** Shared primitives, following the Cairn design system. Quiet by default. */
 
 type ButtonVariant = "primary" | "quiet" | "refuse" | "link";
 
 const BUTTON: Record<ButtonVariant, string> = {
-  primary:
-    "bg-primary text-primary-ink border border-primary hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed",
-  quiet: "bg-surface text-ink border border-line hover:border-line-strong disabled:opacity-50 disabled:cursor-not-allowed",
-  refuse: "bg-surface text-refuse border border-refuse hover:bg-refuse-soft disabled:opacity-50",
-  link: "text-primary underline-offset-4 hover:underline border border-transparent px-0",
+  primary: "bg-primary text-primary-ink hover:bg-primary-hover disabled:bg-stone-200 disabled:text-faint disabled:cursor-not-allowed",
+  quiet:
+    "bg-surface text-ink border border-line-strong shadow-xs hover:bg-surface-2 disabled:bg-stone-200 disabled:text-faint disabled:cursor-not-allowed",
+  refuse: "bg-refuse-soft text-refuse border border-refuse-border hover:bg-surface disabled:opacity-50",
+  link: "text-primary-hover hover:bg-primary-soft px-3",
 };
 
 const BUTTON_BASE =
-  "inline-flex items-center justify-center gap-2 rounded-sm px-3.5 py-2 text-[0.9375rem] font-medium leading-tight min-h-11 transition-colors";
+  "inline-flex items-center justify-center gap-2 rounded-md px-[18px] py-[9px] text-[14px] font-semibold leading-none min-h-11 transition-colors duration-150";
 
 export function Button({
   variant = "quiet",
@@ -52,36 +52,43 @@ export function Microlabel({ children, className = "" }: { children: ReactNode; 
 export function TierLabel({ tier, className = "" }: { tier: ReviewTier; className?: string }) {
   const weight =
     tier === "review this week"
-      ? "font-semibold text-ink"
+      ? "font-bold text-ink"
       : tier === "review this month"
-        ? "font-medium text-ink"
-        : "font-normal text-muted";
-  return <span className={`text-[0.9375rem] ${weight} ${className}`}>{tier}</span>;
+        ? "font-semibold text-ink"
+        : "font-medium text-secondary";
+  return <span className={`text-[13px] ${weight} ${className}`}>{tier}</span>;
 }
 
-const STATE_TEXT: Record<WorklistState, string> = {
-  flagged: "flagged",
-  "team assembled": "team assembled",
-  coordinating: "coordinating",
-  "meeting held": "meeting held",
-  "record signed": "record signed",
-  shared: "shared",
-  paused: "paused",
+const STATE_TONE: Record<WorklistState, { pill: string; dot: string }> = {
+  flagged: { pill: "bg-stone-100 text-secondary border-line", dot: "bg-stone-300" },
+  "team assembled": { pill: "bg-warn-soft text-warn border-warn-border", dot: "bg-warn-stripe" },
+  coordinating: { pill: "bg-warn-soft text-warn border-warn-border", dot: "bg-warn-stripe" },
+  "meeting held": { pill: "bg-warn-soft text-warn border-warn-border", dot: "bg-warn-stripe" },
+  "record signed": { pill: "bg-affirm-soft text-affirm border-affirm-border", dot: "bg-cairn-400" },
+  shared: { pill: "bg-affirm-soft text-affirm border-affirm-border", dot: "bg-cairn-400" },
+  paused: { pill: "bg-stone-100 text-secondary border-line", dot: "bg-stone-300" },
 };
 
-/** Worklist state. Signed and shared are the only states that earn the affirm colour. */
+/** Worklist state as a status badge: a dot and text, never colour alone. */
 export function StateBadge({ state, className = "" }: { state: WorklistState; className?: string }) {
-  const tone =
-    state === "record signed" || state === "shared"
-      ? "bg-affirm-soft text-affirm border-affirm/40"
-      : state === "paused"
-        ? "bg-surface-2 text-muted border-line"
-        : "bg-surface text-ink border-line";
+  const tone = STATE_TONE[state];
   return (
     <span
-      className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-[0.8125rem] leading-5 whitespace-nowrap ${tone} ${className}`}
+      className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border px-2.5 py-[3px] text-[12px] font-semibold leading-none ${tone.pill} ${className}`}
     >
-      {STATE_TEXT[state]}
+      <span aria-hidden="true" className={`h-1.5 w-1.5 shrink-0 rounded-full ${tone.dot}`} />
+      {state}
+    </span>
+  );
+}
+
+/** A square signal chip, for indicator codes and short facts. */
+export function Chip({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return (
+    <span
+      className={`inline-flex items-center rounded-xs border border-line bg-stone-100 px-2 py-[3px] text-[11px] font-medium leading-none text-secondary ${className}`}
+    >
+      {children}
     </span>
   );
 }
@@ -99,19 +106,21 @@ export function ProvenanceLine({
   className?: string;
 }) {
   return (
-    <p className={`font-mono text-[0.75rem] leading-5 text-muted ${className}`}>
-      recorded by {recordedBy} on {formatDateTime(recordedAt)} from {source}
+    <p className={`text-[12px] leading-5 text-faint tnum ${className}`}>
+      recorded by <span className="text-muted">{recordedBy}</span> on {formatDateTime(recordedAt)} from{" "}
+      <span className="text-muted">{source}</span>
     </p>
   );
 }
 
-type NoticeKind = "info" | "refuse" | "affirm" | "quiet";
+type NoticeKind = "info" | "refuse" | "affirm" | "quiet" | "warn";
 
 const NOTICE: Record<NoticeKind, string> = {
-  info: "border-primary/40 bg-primary-soft text-ink",
-  refuse: "border-refuse bg-refuse-soft text-ink",
-  affirm: "border-affirm/50 bg-affirm-soft text-ink",
-  quiet: "border-line bg-surface-2 text-muted",
+  info: "border-info-border bg-info-soft text-ink",
+  refuse: "border-refuse-border bg-refuse-soft text-ink",
+  affirm: "border-affirm-border bg-affirm-soft text-ink",
+  warn: "border-warn-border bg-warn-soft text-ink",
+  quiet: "border-line bg-surface-2 text-secondary",
 };
 
 /** An inline state that stays on screen. Not a toast. */
@@ -129,13 +138,18 @@ export function Notice({
   role?: string;
 }) {
   return (
-    <div className={`rounded-sm border px-4 py-3 text-[0.9375rem] leading-6 ${NOTICE[kind]} ${className}`} role={role}>
-      {title ? <p className={`font-medium ${kind === "refuse" ? "text-refuse" : ""}`}>{title}</p> : null}
+    <div className={`rounded-md border px-4 py-3.5 text-[14px] leading-6 ${NOTICE[kind]} ${className}`} role={role}>
+      {title ? (
+        <p className={`text-[13px] font-bold ${kind === "refuse" ? "text-refuse" : kind === "affirm" ? "text-affirm" : kind === "warn" ? "text-warn" : ""}`}>
+          {title}
+        </p>
+      ) : null}
       <div>{children}</div>
     </div>
   );
 }
 
+/** A white card on the stone ground. 12px radius, subtle warm shadow. Never card-on-card. */
 export function Panel({
   title,
   aside,
@@ -150,14 +164,14 @@ export function Panel({
   as?: "section" | "div" | "aside";
 }) {
   return (
-    <Tag className={`bg-surface border border-line rounded-sm ${className}`}>
+    <Tag className={`rounded-lg border border-line bg-surface shadow-sm ${className}`}>
       {title ? (
-        <header className="flex items-baseline justify-between gap-4 border-b border-line px-5 py-3">
-          <h2 className="font-serif text-[1.125rem] font-medium leading-tight">{title}</h2>
-          {aside ? <div className="text-[0.8125rem] text-muted">{aside}</div> : null}
+        <header className="flex items-baseline justify-between gap-4 border-b border-line px-6 py-3.5">
+          <h2 className="text-[14px] font-bold tracking-[-0.01em] text-ink">{title}</h2>
+          {aside ? <div className="text-[12px] text-faint">{aside}</div> : null}
         </header>
       ) : null}
-      <div className="px-5 py-4">{children}</div>
+      <div className="px-6 py-5">{children}</div>
     </Tag>
   );
 }
@@ -166,7 +180,7 @@ export function Panel({
 export function SimulatedTag({ className = "" }: { className?: string }) {
   return (
     <span
-      className={`inline-flex items-center rounded-sm border border-dashed border-line-strong px-1.5 py-px font-mono text-[0.6875rem] leading-4 text-muted ${className}`}
+      className={`inline-flex items-center rounded-xs border border-dashed border-line-strong px-1.5 py-px text-[11px] font-medium leading-4 text-faint ${className}`}
       title="A simulated colleague. Replies are seeded for this demonstration."
     >
       simulated
@@ -175,7 +189,7 @@ export function SimulatedTag({ className = "" }: { className?: string }) {
 }
 
 export function Mono({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <span className={`font-mono text-[0.8125rem] ${className}`}>{children}</span>;
+  return <span className={`font-mono text-[12px] tnum ${className}`}>{children}</span>;
 }
 
 /** Definition-style label and value, used for the record and the patient header. */
@@ -183,11 +197,39 @@ export function LabelValue({ label, children }: { label: string; children: React
   return (
     <div className="flex flex-col gap-1">
       <Microlabel>{label}</Microlabel>
-      <div className="text-[0.9375rem] leading-6">{children}</div>
+      <div className="text-[14px] leading-6">{children}</div>
     </div>
   );
 }
 
 export function EmptyLine({ children }: { children: ReactNode }) {
-  return <p className="text-[0.9375rem] leading-6 text-muted italic">{children}</p>;
+  return <p className="text-[14px] leading-6 text-muted">{children}</p>;
+}
+
+/** Page title block: eyebrow, title, intro. */
+export function PageHeader({
+  eyebrow,
+  title,
+  intro,
+  aside,
+}: {
+  eyebrow?: string;
+  title: ReactNode;
+  intro?: ReactNode;
+  aside?: ReactNode;
+}) {
+  return (
+    <header className="flex flex-wrap items-end justify-between gap-x-8 gap-y-3 border-b border-line pb-6">
+      <div className="min-w-0">
+        {eyebrow ? (
+          <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-primary">{eyebrow}</p>
+        ) : null}
+        <h1 className="font-display text-[28px] leading-[1.1] text-ink sm:text-[32px]" style={{ textWrap: "balance" }}>
+          {title}
+        </h1>
+        {intro ? <p className="mt-2 max-w-[540px] text-[15px] leading-relaxed text-secondary">{intro}</p> : null}
+      </div>
+      {aside ? <div className="text-[12px] leading-5 text-faint">{aside}</div> : null}
+    </header>
+  );
 }

@@ -13,7 +13,7 @@ export default async function AboutPage() {
   return (
     <div className="flex flex-col gap-6">
       <header className="max-w-[65ch]">
-        <h1 className="font-serif text-[1.75rem] font-medium leading-tight tracking-tight">How Cairn works</h1>
+        <h1 className="font-display text-[1.75rem] font-medium leading-tight tracking-tight">How Cairn works</h1>
         <p className="prose-clinical mt-2 text-muted">
           Cairn reads the record and reports which recognised indicators of deteriorating health are present,
           with the record entry behind each one. It then convenes the people who need to be part of the

@@ -122,7 +122,7 @@ export function NextSteps({
 
       <p className="text-[0.8125rem] text-muted">Open next steps appear on the worklist with their owner.</p>
 
-      <details className="rounded-sm border border-dashed border-line-strong px-4 py-2">
+      <details className="rounded-md border border-dashed border-line-strong px-4 py-2">
         <summary className="min-h-11 cursor-pointer list-none py-2 text-[0.9375rem] text-muted hover:text-ink">
           Add a next step
         </summary>

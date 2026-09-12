@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Assessment, CaseState, Patient } from "@/lib/domain/types";
-import { formatAge } from "@/lib/format";
-import { Mono, StateBadge, TierLabel } from "@/components/ui";
+import { formatDate } from "@/lib/format";
+import { Chip, StateBadge, TierLabel } from "@/components/ui";
 import { QUIET_LINE } from "@/lib/copy";
 
 const TABS: { label: string; suffix: string }[] = [
@@ -12,7 +12,7 @@ const TABS: { label: string; suffix: string }[] = [
   { label: "Record", suffix: "/record" },
 ];
 
-/** Stays visible across the five screens: who this is, the tier, the state, the quiet line. */
+/** Stays at the top of the five patient screens: who this is, the tier, the state, the quiet line. */
 export function PatientStrip({
   patient,
   assessment,
@@ -25,24 +25,39 @@ export function PatientStrip({
   current: string;
 }) {
   const base = `/patient/${patient.id}`;
+  const demographics = [
+    patient.age !== undefined ? `${patient.age}` : "age not recorded",
+    patient.sex,
+    patient.birthDate ? `DOB ${formatDate(patient.birthDate)}` : undefined,
+    patient.id,
+  ].filter(Boolean);
   return (
     <div className="mb-6 border-b border-line">
-      <div className="flex flex-wrap items-baseline gap-x-5 gap-y-2 pb-3">
-        <h1 className="font-serif text-[1.75rem] font-medium leading-tight tracking-tight">
-          {patient.name ?? patient.id}
-        </h1>
-        <span className="text-[0.9375rem] text-muted tnum">{formatAge(patient.age)}</span>
-        <Mono className="text-muted">{patient.id}</Mono>
-        <span className="text-[0.9375rem] text-muted">
-          {patient.conditions.length ? patient.conditions.join(", ") : "no coded conditions"}
-        </span>
-        <span className="ml-auto flex items-center gap-3">
-          <TierLabel tier={assessment.tier} />
+      <div className="flex flex-wrap items-start justify-between gap-x-6 gap-y-3 pb-4">
+        <div className="min-w-0">
+          <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-[0.08em] text-primary">
+            <Link href="/" className="hover:underline">
+              Worklist
+            </Link>
+            <span className="text-faint"> / patient</span>
+          </p>
+          <h1 className="font-display text-[28px] leading-[1.1] text-ink">{patient.name ?? patient.id}</h1>
+          <p className="mt-1.5 text-[13px] text-secondary tnum">{demographics.join(" · ")}</p>
+          <div className="mt-2.5 flex flex-wrap gap-1.5">
+            {patient.conditions.length ? (
+              patient.conditions.map((c) => <Chip key={c}>{c}</Chip>)
+            ) : (
+              <span className="text-[13px] text-muted">no coded conditions</span>
+            )}
+          </div>
+        </div>
+        <div className="flex flex-col items-end gap-2">
           <StateBadge state={caseState.state} />
-        </span>
+          <TierLabel tier={assessment.tier} />
+          <p className="max-w-[320px] text-right text-[12px] leading-5 text-faint">{QUIET_LINE}</p>
+        </div>
       </div>
-      <p className="pb-3 text-[0.8125rem] text-muted">{QUIET_LINE}</p>
-      <nav aria-label="Patient screens" className="-mb-px flex flex-wrap gap-x-1">
+      <nav aria-label="Patient screens" className="-mb-px flex flex-wrap gap-x-1 overflow-x-auto">
         {TABS.map((t) => {
           const active = current === t.suffix;
           return (
@@ -50,10 +65,8 @@ export function PatientStrip({
               key={t.suffix}
               href={`${base}${t.suffix}`}
               aria-current={active ? "page" : undefined}
-              className={`inline-flex min-h-11 items-center border-b-2 px-3 text-[0.9375rem] ${
-                active
-                  ? "border-primary font-medium text-ink"
-                  : "border-transparent text-muted hover:border-line-strong hover:text-ink"
+              className={`inline-flex min-h-11 items-center whitespace-nowrap border-b-2 px-3 text-[13px] font-semibold ${
+                active ? "border-primary text-primary" : "border-transparent text-muted hover:border-line-strong hover:text-ink"
               }`}
             >
               {t.label}

@@ -173,7 +173,7 @@ export function OutcomeForm({
             name="summary"
             required
             minLength={8}
-            className={`${TEXTAREA_CLASS} prose-clinical font-serif text-[1.0625rem]`}
+            className={`${TEXTAREA_CLASS} prose-clinical font-voice text-[1.0625rem]`}
             placeholder="What the team discussed and where it landed, in plain words."
           />
         </label>
@@ -181,7 +181,7 @@ export function OutcomeForm({
 
       {/* Attendance */}
       <section aria-labelledby="attendance-heading" className="flex flex-col gap-3">
-        <h3 id="attendance-heading" className="font-serif text-[1.125rem] font-medium">
+        <h3 id="attendance-heading" className="font-display text-[1.125rem] font-medium">
           Attendance
         </h3>
         {people.length === 0 ? (
@@ -219,7 +219,7 @@ export function OutcomeForm({
       {/* Decisions */}
       <section aria-labelledby="decisions-heading" className="flex flex-col gap-3">
         <div className="flex items-baseline justify-between gap-4">
-          <h3 id="decisions-heading" className="font-serif text-[1.125rem] font-medium">
+          <h3 id="decisions-heading" className="font-display text-[1.125rem] font-medium">
             Decisions
           </h3>
           <span className="text-[0.8125rem] text-muted">from proposals on the coordination thread</span>
@@ -231,7 +231,7 @@ export function OutcomeForm({
         ) : (
           <ul className="flex flex-col gap-2">
             {proposals.map((p) => (
-              <li key={p.messageId} className="rounded-sm border border-line bg-surface px-4 py-3">
+              <li key={p.messageId} className="rounded-md border border-line bg-surface px-4 py-3">
                 <label className="flex items-start gap-3">
                   <input
                     type="checkbox"
@@ -255,7 +255,7 @@ export function OutcomeForm({
         )}
 
         {added.map((d) => (
-          <div key={d.key} className="grid gap-2 rounded-sm border border-dashed border-line-strong px-4 py-3 sm:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
+          <div key={d.key} className="grid gap-2 rounded-md border border-dashed border-line-strong px-4 py-3 sm:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
             <label className="flex flex-col gap-1 sm:col-span-2">
               <span className="microlabel">Decision</span>
               <input
@@ -310,14 +310,14 @@ export function OutcomeForm({
       {/* Next steps */}
       <section aria-labelledby="next-steps-heading" className="flex flex-col gap-3">
         <div className="flex items-baseline justify-between gap-4">
-          <h3 id="next-steps-heading" className="font-serif text-[1.125rem] font-medium">
+          <h3 id="next-steps-heading" className="font-display text-[1.125rem] font-medium">
             Next steps
           </h3>
           <span className="text-[0.8125rem] text-muted">{NEXT_STEP_RULE}</span>
         </div>
         <ul className="flex flex-col gap-3">
           {steps.map((s, i) => (
-            <li key={s.key} className="grid gap-2 rounded-sm border border-line bg-surface px-4 py-3 sm:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)]">
+            <li key={s.key} className="grid gap-2 rounded-md border border-line bg-surface px-4 py-3 sm:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)]">
               <label className="flex flex-col gap-1 sm:col-span-3">
                 <span className="microlabel">What needs to happen</span>
                 <input

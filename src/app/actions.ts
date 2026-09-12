@@ -78,8 +78,14 @@ function errorMessage(e: unknown): string {
 }
 
 function revalidate(patientId: string): void {
-  revalidatePath("/");
-  revalidatePath(`/patient/${patientId}`, "layout");
+  // Revalidation is best-effort: outside a Next request (the end-to-end test drives these
+  // actions directly) there is no request store, and the mutation has already been persisted.
+  try {
+    revalidatePath("/");
+    revalidatePath(`/patient/${patientId}`, "layout");
+  } catch {
+    // no request context; nothing to revalidate
+  }
 }
 
 /** Run a mutation, revalidate on success, and never let an error escape to the caller. */

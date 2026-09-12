@@ -55,7 +55,7 @@ export function OutcomeView({
     <div className="flex flex-col gap-6">
       <section className="border-b border-line pb-6">
         <Microlabel className="mb-3">Outcome, held {formatDate(outcome.heldAt)}</Microlabel>
-        <p className="prose-clinical font-serif text-[1.375rem] leading-[1.4] text-ink">{outcome.summary}</p>
+        <p className="prose-clinical font-voice text-[1.375rem] leading-[1.4] text-ink">{outcome.summary}</p>
         <p className="mt-3 font-mono text-[0.75rem] text-muted">recorded by {outcome.recordedBy}</p>
       </section>
 
@@ -100,7 +100,7 @@ export function OutcomeView({
                   </div>
 
                   {d.intoRecordField ? (
-                    <div className="ml-8 grid gap-4 rounded-sm border border-line bg-surface-2 p-4 sm:grid-cols-2">
+                    <div className="ml-8 grid gap-4 rounded-md border border-line bg-surface-2 p-4 sm:grid-cols-2">
                       <div className="flex flex-col gap-1">
                         <span className="microlabel">Current record: {fieldLabel(d.intoRecordField)}</span>
                         {current ? (
@@ -120,7 +120,7 @@ export function OutcomeView({
                         <div className="flex flex-col gap-1">
                           <span className="microlabel">Proposed</span>
                           <p className="text-[0.9375rem] leading-6">{d.proposedValue ?? "no value carried"}</p>
-                          <p className="mt-2 rounded-sm bg-affirm-soft px-3 py-2 text-[0.875rem] leading-5 text-affirm">
+                          <p className="mt-2 rounded-md bg-affirm-soft px-3 py-2 text-[0.875rem] leading-5 text-affirm">
                             Promoted into the record on {formatDateTime(d.promotedAt)}, recorded by {CLINICIAN.name}. The
                             record still needs a signature.
                           </p>

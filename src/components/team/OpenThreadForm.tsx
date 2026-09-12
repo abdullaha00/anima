@@ -41,7 +41,7 @@ export function OpenThreadForm({
           minLength={8}
           rows={3}
           defaultValue={defaultPurpose}
-          className={`${TEXTAREA_CLASS} font-serif text-[1.0625rem]`}
+          className={`${TEXTAREA_CLASS} font-voice text-[1.0625rem]`}
         />
       </label>
       {note ? <p className="prose-clinical text-[0.8125rem] leading-5 text-muted">{note}</p> : null}

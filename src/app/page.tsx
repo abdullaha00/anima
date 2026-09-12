@@ -5,9 +5,9 @@ import { getPatients } from "@/lib/data/source";
 import { getEngine } from "@/lib/scoring";
 import { sweep } from "@/lib/scoring/sweep";
 import { casesById } from "@/lib/store";
-import { formatAge, formatDate, formatDateTime, plural } from "@/lib/format";
+import { formatDate, formatDateTime, plural } from "@/lib/format";
 import { COMPARATOR_LINE } from "@/lib/copy";
-import { Microlabel, Mono, Notice, Panel, StateBadge, TierLabel } from "@/components/ui";
+import { Chip, Mono, Notice, PageHeader, Panel, StateBadge, TierLabel } from "@/components/ui";
 import { WorklistFilters, type FilterValues } from "@/components/worklist/WorklistFilters";
 
 export const dynamic = "force-dynamic";
@@ -21,6 +21,17 @@ const CONDITION_GROUPS: Record<string, RegExp> = {
   neurological: /parkinson|dementia|motor neurone|multiple sclerosis/i,
   frailty: /frailty/i,
   cancer: /cancer|carcinoma|metastatic|lymphoma|leukaemia|myeloma/i,
+};
+
+/** The left-edge stripe encodes progress, never urgency: amber in progress, green complete. */
+const STRIPE: Record<WorklistState, string> = {
+  flagged: "bg-transparent",
+  "team assembled": "bg-warn-stripe",
+  coordinating: "bg-warn-stripe",
+  "meeting held": "bg-warn-stripe",
+  "record signed": "bg-cairn-400",
+  shared: "bg-cairn-400",
+  paused: "bg-stone-300",
 };
 
 function one(v: string | string[] | undefined): string {
@@ -76,104 +87,121 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
   const e = result.equity;
   const pct = (x: number | null) => (x === null ? "not available" : `${Math.round(x * 100)}%`);
 
-  return (
-    <div className="flex flex-col gap-6">
-      <header className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-        <div>
-          <h1 className="font-serif text-[1.75rem] font-medium leading-tight tracking-tight">Worklist</h1>
-          <p className="mt-1 text-[0.9375rem] text-muted">
-            Every patient with indicators present in the record, with where their plan has got to.
-          </p>
-        </div>
-        <p className="font-mono text-[0.75rem] text-muted">
-          {mode === "snapshot" || degraded ? "snapshot" : "live"} · simulation clock {formatDate(nowIso)} · taken{" "}
-          {formatDateTime(meta.takenAt)}
-        </p>
-      </header>
+  const summary: [string, number][] = [
+    ["patients scanned", f.patientsScanned],
+    ["carry indicators", f.indicatorsPresent],
+    ["no register entry or plan", f.notOnRegisterOrPlan],
+    ["prompted for review", f.promptedForReview],
+    ["waiting on somebody", f.waitingOnSomeone],
+  ];
 
-      {/* Summary strip: real figures, quiet treatment, hairlines rather than cards. */}
-      <dl className="grid grid-cols-2 gap-y-4 border-y border-line py-4 sm:grid-cols-5">
-        {[
-          ["patients scanned", f.patientsScanned],
-          ["carry indicators", f.indicatorsPresent],
-          ["no register entry or plan", f.notOnRegisterOrPlan],
-          ["prompted for review", f.promptedForReview],
-          ["waiting on somebody", f.waitingOnSomeone],
-        ].map(([label, value], i) => (
-          <div key={label} className={`flex flex-col gap-1 px-4 ${i > 0 ? "sm:border-l sm:border-line" : ""}`}>
-            <dt className="microlabel">{label}</dt>
-            <dd className="font-serif text-[1.75rem] leading-none tnum">{value.toLocaleString("en-GB")}</dd>
+  return (
+    <div className="flex flex-col gap-8">
+      <PageHeader
+        eyebrow="Case finding"
+        title="Worklist"
+        intro="Every patient with indicators present in the record, and where their plan has got to. What is stuck shows in the last column."
+        aside={
+          <span className="tnum">
+            {mode === "snapshot" || degraded ? "Snapshot" : "Live"} · simulation clock {formatDate(nowIso)} · taken{" "}
+            {formatDateTime(meta.takenAt)}
+          </span>
+        }
+      />
+
+      {/* Summary strip: real figures from the sweep, one white bar with hairline dividers. */}
+      <dl className="grid grid-cols-2 overflow-hidden rounded-lg border border-line bg-surface shadow-sm sm:grid-cols-5">
+        {summary.map(([label, value], i) => (
+          <div
+            key={label}
+            className={`flex flex-col gap-1 px-5 py-4 ${i > 0 ? "border-l border-line" : ""} ${i >= 2 ? "border-t border-line sm:border-t-0" : ""}`}
+          >
+            <dd className="font-display text-[26px] leading-none text-ink tnum">{value.toLocaleString("en-GB")}</dd>
+            <dt className="microlabel mt-1">{label}</dt>
           </div>
         ))}
       </dl>
 
-      {result.modelDisclosure ? <Notice kind="quiet">{result.modelDisclosure}</Notice> : null}
+      {result.modelDisclosure ? <Notice kind="info">{result.modelDisclosure}</Notice> : null}
 
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
-        <div className="flex flex-col gap-4">
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_300px]">
+        <div className="flex flex-col gap-6">
           <WorklistFilters values={filters} owners={owners} imdAvailable={e.imdAvailable} />
 
           {groups.length === 0 ? (
             <Notice kind="quiet">No patients match these filters.</Notice>
           ) : (
             groups.map((g) => (
-              <section key={g.state} aria-labelledby={`state-${g.state}`}>
-                <div className="flex items-baseline gap-3 pb-2">
-                  <h2 id={`state-${g.state}`} className="font-serif text-[1.125rem] font-medium">
+              <section key={g.state} aria-labelledby={`state-${g.state}`} className="flex flex-col gap-2">
+                <div className="flex items-baseline gap-3">
+                  <h2 id={`state-${g.state}`}>
                     <StateBadge state={g.state} />
                   </h2>
-                  <span className="text-[0.8125rem] text-muted tnum">
+                  <span className="text-[13px] font-medium text-secondary tnum">
                     {plural(
                       g.tiers.reduce((n, t) => n + t.rows.length, 0),
                       "patient",
                     )}
                   </span>
                 </div>
-                <div className="overflow-x-auto border border-line bg-surface rounded-sm">
-                  <table className="w-full min-w-[720px] text-[0.9375rem]">
+                <div className="overflow-x-auto rounded-lg border border-line bg-surface shadow-sm">
+                  <table className="w-full min-w-[760px] text-[13px]">
                     <thead className="text-left">
-                      <tr className="border-b border-line">
-                        <th className="microlabel px-3 py-2 font-medium">Patient</th>
-                        <th className="microlabel px-3 py-2 font-medium tnum">Age</th>
-                        <th className="microlabel px-3 py-2 font-medium">Conditions</th>
-                        <th className="microlabel px-3 py-2 font-medium">Indicators</th>
-                        <th className="microlabel px-3 py-2 font-medium">Waiting on</th>
+                      <tr className="border-b-2 border-line">
+                        <th className="w-1 p-0" aria-hidden="true" />
+                        <th className="microlabel px-3 py-2.5">Patient</th>
+                        <th className="microlabel px-3 py-2.5 tnum">Age</th>
+                        <th className="microlabel px-3 py-2.5">Conditions</th>
+                        <th className="microlabel px-3 py-2.5">Indicators present</th>
+                        <th className="microlabel px-3 py-2.5">Waiting on</th>
                       </tr>
                     </thead>
                     {g.tiers.map((t) => (
                       <tbody key={t.tier}>
-                        <tr className="border-b border-line bg-surface-2/60">
+                        <tr className="border-b border-line bg-surface-2">
+                          <td className="p-0" />
                           <td colSpan={5} className="px-3 py-1.5">
-                            <TierLabel tier={t.tier} className="text-[0.8125rem]" />
-                            <span className="ml-2 text-[0.8125rem] text-muted tnum">{t.rows.length}</span>
+                            <TierLabel tier={t.tier} />
+                            <span className="ml-2 text-[12px] text-faint tnum">{t.rows.length}</span>
                           </td>
                         </tr>
                         {t.rows.map((r) => (
-                          <tr key={r.patientId} className="border-b border-line last:border-b-0 hover:bg-surface-2/40">
-                            <td className="px-3 py-2.5">
-                              <Link href={`/patient/${r.patientId}`} className="font-medium text-ink hover:text-primary">
+                          <tr key={r.patientId} className="border-b border-line last:border-b-0 hover:bg-surface-2">
+                            <td className="p-0">
+                              <span aria-hidden="true" className={`block h-full min-h-[3.25rem] w-1 ${STRIPE[r.state]}`} />
+                            </td>
+                            <td className="px-3 py-3 align-top">
+                              <Link href={`/patient/${r.patientId}`} className="text-[15px] font-bold tracking-[-0.01em] text-ink hover:text-primary">
                                 {r.name ?? r.patientId}
                               </Link>
-                              <div>
-                                <Mono className="text-muted">{r.patientId}</Mono>
+                              <div className="mt-0.5">
+                                <Mono className="text-faint">{r.patientId}</Mono>
                               </div>
                             </td>
-                            <td className="px-3 py-2.5 tnum text-muted">{formatAge(r.age)}</td>
-                            <td className="px-3 py-2.5 text-muted">
-                              {r.conditions.length ? r.conditions.join(", ") : "none coded"}
+                            <td className="px-3 py-3 align-top text-secondary tnum">{r.age !== undefined ? r.age : "—"}</td>
+                            <td className="px-3 py-3 align-top">
+                              <div className="flex flex-wrap gap-1">
+                                {r.conditions.length ? (
+                                  r.conditions.map((c) => <Chip key={c}>{c}</Chip>)
+                                ) : (
+                                  <span className="text-muted">none coded</span>
+                                )}
+                              </div>
                             </td>
-                            <td className="px-3 py-2.5">
-                              <span className="font-medium tnum">{r.assessment.signals.length}</span>
-                              <span className="text-muted"> · {r.assessment.signals.map((s) => s.label).join("; ")}</span>
+                            <td className="px-3 py-3 align-top">
+                              <span className="font-bold text-ink tnum">{r.assessment.signals.length}</span>
+                              <span className="text-secondary"> · {r.assessment.signals.map((s) => s.label).join("; ")}</span>
                             </td>
-                            <td className="px-3 py-2.5">
+                            <td className="px-3 py-3 align-top">
                               {r.state === "paused" && r.pausedReason ? (
-                                <span className="text-muted">paused: {r.pausedReason}</span>
+                                <span className="text-secondary">paused: {r.pausedReason}</span>
                               ) : r.waitingOn ? (
                                 <span>
-                                  <span className="text-ink">{r.waitingOn.ownerName}</span>
-                                  <span className="text-muted">
-                                    , {r.waitingOn.ownerRole} · {r.waitingOn.what} · due {formatDate(r.waitingOn.due)}
+                                  <span className="font-semibold text-ink">{r.waitingOn.ownerName}</span>
+                                  <span className="text-secondary">
+                                    , {r.waitingOn.ownerRole}
+                                    <br />
+                                    {r.waitingOn.what} · due {formatDate(r.waitingOn.due)}
                                     {r.waitingOn.status === "blocked" ? " · blocked" : ""}
                                   </span>
                                 </span>
@@ -192,20 +220,20 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
           )}
         </div>
 
-        <aside className="flex flex-col gap-4">
+        <aside className="flex flex-col gap-5">
           <Panel title="Cohort composition" aside="descriptive">
-            <dl className="flex flex-col gap-3 text-[0.9375rem]">
+            <dl className="flex flex-col gap-4">
               <div>
-                <dt className="microlabel">non-cancer share of the identified cohort</dt>
-                <dd className="font-serif text-[1.5rem] leading-tight tnum">{pct(e.cohortNonCancerShare)}</dd>
+                <dd className="font-display text-[22px] leading-none text-ink tnum">{pct(e.cohortNonCancerShare)}</dd>
+                <dt className="microlabel mt-1.5">non-cancer share of the identified cohort</dt>
               </div>
               <div>
-                <dt className="microlabel">non-cancer share, newly identified</dt>
-                <dd className="font-serif text-[1.5rem] leading-tight tnum">{pct(e.newlyIdentifiedNonCancerShare)}</dd>
+                <dd className="font-display text-[22px] leading-none text-ink tnum">{pct(e.newlyIdentifiedNonCancerShare)}</dd>
+                <dt className="microlabel mt-1.5">non-cancer share, newly identified</dt>
               </div>
               <div>
                 <dt className="microlabel">flag rate by deprivation quintile</dt>
-                <dd className="text-muted">
+                <dd className="mt-1 text-[13px] text-secondary">
                   {e.imdAvailable ? (
                     <ul className="tnum">
                       {Object.entries(e.flagRateByImdQuintile).map(([q, rate]) => (
@@ -215,26 +243,25 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
                       ))}
                     </ul>
                   ) : (
-                    "Deprivation quintile is not carried by this data source."
+                    "Not carried by this data source."
                   )}
                 </dd>
               </div>
             </dl>
-            <p className="prose-clinical mt-4 text-[0.8125rem] leading-5 text-muted">{COMPARATOR_LINE}</p>
-            <p className="prose-clinical mt-2 text-[0.8125rem] leading-5 text-muted">
-              The simulator population carries no cancer diagnoses, so the cancer comparison cannot be made here.{" "}
-              {e.note}
+            <p className="mt-4 border-t border-line pt-3 text-[12px] leading-5 text-muted">{COMPARATOR_LINE}</p>
+            <p className="mt-2 text-[12px] leading-5 text-muted">
+              The simulator population carries no cancer diagnoses, so the cancer comparison cannot be made here. {e.note}
             </p>
           </Panel>
 
           <Panel title="By tier">
-            <dl className="flex flex-col gap-1 text-[0.9375rem]">
+            <dl className="flex flex-col gap-1.5">
               {(Object.keys(TIER_ORDER) as ReviewTier[]).map((t) => (
                 <div key={t} className="flex justify-between gap-3">
                   <dt>
                     <TierLabel tier={t} />
                   </dt>
-                  <dd className="tnum text-muted">{result.byTier[t] ?? 0}</dd>
+                  <dd className="text-[13px] font-medium text-secondary tnum">{result.byTier[t] ?? 0}</dd>
                 </div>
               ))}
             </dl>
@@ -242,25 +269,24 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
 
           {result.inertIndicators.length ? (
             <Panel title="No data, not no indicator">
-              <p className="mb-2 text-[0.8125rem] leading-5 text-muted">
+              <p className="mb-3 text-[12px] leading-5 text-muted">
                 These catalogue indicators cannot fire because the data source does not carry the field they read.
               </p>
-              <ul className="flex flex-col gap-1 text-[0.8125rem] leading-5">
+              <ul className="flex flex-col gap-1.5 text-[12px] leading-5">
                 {result.inertIndicators.map((i) => (
                   <li key={i.id}>
-                    <Mono className="text-muted">{i.id}</Mono> {i.label}{" "}
-                    <span className="text-muted">(needs {i.missingField})</span>
+                    <Mono className="text-faint">{i.id}</Mono> <span className="text-secondary">{i.label}</span>{" "}
+                    <span className="text-faint">(needs {i.missingField})</span>
                   </li>
                 ))}
               </ul>
             </Panel>
           ) : null}
 
-          <div className="px-1 text-[0.8125rem] leading-5 text-muted">
-            <Microlabel className="mb-1">Engine</Microlabel>
-            <Mono>{result.engineId}</Mono>. Indicators and tiers come from the rules. A model, when present, may only
-            reorder within a tier and is labelled.
-          </div>
+          <p className="px-1 text-[12px] leading-5 text-faint">
+            Engine <Mono>{result.engineId}</Mono>. Indicators and tiers come from the rules. A model, when present, may
+            only reorder within a tier and is labelled.
+          </p>
         </aside>
       </div>
     </div>
