@@ -35,8 +35,9 @@ import type {
 import { CLINICIAN } from "@/lib/copy";
 import { getPatient, getPatients } from "@/lib/data/source";
 import { rulesEngine } from "@/lib/scoring/rules";
-import { SignatureRefused, refuseSignature, requestSignature, setField, share, sign } from "@/lib/record/record";
+import { SignatureRefused, refuseSignature, requestSignature, setField, share, sign, viewFor } from "@/lib/record/record";
 import { RECORD_FIELDS, fieldLabel } from "@/lib/record/fields";
+import { simShareRespectRecord } from "@/lib/data/sim-client";
 import { deriveTeam } from "@/lib/coordination/team";
 import { checkFamilyContent } from "@/lib/coordination/family-guard";
 import { canTransition, resume, transition } from "@/lib/coordination/state";
@@ -691,17 +692,42 @@ export async function shareRecord(patientId: string, audiences: Audience[]): Pro
   return run(patientId, async () => {
     const chosen = audiences.map((a) => oneOf(a, AUDIENCES, "Audience"));
     if (chosen.length === 0) throw new Error("Choose at least one recipient of the signed record.");
-    await updateCase(patientId, (c) => {
+    const next = await updateCase(patientId, (c) => {
       if (c.state !== "record signed" && c.state !== "shared") {
         throw new Error("Only a signed record can be shared.");
       }
       const at = nowIso();
       const record = share(c.record, chosen, { actor: ACTOR, at });
-      let next: CaseState = { ...c, record };
-      if (next.state === "record signed") next = move(next, "shared", { at });
-      return withAudit(next, audit("share", `shared the signed record with ${chosen.join(", ")}`, ACTOR, at));
+      let updated: CaseState = { ...c, record };
+      if (updated.state === "record signed") updated = move(updated, "shared", { at });
+      return withAudit(updated, audit("share", `shared the signed record with ${chosen.join(", ")}`, ACTOR, at));
     });
-    return `Record shared with ${chosen.length} ${chosen.length === 1 ? "recipient" : "recipients"}.`;
+
+    let message = `Record shared with ${chosen.length} ${chosen.length === 1 ? "recipient" : "recipients"}.`;
+
+    // Every share also pushes a copy onto the simulator's own GP documents,
+    // regardless of which audiences were ticked. Best-effort: the local share above
+    // has already succeeded, so a failure here is reported in the message rather
+    // than failing the whole action.
+    try {
+      const view = viewFor(next.record, "gp");
+      if (!("error" in view)) {
+        const patient = await getPatient(patientId);
+        const result = await simShareRespectRecord(patientId, {
+          patientLabel: patient?.name ?? patientId,
+          fields: view.fields,
+          signedBy: view.signedBy,
+          signedAt: view.signedAt,
+        });
+        if (result.status !== 200 && result.status !== 201) {
+          message += " (Could not forward the record to the GP documents on the simulator.)";
+        }
+      }
+    } catch {
+      message += " (Could not forward the record to the GP documents on the simulator.)";
+    }
+
+    return message;
   });
 }
 
