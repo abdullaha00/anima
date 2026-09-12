@@ -5,7 +5,9 @@ import { formatDateTime } from "@/lib/format";
 
 /** Shared primitives, following the Cairn design system. Quiet by default. */
 
-import { BUTTON, BUTTON_BASE, Button, type ButtonVariant } from "./Button";
+import { Button } from "./Button";
+import { BUTTON, BUTTON_BASE, type ButtonVariant } from "./button-classes";
+import { CloseDetails } from "./CloseDetails";
 
 export { Button };
 
@@ -79,11 +81,14 @@ export function Disclosure({
   children,
   className = "",
   defaultOpen = false,
+  closeLabel,
 }: {
   label: ReactNode;
   children: ReactNode;
   className?: string;
   defaultOpen?: boolean;
+  /** When set, a matching link at the foot of the content closes the disclosure again. */
+  closeLabel?: string;
 }) {
   return (
     <details className={`group ${className}`} open={defaultOpen || undefined}>
@@ -103,19 +108,32 @@ export function Disclosure({
         {label}
       </summary>
       <div className="pt-2">{children}</div>
+      {closeLabel ? (
+        <div className="mt-2 border-t border-line pt-1">
+          <CloseDetails label={closeLabel} />
+        </div>
+      ) : null}
     </details>
   );
 }
 
-/** A review tier, carried by weight, never by colour. */
+/** Tier tints for the worklist: a band and a dot per tier. Amber and blue are categories here, never alarms; no red. */
+export const TIER_TONE: Record<ReviewTier, { band: string; dot: string; text: string }> = {
+  "review this week": { band: "bg-warn-soft", dot: "bg-warn-stripe", text: "font-bold text-warn" },
+  "review this month": { band: "bg-info-soft", dot: "bg-info", text: "font-bold text-info" },
+  "consider at next contact": { band: "bg-surface-2", dot: "bg-stone-400", text: "font-semibold text-ink" },
+  "no prompt": { band: "bg-surface-2", dot: "bg-stone-300", text: "font-medium text-secondary" },
+};
+
+/** A review tier: weight, a dot and a tint, so the tiers read apart at a glance. */
 export function TierLabel({ tier, className = "" }: { tier: ReviewTier; className?: string }) {
-  const weight =
-    tier === "review this week"
-      ? "font-bold text-ink"
-      : tier === "review this month"
-        ? "font-semibold text-ink"
-        : "font-medium text-secondary";
-  return <span className={`text-[13px] ${weight} ${className}`}>{tier}</span>;
+  const tone = TIER_TONE[tier];
+  return (
+    <span className={`inline-flex items-center gap-2 text-[13px] ${tone.text} ${className}`}>
+      <span aria-hidden="true" className={`h-2 w-2 shrink-0 rounded-full ${tone.dot}`} />
+      {tier}
+    </span>
+  );
 }
 
 const STATE_TONE: Record<WorklistState, { pill: string; dot: string }> = {
@@ -228,7 +246,7 @@ export function Notice({
   return (
     <div className={`rounded-md border px-4 py-3.5 text-[14px] leading-6 ${NOTICE[kind]} ${className}`} role={role}>
       {title ? (
-        <p className={`text-[13px] font-bold ${kind === "refuse" ? "text-refuse" : kind === "affirm" ? "text-affirm" : kind === "warn" ? "text-warn" : ""}`}>
+        <p className={`text-[14px] font-bold ${kind === "refuse" ? "text-refuse" : kind === "affirm" ? "text-affirm" : kind === "warn" ? "text-warn" : ""}`}>
           {title}
         </p>
       ) : null}
@@ -259,9 +277,9 @@ export function Panel({
 }) {
   const header = tone === "brand" ? "border-b border-cairn-100 bg-primary-soft" : "border-b border-line";
   const titleColour = tone === "brand" ? "text-affirm" : "text-ink";
-  const asideColour = tone === "brand" ? "text-affirm/80" : "text-faint";
+  const asideColour = tone === "brand" ? "text-affirm" : "text-faint";
   return (
-    <Tag className={`overflow-hidden rounded-lg border border-line bg-surface shadow-sm ${className}`}>
+    <Tag className={`overflow-hidden rounded-lg bg-surface shadow-sm ${className}`}>
       {title ? (
         <header className={`flex items-baseline justify-between gap-4 px-6 py-3.5 ${header}`}>
           <Heading className={`min-w-0 text-[14px] font-bold tracking-[-0.01em] ${titleColour}`}>{title}</Heading>

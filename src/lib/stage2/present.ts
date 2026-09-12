@@ -5,10 +5,10 @@
 import type { EvidenceReference, Stage2Assessment } from "@/lib/cairn/types";
 import { formatDate } from "@/lib/format";
 
-export const RECOMMENDATION_LABEL: Record<Stage2Assessment["recommendation"], { label: string; tone: "brand" | "neutral" | "affirm" | "warn"; line: string }> = {
+export const RECOMMENDATION_LABEL: Record<Stage2Assessment["recommendation"], { label: string; tone: "brand" | "neutral" | "affirm" | "warn" | "info"; line: string }> = {
   proceed: {
     label: "Review recommended",
-    tone: "brand",
+    tone: "info",
     line: "The record supports a prompt clinical review for a goals-of-care conversation.",
   },
   do_not_proceed: {

@@ -9,7 +9,7 @@ import { WORKLIST_ORDER, planGroupFor, type PlanGroup } from "@/lib/coordination
 import { formatDate, plural } from "@/lib/format";
 import { reviewedPatientIds } from "@/lib/stage2/read";
 import { RECOMMENDATION_LABEL } from "@/lib/stage2/present";
-import { Chip, Mono, Notice, StateBadge, TierLabel } from "@/components/ui";
+import { Chip, Mono, Notice, StateBadge, TierLabel, TIER_TONE } from "@/components/ui";
 import { WorklistFilters, type FilterValues } from "@/components/worklist/WorklistFilters";
 import { RowLink } from "@/components/worklist/RowLink";
 
@@ -136,7 +136,7 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
                   )}
                 </span>
               </div>
-              <div className="overflow-x-auto rounded-lg border border-line bg-surface shadow-sm">
+              <div className="overflow-x-auto rounded-lg bg-surface shadow-sm">
                 <table className="w-full min-w-[720px] table-fixed text-[13px]">
                   <thead className="text-left">
                     <tr className="border-b-2 border-line">
@@ -150,7 +150,7 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
                   </thead>
                   {g.tiers.map((t) => (
                     <tbody key={t.tier}>
-                      <tr className="border-b border-line bg-surface-2">
+                      <tr className={`border-b border-line ${TIER_TONE[t.tier].band}`}>
                         <td className="p-0" />
                         <td colSpan={5} className="px-3 py-1.5">
                           <TierLabel tier={t.tier} />

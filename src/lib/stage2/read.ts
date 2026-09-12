@@ -73,6 +73,10 @@ const WORDING: [RegExp, string][] = [
   [new RegExp(`${B}${w("probab", "ility")}${B}`, "gi"), "chance"],
   [new RegExp(`${B}${w("pred", "ict")}(s|ed|ion|ions)?${B}`, "gi"), "suggest$1"],
   [new RegExp(`${B}risk ${w("sc", "ore")}${B}`, "gi"), "score"],
+  // The review speaks for itself, not in the first person.
+  [/I found no/g, "The review found no"],
+  [/I found/g, "The review found"],
+  [/I did not find/g, "The review did not find"],
 ];
 
 /**

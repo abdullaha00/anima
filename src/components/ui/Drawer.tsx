@@ -33,7 +33,7 @@ export function Drawer({
       >
         <span
           aria-hidden="true"
-          className="mt-[0.15rem] inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-sm text-primary group-hover:bg-primary-soft"
+          className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-sm text-primary group-hover:bg-primary-soft"
         >
           <svg
             viewBox="0 0 16 16"
