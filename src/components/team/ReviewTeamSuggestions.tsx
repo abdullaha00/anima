@@ -55,7 +55,11 @@ export function ReviewTeamSuggestions({
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
                   <span className="text-[15px] font-semibold leading-6 text-ink">{entry.role}</span>
-                  {entry.meetingPriority === "core" ? <Chip tone="brand">core</Chip> : <Chip>optional</Chip>}
+                  {entry.meetingPriority === "core" ? (
+                    <Chip tone="brand">Core to the meeting</Chip>
+                  ) : (
+                    <Chip>Optional</Chip>
+                  )}
                   {already ? <Chip>already on the team</Chip> : null}
                 </div>
                 {entry.name || entry.organisation ? (
@@ -63,6 +67,7 @@ export function ReviewTeamSuggestions({
                     {[entry.name, entry.organisation].filter(Boolean).join(" · ")}
                   </p>
                 ) : null}
+                {/* What they would own comes first; the reason for suggesting them follows. */}
                 <p className="prose-clinical mt-2 text-[14px] leading-6 text-ink">{entry.ownership}</p>
                 <p className="prose-clinical text-[14px] leading-6 text-secondary">{entry.reason}</p>
                 <Citations evidence={entry.evidence} className="mt-1" />

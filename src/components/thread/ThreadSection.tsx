@@ -63,7 +63,7 @@ export function ThreadSection({ ctx, review }: { ctx: PatientContext; review?: R
       .filter((m) => m.kind === "proposal" && m.proposes)
       .map((m) => ({
         id: m.id,
-        label: `${fieldLabel(m.proposes!.field)} → ${m.proposes!.value} (${resolveAuthor(caseState, m.authorId).name})`,
+        label: `${fieldLabel(m.proposes!.field)}: ${m.proposes!.value} (${resolveAuthor(caseState, m.authorId).name})`,
       }));
     const fields = RECORD_FIELDS.filter((f) => !isFamily || f.familySafe).map((f) => ({ name: f.name, label: f.label }));
     return (

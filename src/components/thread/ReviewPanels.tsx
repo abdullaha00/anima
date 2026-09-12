@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import type { Stage2Assessment } from "@/lib/cairn/types";
 import { checkFamilyContent } from "@/lib/coordination/family-guard";
-import { Microlabel, Notice, Panel } from "@/components/ui";
+import { Disclosure, Microlabel, Notice, Panel } from "@/components/ui";
 import {
   Citations,
   DRAFT_ONLY_LINE,
@@ -63,8 +63,10 @@ function Collapsible({
 }
 
 /**
- * The meeting briefing the record review prepared: who might own it, how soon, how to hold
- * it, what it is for, and the notes to read beforehand. Every note carries its citations.
+ * The meeting briefing the record review prepared: who should lead, when, how to hold it
+ * and what it is for. Who, when, format and the first objective are read at a glance; the
+ * rest of the objectives, the agenda and the briefing notes sit behind one disclosure.
+ * Every note carries its citations.
  */
 export function MeetingBriefing({
   meeting,
@@ -73,29 +75,39 @@ export function MeetingBriefing({
   meeting: Stage2Assessment["meeting"];
   collapsed?: boolean;
 }) {
+  const [firstObjective, ...furtherObjectives] = meeting.objectives;
+  const hasMore =
+    furtherObjectives.length > 0 || meeting.agenda.length > 0 || meeting.briefingNotes.length > 0;
   return (
     <Panel title="Meeting briefing, from the record review">
       <Collapsible collapsed={collapsed} summary="Show the briefing">
         <div className="flex flex-col gap-4">
-          <Field label="Proposed owner">{meeting.proposedOwner}</Field>
-          <Field label="Urgency">{meeting.urgency}</Field>
+          <Field label="Who should lead">{meeting.proposedOwner}</Field>
+          <Field label="When">{meeting.urgency}</Field>
           <Field label="Format and accessibility">
             {meeting.formatAndAccessibility}
           </Field>
-          <PlainList label="Objectives" items={meeting.objectives} />
-          <PlainList label="Agenda" items={meeting.agenda} />
-          {meeting.briefingNotes.length ? (
-            <div className="flex flex-col gap-1">
-              <Microlabel>Briefing notes</Microlabel>
-              <ul className="flex flex-col gap-3">
-                {meeting.briefingNotes.map((n, i) => (
-                  <li key={i} className="flex flex-col gap-0.5">
-                    <p className="text-[14px] leading-6 text-ink">{n.note}</p>
-                    <Citations evidence={n.evidence} />
-                  </li>
-                ))}
-              </ul>
-            </div>
+          {firstObjective ? <Field label="Objective">{firstObjective}</Field> : null}
+          {hasMore ? (
+            <Disclosure label="Agenda and notes">
+              <div className="flex flex-col gap-4">
+                <PlainList label="Further objectives" items={furtherObjectives} />
+                <PlainList label="Agenda" items={meeting.agenda} />
+                {meeting.briefingNotes.length ? (
+                  <div className="flex flex-col gap-1">
+                    <Microlabel>Briefing notes</Microlabel>
+                    <ul className="flex flex-col gap-3">
+                      {meeting.briefingNotes.map((n, i) => (
+                        <li key={i} className="flex flex-col gap-0.5">
+                          <p className="text-[14px] leading-6 text-ink">{n.note}</p>
+                          <Citations evidence={n.evidence} />
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+              </div>
+            </Disclosure>
           ) : null}
           <p className="border-t border-line pt-3 text-[12px] leading-5 text-faint">
             A prompt for the clinician who runs the meeting, not a decision.
@@ -109,8 +121,10 @@ export function MeetingBriefing({
 
 /**
  * Draft communications from the record review. Drafts only: Cairn never shares anything
- * itself. Family drafts sit on the family tab with their cautions and the standing line;
- * drafts for professionals sit on the professional tab.
+ * itself. The audience and the cautions are what a clinician must read first, so they stay
+ * in view; the draft body sits behind a disclosure. Family drafts sit on the family
+ * channel with their cautions and the standing line; drafts for professionals sit on the
+ * professional thread.
  */
 export function DraftCommunications({
   communications,
@@ -150,13 +164,13 @@ export function DraftCommunications({
                 key={i}
                 className="flex flex-col gap-3 py-4 first:pt-0 last:pb-0"
               >
+                <div className="flex flex-col gap-0.5">
+                  <h4 className="text-[15px] font-semibold leading-6 text-ink">{c.audience}</h4>
+                  <p className="text-[13px] font-medium leading-5 text-secondary">{c.channel}</p>
+                </div>
                 <p className="text-[13px] font-medium leading-5 text-secondary">
                   {family ? FAMILY_DRAFT_LINE : DRAFT_ONLY_LINE}
                 </p>
-                <div className="grid gap-3 sm:grid-cols-2">
-                  <Field label="Audience">{c.audience}</Field>
-                  <Field label="Channel">{c.channel}</Field>
-                </div>
                 {!guard.ok ? (
                   <Notice
                     kind="refuse"
@@ -166,9 +180,6 @@ export function DraftCommunications({
                     before any of this reaches the family.
                   </Notice>
                 ) : null}
-                <blockquote className="prose-clinical font-voice text-[17px] leading-[1.45] text-ink">
-                  {c.draft}
-                </blockquote>
                 {c.cautions.length ? (
                   <div className="flex flex-col gap-1">
                     <Microlabel>Cautions</Microlabel>
@@ -179,7 +190,14 @@ export function DraftCommunications({
                     </ul>
                   </div>
                 ) : null}
-                <Citations evidence={c.evidence} />
+                <Disclosure label="Show the draft">
+                  <div className="flex flex-col gap-3">
+                    <blockquote className="prose-clinical font-voice text-[17px] leading-[1.45] text-ink">
+                      {c.draft}
+                    </blockquote>
+                    <Citations evidence={c.evidence} />
+                  </div>
+                </Disclosure>
               </li>
             );
           })}
