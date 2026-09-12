@@ -658,18 +658,29 @@ export async function attemptCairnSignature(patientId: string): Promise<ActionRe
   }
 }
 
-export async function signRecord(patientId: string, clinicianName: string): Promise<ActionResult> {
+export async function signRecord(
+  patientId: string,
+  clinicianName: string,
+  extra: { gmc?: string; signature?: string; nextReviewAt?: string } = {},
+): Promise<ActionResult> {
   return run(patientId, async () => {
     const name = (clinicianName ?? "").trim();
+    const nextReviewAt = extra.nextReviewAt?.trim() ? parseDate(extra.nextReviewAt, "The review date") : undefined;
     await updateCase(patientId, (c) => {
-      if (c.state !== "meeting held") {
-        throw new Error("Record the meeting outcome before signing.");
+      if (c.state === "paused") {
+        throw new Error("This case is paused. Resume it before signing.");
       }
       const at = nowIso();
       const requested = requestSignature(c.record, { actor: name || ACTOR, at });
-      const record = sign(requested, name, { at });
+      const record = sign(requested, name, {
+        at,
+        ...(extra.gmc?.trim() ? { gmc: extra.gmc.trim() } : {}),
+        ...(extra.signature?.trim() ? { signature: extra.signature.trim() } : {}),
+        ...(nextReviewAt ? { nextReviewAt } : {}),
+      });
       let next: CaseState = { ...c, record };
-      next = move(next, "record signed", { at });
+      // A ready record can be signed from any working state; the machine allows the move from each.
+      if (next.state !== "record signed" && next.state !== "shared") next = move(next, "record signed", { at });
       return withAudit(next, audit("sign", `record signed by ${name}`, name, at));
     });
     return `Record signed by ${name}.`;
@@ -869,7 +880,13 @@ export async function attemptCairnSignatureForm(formData: FormData): Promise<voi
 }
 
 export async function signRecordForm(formData: FormData): Promise<void> {
-  return fromForm(formData, (id) => signRecord(id, str(formData, "clinicianName")));
+  return fromForm(formData, (id) =>
+    signRecord(id, str(formData, "clinicianName"), {
+      gmc: str(formData, "gmc") || undefined,
+      signature: str(formData, "signature") || undefined,
+      nextReviewAt: str(formData, "nextReviewAt") || undefined,
+    }),
+  );
 }
 
 export async function shareRecordForm(formData: FormData): Promise<void> {

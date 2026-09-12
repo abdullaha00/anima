@@ -18,16 +18,16 @@ import {
   sign,
   viewFor,
 } from "@/lib/record/record";
-import { CLINICAL_FIELDS } from "@/lib/record/fields";
+import { CLINICAL_FIELDS, REQUIRED_FIELDS } from "@/lib/record/fields";
 
 const COMPLETE: [RecordFieldName, string][] = [
+  ["capacity_assessment", "Had capacity for this decision"],
   ["what_matters", "To stay at home with my dog"],
-  ["clinical_summary", "Advanced COPD, MRC 4, two admissions this year"],
   ["preferences_for_care", "Priority on comfort, avoid admission where possible"],
+  ["clinical_summary", "Advanced COPD, MRC 4, two admissions this year"],
+  ["cpr_recommendation", "Do not attempt CPR"],
+  ["escalation_ceiling", "Community-only"],
   ["recommended_interventions", "Community nursing, rescue medication at home"],
-  ["cpr_recommendation", "CPR not recommended, discussed and agreed"],
-  ["capacity_assessment", "Has capacity for this decision"],
-  ["people_involved", "Daughter present, community matron informed"],
 ];
 
 function completeDraft(patientId = "TEST001"): CairnRecord {
@@ -59,6 +59,26 @@ test("complete draft is ready for signature", () => {
   assert.equal(requestSignature(r).status, "awaiting_signature");
 });
 
+test("the required set is the ReSPECT set, in form order", () => {
+  assert.deepEqual(REQUIRED_FIELDS, [
+    "capacity_assessment",
+    "what_matters",
+    "preferences_for_care",
+    "clinical_summary",
+    "cpr_recommendation",
+    "escalation_ceiling",
+    "recommended_interventions",
+  ]);
+  const missingCeiling = newRecord("TEST004");
+  let r = missingCeiling;
+  for (const [field, value] of COMPLETE) {
+    if (field === "escalation_ceiling") continue;
+    r = setField(r, field, value, "conversation 2026-09-12", "Dr A Patel");
+  }
+  assert.deepEqual(readiness(r).missing, ["escalation_ceiling"]);
+  assert.throws(() => sign(r, "Dr A Patel"), (e: unknown) => e instanceof SignatureRefused && /Escalation ceiling/.test(e.message));
+});
+
 test("unsigned record cannot be shared", () => {
   const r = requestSignature(completeDraft());
   assert.throws(() => share(r, ["ambulance"]), /signed record/);
@@ -81,7 +101,27 @@ test("named clinician can sign", () => {
   assert.equal(r.status, "signed");
   assert.equal(r.signedBy, "Dr A Patel");
   assert.ok(r.signedAt);
+  assert.equal(r.signedGmc, undefined);
   assert.equal(r.audit.at(-1)?.action, "sign");
+});
+
+test("signature extras round-trip: registration number, typed signature, review date", () => {
+  const r = sign(requestSignature(completeDraft()), "Dr A Patel", {
+    gmc: "1234567",
+    signature: "A Patel",
+    nextReviewAt: "2027-03-12",
+  });
+  assert.equal(r.signedGmc, "1234567");
+  assert.equal(r.signature, "A Patel");
+  assert.equal(r.nextReviewAt, "2027-03-12");
+  const again = JSON.parse(JSON.stringify(r)) as CairnRecord;
+  assert.equal(again.signedGmc, "1234567");
+  assert.equal(again.nextReviewAt, "2027-03-12");
+  // The Cairn refusal is unchanged by the extras.
+  assert.throws(
+    () => sign(requestSignature(completeDraft()), "Cairn", { gmc: "1234567" }),
+    (e: unknown) => e instanceof SignatureRefused && /Cairn cannot sign/.test(e.message),
+  );
 });
 
 test("signed record is immutable", () => {
@@ -99,13 +139,19 @@ test("ambulance view carries the CPR recommendation, omits the narrative, states
   const amb = viewFor(r, "ambulance");
   assert.ok(!("error" in amb));
   const names = fieldsOf(amb);
-  assert.equal(names[0], "cpr_recommendation");
+  assert.deepEqual(names, ["cpr_recommendation", "escalation_ceiling", "recommended_interventions", "preferences_for_care"]);
   assert.ok(!names.includes("what_matters"));
   assert.ok(!names.includes("concerns_and_fears"));
+  assert.ok(!names.includes("clinical_summary"));
   assert.ok(amb.note && amb.note.includes("not legally binding"));
-  // not_recommended and place of care are not set: listed as missing, never a blank row.
-  assert.deepEqual(amb.missing, ["not_recommended", "preferred_place_of_care"]);
+  // The rationale and the place of care are not set: listed as missing, never a blank row.
+  assert.deepEqual(amb.missing, ["cpr_rationale", "preferred_place_of_care"]);
   assert.ok(amb.fields.every((f) => f.value.length > 0));
+
+  const ooh = viewFor(r, "out_of_hours");
+  const oohNames = fieldsOf(ooh);
+  assert.ok(oohNames.includes("escalation_ceiling"));
+  assert.ok(!("error" in ooh) && ooh.missing.includes("clinical_trajectory") && ooh.missing.includes("active_medications"));
 });
 
 test("unsigned record discloses nothing", () => {
@@ -129,7 +175,7 @@ test("unsourced clinical field blocks signature", () => {
   assert.equal(ready.ready, false);
   assert.deepEqual(ready.unsourced, ["clinical_summary"]);
   assert.equal(requestSignature(broken).status, "draft");
-  assert.throws(() => sign(broken, "Dr B"), (e: unknown) => e instanceof SignatureRefused && /Clinical summary/.test(e.message));
+  assert.throws(() => sign(broken, "Dr B"), (e: unknown) => e instanceof SignatureRefused && /Diagnosis summary/.test(e.message));
 });
 
 test("family view has no clinical recommendations", () => {
@@ -168,5 +214,5 @@ test("editing a draft that is awaiting signature returns it to draft", () => {
   const edited = setField(r, "concerns_and_fears", "Worried about being a burden", "conversation 2026-09-12", "Dr A Patel");
   assert.equal(edited.status, "draft");
   assert.equal(r.status, "awaiting_signature", "input not mutated");
-  assert.match(edited.audit.at(-1)?.detail ?? "", /set Concerns and fears from conversation/);
+  assert.match(edited.audit.at(-1)?.detail ?? "", /set Patient's expressed fears and concerns from conversation/);
 });
