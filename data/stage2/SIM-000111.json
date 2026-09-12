@@ -1,0 +1,437 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000111",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "proceed",
+  "confidence": 0.67,
+  "summary": "Prompt human review is supported to decide whether to offer a sensitive goals-and-priorities conversation alongside, not instead of, urgent assessment of potentially treatable symptoms. The record shows increasing fatigue and exertional breathlessness with recurrent chest tightness, plus worsening platelet counts and a recent lower eGFR. However, no diagnosis explaining this trajectory, functional baseline, residence, medication list, admissions history, or active advance-care plan is documented, so the scope and timing of any conversation require clinician judgement.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-09-21T12:00:00.000Z",
+      "detail": "Latest GP encounter records increased fatigue and breathlessness on stairs, two chest-tightness episodes settling with rest, and discussion of urgent cardiac review."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-09-11T08:00:00.000Z",
+      "detail": "Latest available FBC reports platelets 100 x10^9/L and haemoglobin 119 g/L; U&E reports eGFR 44 mL/min/1.73m2."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "detail": "The eligible snapshot contains laboratory reports and GP contacts but no documented diagnosis list, medication list, residence, functional assessment, admissions, or advance-care-planning record."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Increasing cardiopulmonary symptoms",
+      "significance": "A change from earlier exertional chest pressure to increased fatigue, breathlessness on stairs, and recurrent chest tightness warrants prompt clinical review and creates an appropriate opportunity to ask what matters to the patient without presuming prognosis.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-27T12:00:00.000Z",
+          "detail": "GP encounter records chest pressure when hurrying that settled after rest, with no pain at rest and ECG/blood-pressure review arranged."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-21T12:00:00.000Z",
+          "detail": "GP encounter records increased fatigue and breathlessness on stairs and two brief chest-tightness episodes settling with rest."
+        }
+      ]
+    },
+    {
+      "signal": "Progressive thrombocytopenia",
+      "significance": "The platelet count fell across successive reports and needs a human explanation and safety review; it adds to uncertainty but does not establish a terminal condition.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-14T08:00:00.000Z",
+          "detail": "FBC reports platelets 149 x10^9/L."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-27T08:00:00.000Z",
+          "detail": "Falling blood counts report platelets 126 x10^9/L."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-11T08:00:00.000Z",
+          "detail": "FBC reports platelets 100 x10^9/L."
+        }
+      ]
+    },
+    {
+      "signal": "Recent renal-function uncertainty",
+      "significance": "Recent eGFR values are below the supplied reference range and fluctuate; this may affect clinical assessment but is not, by itself, evidence for a palliative trajectory.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-27T08:00:00.000Z",
+          "detail": "Renal and electrolyte report shows potassium 5.5 mmol/L, urea 10.2 mmol/L, creatinine 121 micromol/L, and eGFR 56 mL/min/1.73m2."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-11T08:00:00.000Z",
+          "detail": "Latest U&E report shows creatinine 78 micromol/L and eGFR 44 mL/min/1.73m2."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "no_clear_false_positive",
+    "alternativeExplanations": [
+      "The exertional chest symptoms may have a treatable cardiac or blood-pressure-related explanation; the record documents planned or discussed cardiac assessment but no established cause.",
+      "The laboratory abnormalities may be separately assessable and treatable rather than evidence of irreversible decline.",
+      "The snapshot lacks a documented functional trajectory, repeated admissions, progressive diagnosis, or escalating care needs."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "A prognosis-focused or end-of-life framing would be premature because no terminal diagnosis or prognosis is documented.",
+      "A planning conversation must not delay urgent evaluation of recurrent chest tightness, breathlessness, or falling platelet counts.",
+      "The patient's readiness and wishes about such a conversation are unknown."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "Symptoms have increased over several months and urgent cardiac review was discussed.",
+      "Platelets declined from 149 to 100 x10^9/L across the recent reports.",
+      "Missing diagnoses, medications, function, and care context prevent a benign explanation from being confirmed."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-05-27T12:00:00.000Z",
+        "detail": "Earlier exertional chest pressure settled after rest, no rest pain was reported, and ECG/blood-pressure review was arranged."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-21T12:00:00.000Z",
+        "detail": "Later encounter records increased fatigue and breathlessness and recurrent chest tightness, with urgent cardiac review discussed."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-11T08:00:00.000Z",
+        "detail": "Latest FBC reports platelets 100 x10^9/L after lower prior values of 126 and 114 x10^9/L in August."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No advance care plan, ReSPECT form, DNACPR decision, ADRT, documented goals-of-care discussion, hospice involvement, or palliative-care involvement appears in the supplied snapshot.",
+      "Absence from this limited snapshot does not prove that planning does not exist elsewhere."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Review of all 52 supplied resources found GP contacts, observations, diagnostics, and one genomic report, but no resource documenting active or prior advance-care planning."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Manifest reports one successful eligible-snapshot source containing 52 unique resources and no duplicate visibility; broader source types were not separately collected."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Telephone is the documented administrative contact preference."
+    ],
+    "uncertainties": [
+      "The patient's understanding, priorities, desired level of information, treatment preferences, and willingness to discuss future care are unknown.",
+      "Family or carer identities, involvement, wishes, and permission to include them are unknown.",
+      "Decision-making capacity, communication or accessibility needs, surrogate decision-maker, and legal planning records are unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-07T08:10:00.000Z",
+        "detail": "The latest administrative contact-preference observation records telephone."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "No supplied resource documents patient or family wishes, capacity, accessibility needs, a surrogate, or legal care-planning records."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown; no residence or current location is documented in the supplied snapshot.",
+    "functionAndMobility": "Baseline function and mobility are unknown. The latest encounter documents increased fatigue and breathlessness on stairs, but no formal functional or mobility assessment is present.",
+    "currentClinicalSupport": [
+      "GP contacts and diagnostic blood-test reporting are documented.",
+      "Urgent cardiac review was discussed, but completion or ownership of that review is not documented."
+    ],
+    "familyAndCarerSupport": [],
+    "gaps": [
+      "Residence and current location are unknown.",
+      "Activities of daily living, mobility aids, frailty, cognition, nutrition, symptom burden, and recent acute-care use are unknown.",
+      "Medication list, active diagnoses, named clinicians, and current service involvement are not documented.",
+      "Family and carer availability are unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-21T12:00:00.000Z",
+        "detail": "Latest GP encounter documents increased fatigue and breathlessness on stairs and says urgent cardiac review was discussed."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The snapshot includes GP and diagnostics-owned resources but no residence, formal functional assessment, family/carer record, medication list, or active diagnosis list."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Reviewing GP or usual primary-care clinician",
+      "meetingPriority": "core",
+      "ownership": "Own the prompt clinical review, reconcile missing diagnoses and medicines, confirm cardiac-review follow-through, and ask the patient whether a priorities conversation would be welcome.",
+      "reason": "GP encounters document the symptom trajectory and are the clearest existing point of continuity in this snapshot.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-21T12:00:00.000Z",
+          "detail": "Latest symptom review is a completed GP encounter and records discussion of urgent cardiac review."
+        }
+      ]
+    },
+    {
+      "role": "Clinician responsible for urgent cardiac assessment",
+      "meetingPriority": "core",
+      "ownership": "Clarify the cause, reversibility, immediate risk, and treatment options for recurrent exertional chest tightness and breathlessness; feed this into any goals discussion.",
+      "reason": "Urgent cardiac review was discussed, but no named clinician, service, appointment, or result is documented.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-21T12:00:00.000Z",
+          "detail": "GP encounter records recurrent chest tightness, increased breathlessness and fatigue, and discussion of urgent cardiac review."
+        }
+      ]
+    },
+    {
+      "role": "Palliative-care clinician",
+      "meetingPriority": "optional",
+      "ownership": "Provide symptom or communication advice only if the reviewing clinician and patient identify complex needs or want specialist support.",
+      "reason": "No existing palliative-care involvement is documented, so specialist attendance should not be presumed or delay initial review.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "No palliative-care or hospice resource appears in the supplied snapshot."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "Reviewing GP or usual primary-care clinician",
+    "urgency": "Clinical triage promptly and ideally the same day the record is reviewed; if the patient is clinically stable, offer a brief priorities discussion within days after immediate cardiac and blood-count concerns have clear ownership.",
+    "formatAndAccessibility": "Start by telephone because that is the recorded preference, confirm identity and whether telephone remains suitable, assess communication and accessibility needs, and offer an in-person format if preferred. Keep attendance to the patient, reviewing GP, and the clinician responsible for urgent cardiac assessment; include family only with the patient's permission.",
+    "objectives": [
+      "Confirm current symptoms and ensure potentially urgent, treatable causes have an active assessment plan.",
+      "Reconcile diagnoses, medicines, recent care use, functional baseline, and current supports.",
+      "Ask permission to discuss what matters most, worries, acceptable trade-offs, and who the patient wants involved.",
+      "Determine whether formal advance-care planning or specialist palliative input is wanted and clinically appropriate.",
+      "Document agreed ownership, next steps, and safety-netting after human review."
+    ],
+    "briefingNotes": [
+      {
+        "note": "The symptom trajectory changed from exertional chest pressure in May to increased fatigue, stair breathlessness, and recurrent chest tightness in September; do not let a planning discussion substitute for urgent assessment.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-05-27T12:00:00.000Z",
+            "detail": "Earlier GP encounter records exertional chest pressure settling with rest."
+          },
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-09-21T12:00:00.000Z",
+            "detail": "Latest GP encounter records increased fatigue and breathlessness plus two recurrent chest-tightness episodes."
+          }
+        ]
+      },
+      {
+        "note": "Platelets show a progressive recent decline and need explicit clinical ownership and explanation.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-07-14T08:00:00.000Z",
+            "detail": "Platelets were 149 x10^9/L."
+          },
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-09-11T08:00:00.000Z",
+            "detail": "Platelets were 100 x10^9/L."
+          }
+        ]
+      },
+      {
+        "note": "No documented goals, family involvement, functional baseline, active diagnoses, medications, or existing advance-care plan are available; elicit rather than assume them.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "These domains are not documented in the supplied resources."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Permission, introductions, and immediate symptom check",
+      "Clinical update and what remains uncertain",
+      "What matters most to the patient now",
+      "Preferred involvement of family or supporters",
+      "Treatment and planning options without prognostic assumptions",
+      "Named owners, next steps, and safety-netting"
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Draft telephone opening; do not send or call without human review",
+      "draft": "Hello. We would like to check how you have been feeling, make sure the chest tightness and breathlessness are being assessed promptly, and hear what matters most to you as we plan your care. This is not a conclusion about what will happen. Would now be a suitable time, and is there anyone you would like involved?",
+      "cautions": [
+        "A clinician must first assess whether symptoms require immediate emergency action.",
+        "Confirm that telephone remains the patient's preference and is private and accessible.",
+        "Do not imply a terminal diagnosis, prognosis, or existing family involvement.",
+        "Ask permission before discussing future care or involving anyone else."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-07T08:10:00.000Z",
+          "detail": "Latest contact-preference observation records telephone."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-21T12:00:00.000Z",
+          "detail": "Latest GP encounter records increased breathlessness and fatigue, recurrent chest tightness, and discussion of urgent cardiac review."
+        }
+      ]
+    },
+    {
+      "audience": "Core clinical team",
+      "channel": "Draft internal handover; do not transmit without human review",
+      "draft": "Please confirm immediate ownership of the recurrent exertional chest tightness and increased breathlessness, review the falling platelet count and renal results, and reconcile diagnoses, medicines, function, and supports. If clinically appropriate, the GP should ask the patient whether they would welcome a brief conversation about priorities and future care; this should complement rather than delay active assessment.",
+      "cautions": [
+        "Treat this as decision support, not a diagnosis or prognosis.",
+        "Verify all results and current symptoms in the clinical system before acting.",
+        "No named cardiac, palliative, family, or carer contact is documented."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-21T12:00:00.000Z",
+          "detail": "Latest GP encounter records worsening exertional symptoms and urgent cardiac review discussed."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-11T08:00:00.000Z",
+          "detail": "Latest FBC reports platelets 100 x10^9/L and latest U&E reports eGFR 44 mL/min/1.73m2."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Human clinician to triage current chest tightness, breathlessness, and fatigue promptly, verify whether urgent cardiac assessment is active, and use local urgent or emergency pathways if clinically indicated.",
+      "owner": "Reviewing GP or duty clinician",
+      "urgency": "Same day the assessment is reviewed",
+      "reason": "The latest encounter records increased symptoms and recurrent chest tightness, with urgent cardiac review discussed but no completed assessment documented.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-21T12:00:00.000Z",
+          "detail": "GP encounter records increased fatigue and breathlessness, two chest-tightness episodes settling with rest, and urgent cardiac review discussed."
+        }
+      ]
+    },
+    {
+      "action": "Verify and clinically review the platelet trend and recent renal/electrolyte results, including relevant medicines, bleeding symptoms, and any planned repeat testing.",
+      "owner": "Reviewing GP or responsible medical clinician",
+      "urgency": "Promptly, with timing set by clinical assessment",
+      "reason": "Platelets declined to 100 x10^9/L and recent renal estimates are below the supplied reference range; the snapshot does not show an explanation or follow-up plan.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-11T08:00:00.000Z",
+          "detail": "Latest FBC reports platelets 100 x10^9/L; latest U&E reports eGFR 44 mL/min/1.73m2."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-27T08:00:00.000Z",
+          "detail": "Earlier renal/electrolyte report shows potassium 5.5 mmol/L, creatinine 121 micromol/L, and eGFR 56 mL/min/1.73m2."
+        }
+      ]
+    },
+    {
+      "action": "Reconcile active diagnoses, medicines, recent admissions or attendances, residence, functional baseline, current services, and family/carer support before making prognosis-sensitive recommendations.",
+      "owner": "Reviewing GP or delegated care coordinator",
+      "urgency": "Before or at the priorities conversation",
+      "reason": "These essential contextual domains are absent from the supplied snapshot.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "No active diagnosis list, medication list, admissions history, residence, formal function record, current service roster, or family/carer record is supplied."
+        }
+      ]
+    },
+    {
+      "action": "After immediate clinical issues have ownership, ask the patient whether they want a brief goals-and-priorities discussion and whom, if anyone, they want involved.",
+      "owner": "Reviewing GP or usual primary-care clinician",
+      "urgency": "Within days if clinically stable and acceptable to the patient",
+      "reason": "There is a concerning but incompletely explained trajectory, while patient wishes and family involvement are undocumented.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-21T12:00:00.000Z",
+          "detail": "Latest GP encounter documents increasing symptoms."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "No supplied resource documents patient goals or preferred family involvement."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "The manifest reports one successful eligible 15-day snapshot, zero failed sources, and 52 unique resources with no duplicate visibility. This is complete for the declared snapshot but clinically narrow: it primarily contains serial diagnostics and GP contacts rather than a full cross-service record.",
+    "missingSources": [
+      "No separately collected patient directory or demographic-detail source beyond birth date and age.",
+      "No separately collected medication, problem-list, hospital-attendance, referral, appointment, community-care, shared-care, or palliative-care source.",
+      "No residence, formal function/frailty, family/carer, capacity, accessibility, or legal-planning source.",
+      "Resource-level record IDs are absent, limiting precise resource citation."
+    ],
+    "failedSources": [],
+    "contradictions": [
+      "Renal values fluctuate, and the latest eGFR is lower despite a lower creatinine than the July report; clinical verification and interpretation are required rather than assuming a monotonic renal decline."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Coverage reports 1 successful source, 0 failed sources, 52 unique resources, 0 resources with duplicate visibility, and no safety-gate reason."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The supplied resources are mainly laboratory reports, routine GP encounters and observations, plus one genomic report; resource IDs are not present."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-11T08:00:00.000Z",
+        "detail": "Latest U&E reports creatinine 78 micromol/L and eGFR 44, compared with creatinine 121 and eGFR 56 on 2026-07-27."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "confirmed",
+    "falsePositiveChecks": [
+      "Deliberately re-read the full eligible snapshot a second time, without claiming independent verification, for benign or treatable explanations of the chest symptoms and laboratory changes.",
+      "Re-checked the chronology of chest pressure, fatigue, breathlessness, platelet counts, and renal results against the cutoff.",
+      "Re-checked for documented admissions, progressive or terminal diagnoses, functional decline, escalating services, palliative or hospice involvement, and active advance-care planning; none were present in the supplied snapshot.",
+      "Re-checked patient and family wishes, carers, contact preference, capacity, legal records, residence, diagnoses, and medicines; only a telephone contact preference was documented.",
+      "Re-checked manifest coverage, failed sources, deduplication, and the safety gate."
+    ],
+    "changesFromPrimary": [
+      "No separate primary or independent verifier was used in this single-agent adaptation.",
+      "The deliberate second evidence check produced no material change to the recommendation.",
+      "Confidence was kept moderate and the plan explicitly prioritises potentially treatable cardiac, haematological, and renal assessment before prognosis-sensitive discussion."
+    ]
+  }
+}

@@ -1,0 +1,351 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000327",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "insufficient_evidence",
+  "confidence": 0.9,
+  "summary": "The available snapshot supports prompt clinician review of persistent thirst, fatigue and postural dizziness alongside elevated HbA1c and later inflammatory markers, but it does not establish progressive life-limiting illness, functional decline, recurrent acute-care use, escalating support needs, or documented goals. On this evidence alone, a goals-of-care or palliative-care conversation cannot be recommended; the immediate priority is human clinical assessment of potentially reversible causes and completion of the missing baseline.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "detail": "The snapshot documents persistent thirst, new daytime fatigue and occasional dizziness on standing, followed by HbA1c 52 mmol/mol, white cell count 12.4 ×10⁹/L and neutrophils 8.2 ×10⁹/L; it contains no documented function, residence, acute-care trajectory, or care-planning record."
+    },
+    {
+      "sourcePath": "record/manifest.json",
+      "detail": "Collection reports one successful eligible snapshot, no failed sources, and 43 unique resources."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Persistent symptoms needing clinical review",
+      "significance": "Persistent thirst with new fatigue and postural dizziness may have reversible metabolic, hydration, medication-related, cardiovascular, or other causes; the record does not resolve the cause.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "A completed GP telephone encounter records persistent thirst, new daytime fatigue and occasional dizziness on standing, with prompt diabetes review and hydration advice."
+        }
+      ]
+    },
+    {
+      "signal": "Abnormal glycaemic trajectory",
+      "significance": "HbA1c rose above the supplied reference range and remained elevated, which supports diabetes-focused clinical reassessment but does not itself establish palliative-care need.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-30T08:00:00Z",
+          "detail": "Diabetes marker follow-up reports HbA1c 56 mmol/mol after thirst was reported."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The latest included HbA1c is 52 mmol/mol against a stated reference high of 41."
+        }
+      ]
+    },
+    {
+      "signal": "Later inflammatory and blood-count abnormalities",
+      "significance": "The latest leukocytosis, neutrophilia and elevated CRP warrant clinical interpretation for a potentially reversible process; no associated diagnosis is documented.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The latest included results show white cell count 12.4 ×10⁹/L, neutrophils 8.2 ×10⁹/L and CRP 13.6 mg/L, all above their supplied reference highs."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "uncertain",
+    "alternativeExplanations": [
+      "A potentially reversible glycaemic or hydration-related cause could account for thirst, fatigue and postural dizziness.",
+      "A potentially reversible inflammatory or intercurrent process could account for the later leukocytosis, neutrophilia and raised CRP."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "The snapshot does not document progressive life-limiting disease, functional decline, recurrent admissions, escalating care needs, or a request for goals-of-care discussion.",
+      "The recorded concerns are being handled as routine diabetes and symptom review rather than documented end-of-life deterioration."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "Symptoms persisted and expanded to fatigue and postural dizziness.",
+      "The latest included blood count and CRP remain abnormal, and no explanation is documented.",
+      "The snapshot is too narrow to exclude serious illness or decline."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The record contains diabetes-focused symptom reviews and abnormal HbA1c, white cell count, neutrophils and CRP, but no documented explanatory diagnosis or deterioration baseline."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "The collected evidence is limited to one eligible snapshot containing 43 unique resources, with no collection failures."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No advance care plan, ADRT, DNACPR/ReSPECT record, hospice or palliative-care involvement, or documented goals-of-care discussion appears in the available snapshot."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The 43 listed resources comprise laboratory reports, primary-care contacts, symptom reviews and contact-preference observations; no care-planning or palliative-care resource is present."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Manifest coverage confirms the single eligible snapshot was retrieved successfully with 43 unique resources."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Telephone is recorded as the patient's contact preference."
+    ],
+    "uncertainties": [
+      "The patient's understanding, priorities, worries and willingness to discuss future care are unknown.",
+      "Family or carer identities, involvement, availability and wishes are unknown.",
+      "Decision-making capacity, preferred decision supporters, communication needs and legal planning status are unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Repeated GP administrative observations record telephone as the contact preference; no patient wishes, family wishes, carers, capacity assessment, decision supporter, or legal care-planning record is included."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown from the available snapshot.",
+    "functionAndMobility": "Unknown; activities of daily living, mobility, frailty, cognition, falls and change from baseline are not documented.",
+    "currentClinicalSupport": [
+      "GP primary-care contacts and diabetes symptom review are documented.",
+      "Diagnostic laboratory reporting is documented."
+    ],
+    "familyAndCarerSupport": [],
+    "gaps": [
+      "Residence and current location",
+      "Function, mobility, frailty, cognition and trajectory",
+      "Medication list, adherence and recent changes",
+      "Diagnoses and illness prognosis",
+      "Acute-care attendances or admissions",
+      "Community, social-care, family and carer support",
+      "Current observations, hydration status and symptom outcome after advice"
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The resources identify GP and diagnostics ownership and describe symptom reviews, but do not provide residence, function, mobility, frailty, medication, acute-care use, or support arrangements."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Responsible GP or primary-care clinician",
+      "meetingPriority": "core",
+      "ownership": "Own the initial record reconciliation, symptom assessment, reversible-cause work-up, baseline completion, and decision on whether any priorities conversation is appropriate.",
+      "reason": "The symptom encounters and contact preference are held in the GP record, making primary care the clearest documented coordinating service.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "GP-owned encounters document diabetes review, persistent thirst, fatigue, postural dizziness, hydration advice and telephone contact preference."
+        }
+      ]
+    },
+    {
+      "role": "Clinician responsible for diabetes review",
+      "meetingPriority": "core",
+      "ownership": "Review the HbA1c trajectory, current treatment and symptom relationship, and communicate a documented follow-up plan to the coordinating GP.",
+      "reason": "The explicit follow-up pathway in the snapshot is an earlier diabetes review prompted by thirst and elevated HbA1c.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-30T08:00:00Z",
+          "detail": "The HbA1c 56 mmol/mol report states that thirst prompted an earlier diabetes review."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "Responsible GP or primary-care clinician",
+    "urgency": "Prompt clinician review of symptoms and abnormal results; defer a dedicated goals-of-care meeting until the baseline and reversibility assessment are completed unless the patient requests one sooner.",
+    "formatAndAccessibility": "Begin with a clinician-led telephone review in line with the recorded preference; confirm that telephone remains suitable and assess whether an in-person examination is clinically needed.",
+    "objectives": [
+      "Clarify current symptoms, severity, red flags and response to hydration advice.",
+      "Reconcile diagnoses, medication, recent changes and the HbA1c trajectory.",
+      "Interpret the leukocytosis, neutrophilia and CRP elevation in clinical context.",
+      "Establish residence, function, mobility, frailty, cognition, supports and recent healthcare use.",
+      "Ask what matters to the patient and whether they want future-care planning discussed, without presuming deterioration."
+    ],
+    "briefingNotes": [
+      {
+        "note": "Persistent thirst progressed to include fatigue and occasional postural dizziness; hydration advice and prompt diabetes review were documented.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "GP symptom review records persistent thirst, new daytime fatigue, occasional dizziness on standing, hydration advice and prompt diabetes review."
+          }
+        ]
+      },
+      {
+        "note": "HbA1c was 56 mmol/mol on explicit follow-up and is 52 mmol/mol in the latest included panel.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-06-30T08:00:00Z",
+            "detail": "Explicit diabetes marker follow-up reports HbA1c 56 mmol/mol."
+          },
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "The latest included HbA1c panel reports 52 mmol/mol."
+          }
+        ]
+      },
+      {
+        "note": "The latest included results show leukocytosis and neutrophilia with persistently raised CRP, without a documented cause.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "Latest included white cell count is 12.4 ×10⁹/L, neutrophils 8.2 ×10⁹/L and CRP 13.6 mg/L; no explanatory diagnosis accompanies these reports."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Confirm symptoms and immediate safety concerns.",
+      "Review potentially reversible causes and follow-up ownership.",
+      "Complete missing clinical and support baseline.",
+      "Elicit priorities and preferences without framing the call as an end-of-life discussion.",
+      "Document next steps and who will communicate results."
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Draft telephone script; do not send or call without human approval",
+      "draft": "We would like to review the thirst, tiredness and dizziness you mentioned and go through your recent blood results. The purpose is to understand how you are now, check for causes we may be able to treat, and make sure the next steps reflect what matters to you. Is telephone still a good way to speak, or would another arrangement work better?",
+      "cautions": [
+        "Do not describe this as a palliative-care or end-of-life call on the present evidence.",
+        "Confirm identity, consent, current contact preference and whether the patient can speak privately.",
+        "Use clinician-approved safety-netting based on the contemporaneous assessment rather than a generic scripted threshold."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The GP record documents persistent thirst, fatigue, postural dizziness, abnormal diabetes markers and telephone contact preference."
+        }
+      ]
+    },
+    {
+      "audience": "Internal primary-care and diabetes-review clinicians",
+      "channel": "Draft internal handover; human review required",
+      "draft": "Please reconcile the current symptom course and treatment, review the HbA1c trend and latest inflammatory/blood-count abnormalities, and establish the missing functional and support baseline. Primary care should document one coordinated plan before deciding whether a separate priorities conversation is indicated.",
+      "cautions": [
+        "This is decision support, not a diagnosis or autonomous referral.",
+        "Verify all results, dates, medication and current symptoms in the source record before acting."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The snapshot contains GP symptom reviews, diabetes-marker follow-up and abnormal later blood results, but lacks medication, functional and support baselines."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Perform and document a prompt human clinical review of thirst, fatigue and postural dizziness, including current severity, red flags, hydration status and response to prior advice.",
+      "owner": "Responsible GP or primary-care clinician",
+      "urgency": "Prompt; timing to be set by a clinician after triage of current symptoms.",
+      "reason": "Symptoms persisted and broadened, while the record does not document their resolution or cause.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "GP encounter records persistent thirst with new daytime fatigue and occasional dizziness on standing; no later symptom-resolution note is included."
+        }
+      ]
+    },
+    {
+      "action": "Reconcile the diabetes diagnosis and treatment, medication list and recent changes, and review the HbA1c trajectory with the patient.",
+      "owner": "Clinician responsible for diabetes review",
+      "urgency": "Prompt, coordinated with symptom review.",
+      "reason": "HbA1c increased to 56 mmol/mol with thirst and remained above the supplied reference range in later testing.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-30T08:00:00Z",
+          "detail": "HbA1c 56 mmol/mol was reported as supporting thirst and prompting earlier diabetes review; later included values remain elevated."
+        }
+      ]
+    },
+    {
+      "action": "Clinically interpret and, if appropriate, confirm or follow up the latest white cell count, neutrophils and CRP rather than assuming a cause.",
+      "owner": "Responsible GP or primary-care clinician",
+      "urgency": "Prompt, informed by symptoms and examination.",
+      "reason": "The latest included results show leukocytosis, neutrophilia and raised CRP without a documented explanation.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Latest included white cell count is 12.4 ×10⁹/L, neutrophils 8.2 ×10⁹/L and CRP 13.6 mg/L, above supplied reference highs."
+        }
+      ]
+    },
+    {
+      "action": "Complete the residence, function, mobility, frailty, cognition, healthcare-use and support baseline before deciding on a dedicated goals-of-care or palliative-care conversation.",
+      "owner": "Responsible GP or primary-care clinician",
+      "urgency": "At the prompt clinical review.",
+      "reason": "These domains are absent and are necessary to interpret trajectory and conversation appropriateness.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "No residence, function, mobility, frailty, cognition, acute-care use, family/carer support or community-support information is included."
+        },
+        {
+          "sourcePath": "record/manifest.json",
+          "detail": "The available collection consists of one successful eligible snapshot with 43 unique resources."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "The manifest reports one successful source, zero failed sources, 43 unique resources and no duplicate visibility; the source is nevertheless clinically narrow, comprising laboratory reports and limited GP contacts rather than a documented comprehensive functional, diagnostic, medication and support baseline.",
+    "missingSources": [
+      "No separate medication, diagnosis/problem-list, functional/frailty, acute-care, community-care, social-care, or care-planning source is represented in the manifest.",
+      "No contemporaneous observations, examination findings or follow-up confirming symptom outcome are included."
+    ],
+    "failedSources": [],
+    "contradictions": [
+      "HbA1c varies from 56 mmol/mol on the explicit 2026-06-30 follow-up to 47 and then 52 mmol/mol in later included panels; chronology and clinical interpretation should be verified.",
+      "Earlier U&E panels pair low eGFR values with relatively low creatinine values, while later panels show higher creatinine with eGFR at or above 60; renal interpretation should be verified rather than inferred from these isolated simulator values.",
+      "Several laboratory resources use numeric timestamps while one uses an ISO timestamp, increasing chronology and unit-validation risk."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Coverage is successful 1, failed 0, failedSources empty; deduplication reports 43 unique resources and zero resources with duplicate visibility; the safety gate is not forced."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The snapshot contains 43 resources dominated by serial laboratory panels and limited GP encounters, with mixed numeric and ISO timestamp formats and no medication, functional or support baseline."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "revised",
+    "falsePositiveChecks": [
+      "Re-read all 43 eligible resources for progressive disease, functional decline, frailty, recurrent admissions, escalation of support and palliative involvement; none was documented.",
+      "Re-checked symptom chronology and confirmed progression from thirst/nocturia without acute symptoms to persistent thirst with fatigue and occasional postural dizziness.",
+      "Re-checked serial HbA1c, CRP, full blood count and U&E values and separated abnormal findings from unsupported diagnoses.",
+      "Re-checked for active ACP, ADRT, DNACPR/ReSPECT, hospice or palliative-care planning; none was found in the snapshot.",
+      "Re-checked the manifest against data-quality reporting: one successful source, no failures, 43 unique resources, no duplicate visibility and no forced safety gate.",
+      "Re-checked that telephone is documented only as a contact preference and did not infer family, carers, wishes, capacity or legal status."
+    ],
+    "changesFromPrimary": [
+      "After deliberate second-pass review, selected insufficient_evidence rather than proceed or clear_false_positive because potentially reversible abnormalities are present but neither their cause nor a life-limiting trajectory is established.",
+      "Kept goals-of-care discussion deferred while adding prompt symptom, glycaemic and inflammatory-result review as clinician-owned actions.",
+      "Explicitly marked residence, function, support, wishes, legal planning and medication as unknown rather than normal or absent in reality.",
+      "Added chronology and renal-value consistency concerns to data quality and avoided claiming an independent verification pass."
+    ]
+  }
+}

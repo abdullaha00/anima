@@ -20,6 +20,10 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const BASE_DIR = path.join(ROOT, 'data', 'mortality-cohort');
 const OUT_DIR = path.join(ROOT, 'data', 'mortality-cohort-enriched');
 const HORIZONS = [30, 60, 90];
+const PILOT_HORIZON_DAYS = 15;
+const PILOT_PATIENT_IDS = ['SIM-000499', 'SIM-000472', 'SIM-000464'];
+const PILOT_FILE = 'pilot-authored-deaths-asof-15d.ndjson';
+const ALL_AUTHORED_15D_FILE = 'all-authored-deaths-asof-15d.ndjson';
 const TARGET_PATIENTS = 100;
 const TARGET_TRUE_DEATHS = 5;
 const TARGET_AUTHORED_DEATHS = 34;
@@ -491,6 +495,8 @@ function validateOutput() {
   const labels = readNdjson(path.join(OUT_DIR, 'labels.ndjson'));
   const records = readNdjson(path.join(OUT_DIR, 'raw-records.ndjson'));
   const horizonRows = new Map(HORIZONS.map((horizon) => [horizon, readNdjson(path.join(OUT_DIR, `asof-${horizon}d.ndjson`))]));
+  const pilotRows = readNdjson(path.join(OUT_DIR, PILOT_FILE));
+  const allAuthored15dRows = readNdjson(path.join(OUT_DIR, ALL_AUTHORED_15D_FILE));
   const manifest = readJson(path.join(OUT_DIR, 'manifest.json'));
   const labelIds = new Set(labels.map((row) => row.patientId));
   const recordIds = new Set(records.map((row) => row.patientId));
@@ -525,6 +531,34 @@ function validateOutput() {
     const ids = new Set(rows.map((row) => row.patientId));
     assert(ids.size === rows.length, `asof-${horizon}d.ndjson contains duplicate patient IDs`, errors);
     assert(ids.size === expectedIds.size && [...expectedIds].every((id) => ids.has(id)), `asof-${horizon}d.ndjson patient links differ`, errors);
+  }
+
+  assert(pilotRows.length === PILOT_PATIENT_IDS.length, `${PILOT_FILE} has ${pilotRows.length} rows`, errors);
+  assert(JSON.stringify(pilotRows.map((row) => row.patientId)) === JSON.stringify(PILOT_PATIENT_IDS), `${PILOT_FILE} patient IDs or order differ`, errors);
+  for (const row of pilotRows) {
+    const label = labels.find((candidate) => candidate.patientId === row.patientId);
+    assert(Boolean(label), `${row.patientId} pilot row has no label`, errors);
+    if (!label) continue;
+    assert(row.horizonDays === PILOT_HORIZON_DAYS, `${row.patientId} pilot horizonDays mismatch`, errors);
+    assert(row.cutoffDate === minusDays(label.indexDate, PILOT_HORIZON_DAYS), `${row.patientId} pilot cutoff mismatch`, errors);
+    for (const resource of row.resources ?? []) {
+      assert(resource.createdAt <= cutoffEndMs(row.cutoffDate), `${row.patientId} pilot contains a post-cutoff resource`, errors);
+      assert(collectTemporalTimes(resource).every((timestamp) => timestamp <= cutoffEndMs(row.cutoffDate)), `${row.patientId} pilot contains a post-cutoff event`, errors);
+      walkKeys(resource, (key, _child, keyPath) => {
+        assert(!forbiddenModelKey(key), `${row.patientId} pilot model-visible marker ${keyPath}`, errors);
+      });
+    }
+  }
+
+  const authoredPatientIds = AUTHORED_DEATHS.map((spec) => spec.patientId);
+  assert(allAuthored15dRows.length === TARGET_AUTHORED_DEATHS, `${ALL_AUTHORED_15D_FILE} has ${allAuthored15dRows.length} rows`, errors);
+  assert(JSON.stringify(allAuthored15dRows.map((row) => row.patientId)) === JSON.stringify(authoredPatientIds), `${ALL_AUTHORED_15D_FILE} patient IDs or order differ`, errors);
+  for (const row of allAuthored15dRows) {
+    const label = labels.find((candidate) => candidate.patientId === row.patientId);
+    assert(label?.labelSource === AUTHORED_DEATH, `${row.patientId} all-authored row is not an authored synthetic death`, errors);
+    if (!label) continue;
+    assert(row.horizonDays === PILOT_HORIZON_DAYS, `${row.patientId} all-authored horizonDays mismatch`, errors);
+    assert(row.cutoffDate === minusDays(label.indexDate, PILOT_HORIZON_DAYS), `${row.patientId} all-authored cutoff mismatch`, errors);
   }
 
   const planById = new Map(AUTHORED_DEATHS.map((spec) => [spec.patientId, spec]));
@@ -622,6 +656,24 @@ function build() {
   writeNdjson(path.join(OUT_DIR, 'labels.ndjson'), labels);
   writeNdjson(path.join(OUT_DIR, 'raw-records.ndjson'), records);
 
+  const pilotRows = PILOT_PATIENT_IDS.map((patientId) => {
+    const label = labels.find((candidate) => candidate.patientId === patientId);
+    const record = records.find((candidate) => candidate.patientId === patientId);
+    if (!label || !record) throw new Error(`Pilot patient ${patientId} is missing from the enriched cohort`);
+    return buildModelRow(record, { ...label, horizonDays: PILOT_HORIZON_DAYS });
+  });
+  writeNdjson(path.join(OUT_DIR, PILOT_FILE), pilotRows);
+
+  const authoredLabels = new Map(labels.map((label) => [label.patientId, label]));
+  const authoredRecords = new Map(records.map((record) => [record.patientId, record]));
+  const allAuthored15dRows = AUTHORED_DEATHS.map(({ patientId }) => {
+    const label = authoredLabels.get(patientId);
+    const record = authoredRecords.get(patientId);
+    if (!label || !record) throw new Error(`Authored patient ${patientId} is missing from the enriched cohort`);
+    return buildModelRow(record, { ...label, horizonDays: PILOT_HORIZON_DAYS });
+  });
+  writeNdjson(path.join(OUT_DIR, ALL_AUTHORED_15D_FILE), allAuthored15dRows);
+
   const horizonCoverage = {};
   for (const horizon of HORIZONS) {
     const rows = labels.map((label) => buildModelRow(records.find((record) => record.patientId === label.patientId), { ...label, horizonDays: horizon }));
@@ -713,6 +765,21 @@ function build() {
     modelInputs: {
       recommended: 'asof-90d.ndjson',
       horizonsDays: HORIZONS,
+      pilot: {
+        file: PILOT_FILE,
+        horizonDays: PILOT_HORIZON_DAYS,
+        patientIds: PILOT_PATIENT_IDS,
+        rowCount: PILOT_PATIENT_IDS.length,
+        purpose: 'Synthetic pipeline development only; not clinical evidence or simulator-observed outcomes.',
+      },
+      allAuthored15d: {
+        file: ALL_AUTHORED_15D_FILE,
+        horizonDays: PILOT_HORIZON_DAYS,
+        scope: 'All 34 authored synthetic death targets only; excludes simulator-recorded deaths and living controls.',
+        rowCount: TARGET_AUTHORED_DEATHS,
+        syntheticOnly: true,
+        limitation: 'Invented synthetic data for pipeline development only; not clinical evidence or simulator-observed outcomes.',
+      },
       labelFile: 'labels.ndjson',
       rawAuditFile: 'raw-records.ndjson',
       rule: 'Per-patient cutoff is index date minus horizon. Include only resources created by cutoff, with no provenance change or nested event timestamp after cutoff.',
@@ -727,7 +794,7 @@ function build() {
     },
     validation: {
       command: 'node scripts/build-enriched-mortality-cohort.mjs --validate',
-      checks: ['exact cohort counts', 'unique patient IDs', '34 authored target coverage', 'cross-file links', 'per-patient cutoffs', 'no post-cutoff events', 'no model-visible outcome/generator fields', 'valid NDJSON', 'bounded resource counts'],
+      checks: ['exact cohort counts', 'unique patient IDs', '34 authored target coverage', 'exact 15-day pilot IDs and row count', 'exact all-authored 15-day IDs, order, row count, and authored-only scope', 'per-patient, pilot, and all-authored cutoff dates', 'cross-file links', 'no post-cutoff events', 'no model-visible outcome/provenance/generator fields', 'valid NDJSON', 'bounded resource counts'],
       bounds: { maxResourcesPerPatient: MAX_RESOURCES_PER_PATIENT, maxResourcesTotalPerHorizon: MAX_RESOURCES_TOTAL },
     },
     horizonCoverage,
@@ -759,9 +826,11 @@ function build() {
     '| asof-90d.ndjson | Recommended model input with per-patient 90-day cutoffs. |',
     '| asof-60d.ndjson | Model input at the 60-day horizon. |',
     '| asof-30d.ndjson | Model input at the 30-day horizon. |',
+    `| ${PILOT_FILE} | Three-row 15-day-cutoff pilot for SIM-000499, SIM-000472, and SIM-000464; invented synthetic data for pipeline development only. |`,
+    `| ${ALL_AUTHORED_15D_FILE} | All 34 authored synthetic death targets at a 15-day cutoff; excludes simulator-recorded deaths and living controls. Synthetic pipeline-development data only. |`,
     '| manifest.json | Deterministic source, selection, provenance, coverage and validation metadata. |',
     '',
-    'Every NDJSON file has one row per patient and joins on the top-level patientId. Controls use deterministic matched dates drawn round-robin from the sorted observed death dates; cases use their own death dates. Therefore each horizon has per-patient cutoffs rather than one shared cutoff.',
+    'The standard cohort NDJSON files have one row per patient and join on the top-level patientId. Controls use deterministic matched dates drawn round-robin from the sorted observed death dates; cases use their own death dates. Therefore each horizon has per-patient cutoffs rather than one shared cutoff. The clearly named pilot file contains exactly the three documented authored-death patients at death date minus 15 days. The all-authored 15-day file contains exactly all 34 authored synthetic death targets and no simulator-recorded deaths or living controls; it is synthetic-only and must not be treated as observed clinical evidence.',
     '',
     '## Model-input leakage policy',
     '',
@@ -774,7 +843,7 @@ function build() {
     '    node scripts/build-enriched-mortality-cohort.mjs',
     '    node scripts/build-enriched-mortality-cohort.mjs --validate',
     '',
-    'The deterministic validation checks exact role counts, uniqueness, all 34 authored targets, cross-file links, per-patient cutoffs, no post-cutoff events, absence of model-visible outcome/generator fields, valid NDJSON and bounded resource counts. The preserved data/mortality-cohort/ directory is read-only input and is not rewritten.',
+    'The deterministic validation checks exact role counts, uniqueness, all 34 authored targets, exact pilot IDs/order/row count, exact all-authored 15-day membership and scope, 15-day cutoff dates, cross-file links, no post-cutoff events, absence of model-visible outcome/provenance/generator fields, valid NDJSON and bounded resource counts. The preserved data/mortality-cohort/ directory is read-only input and is not rewritten.'
   ].join('\n');
   fs.writeFileSync(path.join(OUT_DIR, 'README.md'), `${readme}\n`);
 

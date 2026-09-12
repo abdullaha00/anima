@@ -1,0 +1,463 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000001",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "proceed",
+  "confidence": 0.82,
+  "summary": "Prompt human review for a priorities-led goals-of-care conversation is supported by progressive heart-failure symptoms, an acute admission requiring intravenous diuresis, CKD-related monitoring needs, and unresolved home-support and care-ownership gaps. This should not be framed as a prognostic declaration: congestion improved with treatment, and the record does not document a formal advance-care plan or the patient's broader treatment preferences.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-09-26T12:00:00.000Z",
+      "detail": "Heart-failure discharge summary documents acute-on-chronic heart failure with pulmonary congestion, improvement after intravenous diuresis, CKD monitoring, and requested cardiology and GP follow-up."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-09-03T08:00:00.000Z",
+      "detail": "Recent consultation records a wish to return home and states that home-support arrangements remain unconfirmed."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Progressive symptomatic and functional deterioration",
+      "significance": "Breathlessness progressed from tiredness walking to the shops to limitation reaching the front door, three-pillow orthopnoea, and a three-kilogram gain over two weeks, supporting a timely review of priorities alongside active treatment.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-31T12:00:00.000Z",
+          "detail": "GP encounter records breathlessness limiting the walk to the front door, three-pillow orthopnoea, and three-kilogram weight gain over two weeks."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-19T12:00:00.000Z",
+          "detail": "Hospital attendance records breathlessness at rest, orthopnoea, and increasing leg swelling."
+        }
+      ]
+    },
+    {
+      "signal": "Acute-on-chronic heart failure episode with renal monitoring complexity",
+      "significance": "Admission, pulmonary congestion, adjusted loop diuretic treatment, and required renal and potassium rechecking indicate clinical complexity and a need to align treatment and escalation planning with the patient's priorities.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-26T12:00:00.000Z",
+          "detail": "Discharge summary records acute-on-chronic heart failure, pulmonary congestion, intravenous diuresis, creatinine above baseline, potassium repeat testing, and adjusted loop diuretic treatment."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-21T12:00:00.000Z",
+          "detail": "Renal profile during fluid gain records potassium 5.5 mmol/L, creatinine 133 micromol/L, and eGFR 46 mL/min/1.73m²."
+        }
+      ]
+    },
+    {
+      "signal": "Documented home priority with incomplete support and unclear ownership",
+      "significance": "A conversation can clarify what staying at home means, what support is feasible, and who the patient should contact, without assuming preferences beyond those documented.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-08T08:00:00.000Z",
+          "detail": "Personal-context observation records: 'Stay at home with a clear contact for help'; the patient lives alone and her daughter visits after work."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-03T08:00:00.000Z",
+          "detail": "Consultation states the daughter cannot attend during working hours and home-support arrangements remain to be confirmed."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-21T08:00:00.000Z",
+          "detail": "Follow-up consultation records that the patient could not tell which team would arrange the next review."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "no_clear_false_positive",
+    "alternativeExplanations": [
+      "The recent deterioration included potentially treatable fluid congestion that improved with intravenous diuresis.",
+      "Some workflow entries are explicitly fictional or administrative demonstrations and should not be used as evidence of clinical deterioration."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "A crisis-framed or prognosis-led conversation would be inappropriate because the record documents treatment response and does not establish irreversible decline.",
+      "The conversation should be deferred if the patient does not wish to discuss broader planning after an informed invitation."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "Symptoms progressed to breathlessness at rest, orthopnoea, oedema, and hospital admission despite the reversible component.",
+      "Home support, medication handover, renal monitoring, and follow-up ownership were not all confirmed in the snapshot."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-26T12:00:00.000Z",
+        "detail": "The discharge summary documents both improvement in congestion after intravenous diuresis and ongoing follow-up, daily-weight, renal, electrolyte, and home-support requirements."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-12T08:00:00.000Z",
+        "detail": "Several same-day handovers identify themselves as fictional examples or write demonstrations, limiting their clinical evidentiary value."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "mentioned_not_active",
+    "details": [
+      "A personal goal to stay at home with a clear contact for help is documented.",
+      "Home-support arrangements remained unconfirmed, and the record does not show an implemented advance-care, emergency-care, DNACPR, ADRT, ReSPECT, hospice, or palliative-care plan."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-08T08:00:00.000Z",
+        "detail": "Observation documents the personal goal to stay at home with a clear contact for help."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-03T08:00:00.000Z",
+        "detail": "Consultation states home-support arrangements remain to be confirmed."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "date": "2026-09-12T16:45:22.771Z",
+        "detail": "Manifest reports one successful eligible snapshot with 62 unique resources and no failed source; absence of formal planning records is limited to this collected coverage."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [
+      "Stay at home with a clear contact for help.",
+      "Return home after the recent episode.",
+      "An afternoon appointment was acceptable in the recorded appointment exchange."
+    ],
+    "familyWishes": [
+      "The daughter asked for appointments to be grouped on one day."
+    ],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Telephone is recorded as the contact preference.",
+      "The appointment exchange indicates an afternoon time worked for the patient."
+    ],
+    "uncertainties": [
+      "The patient's preferences about hospital readmission, resuscitation, ceilings of treatment, surrogate decision-making, and palliative-care involvement are not documented.",
+      "The daughter's willingness and capacity for involvement beyond collecting a prescription, after-work visits, and weight recording are unknown.",
+      "Decision-making capacity, accessibility needs, and consent to family participation are not documented."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-08T08:00:00.000Z",
+        "detail": "Personal-context observation records the goal to stay at home, living alone, and daughter visits after work."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-03T08:00:00.000Z",
+        "detail": "Consultation records a wish to return home and limits on the daughter's daytime availability."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-06-19T08:10:00.000Z",
+        "detail": "Administrative observation records telephone as the contact preference."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-11T20:01:00.000Z",
+        "detail": "Incoming appointment message says an afternoon appointment would work."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Lives alone in a ground-floor flat.",
+    "functionAndMobility": "Earlier she could walk to the shops with tiredness; by late August breathlessness limited walking to the front door. Independence in other activities and use of mobility aids are unknown.",
+    "currentClinicalSupport": [
+      "GP involvement is documented.",
+      "Hospital cardiology follow-up and GP review were requested within one week of discharge.",
+      "Daily weights and safety-netting were requested after discharge."
+    ],
+    "familyAndCarerSupport": [
+      "Her daughter visits after work, can collect a prescription, and had agreed to record weights twice weekly earlier in the trajectory."
+    ],
+    "gaps": [
+      "Home-support arrangements were not confirmed.",
+      "Medication reconciliation and the post-discharge renal-monitoring plan required confirmation.",
+      "No broader formal or paid carer provision is documented."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-08T08:00:00.000Z",
+        "detail": "Personal-context observation records living alone in a ground-floor flat and daughter visits after work."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-31T12:00:00.000Z",
+        "detail": "GP encounter records breathlessness limiting walking to the front door."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-26T12:00:00.000Z",
+        "detail": "Discharge summary requests cardiology and GP review within one week, daily weights, safety-netting, renal monitoring, and confirmation of home support."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Duty GP or usual GP clinician",
+      "meetingPriority": "core",
+      "ownership": "Own the prompt record review, invite the patient using her contact preference, reconcile outstanding information, and document agreed next steps after human clinical review.",
+      "reason": "The discharge handover is assigned to the duty GP and requests GP follow-up within one week.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-26T12:00:00.000Z",
+          "detail": "Heart-failure discharge is assigned to the duty GP and requests GP review within one week."
+        }
+      ]
+    },
+    {
+      "role": "Cardiology or heart-failure clinician",
+      "meetingPriority": "core",
+      "ownership": "Clarify the current heart-failure treatment and monitoring plan, likely options, and clinical safety-netting for the GP-led priorities conversation.",
+      "reason": "The admission involved acute-on-chronic heart failure, adjusted diuretic treatment, and requested cardiology review within one week.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-26T12:00:00.000Z",
+          "detail": "Discharge summary documents acute-on-chronic heart failure, diuretic adjustment, and cardiology review requested within one week."
+        }
+      ]
+    },
+    {
+      "role": "Discharge or community-care coordinator",
+      "meetingPriority": "optional",
+      "ownership": "Confirm feasible home support and provide a named route for help if the patient wants home-focused planning.",
+      "reason": "Home support remained unconfirmed and the patient wanted a clear contact for help.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-03T08:00:00.000Z",
+          "detail": "Consultation records a wish to return home and states home-support arrangements remain to be confirmed."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-08T08:00:00.000Z",
+          "detail": "Personal goal is to stay at home with a clear contact for help."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "Duty GP or usual GP clinician",
+    "urgency": "Human review promptly and, if clinically appropriate and acceptable to the patient, offer the conversation within one week of the 2026-09-26 discharge.",
+    "formatAndAccessibility": "Begin by telephone, the documented preference, to offer a short patient-led discussion; arrange an afternoon appointment if still preferred. Ask about accessibility needs and obtain consent before involving the daughter.",
+    "objectives": [
+      "Elicit what matters now and clarify what staying at home means to the patient.",
+      "Explain current uncertainty and treatment options without making a prognostic declaration.",
+      "Agree who owns heart-failure, renal, medication, and home-support follow-up.",
+      "Ask whether the patient wants to discuss future deterioration, hospital care, emergency planning, or family involvement.",
+      "Document only preferences and decisions actually made after human clinical review."
+    ],
+    "briefingNotes": [
+      {
+        "note": "Symptoms progressed to breathlessness at rest, orthopnoea, oedema, and acute-on-chronic heart-failure admission; congestion improved after intravenous diuresis.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-09-26T12:00:00.000Z",
+            "detail": "Discharge summary describes the presenting symptoms, pulmonary congestion, and improvement after intravenous diuresis."
+          }
+        ]
+      },
+      {
+        "note": "The patient wants to stay or return home with a clear contact, but home support was not confirmed.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-09-03T08:00:00.000Z",
+            "detail": "Consultation records wish to return home and unconfirmed support."
+          },
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-09-08T08:00:00.000Z",
+            "detail": "Observation records goal to stay at home with a clear contact for help."
+          }
+        ]
+      },
+      {
+        "note": "CKD, diuretic adjustment, and renal and potassium follow-up increase coordination needs.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-09-26T12:00:00.000Z",
+            "detail": "Discharge summary records CKD, creatinine above baseline, potassium repeat testing, and adjusted loop diuretic treatment."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Confirm consent, preferred participants, and immediate concerns.",
+      "Review current symptoms, treatment response, and safety-netting.",
+      "Explore priorities and the meaning of home-focused care.",
+      "Discuss future-care topics only to the extent the patient wishes.",
+      "Assign named ownership and a contact route for each agreed action."
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Draft telephone invitation followed by written confirmation if wanted",
+      "draft": "Hello. Your GP team would like to check how things are going after your recent heart and fluid-treatment episode and make sure the follow-up plan reflects what matters to you. We know being at home with a clear contact for help has been important. This is an invitation to plan together, not a statement about what will happen. Would you be comfortable with a short conversation, and is there anyone you would like involved?",
+      "cautions": [
+        "Confirm identity and that it is a suitable time before discussing clinical details.",
+        "Do not imply a prognosis or that palliative decisions have already been made.",
+        "Confirm current contact and appointment preferences rather than assuming they are unchanged.",
+        "Seek explicit consent before contacting or including the daughter."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-08T08:00:00.000Z",
+          "detail": "Record documents the patient's goal to stay at home with a clear contact for help."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-19T08:10:00.000Z",
+          "detail": "Telephone is recorded as the contact preference."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-26T12:00:00.000Z",
+          "detail": "Recent discharge followed treatment for acute-on-chronic heart failure and requested prompt follow-up."
+        }
+      ]
+    },
+    {
+      "audience": "GP and cardiology or heart-failure clinician",
+      "channel": "Draft secure clinical handover",
+      "draft": "Please complete a prompt joint review of the post-discharge heart-failure, renal, electrolyte, medication, and home-support plan. The patient has expressed a wish to stay at home with a clear contact for help. The GP should own the invitation to a priorities-led conversation; cardiology should clarify treatment and monitoring options. Please distinguish treatable congestion from broader planning needs and record only decisions made with the patient.",
+      "cautions": [
+        "Verify current results, medicines, symptoms, and completed follow-up before acting.",
+        "Do not treat this decision-support draft as a clinical order.",
+        "Do not interpret the workflow recommendation as a mortality label."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-26T12:00:00.000Z",
+          "detail": "Discharge requests cardiology and GP follow-up, renal and electrolyte review, weight and fluid assessment, and confirmation of home support."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-08T08:00:00.000Z",
+          "detail": "Personal goal is to stay at home with a clear contact for help."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Human clinician to verify the patient's current location, symptoms, discharge status, and whether urgent safety-net escalation is needed.",
+      "owner": "Duty GP",
+      "urgency": "Same-day review of the available snapshot; act through normal clinical pathways only after verification.",
+      "reason": "The snapshot contains a recent acute-on-chronic heart-failure admission and follow-up needs, but it is not a live clinical record.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-26T12:00:00.000Z",
+          "detail": "Heart-failure discharge documents recent admission and safety-netting for worsening breathlessness."
+        },
+        {
+          "sourcePath": "record/manifest.json",
+          "date": "2026-09-12T16:45:22.771Z",
+          "detail": "Manifest identifies a frozen eligible snapshot rather than a live record feed."
+        }
+      ]
+    },
+    {
+      "action": "Verify medication reconciliation, loop-diuretic supply and instructions, and whether the requested renal function and potassium recheck occurred.",
+      "owner": "Duty GP, with cardiology and pharmacy input as locally appropriate",
+      "urgency": "Same day because the discharge follow-up is time-sensitive.",
+      "reason": "The discharge record describes diuretic adjustment, creatinine above baseline, potassium repeat testing, and a need to check the prescription and monitoring plan.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-26T12:00:00.000Z",
+          "detail": "Discharge summary identifies adjusted loop diuretic treatment and outstanding renal, electrolyte, prescription, and monitoring checks."
+        }
+      ]
+    },
+    {
+      "action": "Confirm a named follow-up owner, home-support arrangements, and a clear contact route, then offer the patient a priorities-led conversation using her preferred contact method.",
+      "owner": "Duty GP",
+      "urgency": "Within one week of discharge, sooner if current clinical review indicates.",
+      "reason": "The patient wants home-focused support and previously lacked clarity about which team would arrange review; home support remained unconfirmed.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-08T08:00:00.000Z",
+          "detail": "Goal is to stay at home with a clear contact for help."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-21T08:00:00.000Z",
+          "detail": "Patient could not identify which team would arrange the next review."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-03T08:00:00.000Z",
+          "detail": "Home-support arrangements remained to be confirmed."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "Manifest reports one successful eligible 15-day snapshot, no failed sources, 62 unique resources, no duplicate visibility, and no forced insufficient-evidence gate. The snapshot contains useful longitudinal and discharge evidence, but it is not a live record and its manifest collection timestamp precedes some resource timestamps.",
+    "missingSources": [
+      "No dedicated advance-care-planning, DNACPR, ADRT, ReSPECT, hospice, or palliative-care record is represented in the eligible snapshot.",
+      "A confirmed medication-reconciliation attachment, completed post-discharge renal results, and confirmed home-support plan are not represented."
+    ],
+    "failedSources": [],
+    "contradictions": [
+      "The GP problem list marks heart failure as resolved on 2026-08-13, while later encounters and the 2026-09-26 discharge describe worsening and acute-on-chronic heart failure.",
+      "The manifest was collected on 2026-09-12, while the eligible snapshot includes resources dated through 2026-09-26; recency and sequence require human verification.",
+      "Same-day synthetic demonstration handovers describe differing uneventful monitoring or fall scenarios and should not override the patient-specific heart-failure trajectory."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "date": "2026-09-12T16:45:22.771Z",
+        "detail": "Coverage is 1 successful, 0 failed, 62 unique resources, 0 duplicate-visibility resources, and forceInsufficientEvidence false."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-11T08:00:00.000Z",
+        "detail": "GP record marks heart failure resolved on 2026-08-13 and contains no medications, while later discharge evidence describes acute-on-chronic heart failure and adjusted treatment."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-26T12:00:00.000Z",
+        "detail": "Latest included heart-failure discharge post-dates the manifest collection timestamp and identifies reconciliation and monitoring follow-up."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "revised",
+    "falsePositiveChecks": [
+      "Re-read all 62 eligible resources for trajectory and distinguished progressive heart-failure evidence from explicitly fictional workflow demonstrations.",
+      "Checked for a reversible explanation and confirmed that congestion improved with intravenous diuresis; retained this limitation prominently.",
+      "Re-checked for active ACP, DNACPR, ADRT, ReSPECT, hospice, or palliative-care planning and found only a personal home-focused goal with support not implemented.",
+      "Re-checked ownership and confirmed the discharge request for duty-GP, cardiology, and GP review rather than inventing a named coordinator.",
+      "Re-checked manifest coverage, failed sources, safety gate, chronology, and citation paths.",
+      "Re-checked patient and daughter preferences and separated documented wishes from unknown consent, capacity, and availability."
+    ],
+    "changesFromPrimary": [
+      "Retained proceed but revised the rationale to emphasize that treatable congestion and response to diuresis prevent a prognosis-led interpretation.",
+      "Classified existing planning as mentioned_not_active because a home-focused goal is documented but implementation and formal planning are not.",
+      "Added the conflict between the resolved heart-failure problem-list entry and later acute-on-chronic heart-failure records.",
+      "Added the chronology limitation that the manifest collection timestamp precedes some included resource timestamps.",
+      "Narrowed the core team to GP and heart-failure or cardiology roles, with coordination support optional."
+    ]
+  }
+}

@@ -1,0 +1,342 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000245",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "proceed",
+  "confidence": 0.82,
+  "summary": "Prompt human review for a priorities-and-future-care conversation is supported by a documented progression from exertional breathlessness and orthopnoea to fluid-overload signs and an emergency attendance with severe hypoxaemia and pulmonary oedema. Acute treatment was already under way, so the conversation should complement, not delay or replace, active clinical management. The snapshot does not establish prognosis, decision-making capacity, residence, family involvement, or any existing advance-care plan.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "detail": "The snapshot documents new breathlessness on stairs and an extra-pillow requirement at a heart failure and CKD review, later weight gain, oedema, bibasal crackles and oxygen saturation 93%, followed by emergency attendance with saturation 84%, pulmonary oedema, oxygen and intravenous diuresis."
+    },
+    {
+      "sourcePath": "record/manifest.json",
+      "detail": "The manifest reports one successful eligible snapshot containing 42 unique resources, no failed sources, and no forced insufficient-evidence gate."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Escalating cardiopulmonary symptoms",
+      "significance": "The longitudinal sequence supports timely clinician review of priorities and contingency planning after acute stabilisation, without implying a specific prognosis.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "A GP review documented new breathlessness on stairs, an extra pillow, trace ankle swelling and no acute distress."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "A later community home visit documented 2.5 kg weight gain, mild bilateral oedema, fine bibasal crackles, respiratory rate 21, oxygen saturation 93%, comfort at rest and a request for same-week clinical review."
+        }
+      ]
+    },
+    {
+      "signal": "Emergency pulmonary oedema episode",
+      "significance": "A severe acute episode despite earlier community warning signs creates a clear need for human-led review of current status, recovery expectations and what matters to the patient.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The final attendance records severe breathlessness and orthopnoea, oxygen saturation 84% on air, bilateral pulmonary oedema, and initiation of oxygen and intravenous diuresis."
+        }
+      ]
+    },
+    {
+      "signal": "Advanced age and possible multimorbidity context",
+      "significance": "Age and a review explicitly framed around heart failure and CKD add context for anticipatory discussion, but the snapshot does not provide a complete diagnosis list or prognosis.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Demographics state age 91 at index; a GP encounter reason is recorded as heart failure and CKD review."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "no_clear_false_positive",
+    "alternativeExplanations": [
+      "The final deterioration may reflect an acutely treatable fluid-overload episode, and response to intravenous diuresis is not documented in this snapshot.",
+      "Earlier abnormalities were mild and the patient was documented as comfortable at rest during the community visit."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "A detailed goals-of-care discussion during severe breathlessness could be poorly timed unless the patient is clinically stable and able to participate.",
+      "The record does not establish the patient's readiness, capacity, or wish to discuss future care."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "The trajectory culminated in emergency pulmonary oedema with marked hypoxaemia rather than an isolated benign symptom.",
+      "The snapshot does not document recovery, resolution, or a benign longitudinal explanation."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The home visit described comfort at rest but documented weight gain, oedema, crackles and saturation 93%; the later emergency attendance documented saturation 84% and pulmonary oedema requiring oxygen and intravenous diuresis."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No advance-care planning, ReSPECT, DNACPR, ADRT, hospice, palliative-care involvement, or documented goals-of-care discussion appears in the available eligible snapshot.",
+      "This is an absence from the available snapshot, not proof that no plan exists elsewhere."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The 42-resource eligible snapshot contains clinical results and contacts but no documented advance-care or palliative-care record."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Coverage is limited to one successful eligible snapshot with 42 unique resources."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Telephone is repeatedly recorded as the patient's administrative contact preference.",
+      "Interpreter support was used for one in-person heart failure and CKD review; the required language and whether support remains needed are not recorded."
+    ],
+    "uncertainties": [
+      "Patient priorities, understanding, readiness for discussion and decision-making capacity are unknown.",
+      "Family, carers, representatives and permission to involve them are unknown.",
+      "No legal or advance-care planning records are visible in the snapshot, but records outside this snapshot are unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Several GP observations record telephone as an administrative contact preference, and one in-person clinical review records interpreter use."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "The manifest confirms coverage consists of a single eligible snapshot, limiting conclusions about absent wishes, family and legal records."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown; a community home visit is documented but does not establish the patient's usual residence or living arrangement.",
+    "functionAndMobility": "Only limited function is documented: new breathlessness on stairs and later comfort at rest during a home visit; mobility aids, activities of daily living and frailty are unknown.",
+    "currentClinicalSupport": [
+      "GP involvement is documented through repeated long-term-condition contacts and a heart failure and CKD review.",
+      "Community involvement is documented through a home weight and fluid review.",
+      "Hospital involvement is documented through an emergency attendance for pulmonary oedema; oxygen and intravenous diuresis had begun."
+    ],
+    "familyAndCarerSupport": [],
+    "gaps": [
+      "Usual residence, living arrangements, formal care package and informal support are unknown.",
+      "Baseline mobility, frailty, cognition, daily function and symptom burden are not adequately described.",
+      "Post-treatment status, discharge destination and follow-up ownership are not documented."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The snapshot documents GP review, a community home visit, breathlessness on stairs, comfort at rest at that visit, and a later emergency hospital attendance with acute treatment."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Responsible hospital clinician",
+      "meetingPriority": "core",
+      "ownership": "Confirm current clinical status and recovery after pulmonary oedema, judge when the patient is stable enough to participate, and provide acute-care context.",
+      "reason": "The latest record places the patient in emergency hospital care receiving oxygen and intravenous diuresis.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The latest resource is a hospital attendance for acute pulmonary oedema with oxygen and intravenous diuresis initiated."
+        }
+      ]
+    },
+    {
+      "role": "Usual GP or primary care clinician",
+      "meetingPriority": "core",
+      "ownership": "Lead continuity, verify diagnoses and existing plans across records, elicit the patient's priorities, and document the agreed follow-up plan.",
+      "reason": "Primary care documented repeated reviews, contact preference, interpreter use and the earlier cardiopulmonary symptoms.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "GP resources include repeated long-term-condition contacts, telephone preference observations and an interpreter-supported heart failure and CKD review."
+        }
+      ]
+    },
+    {
+      "role": "Community clinician familiar with the patient",
+      "meetingPriority": "optional",
+      "ownership": "Contribute recent home observations and help clarify baseline function, living arrangements and feasible monitoring if known.",
+      "reason": "Community staff documented the recent home fluid review and requested same-week clinical assessment.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "A community home visit documented weight gain, oedema, bibasal crackles, oxygen saturation 93% and a request for same-week review."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "Usual GP or primary care clinician, coordinating with the responsible hospital clinician",
+    "urgency": "Same-day clinician-to-clinician review of current status; offer a patient conversation promptly after acute stabilisation and when the patient can participate comfortably.",
+    "formatAndAccessibility": "Use the patient's recorded telephone preference for initial contact if clinically appropriate, confirm that preference, and arrange interpreter support if still required. Offer an in-person or remote conversation according to stability, accessibility and patient choice.",
+    "objectives": [
+      "Check the patient's understanding of the acute episode and invite discussion of what matters most without making prognostic declarations.",
+      "Clarify priorities, acceptable burdens of treatment, preferred place of care, and who the patient wishes to involve.",
+      "Verify whether any advance-care or emergency-care plan exists outside the snapshot and document or update it only through normal clinician-led processes.",
+      "Agree ownership and contingency steps for recurrent breathlessness, swelling or deterioration."
+    ],
+    "briefingNotes": [
+      {
+        "note": "Symptoms progressed from exertional breathlessness and extra-pillow use to home-visit evidence of fluid overload and then emergency pulmonary oedema.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "GP, community and hospital resources document the staged cardiopulmonary deterioration."
+          }
+        ]
+      },
+      {
+        "note": "The most recent acute episode included saturation 84% on air and treatment with oxygen and intravenous diuresis; subsequent response is unknown.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "The emergency attendance records saturation 84%, pulmonary oedema, oxygen and intravenous diuresis, with no later resource showing outcome."
+          }
+        ]
+      },
+      {
+        "note": "Telephone preference is recorded repeatedly and interpreter support was used once; confirm current communication needs rather than assuming them.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "GP observations record telephone preference and one encounter records interpreter support."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Confirm stability, capacity for this conversation and preferred communication support.",
+      "Ask permission to discuss future care and who, if anyone, should be involved.",
+      "Review the acute episode and what matters most to the patient.",
+      "Discuss treatment priorities and contingency planning in neutral, non-alarming terms.",
+      "Agree named clinical ownership, documentation and follow-up."
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Telephone initially, subject to confirmation and clinical appropriateness",
+      "draft": "We would like to talk with you, once you are feeling well enough, about what is most important to you and how we can plan your care around your priorities. This is part of making sure the hospital and community teams understand your preferences. Would you like an interpreter or anyone you trust to join the conversation?",
+      "cautions": [
+        "Confirm that telephone remains preferred and that the patient is clinically stable enough to engage.",
+        "Do not imply a fixed prognosis or that treatment is being withdrawn.",
+        "Ask permission before involving family or others."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The record repeatedly lists telephone contact preference, documents interpreter support at one review, and shows a recent severe acute episode."
+        }
+      ]
+    },
+    {
+      "audience": "Hospital and primary care clinicians",
+      "channel": "Secure clinical handover",
+      "draft": "Please confirm the patient's current status after treatment for pulmonary oedema and whether they are comfortable and able to discuss priorities. Primary care should check for plans outside this snapshot and coordinate a brief, patient-led conversation after stabilisation, with interpreter support if required.",
+      "cautions": [
+        "This is a draft for human review, not an instruction to schedule or alter care.",
+        "Do not treat absence of planning in this snapshot as proof that no plan exists."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The snapshot documents acute hospital treatment, prior GP and community involvement, telephone preference and interpreter use."
+        },
+        {
+          "sourcePath": "record/manifest.json",
+          "detail": "Coverage is a single eligible snapshot, so plans elsewhere remain unknown."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Establish the patient's current clinical location, response to treatment and ability to participate before any substantive planning conversation.",
+      "owner": "Responsible hospital clinician",
+      "urgency": "Same day",
+      "reason": "The latest snapshot ends during emergency treatment for severe breathlessness, hypoxaemia and pulmonary oedema.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The final resource records emergency pulmonary oedema, saturation 84% and initiation of oxygen and intravenous diuresis, without subsequent outcome."
+        }
+      ]
+    },
+    {
+      "action": "Reconcile available records for diagnoses, medicines, prior admissions and any existing advance-care or emergency-care plan before the meeting.",
+      "owner": "Usual GP or primary care clinician",
+      "urgency": "Within 1-2 working days or before the conversation",
+      "reason": "The eligible snapshot suggests heart failure and CKD context but lacks a complete problem list, medication list and planning documentation.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "A GP encounter is labelled heart failure and CKD review, while the snapshot contains no complete medication, diagnosis or advance-care-plan record."
+        },
+        {
+          "sourcePath": "record/manifest.json",
+          "detail": "The collection contains only one eligible snapshot with 42 resources."
+        }
+      ]
+    },
+    {
+      "action": "Confirm communication preference, interpreter requirement, patient readiness, and whom the patient permits to be involved.",
+      "owner": "Usual GP or delegated clinician",
+      "urgency": "Before first contact or meeting",
+      "reason": "Telephone preference and one interpreter-supported encounter are documented, but current needs and family involvement are unknown.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Several administrative observations record telephone preference and one clinical review records interpreter use; no family participant is documented."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "Manifest coverage comprises one successful eligible 15-day snapshot with 42 unique resources, zero failed sources, no duplicate visibility and no safety-gate reason. This supports review of the captured trajectory but not assumptions about uncaptured records or post-attendance outcome.",
+    "missingSources": [
+      "No separate comprehensive problem list or medication list is present in the eligible snapshot.",
+      "No post-emergency treatment outcome, discharge record or current-location update is present.",
+      "No detailed residence, function, frailty, cognition, family/carer or capacity assessment is present.",
+      "No advance-care planning, legal planning or palliative-care document is present in the available snapshot."
+    ],
+    "failedSources": [],
+    "contradictions": [
+      "Renal panels repeatedly pair creatinine above the stated reference range with eGFR values within the stated reference range; this internal discordance should be clinically reconciled rather than interpreted here."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Coverage reports one successful source, zero failures, 42 unique resources, zero duplicate visibility and forceInsufficientEvidence false."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The eligible snapshot ends with the emergency attendance and contains renal results with raised creatinine alongside eGFR values within their displayed reference interval; it lacks the listed contextual domains."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "confirmed",
+    "falsePositiveChecks": [
+      "Re-read all 42 resources for a benign isolated explanation; the staged GP, community and emergency findings showed escalation rather than a single mild abnormality.",
+      "Checked whether acute treatment made planning inappropriate; retained proceed but explicitly deferred substantive discussion until clinical stabilisation and preserved acute-care priority.",
+      "Re-checked for active ACP, ReSPECT, DNACPR, ADRT, hospice or palliative involvement; none was found in the available snapshot, and absence was framed as snapshot-limited.",
+      "Re-checked contact, family, residence, function and support claims; retained only telephone preference, one interpreter-supported review, a home visit and limited stair/rest function, marking the remainder unknown.",
+      "Re-checked laboratory interpretation and flagged the creatinine/eGFR discordance instead of inferring renal severity."
+    ],
+    "changesFromPrimary": [
+      "No separate primary-agent assessment existed in this single-agent adaptation; the deliberate second pass confirmed the initial proceed recommendation.",
+      "The second pass strengthened timing safeguards by requiring confirmation of stability and participation capacity before a substantive conversation.",
+      "The second pass explicitly limited none_found planning status to the available snapshot and added the renal-result contradiction."
+    ]
+  }
+}

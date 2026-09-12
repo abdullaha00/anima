@@ -1,0 +1,448 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000349",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "proceed",
+  "confidence": 0.78,
+  "summary": "Prompt human review for a sensitive goals-of-care conversation is supported by advanced age and a recent trajectory of persistent ankle oedema, increasing exertional breathlessness, weight gain and oxygen saturation of 92% on room air in encounters framed as heart-failure reviews. This should accompany, not replace, assessment and treatment of potentially reversible fluid retention. The snapshot does not establish wishes, residence, carers, treatment burden, prognosis, or an active advance-care plan, so the conversation should explore priorities without implying a predetermined course.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-09-02",
+      "detail": "Demographics give ageAtIndex 95 at the snapshot cutoff."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-07-23T12:00:00.000Z",
+      "detail": "GP encounter records breathlessness limiting the walk to the local shop with persistent ankle swelling."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-08-18T12:00:00.000Z",
+      "detail": "GP observation records weight 79.4 kg, oxygen saturation 92% on room air and bilateral ankle oedema."
+    },
+    {
+      "sourcePath": "record/manifest.json",
+      "date": "2026-09-12T16:45:22.771Z",
+      "detail": "Coverage consists of one successful 15-day eligible snapshot with 38 unique resources and no failed source."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Progressive heart-failure-type symptom trajectory",
+      "significance": "Oedema and extra-pillow use were followed by breathlessness limiting usual walking and persistent oedema, supporting timely review of priorities alongside clinical management.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-29T12:00:00.000Z",
+          "detail": "GP encounter records two weeks of ankle swelling and needing an extra pillow, without breathlessness at rest."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-23T12:00:00.000Z",
+          "detail": "GP encounter records exertional breathlessness limiting the walk to the local shop and persistent ankle swelling."
+        }
+      ]
+    },
+    {
+      "signal": "Objective concern during recent home assessment",
+      "significance": "Low room-air oxygen saturation, increased weight and bilateral oedema warrant prompt clinician assessment and add weight to discussing what matters to the patient if illness worsens.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-18T12:00:00.000Z",
+          "detail": "Home assessment documents weight 79.4 kg, oxygen saturation 92% on room air and bilateral ankle oedema."
+        }
+      ]
+    },
+    {
+      "signal": "Very advanced age with incomplete contextual information",
+      "significance": "Age may increase vulnerability but is not sufficient alone; it supports a proportionate priorities discussion when combined with the documented symptom trajectory.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-02",
+          "detail": "The snapshot records birthDate 1931-05-17 and ageAtIndex 95."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "no_clear_false_positive",
+    "alternativeExplanations": [
+      "Potentially reversible fluid retention or a treatable heart-failure exacerbation could explain the oedema, weight increase, orthopnoea-type symptom and exertional breathlessness.",
+      "The available snapshot does not document breathlessness at rest in May, chest pain in July, or major abnormalities in the August full blood count, liver panel or renal indices supplied."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "A crisis-framed or prognosis-led conversation before assessing reversible causes could be premature and alarming.",
+      "The record does not document the patient's readiness, understanding, decision-making capacity or preferred participants."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "Symptoms progressed from oedema and extra-pillow use to walking limitation over approximately two months.",
+      "Oxygen saturation of 92% on room air with persistent bilateral oedema and increased weight is not explained away by the available routine blood results.",
+      "Absence of admission, specialist, medication or planning information in this limited snapshot is unknown rather than evidence that these issues are absent."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-05-29T12:00:00.000Z",
+        "detail": "Initial fluid-retention review records ankle swelling and an extra pillow but no breathlessness at rest."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-23T12:00:00.000Z",
+        "detail": "Later review records worsening exertional breathlessness and persistent swelling, with chest pain denied."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-18T12:00:00.000Z",
+        "detail": "Home observation records oxygen saturation 92% on room air, weight increase and bilateral oedema."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-29T08:00:00.000Z",
+        "detail": "Available FBC, liver tests and U&E show values largely within the supplied reference intervals, while CRP remains raised at 11.8 mg/L."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "date": "2026-09-12T16:45:22.771Z",
+        "detail": "The manifest describes only one eligible snapshot source, limiting assessment of omitted clinical domains."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "unclear",
+    "details": [
+      "No active advance-care, resuscitation, ReSPECT, hospice or palliative-care plan is represented in the 38 supplied resources.",
+      "Because collection coverage is limited to one eligible snapshot, absence from these resources cannot establish that no plan exists elsewhere."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-02",
+        "detail": "The supplied resource array contains reports, GP encounters and observations but no represented care-planning document."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "date": "2026-09-12T16:45:22.771Z",
+        "detail": "The only collected source is the eligible snapshot; 38 unique resources are reported."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Telephone is recorded as the contact preference, but it should be confirmed before use."
+    ],
+    "uncertainties": [
+      "The patient's goals, concerns, illness understanding and readiness for a planning conversation are unknown.",
+      "Decision-making capacity, communication or accessibility needs and preferred participants are unknown.",
+      "Family or carer identity, availability and wishes are unknown.",
+      "The existence of an ADRT, advance statement, power of attorney, resuscitation recommendation or emergency care plan is unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-05-16T08:10:00.000Z",
+        "detail": "A GP administrative observation records telephone as the contact preference."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "date": "2026-09-12T16:45:22.771Z",
+        "detail": "Coverage is limited to one eligible snapshot, so unrepresented wishes, family information and legal records remain unknown."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown; the record mentions a home assessment but does not establish residence type or who lives with the patient.",
+    "functionAndMobility": "By 2026-07-23, breathlessness limited walking to the local shop; earlier function, mobility aids, personal-care independence and subsequent change are unknown.",
+    "currentClinicalSupport": [
+      "GP-led telephone and in-person symptom reviews are documented.",
+      "Diagnostics supplied serial blood testing through 2026-08-29."
+    ],
+    "familyAndCarerSupport": [],
+    "gaps": [
+      "Medication regimen, adherence and recent treatment changes are not represented.",
+      "No baseline activities-of-daily-living, frailty, cognition, falls or nutrition assessment is represented.",
+      "Current care location, community services, specialist involvement and hospital use are not established.",
+      "Family and unpaid-carer support are not documented."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-23T12:00:00.000Z",
+        "detail": "GP review documents walking limited by breathlessness to the local shop."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-18T12:00:00.000Z",
+        "detail": "A home oxygen and weight check is documented, without residence or household details."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-29T08:00:00.000Z",
+        "detail": "The latest represented diagnostic panels were collected on 2026-08-29."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "date": "2026-09-12T16:45:22.771Z",
+        "detail": "Single-snapshot coverage limits conclusions about omitted support and baseline domains."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Reviewing primary care clinician",
+      "meetingPriority": "core",
+      "ownership": "Confirm immediate clinical safety, reconcile the wider record and treatment plan, and lead a permission-based priorities conversation.",
+      "reason": "GP-owned encounters contain the documented heart-failure symptom trajectory and contact preference.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-23T12:00:00.000Z",
+          "detail": "The worsening breathlessness encounter is owned by GP."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-18T12:00:00.000Z",
+          "detail": "The home oxygen, weight and oedema observation is owned by GP."
+        }
+      ]
+    },
+    {
+      "role": "Patient",
+      "meetingPriority": "core",
+      "ownership": "Choose whether to take part, identify priorities and preferred participants, and correct the team's assumptions.",
+      "reason": "The purpose is to understand the patient's priorities, which are not documented in the snapshot.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-16T08:10:00.000Z",
+          "detail": "Telephone is recorded as a contact preference, but no goals or meeting preferences are represented."
+        },
+        {
+          "sourcePath": "record/manifest.json",
+          "date": "2026-09-12T16:45:22.771Z",
+          "detail": "Limited snapshot coverage leaves the patient's priorities and preferred participants unknown."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "Reviewing primary care clinician",
+    "urgency": "Prompt human review within days, with same-day clinical triage if symptoms are current or worsening; do not delay acute assessment for this conversation.",
+    "formatAndAccessibility": "Start with a brief permission-seeking telephone contact because telephone is recorded as preferred, then agree the safest and most accessible format; confirm hearing, cognition, language, capacity and desired support before substantive discussion.",
+    "objectives": [
+      "Confirm current symptoms and whether urgent clinical assessment or treatment is needed.",
+      "Ask what matters most, what the patient understands and whether they want to discuss future care now.",
+      "Clarify acceptable treatment burden, preferred support and who should be involved, without presuming answers.",
+      "Check for existing plans or legal documents and decide whether coordinated documentation is appropriate.",
+      "Agree a named clinician owner and follow-up process if the patient wishes to continue."
+    ],
+    "briefingNotes": [
+      {
+        "note": "Frame the discussion around priorities alongside active treatment, not as a statement that deterioration is irreversible.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-05-29T12:00:00.000Z",
+            "detail": "Symptoms began with ankle swelling and extra-pillow use in a heart-failure review."
+          },
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-08-29T08:00:00.000Z",
+            "detail": "Recent routine blood testing is available, leaving potentially reversible congestion to be clinically assessed rather than presumed irreversible."
+          }
+        ]
+      },
+      {
+        "note": "Be ready to address the progression from exertional limitation to the recent low oxygen saturation and persistent oedema.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-07-23T12:00:00.000Z",
+            "detail": "Breathlessness limited walking to the local shop."
+          },
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-08-18T12:00:00.000Z",
+            "detail": "Oxygen saturation 92% on room air and bilateral oedema were documented."
+          }
+        ]
+      },
+      {
+        "note": "Verify the wider medication, admission, specialist, support and advance-care record before treating the snapshot as complete.",
+        "evidence": [
+          {
+            "sourcePath": "record/manifest.json",
+            "date": "2026-09-12T16:45:22.771Z",
+            "detail": "Collection used one successful eligible-snapshot source only."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Permission, preferred format and desired participants",
+      "Current symptom safety and treatment update",
+      "Understanding, concerns and priorities",
+      "Preferences for care and acceptable treatment burden",
+      "Existing documents and coordination gaps",
+      "Named owner, documentation and follow-up"
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Draft telephone script; use only after a human confirms the recorded preference and accessibility",
+      "draft": "Hello. I am calling from your primary care team to check how you have been feeling and to make sure your care reflects what matters most to you. We have seen that swelling and breathlessness have been affecting you. Alongside reviewing treatment, would you be comfortable talking about your priorities and the support you would want if your health changed? This does not mean any decision has been made. You can choose whether to talk now, later, or not at all, and who you would like involved.",
+      "cautions": [
+        "Confirm identity, privacy, capacity and accessibility before discussion.",
+        "Do not imply a prognosis or that treatment is being withdrawn.",
+        "Pause planning and follow local urgent-care pathways if current symptoms raise immediate concern.",
+        "Do not involve family or others without the patient's permission or another valid legal basis."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-16T08:10:00.000Z",
+          "detail": "Telephone is recorded as the contact preference."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-23T12:00:00.000Z",
+          "detail": "GP encounter records worsening exertional breathlessness and persistent swelling."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-18T12:00:00.000Z",
+          "detail": "Recent home assessment records oxygen saturation 92% on room air and bilateral oedema."
+        }
+      ]
+    },
+    {
+      "audience": "Reviewing primary care clinician",
+      "channel": "Draft internal clinical handoff",
+      "draft": "Please review the current clinical state and wider record promptly. The snapshot shows progression from ankle swelling and extra-pillow use to breathlessness limiting the walk to the local shop, followed by weight increase, room-air oxygen saturation 92% and bilateral oedema. Assess reversible causes and treatment needs first or in parallel. If appropriate, seek permission for a patient-led priorities conversation and verify whether any existing advance-care or emergency plan exists.",
+      "cautions": [
+        "This is decision support from a limited snapshot, not a diagnosis or prognosis.",
+        "Confirm medication, recent treatment, current symptoms, admissions and specialist involvement in the source clinical record.",
+        "Do not interpret absent planning information as proof that no plan exists."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-29T12:00:00.000Z",
+          "detail": "Early fluid-retention review documents ankle swelling and extra-pillow use."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-23T12:00:00.000Z",
+          "detail": "Later encounter documents walking limitation from breathlessness and persistent swelling."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-18T12:00:00.000Z",
+          "detail": "Home check documents weight increase, oxygen saturation 92% on room air and bilateral oedema."
+        },
+        {
+          "sourcePath": "record/manifest.json",
+          "date": "2026-09-12T16:45:22.771Z",
+          "detail": "Coverage is one eligible snapshot, requiring verification against the wider clinical record."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Human clinician to assess whether the documented breathlessness, low oxygen saturation, oedema and weight increase are current or worsening and apply local urgent-assessment pathways if indicated.",
+      "owner": "Reviewing primary care clinician",
+      "urgency": "Same day once this assessment is reviewed",
+      "reason": "Clinical safety and reversible treatment needs should not wait for a goals-of-care meeting.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-18T12:00:00.000Z",
+          "detail": "Latest symptom observation records oxygen saturation 92% on room air, weight increase and bilateral oedema."
+        }
+      ]
+    },
+    {
+      "action": "Reconcile the wider record for diagnoses, medicines, recent diuretic changes, admissions, specialist input and current follow-up before finalising the conversation approach.",
+      "owner": "Reviewing primary care clinician",
+      "urgency": "Before or alongside the initial planning discussion",
+      "reason": "These clinically important domains are not established in the supplied snapshot.",
+      "evidence": [
+        {
+          "sourcePath": "record/manifest.json",
+          "date": "2026-09-12T16:45:22.771Z",
+          "detail": "Manifest coverage consists solely of one eligible-snapshot source."
+        }
+      ]
+    },
+    {
+      "action": "Ask the patient for permission to discuss priorities and confirm contact method, accessibility needs, preferred participants and whether any advance-care or legal documents already exist.",
+      "owner": "Reviewing primary care clinician",
+      "urgency": "At the first suitable contact after immediate clinical safety is addressed",
+      "reason": "Telephone preference is documented, but wishes, accessibility, participants and planning records are unknown.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-16T08:10:00.000Z",
+          "detail": "Telephone is recorded as the contact preference."
+        },
+        {
+          "sourcePath": "record/manifest.json",
+          "date": "2026-09-12T16:45:22.771Z",
+          "detail": "Limited single-snapshot coverage does not establish patient wishes or planning documents."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "The manifest reports one successful eligible 15-day snapshot, zero failed sources, 38 unique resources and no duplicate visibility; the safety gate is not forced. The snapshot supplies demographics, serial diagnostics and several GP encounters/observations, but it is not equivalent to a complete longitudinal clinical record.",
+    "missingSources": [
+      "No separately collected medication or prescribing source is represented.",
+      "No separately collected hospital admission, specialist, community-care or referral source is represented.",
+      "No separately collected advance-care, legal-planning, family/carer or social-care source is represented."
+    ],
+    "failedSources": [],
+    "contradictions": [],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "date": "2026-09-12T16:45:22.771Z",
+        "detail": "Coverage reports successful 1, failed 0 and an empty failedSources array."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "date": "2026-09-12T16:45:22.771Z",
+        "detail": "Deduplication reports 38 unique resources and zero resources with duplicate visibility; safetyGate.forceInsufficientEvidence is false."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-02",
+        "detail": "The eligible snapshot identifies the patient, cutoff date, demographics and a 38-item resource array."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "confirmed",
+    "falsePositiveChecks": [
+      "Re-read the manifest safety gate, coverage counts and failedSources array before finalising the recommendation.",
+      "Re-checked the eligible snapshot chronologically for symptom progression, objective observations and potentially reversible explanations.",
+      "Re-checked recent FBC, liver, renal and inflammatory results to avoid treating routine blood values as proof of irreversible deterioration.",
+      "Re-searched the supplied resources for active advance-care, resuscitation, hospice or palliative planning and treated their absence as unknown because coverage is limited.",
+      "Re-checked for documented patient wishes, family or carers, residence, legal records, medicines, admissions and specialist services and left unrepresented domains unknown.",
+      "Re-checked dates against the 2026-09-02 cutoff and did not use later clinical evidence."
+    ],
+    "changesFromPrimary": [
+      "No material change after the deliberate second self-check; the proceed recommendation was retained with explicit emphasis on reversible clinical assessment and limited-record uncertainty.",
+      "Kept existing planning status as unclear rather than none_found because a single eligible snapshot cannot exclude plans held elsewhere."
+    ]
+  }
+}

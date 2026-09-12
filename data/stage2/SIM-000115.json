@@ -1,0 +1,422 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000115",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "do_not_proceed",
+  "confidence": 0.74,
+  "summary": "The available snapshot does not currently support initiating a goals-of-care or palliative-care conversation. It shows a recent, escalating respiratory illness culminating in an emergency-department attendance on 17 September 2026, but this may represent an acute and potentially treatable asthma or respiratory exacerbation rather than documented irreversible decline. The immediate priority is human clinical assessment of the acute presentation and reconciliation of recent laboratory abnormalities. Longer-term prognosis, frailty, function, residence, diagnoses beyond asthma, treatment response, patient priorities, family involvement, and advance-care-planning status remain unknown, so the appropriateness of a planning conversation should be reconsidered after the acute episode and fuller record review rather than inferred now.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-09-17T08:00:00.000Z",
+      "detail": "Emergency-department attendance was triaged at acuity 2 for three days of productive cough and increasing breathlessness; status was arrived and clinician unassigned."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-08-24T12:00:00.000Z",
+      "detail": "GP encounter documented more frequent breathlessness, yellow sputum, evening salbutamol use, and scattered wheeze."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-09-11T08:00:00.000Z",
+      "detail": "Recent tests showed CRP 12.7 mg/L, white-cell count 12.4 ×10⁹/L, MCV 103 fL, potassium 5.6 mmol/L, and creatinine 121 µmol/L."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Escalating respiratory symptoms with acute-care presentation",
+      "significance": "Requires prompt clinician-led assessment and may justify reassessment of overall trajectory after treatment, but does not by itself establish a palliative-care need.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-19T12:00:00.000Z",
+          "detail": "Earlier asthma review described only mild morning cough, occasional wheeze on hills, and no fever."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-24T12:00:00.000Z",
+          "detail": "Later GP review documented increasing breathlessness, yellow sputum, evening reliever use, and scattered wheeze."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-17T08:00:00.000Z",
+          "detail": "Subsequent emergency attendance recorded productive cough and increasing breathlessness with acuity 2 triage."
+        }
+      ]
+    },
+    {
+      "signal": "Persistent inflammatory and haematologic abnormalities",
+      "significance": "The trend may accompany the acute respiratory illness and warrants clinical interpretation; its cause and reversibility are not established in this snapshot.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-15T08:00:00.000Z",
+          "detail": "CRP was 12.5 mg/L and white-cell count 12.2 ×10⁹/L."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-29T08:00:00.000Z",
+          "detail": "CRP was 13.8 mg/L, white-cell count 13.3 ×10⁹/L, and MCV 105.2 fL."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-11T08:00:00.000Z",
+          "detail": "CRP remained raised at 12.7 mg/L and white-cell count at 12.4 ×10⁹/L."
+        }
+      ]
+    },
+    {
+      "signal": "Recent potassium and creatinine elevation",
+      "significance": "These results merit clinician reconciliation during the acute review, while the snapshot does not establish chronic renal decline or its cause.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-14T08:00:00.000Z",
+          "detail": "Potassium was 5.3 mmol/L and creatinine 103 µmol/L."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-11T08:00:00.000Z",
+          "detail": "Potassium was 5.6 mmol/L and creatinine 121 µmol/L, both above the stated reference ranges."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "uncertain",
+    "alternativeExplanations": [
+      "The recent deterioration may be an acute asthma or respiratory exacerbation, with productive yellow sputum and inflammatory-marker elevation, rather than documented irreversible decline.",
+      "The emergency attendance may reflect a treatable acute episode; no response-to-treatment or disposition is available."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "The snapshot contains no documented progressive life-limiting diagnosis, repeated admission pattern, severe frailty, sustained functional decline, or active specialist palliative-care need.",
+      "Starting a goals-of-care conversation during an unresolved acute respiratory presentation could be premature without first clarifying diagnosis, reversibility, capacity, and the patient's preferences."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "Respiratory symptoms progressed from mild exertional wheeze to increasing breathlessness and an acuity-2 emergency attendance.",
+      "Persistent inflammatory abnormalities and recent potassium and creatinine elevations require human clinical interpretation.",
+      "The record lacks enough longitudinal functional and diagnostic context to conclude that the episode is benign."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-24T12:00:00.000Z",
+        "detail": "The worsening-symptom encounter linked breathlessness and wheeze with yellow sputum and increased salbutamol use."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-17T08:00:00.000Z",
+        "detail": "The latest resource is an acuity-2 emergency attendance for productive cough and increasing breathlessness, without subsequent diagnosis, treatment response, or disposition."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No advance care plan, ReSPECT form, DNACPR decision, ADRT, hospice record, palliative-care involvement, or documented goals-of-care discussion was found among the available resources.",
+      "This means none was found in the supplied snapshot, not that such planning does not exist elsewhere."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The supplied 44-resource snapshot contains reports, GP encounters and observations, one genomic record, and one emergency attendance, but no explicit advance-care-planning or palliative-care resource."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Manifest reports one successful eligible-snapshot source containing 44 unique resources and no duplicate visibility."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Telephone was recorded as the patient's contact preference on 26 June 2026."
+    ],
+    "uncertainties": [
+      "The patient's understanding, priorities, values, acceptable treatments, and wishes about future care are not documented.",
+      "Family, carers, next of kin, and any desired involvement in decisions are not documented.",
+      "Capacity, communication or accessibility needs, preferred language, and legal representatives are not documented.",
+      "The presence of planning documents outside this snapshot is unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-06-26T08:10:00.000Z",
+        "detail": "An administrative observation records the contact preference as telephone."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "No resource in the supplied snapshot documents patient or family wishes, a representative, capacity assessment, or a legal care-planning record."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown; no residence or current living arrangement is documented in the supplied snapshot.",
+    "functionAndMobility": "Largely unknown. A June respiratory check recorded mild wheeze after walking, but there is no documented activities-of-daily-living, mobility-aid, frailty, falls, cognition, nutrition, or dependency baseline.",
+    "currentClinicalSupport": [
+      "GP care is documented through asthma and long-term-condition contacts.",
+      "The patient was in the emergency department for acute breathlessness on 17 September 2026; subsequent care setting and disposition are unknown."
+    ],
+    "familyAndCarerSupport": [],
+    "gaps": [
+      "Residence and usual care setting are unknown.",
+      "Functional, mobility, frailty, cognition, nutrition, symptom-burden, and dependency baselines are unknown.",
+      "Medication list, inhaler regimen, adherence, allergies, comorbid diagnoses, and recent treatment response are not supplied.",
+      "Family and formal or informal carer support are unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-06-23T12:00:00.000Z",
+        "detail": "Respiratory observation recorded peak flow 260 L/min, oxygen saturation 95% on air, and mild wheeze after walking."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-17T08:00:00.000Z",
+        "detail": "Latest documented location was the emergency department; no later disposition is present."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Acute hospital clinical team",
+      "meetingPriority": "core",
+      "ownership": "Own immediate assessment of the emergency presentation, document diagnosis, treatment response and disposition, and communicate clinically relevant findings to primary care.",
+      "reason": "The most recent record places the patient in the emergency department with acuity-2 respiratory symptoms and no assigned clinician named in the snapshot.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-17T08:00:00.000Z",
+          "detail": "Hospital attendance recorded location as Emergency department, stage triaged, acuity 2, and clinician Unassigned."
+        }
+      ]
+    },
+    {
+      "role": "Usual GP or primary-care clinician",
+      "meetingPriority": "core",
+      "ownership": "Reconcile the longitudinal record after the acute episode, review abnormal results and respiratory trajectory, establish baseline and preferences, and decide whether later care-planning review is appropriate.",
+      "reason": "Primary care documented the asthma trajectory and contact preference and is positioned to integrate follow-up information.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-24T12:00:00.000Z",
+          "detail": "GP completed the worsening wheeze review documenting increased symptoms and reliever use."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-26T08:10:00.000Z",
+          "detail": "GP record documented telephone as the contact preference."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "Usual GP or primary-care clinician after acute-care findings are available",
+    "urgency": "Do not arrange a goals-of-care meeting solely from this snapshot. Conduct timely human review after the acute episode; escalate sooner only if the treating team identifies irreversible deterioration, major unmet needs, or the patient requests planning.",
+    "formatAndAccessibility": "If a later conversation is clinically appropriate, first confirm the patient's consent, capacity, communication and accessibility needs, and whether telephone remains acceptable; use a brief patient-led format and include family or carers only with the patient's agreement or lawful basis.",
+    "objectives": [
+      "Clarify diagnosis, reversibility, treatment response, and post-emergency disposition before considering future-care planning.",
+      "Establish the patient's baseline function, symptom burden, priorities, concerns, and preferred involvement of family or carers.",
+      "Check for planning documents or specialist involvement not represented in the snapshot.",
+      "Decide with the patient whether a separate priorities-of-care discussion would be useful."
+    ],
+    "briefingNotes": [
+      {
+        "note": "Respiratory symptoms progressed from mild cough and exertional wheeze in May to yellow sputum, increased reliever use, and emergency attendance in September.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-05-19T12:00:00.000Z",
+            "detail": "Asthma review described mild morning cough and occasional wheeze on hills."
+          },
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-09-17T08:00:00.000Z",
+            "detail": "Emergency attendance followed three days of productive cough and increasing breathlessness."
+          }
+        ]
+      },
+      {
+        "note": "Recent laboratory review should include persistent inflammation, macrocytosis, leukocytosis, and potassium and creatinine elevation, while avoiding assumptions about cause.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-09-11T08:00:00.000Z",
+            "detail": "CRP 12.7 mg/L, white-cell count 12.4 ×10⁹/L, MCV 103 fL, potassium 5.6 mmol/L, and creatinine 121 µmol/L were reported."
+          }
+        ]
+      },
+      {
+        "note": "Telephone is the only documented contact preference; other accessibility needs and desired family involvement remain unknown.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-06-26T08:10:00.000Z",
+            "detail": "GP administrative observation recorded telephone contact preference."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Acute diagnosis, treatment response, and current location",
+      "Usual function, symptom burden, and support",
+      "Patient understanding, priorities, and preferred participants",
+      "Existing plans or documents not visible in the snapshot",
+      "Shared decision on whether future-care planning would be helpful"
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Draft for clinician use by telephone only after confirming the recorded preference is still current",
+      "draft": "We would like to check how you are recovering after the recent breathing problem and make sure we understand what matters to you in your care. This is not a statement about what will happen in the future. We can first talk about your current symptoms and support, and you can decide whether any broader planning discussion would be useful and whether you would like anyone else involved.",
+      "cautions": [
+        "Do not imply a prognosis, terminal diagnosis, or predetermined palliative-care pathway.",
+        "Confirm identity, consent, current contact preference, capacity, privacy, and accessibility before discussion.",
+        "Address unresolved acute symptoms through the appropriate clinical pathway rather than using this draft as clinical advice.",
+        "Do not involve family or carers without the patient's agreement or another lawful basis."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-26T08:10:00.000Z",
+          "detail": "Telephone was recorded as the contact preference."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-17T08:00:00.000Z",
+          "detail": "Recent emergency attendance concerned increasing breathlessness and productive cough."
+        }
+      ]
+    },
+    {
+      "audience": "Acute hospital team and usual GP",
+      "channel": "Draft internal clinical handover; do not send automatically",
+      "draft": "Please reconcile the 17 September emergency respiratory presentation with the preceding increase in breathlessness, sputum and reliever use, and review the recent laboratory trends. The available snapshot does not establish irreversible decline or an existing advance-care plan. Please document diagnosis, response, disposition, baseline function and patient priorities before deciding whether any future priorities-of-care conversation is indicated.",
+      "cautions": [
+        "Verify all results and dates in the source clinical system before use.",
+        "Do not treat absence of planning records in this snapshot as proof that none exist.",
+        "This is clinical decision support and requires accountable clinician review."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-17T08:00:00.000Z",
+          "detail": "Acuity-2 emergency attendance followed three days of productive cough and increasing breathlessness."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-11T08:00:00.000Z",
+          "detail": "Latest pre-attendance laboratory panel contained raised CRP, white-cell count, MCV, potassium, and creatinine."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Complete and document clinician-led assessment of the acute respiratory presentation, including diagnosis, treatment response, current oxygenation where clinically indicated, and disposition.",
+      "owner": "Acute hospital clinical team",
+      "urgency": "Immediate within the active emergency episode",
+      "reason": "The latest record shows an acuity-2 emergency attendance with increasing breathlessness, productive cough, and no assigned clinician documented.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-17T08:00:00.000Z",
+          "detail": "Attendance was triaged at acuity 2 in the emergency department for respiratory symptoms; clinician field was Unassigned."
+        }
+      ]
+    },
+    {
+      "action": "Reconcile the recent potassium, creatinine, inflammatory, white-cell, and MCV results against repeat testing, medications, clinical context, and source-system values.",
+      "owner": "Treating clinician, with primary-care follow-up if discharged",
+      "urgency": "During acute review and at handover",
+      "reason": "Recent abnormalities are documented but their cause, persistence, and clinical significance are unresolved, and the creatinine/eGFR pairing warrants source verification.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-11T08:00:00.000Z",
+          "detail": "Potassium 5.6 mmol/L, creatinine 121 µmol/L, eGFR 103 mL/min/1.73m², CRP 12.7 mg/L, white-cell count 12.4 ×10⁹/L, and MCV 103 fL were reported."
+        }
+      ]
+    },
+    {
+      "action": "After the acute episode, review the full record for diagnoses, medication and inhaler history, admissions, function, frailty, residence, support, treatment response, patient priorities, and any existing advance-care-planning documents.",
+      "owner": "Usual GP or primary-care clinician",
+      "urgency": "Promptly after acute-care information is available",
+      "reason": "These missing elements are necessary before deciding whether a goals-of-care conversation would be appropriate.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The supplied snapshot does not include a structured problem list, medication list, functional assessment, residence, carer details, treatment outcome, or explicit advance-care-planning record."
+        },
+        {
+          "sourcePath": "record/manifest.json",
+          "detail": "Collection consisted of one eligible snapshot source with 44 unique resources."
+        }
+      ]
+    },
+    {
+      "action": "Do not initiate a palliative or goals-of-care pathway solely from this review; reconsider only after human assessment of reversibility and the patient's wishes.",
+      "owner": "Accountable treating clinician",
+      "urgency": "Before any planning communication or referral",
+      "reason": "The available evidence supports an acute respiratory problem but does not document irreversible decline, a life-limiting diagnosis, or patient request for such a conversation.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-17T08:00:00.000Z",
+          "detail": "Latest event is an unresolved emergency presentation for productive cough and breathlessness, with no subsequent diagnosis or outcome in the snapshot."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "The manifest reports successful collection of the single eligible 15-day snapshot, no failed sources, 44 unique resources, no duplicate visibility, and no forced insufficient-evidence safety gate. Coverage is nevertheless clinically narrow: the snapshot supplies demographics and selected reports, encounters, observations, one genomic record, and one emergency attendance, but lacks a comprehensive problem list, medicines, allergies, functional and social baseline, hospital outcome, and explicit care-planning documents.",
+    "missingSources": [
+      "Comprehensive diagnoses and problem list",
+      "Medication, inhaler, adherence, and allergy records",
+      "Emergency assessment outcome, diagnosis, treatment, and disposition after 17 September 2026",
+      "Residence, frailty, function, cognition, nutrition, falls, and dependency assessments",
+      "Family, carer, next-of-kin, and social-care information",
+      "Patient wishes, capacity, accessibility needs, and preferred family involvement",
+      "Advance care plan, ReSPECT, DNACPR, ADRT, legal representative, hospice, and specialist palliative-care records",
+      "Repeated-admission history and fuller longitudinal clinical notes"
+    ],
+    "failedSources": [],
+    "contradictions": [
+      "On 11 September 2026, creatinine was reported above range at 121 µmol/L while eGFR was reported as 103 mL/min/1.73m²; this pairing should be checked in the source system rather than interpreted as a coherent renal trajectory."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Coverage reports one successful source, zero failed sources, 44 unique resources, zero duplicate visibility, and forceInsufficientEvidence false."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-11T08:00:00.000Z",
+        "detail": "U&E report pairs creatinine 121 µmol/L with eGFR 103 mL/min/1.73m²."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Demographics list birth date 1944-08-14 and ageAtIndex 82; the cutoff is 2026-09-19."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "confirmed",
+    "falsePositiveChecks": [
+      "Performed a deliberate second pass through all 44 supplied resources in record/eligible.json and rechecked collection coverage and safety-gate status in record/manifest.json.",
+      "Reconstructed the respiratory sequence from mild May asthma symptoms through August worsening to the 17 September acuity-2 emergency attendance.",
+      "Rechecked for progressive life-limiting diagnoses, repeated admissions, frailty, functional decline, residence, escalating formal support, and palliative or hospice involvement; none was documented in the supplied snapshot.",
+      "Rechecked for ACP, ReSPECT, DNACPR, ADRT, patient or family wishes, legal representatives, and active care-planning implementation; none was documented in the supplied snapshot.",
+      "Tested the alternative explanation of an acute potentially treatable respiratory exacerbation against sputum, wheeze, reliever use, inflammatory markers, and emergency presentation; it remains plausible but unconfirmed because treatment response and disposition are absent.",
+      "Rechecked the latest laboratory values and identified the creatinine/eGFR pairing as requiring source verification.",
+      "Confirmed that no independent verifier was used; this verification is the same agent's required second evidence re-check."
+    ],
+    "changesFromPrimary": []
+  }
+}

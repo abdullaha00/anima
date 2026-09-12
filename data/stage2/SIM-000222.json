@@ -1,0 +1,405 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000222",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "proceed",
+  "confidence": 0.76,
+  "summary": "Prompt human review is supported for a focused conversation about the patient's priorities, acceptable treatment burden, and contingency planning after a medically managed NSTEMI with acute congestion, persistent exertional dyspnoea, and renal impairment. This should complement active cardiac and renal follow-up, not imply a terminal prognosis or displace treatment of reversible problems. The snapshot does not establish the patient's current function, residence, wishes, family involvement, or any active advance-care plan.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-09-02T12:00:00.000Z",
+      "detail": "Discharge summary documents medically managed NSTEMI with acute congestion; chest pain settled, while exertional dyspnoea and renal impairment remained and close heart-failure and renal follow-up was arranged."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-08-24T12:00:00.000Z",
+      "detail": "Emergency attendance documents persistent chest pain, breathlessness, pulmonary congestion, dynamic ST-T changes, and treatment for suspected NSTEMI."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Recent serious acute cardiac event with residual symptoms",
+      "significance": "A priorities and contingency discussion is reasonable alongside disease-directed care because treatment settled the chest pain but exertional dyspnoea persisted after an NSTEMI complicated by congestion.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-02T12:00:00.000Z",
+          "detail": "Discharge summary records NSTEMI with acute congestion, settled chest pain, ongoing exertional dyspnoea, and planned close follow-up."
+        }
+      ]
+    },
+    {
+      "signal": "Cardiac symptom escalation before admission",
+      "significance": "The longitudinal sequence from exertional pressure to more frequent episodes and then persistent pain supports review of future escalation preferences without predicting outcome.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-13T12:00:00.000Z",
+          "detail": "GP encounter records exertional central pressure lasting five minutes and settling with rest; urgent cardiac assessment was advised."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-29T12:00:00.000Z",
+          "detail": "GP observation records increasingly frequent exertional chest pressure with breathlessness at lighter activity and requests urgent ECG and troponin assessment."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-24T12:00:00.000Z",
+          "detail": "Hospital attendance records persistent chest pain and breathlessness with dynamic ST-T changes and pulmonary congestion."
+        }
+      ]
+    },
+    {
+      "signal": "Renal impairment affected acute treatment and remained a follow-up issue",
+      "significance": "Renal complexity may affect treatment burden and choices and should be clarified by the treating clinicians during shared planning.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-31T12:00:00.000Z",
+          "detail": "Hospital observation reports creatinine 158 micromol/L and eGFR 48 alongside a rising troponin, with cardiology acceptance for suspected NSTEMI."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-02T12:00:00.000Z",
+          "detail": "Discharge summary states renal impairment complicated treatment and that antithrombotic treatment used renal-adjusted dosing."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "no_clear_false_positive",
+    "alternativeExplanations": [
+      "The immediate deterioration is plausibly explained by an acute NSTEMI that improved with medical treatment.",
+      "Residual breathlessness may relate to post-infarct congestion or another treatable cardiac or renal issue; the snapshot does not establish irreversibility."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "A specialist palliative referral or prognosis-led conversation would be premature on this snapshot because active cardiac and renal follow-up is arranged and no progressive terminal condition is documented.",
+      "Any discussion should be deferred until urgent recurrent chest pain or breathlessness has been clinically assessed."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "The discharge record still documents exertional dyspnoea and renal impairment after the acute episode.",
+      "The admission followed a documented progression from exertional symptoms to persistent chest pain, dynamic ECG changes, and pulmonary congestion."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-02T12:00:00.000Z",
+        "detail": "Discharge summary documents improvement in chest pain with medical treatment but persistent exertional dyspnoea and renal impairment, with active follow-up planned."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-24T12:00:00.000Z",
+        "detail": "Emergency record documents pulmonary congestion, dynamic ST-T changes, and renal-adjusted antithrombotic treatment for suspected NSTEMI."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No goals-of-care discussion, advance care plan, ADRT, DNACPR/ReSPECT record, or hospice/palliative involvement is present in the supplied eligible snapshot.",
+      "Absence from this snapshot does not prove that no plan exists elsewhere; a human reviewer should verify."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Review of the supplied 45-resource snapshot found cardiac care and administrative contact-preference entries but no explicit advance-care or palliative-planning resource."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "SMS is recorded as an administrative contact preference; consent for sensitive clinical content by SMS is not documented."
+    ],
+    "uncertainties": [
+      "The patient's goals, understanding, preferred level of family involvement, and acceptable treatment burden are unknown.",
+      "Family, carer, proxy, capacity, communication-accessibility, and legal-planning information are not documented in the snapshot.",
+      "Whether any planning record exists outside this single eligible snapshot is unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-04T08:10:00.000Z",
+        "detail": "The latest pre-cutoff administrative observation records SMS as the contact preference."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The supplied snapshot contains no explicit patient or family wishes, proxy details, capacity assessment, or legal care-planning record."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown from the supplied snapshot.",
+    "functionAndMobility": "Independent mobility and activities of daily living are unknown; the record only establishes exertional symptoms with stairs and later lighter activity, followed by persistent exertional dyspnoea after admission.",
+    "currentClinicalSupport": [
+      "GP follow-up requested for symptoms, blood pressure, renal function, adherence, and the cardiac medicines plan.",
+      "Early heart-failure and renal review was arranged after discharge."
+    ],
+    "familyAndCarerSupport": [],
+    "gaps": [
+      "Current location after discharge, functional ability, frailty, cognition, personal care needs, medication list, and community support are unknown.",
+      "Current symptoms and whether planned cardiac and renal follow-up occurred are unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-02T12:00:00.000Z",
+        "detail": "Discharge summary documents persistent exertional dyspnoea and requested GP, heart-failure, and renal follow-up, but does not give residence, mobility, frailty, or carer support."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-06-29T12:00:00.000Z",
+        "detail": "GP observation documents symptoms occurring with lighter activity but provides no formal functional or mobility assessment."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Usual GP or primary-care clinician",
+      "meetingPriority": "core",
+      "ownership": "Confirm current stability and follow-up, check for existing planning records, invite the patient to choose who is involved, and own the initial priorities conversation.",
+      "reason": "The discharge summary assigns symptom, blood-pressure, renal-function, adherence, and cardiac-plan checks to primary care.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-02T12:00:00.000Z",
+          "detail": "Discharge GP actions are to check symptoms, blood pressure, renal function, adherence, and the cardiac medicines plan."
+        }
+      ]
+    },
+    {
+      "role": "Treating cardiology or heart-failure clinician",
+      "meetingPriority": "core",
+      "ownership": "Explain the cardiac condition, likely treatment options and uncertainties, and provide disease-specific contingency advice for shared planning.",
+      "reason": "Cardiology accepted the suspected NSTEMI referral, and early heart-failure review was arranged after discharge with ongoing exertional dyspnoea.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-31T12:00:00.000Z",
+          "detail": "Hospital observation states cardiology accepted the referral for suspected NSTEMI."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-02T12:00:00.000Z",
+          "detail": "Discharge summary records ongoing exertional dyspnoea and early heart-failure follow-up."
+        }
+      ]
+    },
+    {
+      "role": "Renal clinician or clinician responsible for renal follow-up",
+      "meetingPriority": "optional",
+      "ownership": "Clarify renal measurements, reversibility, and implications for cardiac medication and treatment burden if these remain uncertain after primary and cardiac review.",
+      "reason": "Renal impairment complicated treatment and renal review was arranged, but no named renal clinician is documented.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-02T12:00:00.000Z",
+          "detail": "Discharge summary states renal impairment complicated treatment and early renal review was arranged."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "Usual GP or primary-care clinician, coordinating with the treating cardiology or heart-failure clinician",
+    "urgency": "Promptly at the earliest clinically appropriate post-discharge review; assess urgent symptoms first rather than delaying acute care for a planning meeting.",
+    "formatAndAccessibility": "Offer a brief clinician-led conversation in the patient's preferred accessible format. SMS may be used only for a neutral invitation after confirming identity, consent, and accessibility; do not send sensitive clinical detail by SMS without confirmation.",
+    "objectives": [
+      "Check the patient's current understanding and what matters most during recovery.",
+      "Explain treatment and follow-up uncertainties without making prognostic claims.",
+      "Discuss acceptable treatment burden and what the patient would want if chest pain or breathlessness recurs.",
+      "Ask whom, if anyone, the patient wants involved and whether any existing planning documents should be retrieved.",
+      "Agree clear ownership for cardiac, renal, and primary-care follow-up and document the outcome only after clinician and patient review."
+    ],
+    "briefingNotes": [
+      {
+        "note": "The acute episode was an NSTEMI with pulmonary congestion; medical treatment settled chest pain, but exertional dyspnoea and renal impairment remained.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-09-02T12:00:00.000Z",
+            "detail": "Discharge course and results document these findings and planned close follow-up."
+          }
+        ]
+      },
+      {
+        "note": "Renal values require clinical reconciliation because routine panel eGFR entries do not align with the acute hospital eGFR entry and associated creatinine values.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-07-14T08:00:00.000Z",
+            "detail": "Routine U&E panel reports creatinine 132 micromol/L with eGFR 113."
+          },
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-07-31T12:00:00.000Z",
+            "detail": "Acute hospital observation reports creatinine 158 micromol/L with eGFR 48."
+          }
+        ]
+      },
+      {
+        "note": "No patient goals, family wishes, functional baseline, residence, or active care-planning document is established in this snapshot.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "Review of the supplied snapshot found no explicit entries for these domains."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Immediate symptom and recovery check",
+      "Patient's understanding, priorities, and concerns",
+      "Cardiac and renal treatment options and uncertainties",
+      "Preferences for future escalation and acceptable treatment burden",
+      "Preferred participants, communication method, documentation, and named follow-up owner"
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Neutral SMS invitation only after a clinician confirms the recorded preference and that SMS is appropriate; otherwise use an accessible clinical channel",
+      "draft": "Your healthcare team would like to offer time to talk about how things have been since your hospital care, what matters most to you, and how we can plan your support. This is part of making sure your care reflects your priorities. Please let us know how you would prefer to have this conversation and whether you would like someone you trust to join you.",
+      "cautions": [
+        "Do not describe this as an end-of-life meeting or imply a prognosis.",
+        "Do not include NSTEMI, renal results, or other sensitive clinical detail in SMS without confirmed consent.",
+        "Check current symptoms first and direct urgent clinical concerns through the appropriate acute pathway.",
+        "Do not assume the patient wants family or another person involved."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-04T08:10:00.000Z",
+          "detail": "Administrative observation records SMS as contact preference."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-02T12:00:00.000Z",
+          "detail": "Discharge summary provides the post-hospital clinical context for a priorities-focused invitation."
+        }
+      ]
+    },
+    {
+      "audience": "Core clinical team",
+      "channel": "Secure internal clinical communication",
+      "draft": "Please review current symptoms and completion of the planned cardiac and renal follow-up, reconcile the renal results and medicines plan, and check for any existing advance-care records. If clinically stable, the GP should offer a brief patient-led discussion about priorities and future escalation, with cardiology or heart-failure input on treatment options. No prognosis or patient preference should be inferred from this review.",
+      "cautions": [
+        "This is clinical decision support and requires human review.",
+        "Verify current status and records before acting.",
+        "Do not infer capacity, family involvement, or treatment limits."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-02T12:00:00.000Z",
+          "detail": "Discharge summary requests close heart-failure, renal, and GP follow-up after NSTEMI with residual dyspnoea and renal impairment."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "A clinician should verify current chest pain, breathlessness, and clinical stability before any planning conversation and use the urgent pathway if symptoms have recurred.",
+      "owner": "Usual GP or current treating clinician",
+      "urgency": "Same day if symptoms are present or recurrent; otherwise at the prompt post-discharge review.",
+      "reason": "The admission involved persistent chest pain and pulmonary congestion, and discharge advice called for urgent return with recurrent chest pain.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-24T12:00:00.000Z",
+          "detail": "Emergency attendance documents persistent chest pain, breathlessness, and pulmonary congestion."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-02T12:00:00.000Z",
+          "detail": "Discharge follow-up includes urgent return advice for recurrent chest pain."
+        }
+      ]
+    },
+    {
+      "action": "Confirm that cardiac, heart-failure, renal, and GP follow-up is active; reconcile renal function and the renal-adjusted cardiac medicines plan.",
+      "owner": "Usual GP, with treating cardiology or heart-failure clinician",
+      "urgency": "Prompt post-discharge review.",
+      "reason": "The discharge plan requires symptom, blood-pressure, renal-function, adherence, and medication checks after renal impairment complicated treatment.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-02T12:00:00.000Z",
+          "detail": "Discharge summary specifies early heart-failure and renal review and GP checks of symptoms, blood pressure, renal function, adherence, and cardiac medicines."
+        }
+      ]
+    },
+    {
+      "action": "Before inviting others, ask the patient about preferred format, accessibility needs, and whom they want involved; search the available clinical systems for existing planning documents.",
+      "owner": "Usual GP or primary-care clinician",
+      "urgency": "Before the priorities conversation.",
+      "reason": "Only an administrative SMS preference is documented; patient wishes, family involvement, accessibility needs, and planning records remain unknown in the snapshot.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-04T08:10:00.000Z",
+          "detail": "Administrative observation records SMS preference without consent or accessibility detail."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The supplied snapshot has no explicit patient wishes, family-involvement preference, accessibility assessment, or advance-care document."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "The manifest reports one successful eligible 15-day snapshot source, no failed sources, and 45 unique resources with no duplicate visibility; the safety gate does not force insufficient evidence. This is complete coverage of the configured source, not proof that all clinically relevant domains or external records are present.",
+    "missingSources": [],
+    "failedSources": [],
+    "contradictions": [
+      "Routine U&E panels pair raised creatinine with eGFR values above 100, while the acute hospital observation pairs creatinine 158 micromol/L with eGFR 48; renal function should be clinically reconciled rather than selecting one value.",
+      "The discharge summary says follow-up was arranged, but the snapshot ends before documenting whether it occurred."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "date": "2026-09-12T16:45:22.771Z",
+        "detail": "Manifest reports 1 successful source, 0 failed sources, 45 unique resources, 0 resources with duplicate visibility, and forceInsufficientEvidence=false."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-14T08:00:00.000Z",
+        "detail": "Routine U&E panel reports creatinine 132 micromol/L and eGFR 113."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-31T12:00:00.000Z",
+        "detail": "Acute hospital observation reports creatinine 158 micromol/L and eGFR 48."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-02T12:00:00.000Z",
+        "detail": "Final pre-cutoff resource documents arranged follow-up but no subsequent completion record is available in the snapshot."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "revised",
+    "falsePositiveChecks": [
+      "Re-read all 45 resources in the eligible snapshot and reconstructed the symptom sequence from exertional pressure through suspected NSTEMI, admission, and discharge.",
+      "Checked for a benign or fully resolved explanation: chest pain improved with treatment, but residual exertional dyspnoea and renal impairment remained.",
+      "Checked for active goals-of-care, ACP, ADRT, DNACPR/ReSPECT, hospice, or palliative records; none was explicit in the supplied snapshot.",
+      "Checked whether active cardiac and renal follow-up makes a separate prognosis-led or specialist palliative approach premature.",
+      "Rechecked patient wishes, family or carer involvement, residence, function, capacity, and accessibility and retained these as unknown rather than normal.",
+      "Compared repeated renal results and flagged the discordant eGFR pattern for clinician reconciliation.",
+      "Rechecked the manifest: the sole configured source succeeded, failedSources is empty, and the safety gate is not active."
+    ],
+    "changesFromPrimary": [
+      "Narrowed the recommendation to a clinician-led priorities and contingency conversation alongside active treatment, rather than implying prognosis-led palliative referral.",
+      "Made current symptom assessment and confirmation of post-discharge follow-up prerequisites to the conversation.",
+      "Added renal-data discordance and missing functional, residence, family, capacity, and planning information as explicit uncertainties.",
+      "Limited the core team to primary care and cardiology or heart-failure care, with renal input optional.",
+      "Restricted SMS to a neutral invitation subject to confirmation of consent and accessibility."
+    ]
+  }
+}

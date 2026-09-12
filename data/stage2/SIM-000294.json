@@ -1,0 +1,420 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000294",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "proceed",
+  "confidence": 0.7,
+  "summary": "Prompt human review for a sensitive priorities-and-care-planning conversation is supported, while simultaneously assessing potentially treatable swallowing and respiratory problems. The record shows a recent trajectory of increasing fatigue and meal-related breathlessness followed by cough with drinking, two reported choking episodes, and worse nocturnal breathlessness. Recent laboratory findings add concern but are nonspecific. The snapshot does not establish a progressive diagnosis, functional decline, residence, current services, or an active advance-care plan, so this is an invitation to discuss priorities rather than a prognostic conclusion.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-05-27T12:00:00.000Z",
+      "detail": "GP telephone encounter documents increasing fatigue and occasional breathlessness after meals, without fever, chest pain, rest dyspnoea, or appetite change."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-08-01T12:00:00.000Z",
+      "detail": "GP encounter documents new cough while drinking, two choking episodes reported by family, worse nocturnal breathlessness, and prompt review arranged."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-09-11T08:00:00.000Z",
+      "detail": "Latest recorded tests include sodium 132 mmol/L, CRP 9.6 mg/L, and white-cell count 12.2 ×10⁹/L; these are abnormal or borderline findings requiring clinical context."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Evolving swallowing and respiratory symptoms",
+      "significance": "Cough with drinking and reported choking episodes create an immediate need to clarify aspiration risk and reversible causes; their appearance after earlier fatigue and breathlessness also makes a broader priorities conversation reasonable.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-27T12:00:00.000Z",
+          "detail": "Earlier GP encounter records increasing fatigue and occasional breathlessness after meals."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-01T12:00:00.000Z",
+          "detail": "Later GP encounter records cough while drinking, two choking episodes, and worse breathlessness at night."
+        }
+      ]
+    },
+    {
+      "signal": "Persistent nonspecific laboratory abnormalities",
+      "significance": "Repeated mild hyponatraemia and inflammatory-marker elevation, with latest leukocytosis, warrant clinician review but do not establish an irreversible or palliative diagnosis.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-14T08:00:00.000Z",
+          "detail": "U&E reports sodium 130 mmol/L."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-21T08:00:00Z",
+          "detail": "Inflammatory-marker follow-up reports CRP 15.2 mg/L and states that clinical correlation is required."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-11T08:00:00.000Z",
+          "detail": "Latest reports show sodium 132 mmol/L, CRP 9.6 mg/L, and white-cell count 12.2 ×10⁹/L."
+        }
+      ]
+    },
+    {
+      "signal": "Advanced age with important baseline and preference gaps",
+      "significance": "Age alone is not a reason for palliative planning, but at age 93 the combination of new symptoms and absent documented baseline or care-planning detail supports a timely clinician-led check of priorities and contingency planning.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Demographics state birth date 1932-11-17 and age at index 93."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The 50-resource snapshot contains clinical reports and encounters but does not document residence, mobility, daily function, or advance-care-planning instruments."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "no_clear_false_positive",
+    "alternativeExplanations": [
+      "The respiratory and swallowing symptoms may have a treatable cause, including an acute or mechanical swallowing problem; the record does not establish the cause.",
+      "Mild inflammatory abnormalities are nonspecific and the July CRP elevation subsequently decreased.",
+      "The May encounter explicitly recorded no fever, chest pain, rest dyspnoea, or appetite change at that time."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "A conversation framed as end-of-life care would be premature because no progressive or terminal diagnosis, documented functional decline, repeated admission pattern, or specialist assessment is present in this snapshot.",
+      "Urgent assessment of reversible swallowing and respiratory causes should not be delayed by care-planning discussion."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "Symptoms progressed from fatigue and meal-related breathlessness to cough with drinking, choking episodes, and worse nocturnal breathlessness.",
+      "Recent sodium, CRP, and white-cell findings remain abnormal or borderline and need interpretation in the clinical context.",
+      "The absence of detailed baseline and longitudinal service data prevents reassurance that function and support are stable."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-05-27T12:00:00.000Z",
+        "detail": "Encounter provides both concerning symptoms and contemporaneous negatives: no fever, chest pain, rest dyspnoea, or appetite change."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-01T12:00:00.000Z",
+        "detail": "Encounter records the later swallowing and nocturnal respiratory concerns."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-11T08:00:00.000Z",
+        "detail": "Latest blood tests provide nonspecific abnormal findings rather than a clear diagnosis."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No ACP, ADRT, DNACPR/DNR, ReSPECT, hospice, or palliative-care record is present in the eligible snapshot.",
+      "This means none was found in the supplied snapshot; it does not establish that no plan exists elsewhere."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Review of all supplied resources found reports, GP encounters, administrative contact-preference observations, and one genome record, but no active care-planning instrument or palliative-service entry."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Manifest shows coverage is limited to one eligible snapshot containing 50 unique resources."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Telephone is recorded as the patient's administrative contact preference."
+    ],
+    "uncertainties": [
+      "The patient's understanding, goals, concerns, preferred place of care, and willingness to discuss future care are unknown.",
+      "Family identity, availability, wishes, and the patient's permission to involve family are unknown.",
+      "Decision-making capacity, a health and welfare attorney, advance decision, emergency care plan, and resuscitation decision are not documented in this snapshot.",
+      "It is unknown whether the repeatedly recorded telephone preference remains current or includes accessibility needs."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-06-25T08:10:00.000Z",
+        "detail": "Administrative observation records telephone as contact preference."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-01T12:00:00.000Z",
+        "detail": "Encounter says family reported two choking episodes but does not identify relatives or document their wishes."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "No patient wishes, legal planning instrument, capacity assessment, or named family contact appears in the supplied resources."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown; no residence or current care setting is documented in the supplied snapshot.",
+    "functionAndMobility": "Unknown; activities of daily living, mobility, frailty, cognition, weight trajectory, and swallowing baseline are not documented.",
+    "currentClinicalSupport": [
+      "GP contacts and diagnostic blood testing are documented.",
+      "A GP note states that prompt review was arranged after swallowing and respiratory symptoms were reported; completion or outcome is not documented."
+    ],
+    "familyAndCarerSupport": [
+      "Family reported two choking episodes, indicating some family awareness, but identity, role, availability, and level of support are unknown."
+    ],
+    "gaps": [
+      "Current location, usual function, mobility aids, personal-care needs, cognition, nutrition, weight, medication list, diagnoses, and formal care package are unknown.",
+      "The status and outcome of the prompt review mentioned on 2026-08-01 are unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-01T12:00:00.000Z",
+        "detail": "GP encounter documents family-reported choking and says prompt review was arranged."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The supplied resources do not state residence, functional or mobility baseline, named carers, or a current medication and diagnosis list."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Primary care clinician",
+      "meetingPriority": "core",
+      "ownership": "Confirm immediate clinical safety, reconcile the trajectory and available results, check whether the arranged review occurred, and lead any priorities-and-contingency discussion.",
+      "reason": "The relevant symptom encounters are owned by GP and the diagnostic reports are visible to GP.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-01T12:00:00.000Z",
+          "detail": "The swallowing and respiratory encounter is GP-owned and records that prompt review was arranged."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-11T08:00:00.000Z",
+          "detail": "Latest diagnostic reports are marked visible to GP."
+        }
+      ]
+    },
+    {
+      "role": "Appropriate swallowing or respiratory assessor, selected by the responsible clinician if indicated",
+      "meetingPriority": "optional",
+      "ownership": "Assess swallowing and respiratory symptoms and advise on reversible causes and risk-reduction measures; this role is proposed, not documented as already involved.",
+      "reason": "New cough while drinking, choking episodes, and nocturnal breathlessness may require focused assessment before conclusions about longer-term planning.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-01T12:00:00.000Z",
+          "detail": "GP encounter documents cough with drinking, two choking episodes, and worse breathlessness at night."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "Primary care clinician responsible for the recent GP review",
+    "urgency": "Human review within days, sooner if current swallowing or breathing symptoms suggest immediate risk; do not delay clinical assessment to arrange a planning conversation.",
+    "formatAndAccessibility": "Offer a brief clinician-led conversation by the recorded telephone route or in person according to the patient's current preference; first confirm privacy, hearing, communication, and accessibility needs and obtain permission before involving family.",
+    "objectives": [
+      "Clarify the current symptom course and whether the previously arranged prompt review occurred.",
+      "Assess reversible causes and immediate swallowing or respiratory safety.",
+      "Ask what matters to the patient, what information they want, and whether they wish to discuss future-care contingencies.",
+      "With consent, identify who should be involved and whether planning documents already exist elsewhere.",
+      "Agree clinical ownership and a documented follow-up plan without making prognostic claims."
+    ],
+    "briefingNotes": [
+      {
+        "note": "The trajectory runs from increasing fatigue and meal-related breathlessness in May to cough with drinking, two choking episodes, and worse nocturnal breathlessness in August.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-05-27T12:00:00.000Z",
+            "detail": "Earlier symptom encounter."
+          },
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-08-01T12:00:00.000Z",
+            "detail": "Later swallowing and respiratory encounter."
+          }
+        ]
+      },
+      {
+        "note": "Latest labs include sodium 132 mmol/L, CRP 9.6 mg/L, and white-cell count 12.2 ×10⁹/L; treat these as contextual signals, not a diagnosis.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-09-11T08:00:00.000Z",
+            "detail": "Latest U&E, CRP, and FBC results."
+          }
+        ]
+      },
+      {
+        "note": "No wishes or active planning record was found, and baseline function, residence, services, and family role remain unknown.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "Supplied snapshot lacks these baseline and planning details."
+          },
+          {
+            "sourcePath": "record/manifest.json",
+            "detail": "Coverage consists of one eligible snapshot, so absence should not be interpreted as proof that records do not exist elsewhere."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Current symptoms and immediate safety",
+      "What matters to the patient and desired level of information",
+      "People the patient wants involved",
+      "Existing documents or prior discussions to retrieve",
+      "Contingency plan, responsible clinician, and follow-up"
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Draft for clinician use by telephone, subject to confirming the preference is current",
+      "draft": "We would like to check how you have been feeling, especially the breathing and swallowing concerns you mentioned, and make sure the right review has happened. We can also talk, if you would find it helpful, about what matters most to you and how you would like care to be planned if your health changes. This is not a statement about what will happen. Would you like to have that conversation, and is there anyone you would want involved?",
+      "cautions": [
+        "Confirm that telephone contact remains acceptable and assess privacy and accessibility before discussing sensitive issues.",
+        "Do not imply a terminal diagnosis or predicted outcome.",
+        "Prioritise urgent clinical assessment if symptoms are current or severe.",
+        "Seek the patient's consent before contacting or involving family."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-25T08:10:00.000Z",
+          "detail": "Telephone is recorded as an administrative contact preference."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-01T12:00:00.000Z",
+          "detail": "Swallowing and breathing concerns are documented."
+        }
+      ]
+    },
+    {
+      "audience": "Family or chosen supporter, only with patient consent",
+      "channel": "Draft for clinician-led telephone or in-person discussion after identity and permission are confirmed",
+      "draft": "With the patient's agreement, we are reviewing the recent swallowing and breathing concerns and asking what matters most to them. Your observations may help us understand what has changed, but we will not make assumptions about their wishes. Please tell us about any immediate concerns and any plans or documents the patient wants the team to know about.",
+      "cautions": [
+        "No family member or legal representative is named in the snapshot.",
+        "Verify identity, authority, and the patient's consent before sharing information.",
+        "Do not treat the family's report as the patient's preferences."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-01T12:00:00.000Z",
+          "detail": "Family reported two choking episodes, but no relative is identified and no wishes are recorded."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Clinically review current swallowing and breathing symptoms and confirm whether the prompt review recorded in August occurred; escalate according to current clinical findings.",
+      "owner": "Primary care clinician",
+      "urgency": "Within days, or immediately if current symptoms indicate acute breathing or aspiration risk",
+      "reason": "Cough with drinking, choking episodes, and worse nocturnal breathlessness may reflect a treatable but safety-relevant problem.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-01T12:00:00.000Z",
+          "detail": "GP encounter records the symptoms and says prompt review was arranged, but no outcome is supplied."
+        }
+      ]
+    },
+    {
+      "action": "Reconcile and clinically interpret the recent blood-test trends alongside symptoms rather than acting on isolated values.",
+      "owner": "Primary care clinician",
+      "urgency": "At the prompt clinical review",
+      "reason": "Repeated mild hyponatraemia and inflammatory abnormalities, with latest leukocytosis, are nonspecific but relevant to assessment.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-21T08:00:00Z",
+          "detail": "CRP follow-up reports 15.2 mg/L and requests clinical correlation."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-11T08:00:00.000Z",
+          "detail": "Latest sodium is 132 mmol/L, CRP 9.6 mg/L, and white-cell count 12.2 ×10⁹/L."
+        }
+      ]
+    },
+    {
+      "action": "Ask the patient about goals, desired family involvement, preferred communication, and any existing advance-care documents; document findings only through normal clinician-governed processes.",
+      "owner": "Primary care clinician",
+      "urgency": "During the prompt review, after immediate clinical needs are addressed",
+      "reason": "The snapshot records a telephone contact preference but no wishes, named supporter, or care-planning documents.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-25T08:10:00.000Z",
+          "detail": "Telephone preference is documented."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "No patient wishes, named family contact, or planning instrument appears in the supplied resources."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "The manifest reports one successful eligible 15-day snapshot, no failed sources, 50 unique resources, no duplicate visibility, and no forced insufficient-evidence safety gate. The snapshot supports symptom and laboratory review but is sparse for diagnoses, medicines, residence, function, services, planning records, and named relationships.",
+    "missingSources": [
+      "No separate source for current diagnoses or problem list is included.",
+      "No separate current medication list is included.",
+      "No separate functional, frailty, residence, social-care, or carer assessment is included.",
+      "No separate advance-care-planning or legal-record source is included.",
+      "No follow-up outcome for the prompt review mentioned on 2026-08-01 is included."
+    ],
+    "failedSources": [],
+    "contradictions": [
+      "No direct contradiction was identified, but some very low creatinine values coexist with preserved eGFR values; these should be checked in clinical context rather than interpreted as evidence of stability or decline.",
+      "A CYP2C19 panel names clopidogrel, but the snapshot contains no medication list confirming current use; medication exposure is therefore unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Coverage reports successful 1, failed 0, failedSources empty, 50 unique resources, zero duplicate visibility, and forceInsufficientEvidence false."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-14T08:00:00.000Z",
+        "detail": "U&E includes creatinine 16 µmol/L with eGFR 67 mL/min/1.73m², illustrating a value pair that requires clinical validation and context."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-12T08:00:00.000Z",
+        "detail": "Genome record identifies a CYP2C19 panel for clopidogrel but does not itself confirm a current prescription."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "revised",
+    "falsePositiveChecks": [
+      "Re-read all 50 eligible resources and checked the manifest safety gate, source failures, resource count, and cutoff coverage.",
+      "Re-checked the symptom sequence and contemporaneous negatives to avoid treating meal-related breathlessness or mild inflammation as proof of irreversible decline.",
+      "Re-checked latest laboratory dates and trends, distinguishing abnormal results from diagnoses.",
+      "Searched the supplied snapshot for ACP, ADRT, DNACPR/DNR, ReSPECT, hospice, palliative care, functional decline, admissions, residence, carers, wishes, and active service ownership; none of these planning or baseline details was documented.",
+      "Re-checked contact-preference and family references and retained them only at the level actually documented.",
+      "This was a deliberate self re-check, not independent verification."
+    ],
+    "changesFromPrimary": [
+      "Because the prior retry response was empty, there was no populated primary assessment to preserve or compare field by field.",
+      "During self re-check, reduced certainty by explicitly separating potentially treatable swallowing and respiratory causes from the rationale for offering a priorities conversation.",
+      "Added explicit unknowns for baseline, family role, legal planning, and follow-up completion, and avoided inferring a diagnosis or active palliative plan.",
+      "Qualified the recommendation as prompt human review with immediate clinical assessment taking precedence."
+    ]
+  }
+}

@@ -1,0 +1,402 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000416",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "proceed",
+  "confidence": 0.72,
+  "summary": "Prompt human review is appropriate because this 83-year-old arrived in the emergency department at the cutoff with an acute neurological change, right-sided weakness and dysarthria, under the stroke medical team at acuity 1. Earlier records also describe slower walking, light-headedness, headache and raised blood-pressure readings. This supports timely, proportionate review of priorities and escalation planning alongside urgent assessment, but not an immediate prognostic conclusion: the snapshot gives no confirmed diagnosis, response to treatment, longitudinal disease history, residence, decision-making capacity, or documented care-planning record.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-08-20T07:05:00Z",
+      "detail": "At the cutoff, the patient was recorded as arrived in the emergency department with acuity 1, acute right-sided weakness and dysarthria, under the stroke medical team."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "detail": "The snapshot identifies age at index as 83 and includes earlier GP contacts for slower walking/light-headedness and later headache with raised readings."
+    },
+    {
+      "sourcePath": "record/manifest.json",
+      "detail": "Coverage comprises one successful eligible snapshot containing 30 unique resources, with no failed source and no forced insufficient-evidence gate."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Acute high-acuity neurological presentation",
+      "significance": "The abrupt functional and communication change warrants prompt clinician-led review of immediate priorities, capacity, appropriate escalation and who should be involved, while urgent stroke assessment continues.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-20T07:05:00Z",
+          "detail": "Hospital attendance records sudden neurological change, acute right-sided weakness and dysarthria, emergency-department arrival, acuity 1 and stroke-team involvement."
+        }
+      ]
+    },
+    {
+      "signal": "Recent change from usual mobility with intermittent neurological or circulatory symptoms",
+      "significance": "Slower usual walking, light-headedness, later intermittent headache and raised blood-pressure readings provide context suggesting a recent change from the documented usual baseline, although no causal diagnosis is recorded.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "A GP telephone encounter states that he was slower on usual walks and had occasional light-headedness, without focal weakness, speech change or severe headache reported that day."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "A later GP encounter records higher-than-usual blood-pressure readings and intermittent headache, with urgent-help advice for weakness or speech difficulty."
+        }
+      ]
+    },
+    {
+      "signal": "Recent renal and electrolyte abnormality",
+      "significance": "A prior marked sodium, creatinine and eGFR abnormality may represent a potentially reversible contributor or comorbidity that the treating clinician should reconcile rather than assuming irreversible decline.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-01T08:10:00Z",
+          "detail": "Renal and electrolyte assessment recorded sodium 150 mmol/L, urea 8.4 mmol/L, creatinine 160 micromol/L and eGFR 42 mL/min/1.73m2."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "A later U&E resource records sodium 143 mmol/L, creatinine 84 micromol/L and eGFR 83, indicating that the earlier abnormality was not consistently present in the available results."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "uncertain",
+    "alternativeExplanations": [
+      "The acute presentation may have a treatable or reversible neurological, vascular, metabolic or other cause; the snapshot does not establish a diagnosis.",
+      "The preceding symptom contacts and laboratory abnormalities may be separate issues rather than evidence of a progressive terminal trajectory."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "Urgent assessment and treatment should not be delayed or displaced by a goals-of-care conversation during an unstable emergency presentation.",
+      "Dysarthria or other acute impairment may make an immediate detailed conversation inaccessible; capacity and communication needs require clinical assessment first.",
+      "There is no documented progressive life-limiting diagnosis, repeated admission pattern, established frailty syndrome or treatment outcome in this snapshot."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "Acuity 1 emergency-department arrival with sudden right-sided weakness and dysarthria is a serious documented change even though its cause and reversibility are unknown.",
+      "The recent record also documents slower walking, light-headedness, headache and raised readings, so the event should not be reduced to an isolated benign symptom without clinician review."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-20T07:05:00Z",
+        "detail": "The only hospital attendance in the snapshot records acute right-sided weakness and dysarthria at acuity 1, but no confirmed diagnosis, treatment or outcome."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Earlier GP contacts describe slower walking/light-headedness and later headache/raised readings; available resources do not document a progressive life-limiting diagnosis or repeated admissions."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No advance care plan, ReSPECT form, DNACPR decision, ADRT, palliative-care involvement, hospice involvement or implemented goals-of-care plan is documented in the eligible snapshot.",
+      "Absence from this limited snapshot does not establish that such records do not exist elsewhere; the treating team should verify."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Review of all 30 listed resources found reports, GP encounters, one contact-preference observation and one hospital attendance, but no documented advance or palliative-care planning resource."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "The manifest shows only one eligible snapshot source was collected, limiting conclusions about planning records outside that source."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Telephone is recorded as the patient's administrative contact preference."
+    ],
+    "uncertainties": [
+      "The patient's values, goals, understanding, treatment preferences and preferred participants are not documented.",
+      "Decision-making capacity and communication accessibility during the acute neurological presentation are unknown.",
+      "Family, carers, next of kin, health and welfare attorney, consent to involve others, and any legal planning records are unknown.",
+      "The recorded telephone preference may not be suitable during acute dysarthria and should be reconfirmed when clinically appropriate."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "An administrative observation records contact preference as telephone; the preceding fictional consultation notes discussion of contact preferences but gives no further preference detail."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-20T07:05:00Z",
+        "detail": "The acute attendance documents dysarthria; no patient wishes, family details, capacity assessment or legal planning record appears in the snapshot."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown; no residence or current home setting is documented in the eligible snapshot.",
+    "functionAndMobility": "Before the acute event, the only functional detail is that he took usual walks but had become slower; independence, activities of daily living, cognition, falls history and mobility aids are unknown.",
+    "currentClinicalSupport": [
+      "At the cutoff he was in the emergency department under the stroke medical team.",
+      "GP and diagnostics authored recent encounters and laboratory reports, but the ongoing support arrangement is not documented."
+    ],
+    "familyAndCarerSupport": [],
+    "gaps": [
+      "Residence and usual care setting are unknown.",
+      "Baseline independence, cognition, communication, frailty, mobility aids and personal-care needs are unknown.",
+      "Family and unpaid or paid carer availability is unknown.",
+      "Medication list, diagnoses, allergies, current observations, imaging, treatment and response are unavailable."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "A GP encounter records slower performance on usual walks; the snapshot has no structured residence, activities-of-daily-living, cognition, mobility-aid or carer information."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-20T07:05:00Z",
+        "detail": "Current recorded location is the emergency department with the stroke medical team."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Stroke medical team clinician",
+      "meetingPriority": "core",
+      "ownership": "Lead immediate clinical assessment; determine stability, capacity and communication needs; decide when and how a priorities conversation can safely occur.",
+      "reason": "The stroke medical team is the only explicitly identified current treating team at the acute attendance.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-20T07:05:00Z",
+          "detail": "The emergency-department attendance identifies the clinician as the stroke medical team."
+        }
+      ]
+    },
+    {
+      "role": "Primary care clinician",
+      "meetingPriority": "core",
+      "ownership": "Provide recent baseline and symptom trajectory, reconcile medicines and known conditions, and check primary-care-held preferences, planning documents and family or carer contacts.",
+      "reason": "Primary care documented the recent change in walking, light-headedness, headache, raised readings and contact preference.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "GP-owned resources contain the recent symptom encounters and administrative telephone contact preference."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "Stroke medical team clinician",
+    "urgency": "Human review during the acute attendance, with any substantive goals-and-priorities conversation timed after immediate stabilization and assessment of capacity and communication needs.",
+    "formatAndAccessibility": "Begin with a brief bedside clinician review. If a conversation is appropriate, use short, clear language, allow extra response time, assess the effect of dysarthria, offer communication support, and involve family or another representative only with consent or valid authority. Reconfirm whether telephone remains accessible before using it.",
+    "objectives": [
+      "Clarify the acute diagnosis, likely reversibility, treatment options and immediate escalation decisions without making unsupported prognostic claims.",
+      "Establish the patient's decision-making capacity, communication needs and understanding.",
+      "Ask what matters most to the patient and whom they want involved.",
+      "Confirm the pre-event functional baseline and available support.",
+      "Search for and reconcile any existing advance-care or emergency-care planning before creating a new plan.",
+      "Document agreed decisions through normal clinician governance after human review."
+    ],
+    "briefingNotes": [
+      {
+        "note": "At the cutoff, the patient had arrived in the emergency department at acuity 1 with acute right-sided weakness and dysarthria under the stroke medical team.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-08-20T07:05:00Z",
+            "detail": "Hospital-attendance resource supplies the acute presentation, location, acuity and team."
+          }
+        ]
+      },
+      {
+        "note": "Recent baseline evidence is sparse but records usual walks becoming slower, occasional light-headedness, then intermittent headache and higher-than-usual blood-pressure readings.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "Two GP encounters document the recent symptom sequence."
+          }
+        ]
+      },
+      {
+        "note": "A July renal/electrolyte abnormality was followed by substantially different later values, so reversibility and data validity should be reviewed rather than assuming persistent renal decline.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-07-01T08:10:00Z",
+            "detail": "The July assessment records sodium 150, creatinine 160 and eGFR 42."
+          },
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "A later U&E resource records sodium 143, creatinine 84 and eGFR 83."
+          }
+        ]
+      },
+      {
+        "note": "No wishes, family details or active advance-care plan are documented; telephone is the sole recorded contact preference.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "The resource list includes a telephone preference but no documented wishes, family contact or care-planning record."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Immediate clinical update and reversibility",
+      "Capacity and communication accessibility",
+      "Patient priorities and desired participants",
+      "Usual function, residence and support",
+      "Existing plans or legal representatives",
+      "Proportionate escalation plan and named follow-up owner"
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "In person when clinically stable; use supported communication and only use telephone if reconfirmed as accessible",
+      "draft": "You have had a sudden change, and the team is assessing what has happened and what treatments may help. When you feel able, we would like to understand what matters most to you and how you would want us to plan your care. This is not a prediction about what will happen. We can take this slowly, support communication, and include someone you choose if you wish.",
+      "cautions": [
+        "Do not delay urgent assessment or treatment.",
+        "Assess capacity and the impact of dysarthria before seeking decisions.",
+        "Do not imply a terminal diagnosis or predetermined outcome.",
+        "Confirm consent before involving family or another representative.",
+        "Reconfirm that telephone is usable in the current clinical context."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-20T07:05:00Z",
+          "detail": "The draft is prompted by the acute neurological attendance and dysarthria."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Telephone is documented as an administrative contact preference, but no care wishes or preferred participants are recorded."
+        }
+      ]
+    },
+    {
+      "audience": "Family member or representative, only if identified and involvement is consented to or legally authorised",
+      "channel": "Clinician-selected accessible channel after identity, consent or authority is verified",
+      "draft": "The patient is being assessed after a sudden change. With their permission, or where a valid representative is needed, we would value your understanding of what is important to them and how they were managing before this event. The treating clinician will explain what is known, what remains uncertain and the options being considered.",
+      "cautions": [
+        "No family member, carer, next of kin or legal representative is identified in this snapshot.",
+        "Verify identity, confidentiality, patient consent and any legal authority before sharing information.",
+        "Do not ask relatives to make decisions unless the appropriate clinical and legal process applies."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The snapshot documents an acute attendance but contains no family, carer, next-of-kin or legal-representative details."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Review the acute neurological assessment, current stability, working diagnosis, treatment options and likely reversibility before initiating a substantive goals conversation.",
+      "owner": "Stroke medical team clinician",
+      "urgency": "Immediate during the emergency attendance",
+      "reason": "The record shows an acuity 1 presentation with acute weakness and dysarthria but provides no diagnosis, treatment or response.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-20T07:05:00Z",
+          "detail": "Emergency attendance records acuity 1 sudden neurological change under the stroke medical team."
+        }
+      ]
+    },
+    {
+      "action": "Assess and document decision-making capacity, dysarthria-related communication barriers and any need for supported communication before requesting care decisions.",
+      "owner": "Stroke medical team clinician",
+      "urgency": "Before a substantive care-planning conversation",
+      "reason": "Dysarthria is documented and the snapshot contains no capacity or accessibility assessment.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-20T07:05:00Z",
+          "detail": "The presenting complaint includes dysarthria; no capacity assessment appears in the eligible resources."
+        }
+      ]
+    },
+    {
+      "action": "Reconcile usual function, residence, diagnoses, medicines, family or carer support, patient wishes and any advance-care or emergency-care planning held in primary care or current hospital systems.",
+      "owner": "Primary care clinician, coordinated with the stroke medical team",
+      "urgency": "Same day where feasible without delaying urgent treatment",
+      "reason": "These domains are absent from the limited snapshot, while primary care holds the recent symptom contacts and recorded contact preference.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "GP resources document recent symptoms and telephone preference but not residence, medicines, family support, wishes or planning records."
+        },
+        {
+          "sourcePath": "record/manifest.json",
+          "detail": "Only one eligible snapshot source was collected, so records held elsewhere remain unknown."
+        }
+      ]
+    },
+    {
+      "action": "Clinically reconcile the July renal/electrolyte abnormality with later results and the current presentation.",
+      "owner": "Stroke medical team clinician",
+      "urgency": "During acute clinical review",
+      "reason": "The snapshot contains markedly abnormal July renal/electrolyte values followed by substantially different later values, and does not explain the change.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-01T08:10:00Z",
+          "detail": "July assessment records sodium 150, urea 8.4, creatinine 160 and eGFR 42."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "A later result records sodium 143, urea 0.6, creatinine 84 and eGFR 83."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "The manifest reports one successful eligible 15-day snapshot, 30 unique resources, zero failed sources, no duplicate visibility and no forced insufficient-evidence reason. The snapshot is clinically narrow: it contains mainly laboratory reports, three GP encounters or administrative observations, and one acute hospital attendance, without record IDs on the individual resources.",
+    "missingSources": [
+      "No separate medication, diagnosis/problem-list, allergy, imaging, hospital-note, observation, treatment-response or discharge source is represented.",
+      "No structured residence, function, cognition, frailty, family/carer, capacity or legal-representative source is represented.",
+      "No advance-care-planning, ReSPECT, DNACPR, ADRT, palliative-care or hospice source is represented."
+    ],
+    "failedSources": [],
+    "contradictions": [
+      "Renal and electrolyte values vary markedly between the 2026-07-01 assessment and a later panel; the snapshot does not explain whether this reflects recovery, treatment, timing or data-quality variation.",
+      "The snapshot contains several epoch-timestamped routine panels that are difficult to contextualize clinically because individual resources have no record IDs and most have no human-readable encounter date."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Manifest coverage is 1 successful source, 0 failed sources and 30 unique resources; safetyGate.forceInsufficientEvidence is false."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The eligible resource list is predominantly laboratory reports and lacks medications, diagnoses, imaging, treatment response, functional assessment, family information and care-planning records."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-01T08:10:00Z",
+        "detail": "The July renal/electrolyte panel differs materially from a later U&E panel, and no explanatory clinical note is included."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "confirmed",
+    "falsePositiveChecks": [
+      "Deliberately re-read all 30 eligible resources for a benign explanation, confirmed diagnosis, treatment response, repeated admissions or progressive life-limiting disease; none was documented, so reversibility remains uncertain.",
+      "Re-checked the final acute attendance against the 2026-08-20 cutoff and confirmed that its arrival time is on the cutoff date.",
+      "Re-checked all resources for active advance-care planning, DNACPR, ReSPECT, ADRT, hospice or palliative-care involvement; none was documented in this snapshot.",
+      "Re-checked patient wishes, family/carer details, residence, capacity and legal representation; these remain unknown, while telephone is the only documented contact preference.",
+      "Re-checked manifest coverage and confirmed zero failed sources, one successful snapshot and no forced insufficient-evidence gate.",
+      "Re-checked every clinical claim and restricted citations to record/eligible.json, using record/manifest.json only for coverage statements."
+    ],
+    "changesFromPrimary": [
+      "On deliberate self-recheck, retained proceed but framed it as prompt human clinician review rather than an immediate goals conversation or prognostic conclusion.",
+      "Explicitly elevated treatable or reversible acute disease and the unexplained renal/electrolyte variation as false-positive considerations.",
+      "Limited the core team to the current stroke medical team and primary care, and made family involvement conditional on consent or valid authority.",
+      "No independent verifier was used; this verdict reflects the required second evidence re-check by the same single agent."
+    ]
+  }
+}

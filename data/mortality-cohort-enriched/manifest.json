@@ -230,6 +230,25 @@
       60,
       90
     ],
+    "pilot": {
+      "file": "pilot-authored-deaths-asof-15d.ndjson",
+      "horizonDays": 15,
+      "patientIds": [
+        "SIM-000499",
+        "SIM-000472",
+        "SIM-000464"
+      ],
+      "rowCount": 3,
+      "purpose": "Synthetic pipeline development only; not clinical evidence or simulator-observed outcomes."
+    },
+    "allAuthored15d": {
+      "file": "all-authored-deaths-asof-15d.ndjson",
+      "horizonDays": 15,
+      "scope": "All 34 authored synthetic death targets only; excludes simulator-recorded deaths and living controls.",
+      "rowCount": 34,
+      "syntheticOnly": true,
+      "limitation": "Invented synthetic data for pipeline development only; not clinical evidence or simulator-observed outcomes."
+    },
     "labelFile": "labels.ndjson",
     "rawAuditFile": "raw-records.ndjson",
     "rule": "Per-patient cutoff is index date minus horizon. Include only resources created by cutoff, with no provenance change or nested event timestamp after cutoff.",
@@ -256,10 +275,12 @@
       "exact cohort counts",
       "unique patient IDs",
       "34 authored target coverage",
+      "exact 15-day pilot IDs and row count",
+      "exact all-authored 15-day IDs, order, row count, and authored-only scope",
+      "per-patient, pilot, and all-authored cutoff dates",
       "cross-file links",
-      "per-patient cutoffs",
       "no post-cutoff events",
-      "no model-visible outcome/generator fields",
+      "no model-visible outcome/provenance/generator fields",
       "valid NDJSON",
       "bounded resource counts"
     ],

@@ -1,0 +1,382 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000437",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "proceed",
+  "confidence": 0.68,
+  "summary": "Prompt human review for a proportionate, patient-led goals-of-care conversation is supported, preferably after immediate assessment of potentially reversible acute illness. The record shows a longitudinal change from fatigue and ankle oedema to reduced urine output and worsening oedema, followed by arrival at an acute medical unit with weakness and oliguria on the cutoff date. Renal and electrolyte abnormalities add concern, but the snapshot does not establish an irreversible or terminal trajectory and does not document baseline function, diagnoses beyond the stated chronic kidney disease review, treatment response, or the patient's wishes. This recommendation is to offer planning around priorities, not to infer prognosis or limit active treatment.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-05-12T08:15:00.000Z",
+      "detail": "GP encounter documents more fatigue, evening ankle puffiness and poor sleep during a chronic kidney disease review."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-07-24T09:45:00.000Z",
+      "detail": "GP encounter documents swelling earlier in the day, reduced urine output and intermittent postural light-headedness."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-08-16T05:50:00Z",
+      "detail": "Hospital attendance records arrival at the acute medical unit with oliguria, weakness and worsening peripheral oedema."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Escalating symptom burden",
+      "significance": "Fatigue and ankle oedema were followed by earlier and worsening swelling, reduced urine output and weakness, supporting timely review while allowing for reversible causes.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-12T08:15:00.000Z",
+          "detail": "Initial GP symptom record notes fatigue and evening ankle puffiness."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-24T09:45:00.000Z",
+          "detail": "Later GP record notes reduced urine output, earlier leg swelling and intermittent light-headedness."
+        }
+      ]
+    },
+    {
+      "signal": "Acute-care escalation at the cutoff",
+      "significance": "Arrival at an acute medical unit for oliguria, weakness and worsening oedema creates an appropriate opportunity for a senior clinician to assess reversibility and ask whether the patient wants a priorities-focused discussion.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-16T05:50:00Z",
+          "detail": "Attendance is at the arrived stage in the acute medical unit, acuity 2, under the acute medical team."
+        }
+      ]
+    },
+    {
+      "signal": "Renal and electrolyte abnormalities",
+      "significance": "Hyperkalaemia and impaired renal indices in June, followed by raised urea and creatinine in July, warrant active clinical review; they increase concern but do not by themselves establish irreversibility.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-29T08:05:00Z",
+          "detail": "Renal panel records potassium 5.8 mmol/L, urea 11.8 mmol/L, creatinine 140 micromol/L and eGFR 45 mL/min/1.73m²."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-14T08:00:00.000Z",
+          "detail": "U&E panel records urea 10.1 mmol/L and creatinine 112 micromol/L."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "no_clear_false_positive",
+    "alternativeExplanations": [
+      "The acute oliguria, oedema, weakness and renal/electrolyte changes may have a treatable or reversible cause; the snapshot does not document the acute assessment or response to treatment.",
+      "Renal measurements fluctuate rather than showing a simple continuous decline."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "The record does not establish advanced irreversible disease, a terminal diagnosis, sustained functional decline, repeated admissions, or failure of treatment.",
+      "A conversation should not delay urgent assessment and treatment of oliguria, oedema or electrolyte disturbance, and should be offered when the patient is clinically able to participate."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "Symptoms progressed over several months from fatigue and ankle swelling to reduced urine output and acute medical-unit attendance.",
+      "The June renal panel includes potassium 5.8 mmol/L with raised urea and creatinine."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-06-29T08:05:00Z",
+        "detail": "Renal panel documents hyperkalaemia and impaired renal indices."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-24T09:45:00.000Z",
+        "detail": "GP encounter documents worsening oedema and reduced urine output."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-16T05:50:00Z",
+        "detail": "Acute medical-unit attendance documents oliguria, weakness and worsening peripheral oedema."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No advance care plan, ReSPECT form, DNACPR decision, advance decision, documented goals-of-care discussion, or palliative/hospice involvement appears in the available 39-resource snapshot.",
+      "Absence from this limited snapshot does not prove that planning records do not exist elsewhere; reconciliation is required."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The available resources contain clinical results, GP contacts, observations and one hospital attendance, with no explicit care-planning or palliative-care resource."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Manifest reports one successful eligible snapshot containing 39 unique resources and no duplicate visibility."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Telephone is recorded as an administrative contact preference; confirm whether this remains the patient's preference and whether it applies to sensitive discussions."
+    ],
+    "uncertainties": [
+      "The patient's priorities, understanding, decision-making capacity at the acute presentation, preferred participants and permission to involve family are unknown.",
+      "Family, carers, next of kin, proxy decision-makers and any legal authority are not documented in the snapshot.",
+      "The existence of care-planning documents outside the eligible snapshot is unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-06T08:10:00.000Z",
+        "detail": "Administrative observation records telephone as the contact preference."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "No patient or family wishes, named family or carer, proxy authority, or legal care-planning document is present in the available resources."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown; no residence or usual care setting is documented in the available snapshot.",
+    "functionAndMobility": "Unknown; the snapshot does not document usual activities, mobility, frailty, cognition, personal care needs or change from functional baseline.",
+    "currentClinicalSupport": [
+      "At the cutoff, the patient had arrived at an acute medical unit under the acute medical team.",
+      "The longitudinal snapshot includes GP encounters and diagnostic blood testing."
+    ],
+    "familyAndCarerSupport": [],
+    "gaps": [
+      "Usual residence, mobility, function, cognition, frailty and activities of daily living are not documented.",
+      "Medication, full problem list, recent treatment changes and acute assessment findings are not documented.",
+      "Family or carer availability and community support are not documented."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-16T05:50:00Z",
+        "detail": "Attendance places the patient in the acute medical unit under the acute medical team at the cutoff."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The snapshot includes GP encounters and diagnostic reports but no structured residence, function, mobility, cognition, medication or carer-support information."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Senior acute medical clinician",
+      "meetingPriority": "core",
+      "ownership": "Own immediate assessment of reversibility and clinical stability, then offer and lead a priorities-focused conversation if the patient is able and agrees.",
+      "reason": "The acute medical team is the documented team responsible at the cutoff presentation.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-16T05:50:00Z",
+          "detail": "Hospital attendance identifies the acute medical unit and acute medical team."
+        }
+      ]
+    },
+    {
+      "role": "GP or primary care clinician",
+      "meetingPriority": "core",
+      "ownership": "Provide longitudinal context, reconcile any existing care-planning records and assume follow-up ownership after the acute episode if appropriate.",
+      "reason": "GP records contain the longitudinal symptom history and recorded contact preference.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-12T08:15:00.000Z",
+          "detail": "GP chronic kidney disease review documents fatigue and ankle swelling."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-24T09:45:00.000Z",
+          "detail": "GP encounter documents reduced urine output and worsening oedema."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "Senior acute medical clinician, with GP handover for longitudinal follow-up",
+    "urgency": "Clinical assessment is immediate; offer the goals-and-priorities discussion during the acute episode once reversible causes are being addressed and the patient is clinically able, or arrange prompt GP follow-up if deferred.",
+    "formatAndAccessibility": "Begin with a private, short, in-person conversation in the acute setting; confirm communication needs, capacity, the recorded telephone preference for follow-up, and whom the patient wants involved. Do not involve family without the patient's agreement or another lawful basis.",
+    "objectives": [
+      "Clarify what matters most to the patient and what outcomes or burdens they would prioritise.",
+      "Explain current uncertainty and potentially reversible causes without implying a terminal prognosis.",
+      "Ask whether the patient wants future-care planning and whom they want involved.",
+      "Reconcile any existing plans or legal records and define named follow-up ownership."
+    ],
+    "briefingNotes": [
+      {
+        "note": "Symptoms evolved from fatigue and evening ankle swelling in May to reduced urine output and worsening oedema in July.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-05-12T08:15:00.000Z",
+            "detail": "GP review records fatigue and evening ankle puffiness."
+          },
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-07-24T09:45:00.000Z",
+            "detail": "GP encounter records reduced urine output and earlier leg swelling."
+          }
+        ]
+      },
+      {
+        "note": "The June renal panel showed potassium 5.8 mmol/L, urea 11.8 mmol/L, creatinine 140 micromol/L and eGFR 45 mL/min/1.73m².",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-06-29T08:05:00Z",
+            "detail": "Renal function and potassium review contains the listed results."
+          }
+        ]
+      },
+      {
+        "note": "At the cutoff the patient had arrived at the acute medical unit with oliguria, weakness and worsening peripheral oedema; outcome and response to treatment are not available.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-08-16T05:50:00Z",
+            "detail": "Hospital attendance records arrival, presenting complaint and acute medical team ownership."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Confirm immediate clinical stability, capacity and readiness to talk.",
+      "Ask permission to discuss priorities and future care.",
+      "Share what is known and uncertain, including potential reversibility.",
+      "Elicit priorities, acceptable burdens and preferred participants.",
+      "Check for existing plans or legal documents.",
+      "Agree next steps, named owner and review point."
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Private in-person discussion initially; confirm whether telephone is preferred for follow-up",
+      "draft": "You have been dealing with changes in your swelling, strength and urine output, and the team is assessing what may be causing them and what treatment may help. When you feel able, would it be all right to talk about what matters most to you and how you would like us to plan care around your priorities? This is not a decision to stop treatment. You can choose whether to talk now, later, and whether anyone you trust should join us.",
+      "cautions": [
+        "Do not present this as a prediction about the patient's future or as evidence that recovery is impossible.",
+        "Prioritise urgent assessment and confirm capacity, readiness, accessibility needs and permission before involving anyone else.",
+        "Verify that the administrative telephone preference applies to sensitive follow-up."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-24T09:45:00.000Z",
+          "detail": "GP record describes swelling, reduced urine output and intermittent light-headedness."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-16T05:50:00Z",
+          "detail": "Acute attendance records weakness, oliguria and worsening peripheral oedema."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-06T08:10:00.000Z",
+          "detail": "Telephone is recorded as an administrative contact preference."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Review current observations, volume status, renal function, potassium, medication exposure and other reversible causes of oliguria and oedema before or alongside any planning discussion.",
+      "owner": "Acute medical team",
+      "urgency": "Immediate",
+      "reason": "The cutoff attendance is for oliguria, weakness and worsening oedema, with prior hyperkalaemia and renal abnormalities.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-29T08:05:00Z",
+          "detail": "Renal panel records potassium 5.8 mmol/L and impaired renal indices."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-16T05:50:00Z",
+          "detail": "Acute medical-unit attendance records oliguria, weakness and worsening oedema."
+        }
+      ]
+    },
+    {
+      "action": "Assess whether the patient is clinically able and willing to have a short goals-and-priorities conversation; defer without penalty if not ready.",
+      "owner": "Senior acute medical clinician",
+      "urgency": "During the acute episode after immediate stabilisation",
+      "reason": "The acute setting provides clinical ownership, but no wishes, capacity assessment or preferred participants are documented.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-16T05:50:00Z",
+          "detail": "The patient is recorded as arrived under the acute medical team."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Available resources do not document patient wishes, capacity or preferred participants."
+        }
+      ]
+    },
+    {
+      "action": "Reconcile the GP and acute records for baseline function, medication, diagnoses, family or carer support, and any existing advance-care or legal planning documents; assign a named follow-up clinician.",
+      "owner": "GP or delegated primary care clinician, coordinated with the acute medical team",
+      "urgency": "Before discharge or at prompt post-acute follow-up",
+      "reason": "These domains are absent from the available snapshot and are necessary for safe, individualised planning.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The snapshot has GP contacts and acute attendance but lacks baseline function, medication, family support and explicit care-planning documents."
+        },
+        {
+          "sourcePath": "record/manifest.json",
+          "detail": "Coverage consists of one successful 39-resource eligible snapshot."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "The manifest reports one successful eligible 15-day snapshot, zero failed sources, 39 unique resources and no duplicate visibility; the safety gate does not force insufficient evidence. Coverage is therefore internally complete for the configured snapshot but clinically narrow, and no inference should be made that undocumented domains are normal or absent elsewhere.",
+    "missingSources": [
+      "No separate medication list, full problem list, residence or functional assessment, cognition or frailty assessment, family or carer record, advance-care or legal planning record, discharge outcome, or treatment-response record is included in the eligible snapshot."
+    ],
+    "failedSources": [],
+    "contradictions": [
+      "Renal values fluctuate: eGFR is recorded as 45 mL/min/1.73m² with creatinine 140 micromol/L on 2026-06-29, then eGFR 75 with creatinine 112 and urea 10.1 on 2026-07-14; this does not support assuming a simple monotonic decline and should be clinically reconciled."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Manifest records successful=1, failed=0, failedSources empty, 39 unique resources, zero duplicate visibility and forceInsufficientEvidence=false."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-06-29T08:05:00Z",
+        "detail": "Renal panel records creatinine 140 micromol/L and eGFR 45 mL/min/1.73m²."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-14T08:00:00.000Z",
+        "detail": "U&E panel records creatinine 112 micromol/L, urea 10.1 mmol/L and eGFR 75 mL/min/1.73m²."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "confirmed",
+    "falsePositiveChecks": [
+      "Deliberately re-read all 39 eligible resources and checked the manifest safety gate and failed-source list.",
+      "Re-checked symptom chronology against the cutoff and confirmed that acute medical-unit arrival, not a later outcome, is the last documented event used.",
+      "Re-checked for benign or reversible explanations and retained explicit uncertainty because acute oliguria, oedema and renal abnormalities may be treatable.",
+      "Re-checked for active palliative care, hospice involvement, advance care planning, ReSPECT, DNACPR or other legal planning; none is present in this snapshot.",
+      "Re-checked for patient wishes, family or carers, residence, function, medication and treatment response and kept each undocumented domain unknown.",
+      "Re-checked citations, using only record/eligible.json for clinical facts and record/manifest.json for coverage; this was a same-agent evidence re-check, not independent verification."
+    ],
+    "changesFromPrimary": [
+      "No material change was required after the deliberate same-agent second evidence re-check; the recommendation remains cautious and conditional on assessment of reversibility and patient readiness."
+    ]
+  }
+}

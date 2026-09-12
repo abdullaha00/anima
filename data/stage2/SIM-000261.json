@@ -1,0 +1,410 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000261",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "proceed",
+  "confidence": 0.84,
+  "summary": "Prompt human review is supported for a sensitive goals-of-care conversation alongside active disease management. The record shows progressive congestion symptoms followed by an urgent attendance for acute decompensated heart failure, IV diuresis, and residual cardiorenal vulnerability at discharge. Improvement with treatment is reassuring but does not remove the value of discussing priorities, acceptable care, and escalation preferences; the record does not document an active advance-care plan.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-06-18T12:00:00.000Z",
+      "detail": "Home visit documented nocturnal breathlessness, slower walking, mild bilateral ankle oedema, weight 84.1 kg, oxygen saturation 94%, and respiratory rate 20."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-08-17T12:00:00.000Z",
+      "detail": "Urgent hospital attendance documented orthopnoea, rapid weight gain, bilateral crackles, radiographic vascular congestion, and initiation of IV loop diuresis."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-08-26T12:00:00.000Z",
+      "detail": "Discharge summary documented improved breathing after IV diuresis but renal function below usual baseline, with heart-failure and renal follow-up requested."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Progressive heart-failure symptom burden",
+      "significance": "Ankle oedema and weight gain progressed to nocturnal breathlessness, slower walking, orthopnoea, and an urgent acute-care presentation, supporting timely review of priorities as well as clinical treatment.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-09T12:00:00.000Z",
+          "detail": "GP review recorded evening ankle swelling and a 2 kg weight increase in the context of heart failure and CKD review."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-18T12:00:00.000Z",
+          "detail": "Community visit recorded waking with breathlessness, slower walking, mild ankle oedema, and increased weight."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-17T12:00:00.000Z",
+          "detail": "Hospital attendance recorded orthopnoea and worsening swelling with pulmonary vascular congestion."
+        }
+      ]
+    },
+    {
+      "signal": "Recent decompensation requiring hospital treatment",
+      "significance": "The need for IV diuresis and subsequent specialty follow-up indicates a clinically consequential episode rather than an isolated minor symptom report.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-17T12:00:00.000Z",
+          "detail": "Acute medical unit attendance was urgent and IV loop diuretic treatment was started."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-26T12:00:00.000Z",
+          "detail": "Discharge summary identified acute decompensated heart failure with cardiorenal vulnerability."
+        }
+      ]
+    },
+    {
+      "signal": "Cardiorenal vulnerability during congestion",
+      "significance": "Renal deterioration and potassium elevation can constrain heart-failure treatment and increase the importance of coordinated planning and clear escalation arrangements.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-29T12:00:00.000Z",
+          "detail": "Renal and congestion report recorded creatinine 98 µmol/L, eGFR 58 mL/min/1.73m², potassium 5.5 mmol/L, NT-proBNP 3560 ng/L, and same-week heart-failure assessment."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-26T12:00:00.000Z",
+          "detail": "Discharge summary stated renal function remained below baseline and potassium required surveillance."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "no_clear_false_positive",
+    "alternativeExplanations": [
+      "The acute symptoms were attributable to fluid overload and improved after IV diuresis.",
+      "Post-discharge renal blood results showed creatinine 65 µmol/L, eGFR 75 mL/min/1.73m², and potassium 5.0 mmol/L, which may indicate partial recovery from the acute cardiorenal disturbance."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "A conversation framed as a prediction of deterioration would be inappropriate because the documented acute episode responded to treatment and the record does not establish prognosis.",
+      "The record supports continued active heart-failure and renal management; goals-of-care review should not displace the requested clinical follow-up."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "Symptoms progressed over several months before the admission.",
+      "The admission involved orthopnoea, radiographic congestion, IV treatment, and documented cardiorenal vulnerability.",
+      "No active advance-care planning or escalation-preference record is documented in the available snapshot."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-26T12:00:00.000Z",
+        "detail": "Breathing improved over several days with IV diuresis, while renal function remained below usual baseline and follow-up was requested."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-29T08:00:00.000Z",
+        "detail": "Post-discharge U&E recorded creatinine 65 µmol/L, eGFR 75 mL/min/1.73m², and potassium 5.0 mmol/L."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-17T12:00:00.000Z",
+        "detail": "Urgent attendance documented severe congestion features and IV diuresis, so the episode is not clearly explained as benign."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No ACP, ADRT, DNACPR/DNR, ReSPECT, hospice, palliative-care involvement, or documented treatment-escalation plan appears in the available 37-resource snapshot.",
+      "A clinical follow-up plan is documented: heart-failure and renal clinic review within one week, daily home weights, repeat U&E, diuretic-response review, and blood-pressure review. This is disease-management follow-up, not evidence of an active goals-of-care plan."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-26T12:00:00.000Z",
+        "detail": "Discharge plan requested heart-failure and renal review, daily weights, repeat U&E, diuretic-response review, and blood-pressure review; no advance-care plan was stated."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "date": "2026-09-12T16:45:22.771Z",
+        "detail": "Manifest reports one successful eligible-snapshot source containing 37 unique resources and no collection failures."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Telephone is the recorded contact preference."
+    ],
+    "uncertainties": [
+      "The patient's goals, understanding, preferred place of care, treatment-escalation preferences, and people they wish to involve are unknown.",
+      "Family or carer identity, availability, views, and permission to contact them are unknown.",
+      "Decision-making capacity, health and welfare attorney status, and the presence of legal or emergency-care planning documents are unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-06-30T08:10:00.000Z",
+        "detail": "Administrative observation recorded telephone as the contact preference."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "date": "2026-09-12T16:45:22.771Z",
+        "detail": "Coverage is limited to one eligible frozen snapshot of 37 resources, so undocumented wishes, supporters, capacity, and legal planning remain unknown."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Home is the documented follow-up and monitoring setting, but the exact residence and living arrangement are unknown.",
+    "functionAndMobility": "Walking was documented as becoming slower during increasing breathlessness; usual mobility, activities of daily living, frailty, cognition, and baseline independence are unknown.",
+    "currentClinicalSupport": [
+      "GP review and follow-up actions are documented.",
+      "Community home visiting is documented.",
+      "Hospital treatment for acute decompensated heart failure is documented.",
+      "Heart-failure and renal clinic review was requested after discharge."
+    ],
+    "familyAndCarerSupport": [],
+    "gaps": [
+      "Current symptom status after discharge is not documented beyond post-discharge laboratory results.",
+      "Completion of the requested one-week heart-failure and renal reviews is not documented.",
+      "Usual functional baseline, formal care package, medication list, adherence, family support, and home monitoring results are not documented."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-06-18T12:00:00.000Z",
+        "detail": "Community home visit documented slower walking during increasing nocturnal breathlessness."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-26T12:00:00.000Z",
+        "detail": "Discharge plan arranged daily weights at home plus GP, heart-failure, and renal follow-up."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Primary care clinician",
+      "meetingPriority": "core",
+      "ownership": "Confirm current status, reconcile the follow-up plan, ask the patient whom they want involved, and own invitation and documentation of a priorities conversation.",
+      "reason": "The discharge summary assigns repeat U&E, diuretic-response review, and blood-pressure review to the practice, and GP is a longitudinal record owner.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-26T12:00:00.000Z",
+          "detail": "Discharge summary assigns repeat U&E, diuretic-response review, and blood-pressure review to GP practice."
+        }
+      ]
+    },
+    {
+      "role": "Heart-failure clinician",
+      "meetingPriority": "core",
+      "ownership": "Explain the heart-failure course, treatment options and uncertainties, and agree escalation and symptom-management recommendations with the patient and primary care.",
+      "reason": "The patient had a recent acute decompensation and a heart-failure review was requested within one week.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-26T12:00:00.000Z",
+          "detail": "Discharge summary documents acute decompensated heart failure and requests heart-failure clinic review within one week."
+        }
+      ]
+    },
+    {
+      "role": "Renal clinician",
+      "meetingPriority": "optional",
+      "ownership": "Advise on renal and potassium constraints if these remain clinically active, preferably by written input unless attendance is needed.",
+      "reason": "Cardiorenal vulnerability and potassium surveillance were documented, and renal review was requested.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-26T12:00:00.000Z",
+          "detail": "Renal function remained below baseline, potassium surveillance was required, and renal clinic follow-up was requested."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "Primary care clinician",
+    "urgency": "Promptly, after confirming immediate clinical stability and whether the requested post-discharge reviews occurred; do not delay active heart-failure or renal care.",
+    "formatAndAccessibility": "Offer a brief telephone introduction because telephone is the recorded preference, then agree whether the substantive discussion should be by telephone, in person, or at home. Check communication and accessibility needs and ask whom, if anyone, the patient wants present.",
+    "objectives": [
+      "Understand what matters most to the patient and their current understanding of the heart and kidney problems.",
+      "Review symptom burden and acceptable trade-offs in treatment and monitoring.",
+      "Discuss preferences for future deterioration, urgent care, and hospital attendance without making prognostic claims.",
+      "Identify any existing planning documents and decide whether ACP or an emergency-care plan should be offered.",
+      "Agree one named clinical owner and a shared follow-up plan."
+    ],
+    "briefingNotes": [
+      {
+        "note": "Symptoms evolved from ankle swelling and weight gain to nocturnal breathlessness, slower walking, and then orthopnoea with acute fluid overload.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-05-09T12:00:00.000Z",
+            "detail": "GP review documented ankle swelling and 2 kg weight increase."
+          },
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-08-17T12:00:00.000Z",
+            "detail": "Urgent attendance documented orthopnoea, rapid weight gain, crackles, and vascular congestion."
+          }
+        ]
+      },
+      {
+        "note": "IV diuresis improved breathing, but discharge documentation retained concern about renal function and potassium surveillance.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-08-26T12:00:00.000Z",
+            "detail": "Discharge summary records symptomatic improvement with residual renal and potassium monitoring needs."
+          }
+        ]
+      },
+      {
+        "note": "No active priorities or advance-care plan is documented in the available snapshot; ask rather than assume.",
+        "evidence": [
+          {
+            "sourcePath": "record/manifest.json",
+            "date": "2026-09-12T16:45:22.771Z",
+            "detail": "Available coverage is one successfully collected eligible snapshot with 37 unique resources."
+          },
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "The available resources contain clinical follow-up and contact-preference information but no stated ACP, ADRT, DNACPR/DNR, ReSPECT, or patient goals."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Check current symptoms and immediate safety first.",
+      "Ask what the patient understands and what matters most now.",
+      "Review the recent admission and current heart-failure and renal plan.",
+      "Explore preferences for future deterioration and who should be involved.",
+      "Agree documentation, ownership, and follow-up."
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Telephone initially, subject to confirmation of preference and accessibility",
+      "draft": "We would like to check how you have been since your recent heart and fluid-overload treatment and make sure your care reflects what matters most to you. This is a routine opportunity to talk about your priorities, the support you would find helpful, and what you would want if you became unwell again. It does not mean we are making assumptions about what will happen. Would you be comfortable arranging a conversation, and is there anyone you would like to include?",
+      "cautions": [
+        "First confirm identity, privacy, current preference, and whether it is a suitable time to talk.",
+        "Do not present the invitation as a prognosis or imply that end of life is imminent.",
+        "Do not contact family or carers unless the patient requests this or an appropriate legal basis is confirmed.",
+        "Escalate current acute symptoms through clinical pathways rather than continuing a planning discussion."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-30T08:10:00.000Z",
+          "detail": "Telephone is the recorded contact preference."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-26T12:00:00.000Z",
+          "detail": "Recent discharge followed treatment for acute decompensated heart failure and included ongoing follow-up needs."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Clinically confirm current symptoms and whether post-discharge follow-up occurred before initiating the planning conversation.",
+      "owner": "Primary care clinician",
+      "urgency": "Prompt; same day if the patient reports recurrent breathlessness, rapid weight gain, worsening oedema, chest symptoms, syncope, or other acute concern.",
+      "reason": "The record ends soon after an admission for acute fluid overload and does not document subsequent clinical review.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-26T12:00:00.000Z",
+          "detail": "Discharge requested one-week specialty follow-up, home weights, repeat renal bloods, and GP review."
+        },
+        {
+          "sourcePath": "record/manifest.json",
+          "date": "2026-09-12T16:45:22.771Z",
+          "detail": "The collected snapshot contains 37 unique resources; no later completed clinical follow-up is represented."
+        }
+      ]
+    },
+    {
+      "action": "Reconcile completion and results of repeat U&E, blood-pressure review, diuretic-response review, and heart-failure and renal clinic follow-up.",
+      "owner": "Primary care clinician",
+      "urgency": "Prompt, without waiting for a goals-of-care meeting.",
+      "reason": "These actions were explicitly requested at discharge because renal function and potassium required surveillance.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-26T12:00:00.000Z",
+          "detail": "Discharge summary specifies repeat U&E, review of diuretic response and blood pressure, and heart-failure and renal clinic review within one week."
+        }
+      ]
+    },
+    {
+      "action": "Offer the patient a priorities conversation and ask whom they want involved; do not contact any supporter without consent or verified authority.",
+      "owner": "Primary care clinician",
+      "urgency": "After immediate stability and follow-up are checked, ideally at the next prompt clinical contact.",
+      "reason": "The recent decompensation supports review, while patient wishes, family involvement, and legal planning are not documented.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-17T12:00:00.000Z",
+          "detail": "Urgent attendance documented acute heart-failure congestion requiring IV diuresis."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "No patient goals, family involvement, or advance-care planning document is stated in the available resources."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "The manifest reports one successful eligible 15-day snapshot source, 37 unique resources, no duplicate visibility, no failed collection, and no forced insufficient-evidence safety gate. The snapshot supports review of the documented heart-failure trajectory but is sparse for medications, current post-discharge status, function, social support, patient preferences, and care-planning records.",
+    "missingSources": [
+      "No separate medication list or prescribing record is available in the snapshot.",
+      "No completed heart-failure or renal clinic follow-up after discharge is available.",
+      "No dedicated social-care, family/carer, capacity, legal-planning, ACP, ReSPECT, DNACPR/DNR, ADRT, hospice, or palliative-care record is available."
+    ],
+    "failedSources": [],
+    "contradictions": [
+      "The discharge summary states renal function remained below baseline, while the 2026-08-29 U&E shows creatinine 65 µmol/L and eGFR 75 mL/min/1.73m² after the 2026-07-29 creatinine 98 µmol/L and eGFR 58 mL/min/1.73m²; timing and differing baselines may explain this, but current renal status should be clinically confirmed."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "date": "2026-09-12T16:45:22.771Z",
+        "detail": "Coverage reports 1 successful source, 0 failed sources, 37 unique resources, 0 resources with duplicate visibility, and forceInsufficientEvidence=false."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-26T12:00:00.000Z",
+        "detail": "Discharge summary describes renal function below baseline and requests ongoing surveillance."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-29T08:00:00.000Z",
+        "detail": "Later U&E records creatinine 65 µmol/L and eGFR 75 mL/min/1.73m²."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "confirmed",
+    "falsePositiveChecks": [
+      "Re-read all 37 resources for longitudinal symptom trajectory rather than relying only on the acute attendance.",
+      "Checked for a benign or clearly reversible explanation and retained the documented improvement after IV diuresis as an alternative explanation, without treating it as proof that review is unnecessary.",
+      "Checked post-discharge laboratory results for recovery and incorporated the improved creatinine, eGFR, and potassium into the false-positive review.",
+      "Re-checked for ACP, ADRT, DNACPR/DNR, ReSPECT, hospice, palliative-care involvement, treatment-escalation planning, patient wishes, and family wishes; none were documented in the available snapshot.",
+      "Re-checked the manifest safety gate, source coverage, failed-source list, and unique-resource count.",
+      "Re-checked every factual claim and omitted recordId because the resources do not contain record identifiers."
+    ],
+    "changesFromPrimary": [
+      "No separate independent verification was performed; this was a deliberate second evidence re-check by the sole Stage 2 agent.",
+      "No material recommendation change was required after re-check.",
+      "Balanced the proceed recommendation by explicitly noting response to diuresis and improved post-discharge renal indices.",
+      "Kept specialty renal attendance optional to maintain a small core meeting while assigning primary-care ownership."
+    ]
+  }
+}

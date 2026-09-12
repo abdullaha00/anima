@@ -1,0 +1,370 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000292",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "proceed",
+  "confidence": 0.66,
+  "summary": "Prompt primary-care review is supported to decide whether a sensitive priorities and future-care conversation should be offered. The record describes a 93-year-old with reduced appetite and ankle swelling, a June episode of renal/electrolyte deterioration, subsequent urinary symptoms with an inflammatory rise, and persistent mild sodium/urea abnormalities on later testing. Important counterevidence is that renal filtration and inflammatory markers substantially improved after the acute episode, so the record does not establish irreversible decline or a current palliative-care need. Current symptoms, function, residence, diagnoses, treatment, and the patient's wishes remain insufficiently documented and require human confirmation.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "detail": "Demographics give age at index as 93; the longitudinal resources include reduced appetite/ankle swelling, renal-electrolyte deterioration, urinary symptoms, inflammatory elevation, and later partial laboratory improvement."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Reduced appetite and ankle swelling",
+      "significance": "These symptoms may indicate a change from baseline, but severity, duration, functional effect, and current persistence are not documented.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "A routine chronic kidney disease review recorded mild ankle swelling and reduced appetite, with no dysuria, fever, or breathlessness reported at that time."
+        }
+      ]
+    },
+    {
+      "signal": "Renal and electrolyte deterioration followed by persistent mild abnormalities",
+      "significance": "The June abnormalities required prompt follow-up; later results improved but continued to show mild hyponatraemia and intermittently raised urea, warranting clinical review in context rather than an assumption of progressive decline.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-21T08:00:00Z",
+          "detail": "Testing showed sodium 129 mmol/L, potassium 5.7 mmol/L, urea 10.2 mmol/L, and eGFR 58 mL/min/1.73m²; the practice requested prompt renal follow-up."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Later U&E results included sodium 132 mmol/L, urea 8.4 mmol/L, creatinine 59 µmol/L, and eGFR 82 mL/min/1.73m²."
+        }
+      ]
+    },
+    {
+      "signal": "Intercurrent urinary symptoms and inflammatory response",
+      "significance": "This is a potentially treatable acute explanation for part of the deterioration, but the snapshot does not document the urine assessment, treatment, or symptom resolution.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "A telephone encounter recorded increasing urinary frequency and burning with intermittent chills and advised same-day urine assessment."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-06T08:00:00Z",
+          "detail": "CRP was 18.6 mg/L, with the report expressing concern for an intercurrent infection."
+        }
+      ]
+    },
+    {
+      "signal": "Advanced age with incomplete baseline information",
+      "significance": "Age alone does not establish palliative need, but combined with recent symptoms and physiological instability it supports timely clinician review of priorities while avoiding prognostic assumptions.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Demographics document birth date 1933-08-25 and age at index 93."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "uncertain",
+    "alternativeExplanations": [
+      "A treatable urinary infection or other intercurrent illness could explain the urinary symptoms and temporary CRP rise.",
+      "The renal impairment and hyperkalaemia were transient on available later tests, while mild sodium and urea abnormalities persisted.",
+      "The record may reflect routine long-term-condition surveillance rather than established global decline."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "No progressive life-limiting diagnosis, repeated admission pattern, severe functional decline, or uncontrolled symptom burden is documented.",
+      "Later eGFR, creatinine, potassium, and CRP values improved relative to the acute abnormalities.",
+      "The patient's current condition and willingness to discuss future care are unknown."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "Reduced appetite and ankle swelling were documented before the acute urinary episode.",
+      "Mild hyponatraemia and raised urea remained on the latest available U&E panel.",
+      "The snapshot does not document whether urinary symptoms resolved or whether current function changed."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-06T08:00:00Z",
+        "detail": "CRP rose to 18.6 mg/L during concern for an intercurrent infection; later CRP values were 6.4 and 8 mg/L."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "After eGFR 58 and potassium 5.7 in June, the latest available U&E values included eGFR 82 and potassium 5.0, with sodium 132 and urea 8.4."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The resources contain routine long-term-condition contacts but do not document function, repeated admissions, or a progressive life-limiting diagnosis."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No ACP, ReSPECT, DNACPR/DNR, ADRT, documented goals-of-care discussion, hospice involvement, or active palliative-care plan appears in the supplied eligible snapshot.",
+      "Absence from this single-source snapshot does not establish that no planning exists elsewhere; a clinician should verify before initiating a new discussion."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The supplied resources include diagnostics, primary-care encounters, contact-preference observations, and one genomic record, with no explicit care-planning or palliative-care resource."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Coverage consists of one successful eligible 15-day snapshot containing 49 unique resources and no failed sources."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Telephone is repeatedly recorded as the patient's administrative contact preference."
+    ],
+    "uncertainties": [
+      "The patient's understanding, priorities, readiness for a future-care discussion, preferred participants, communication needs, and decision-making capacity are not documented.",
+      "Family, carer, or representative identity and their wishes are not documented.",
+      "The existence of legal proxies or care-planning documents outside the supplied snapshot is unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Multiple primary-care observations record telephone as an administrative contact preference; no substantive patient or family wishes or legal planning records are included."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown; the supplied snapshot does not document the patient's residence or current care setting.",
+    "functionAndMobility": "Unknown; activities of daily living, mobility, cognition, frailty, falls, nutrition, and change from functional baseline are not documented.",
+    "currentClinicalSupport": [
+      "Primary care has provided routine long-term-condition contacts and responded to renal and urinary concerns.",
+      "Diagnostics has supplied serial blood-test results visible to primary care and hospital services."
+    ],
+    "familyAndCarerSupport": [],
+    "gaps": [
+      "Current symptom status and response to any treatment",
+      "Medication list and documented diagnoses",
+      "Residence, function, mobility, cognition, nutrition, and frailty",
+      "Current services, hospital use, and named clinical owner",
+      "Family or unpaid-carer availability"
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The snapshot documents GP encounters and serial diagnostic reports but does not provide residence, function, mobility, cognition, medication, or carer details."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Primary care clinician",
+      "meetingPriority": "core",
+      "ownership": "Confirm current clinical status and baseline, reconcile missing history and planning records, and decide with the patient whether a priorities conversation should proceed.",
+      "reason": "Primary care owns the documented symptom contacts and received the request for renal follow-up.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "GP-owned encounters document long-term-condition review, reduced appetite and ankle swelling, urinary symptoms, and repeated contact preferences."
+        }
+      ]
+    },
+    {
+      "role": "Patient",
+      "meetingPriority": "core",
+      "ownership": "Choose whether to participate, identify personal priorities, and decide whom else to involve; participation must be voluntary and supported.",
+      "reason": "No patient wishes are documented, and telephone is the recorded contact preference.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The snapshot repeatedly records telephone contact preference but contains no substantive statement of the patient's goals or wishes."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "Primary care clinician",
+    "urgency": "Review promptly, ideally within days, first addressing unresolved clinical issues; offer a priorities conversation only after confirming current status and the patient's willingness.",
+    "formatAndAccessibility": "Start with a telephone invitation in line with the recorded preference, confirm that this remains suitable, and ask about hearing, language, cognition, accessibility, and desired supporter before agreeing any discussion format.",
+    "objectives": [
+      "Clarify current symptoms, treatment response, function, and what matters most to the patient.",
+      "Explain uncertainty and distinguish a priorities conversation from a prediction or withdrawal of active treatment.",
+      "Check for existing care-planning or legal documents and avoid duplicating an active plan.",
+      "Agree proportionate next steps and explicit clinical ownership."
+    ],
+    "briefingNotes": [
+      {
+        "note": "Reduced appetite and mild ankle swelling were recorded during a routine chronic kidney disease review.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "The GP encounter records reduced appetite and mild ankle swelling, with no breathlessness, dysuria, or fever at that time."
+          }
+        ]
+      },
+      {
+        "note": "Renal/electrolyte abnormalities worsened in June and later improved, although mild sodium and urea abnormalities persisted.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-06-21T08:00:00Z",
+            "detail": "June U&E showed sodium 129, potassium 5.7, urea 10.2, and eGFR 58; the latest panel showed sodium 132, potassium 5.0, urea 8.4, and eGFR 82."
+          }
+        ]
+      },
+      {
+        "note": "Urinary symptoms and an elevated CRP suggest a potentially reversible acute episode; resolution and treatment are not shown.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-08-06T08:00:00Z",
+            "detail": "Urinary frequency, burning, and intermittent chills were followed by CRP 18.6 mg/L; no treatment or outcome resource is included."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Confirm consent, preferred format, and any supporter the patient wants involved.",
+      "Review current symptoms, function, recent investigations, treatment, and reversible causes.",
+      "Ask what matters most and what the patient would want clinicians to know if health worsened.",
+      "Check existing plans, representatives, and records before drafting anything new.",
+      "Document agreed actions, owner, review point, and how information will be shared."
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Draft telephone invitation; confirm the preference before use",
+      "draft": "Your practice would like to check how you have been feeling since the recent symptoms and blood tests, and to hear what is most important to you in your care. If you are comfortable, we can also talk about how you would like care to be planned if your health changes. This is not a prediction about what will happen, and we can focus only on the topics you want to discuss. Would a telephone conversation suit you, and is there anyone you would like involved?",
+      "cautions": [
+        "Do not imply a terminal diagnosis, prognosis, or decision to limit treatment.",
+        "Confirm current contact preference, identity, privacy, capacity, communication needs, and consent before discussing sensitive information.",
+        "Do not contact family or carers without appropriate patient consent or another lawful basis."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Telephone is repeatedly documented as the administrative contact preference; recent records include symptoms and abnormal blood tests but no stated goals."
+        }
+      ]
+    },
+    {
+      "audience": "Primary care clinician",
+      "channel": "Draft internal review note",
+      "draft": "Please review current symptoms, function, medications, recent renal/electrolyte and inflammatory results, and whether the urinary episode resolved. Check for existing ACP, ReSPECT, DNACPR/DNR, ADRT, proxy, or palliative records outside this snapshot. If clinically appropriate, ask the patient whether they would welcome a voluntary priorities conversation; avoid prognostic framing and continue assessment of reversible causes.",
+      "cautions": [
+        "This is clinical decision support only and requires human review.",
+        "Do not infer absence of planning from the limited snapshot.",
+        "Escalate acute abnormalities or symptoms according to clinical judgement and local pathways."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The record shows symptoms, transient renal/electrolyte deterioration, urinary symptoms, and serial laboratory monitoring, but not current status, medications, or care-planning records."
+        },
+        {
+          "sourcePath": "record/manifest.json",
+          "detail": "Only the eligible snapshot was collected, with 49 unique resources and no collection failures."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Clinically review current symptoms and the latest sodium, potassium, urea, renal function, and inflammatory results; verify whether urinary symptoms resolved and whether treatment occurred.",
+      "owner": "Primary care clinician",
+      "urgency": "Promptly, with same-day escalation if current symptoms or clinician assessment indicate acute risk.",
+      "reason": "The record contains prior hyperkalaemia/renal deterioration, persistent mild hyponatraemia, urinary symptoms, and an inflammatory rise without a documented resolution narrative.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-21T08:00:00Z",
+          "detail": "June testing showed potassium 5.7, sodium 129, urea 10.2, and eGFR 58 and requested prompt renal follow-up."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-06T08:00:00Z",
+          "detail": "Urinary symptoms were followed by CRP 18.6 mg/L; later panels improved but the latest sodium was 132 and urea 8.4."
+        }
+      ]
+    },
+    {
+      "action": "Confirm residence, function, cognition, nutrition, medication list, diagnoses, support network, current services, and recent hospital use before interpreting the trajectory.",
+      "owner": "Primary care clinician",
+      "urgency": "During the prompt record and clinical review, before any multidisciplinary expansion.",
+      "reason": "These baseline elements are absent and materially limit assessment of decline and conversation appropriateness.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The eligible snapshot contains no structured residence, functional, cognitive, medication, carer, or service baseline."
+        }
+      ]
+    },
+    {
+      "action": "Search the full clinical record for existing future-care plans, legal decision-support records, and active palliative involvement before offering a new conversation.",
+      "owner": "Primary care clinician",
+      "urgency": "Before initiating or documenting a new planning process.",
+      "reason": "No such records appear in the supplied snapshot, but the manifest shows that coverage is limited to one collected source.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "No explicit ACP, ReSPECT, DNACPR/DNR, ADRT, proxy, hospice, or palliative-care resource is present."
+        },
+        {
+          "sourcePath": "record/manifest.json",
+          "detail": "Collection coverage comprises one successful eligible snapshot."
+        }
+      ]
+    },
+    {
+      "action": "If clinically appropriate after review, ask the patient by their confirmed preferred route whether they would welcome a priorities conversation and whom they want involved.",
+      "owner": "Primary care clinician",
+      "urgency": "After immediate clinical clarification; do not presume consent or schedule autonomously.",
+      "reason": "Telephone is recorded as the contact preference, while wishes and desired participants are unknown.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Telephone contact preference is repeatedly recorded; patient and family wishes are not documented."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "The manifest reports one successful eligible 15-day snapshot, zero failed sources, 49 unique resources, no duplicate visibility, and no forced insufficient-evidence safety gate. This is complete for the supplied snapshot but not evidence of complete clinical-record coverage.",
+    "missingSources": [
+      "No separate medication, diagnosis/problem-list, hospital attendance, community-care, referral, appointment, residence/function, family/carer, or formal care-planning source is represented in the manifest.",
+      "No documented urine-assessment result, treatment record, or narrative resolution of the urinary symptoms is present in the eligible snapshot."
+    ],
+    "failedSources": [],
+    "contradictions": [
+      "The June renal/electrolyte deterioration and August inflammatory rise are followed by partial laboratory improvement, so an ongoing progressive trajectory cannot be inferred from the abnormal episodes alone.",
+      "Encounter text names a chronic kidney disease review, while later eGFR values are above 60; diagnosis and chronicity cannot be established from the supplied resources alone."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Coverage reports successful 1, failed 0, failedSources empty, uniqueResourceCount 49, duplicate visibility 0, and forceInsufficientEvidence false."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Available resources consist predominantly of serial laboratory reports plus a small number of GP encounters and contact-preference observations, with key baseline and planning domains absent."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "confirmed",
+    "falsePositiveChecks": [
+      "Re-read all 49 resources for a benign or reversible explanation and confirmed that urinary symptoms with a temporary CRP rise could represent an intercurrent infection.",
+      "Compared the June renal/electrolyte deterioration with later U&E results and confirmed substantial recovery in eGFR, creatinine, and potassium, with persistent mild sodium/urea abnormalities.",
+      "Checked for repeated admissions, progressive life-limiting disease, severe functional decline, or escalating support; none is documented in the supplied snapshot.",
+      "Checked for active ACP, ReSPECT, DNACPR/DNR, ADRT, hospice, palliative-care, or goals-of-care documentation; none is present in the supplied snapshot.",
+      "Re-checked the manifest safety gate and failed-source list; forced insufficient evidence is false and failedSources is empty.",
+      "Re-checked that clinical claims cite only record/eligible.json and coverage claims cite record/manifest.json, without claiming independent verification."
+    ],
+    "changesFromPrimary": [
+      "No separate primary assessment was provided in this retry; after a deliberate second pass, no material change was made to this assessment.",
+      "The final recommendation remains proceed for prompt human primary-care review, explicitly tempered by possible reversibility, laboratory recovery, limited coverage, and unknown patient wishes."
+    ]
+  }
+}

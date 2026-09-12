@@ -1,0 +1,388 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000168",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "proceed",
+  "confidence": 0.78,
+  "summary": "Prompt human review is supported because the snapshot shows worsening nocturnal respiratory symptoms and reduced activity, followed by an emergency attendance for severe wheeze, marked hypoxaemia and inability to complete sentences. The acute episode was actively treated and may be reversible, so any priorities-of-care discussion should follow confirmation of the current clinical situation and should not displace acute treatment. No active advance or palliative-care plan is documented in the available snapshot.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "detail": "A community home visit records reliever use every few hours on bad nights, avoidance of stairs because of breathlessness, oxygen saturation 92%, peak flow 180 and partial improvement after nebulised bronchodilator."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "detail": "The emergency hospital attendance records severe wheeze, oxygen saturation 84% on air, inability to complete sentences, and initiation of nebulisers, systemic steroids and controlled oxygen."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "detail": "The 47-resource snapshot contains no documented advance care plan, DNACPR/ReSPECT record, patient goals, or palliative/hospice involvement."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Escalating respiratory symptom burden",
+      "significance": "The sequence from more frequent night cough and reliever use to home oxygen saturation around 94%, then oxygen saturation 92% with stair avoidance, supports a clinically important worsening trajectory that merits review of treatment, support and the patient's priorities.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The GP asthma and heart-failure review records more frequent night cough, reliever use twice most evenings and peak flow below usual."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "A later GP observation records morning wheeze, home oxygen saturation around 94%, inhaler technique review and a safety-net review."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The community home visit records oxygen saturation 92%, peak flow 180, frequent nocturnal reliever use and avoidance of stairs due to breathlessness."
+        }
+      ]
+    },
+    {
+      "signal": "Severe acute respiratory deterioration",
+      "significance": "Emergency respiratory distress with substantial hypoxaemia is a strong reason for prompt multidisciplinary human review, while preserving uncertainty about response and reversibility.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The hospital attendance is urgent with status arrived and records oxygen saturation 84% on air, severe wheeze, inability to complete sentences, and acute respiratory treatment."
+        }
+      ]
+    },
+    {
+      "signal": "Potentially relevant chronic-condition context",
+      "significance": "The GP record lists active CKD and repeated chronic musculoskeletal concerns, while a recent encounter was described as an asthma and heart-failure review; these entries require clinician reconciliation rather than being assumed to establish advanced disease.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-02-14",
+          "detail": "The longitudinal GP problem list marks CKD active."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "A GP encounter reason is asthma and heart-failure review, while the longitudinal problem list separately labels heart failure resolved."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "no_clear_false_positive",
+    "alternativeExplanations": [
+      "An acute asthma exacerbation is a plausible treatable explanation for the emergency presentation.",
+      "The emergency record documents active bronchodilator, steroid and oxygen treatment, but not the subsequent response or disposition.",
+      "Earlier full blood counts do not show leucocytosis, and one respiratory report states there was no acute infection history; this does not exclude other reversible causes."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "A broad palliative framing during unresolved acute respiratory distress could be premature before response to treatment and current status are established.",
+      "The snapshot does not document a progressive terminal diagnosis, repeated admissions, severe frailty, or the patient's readiness for such a discussion."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "Symptoms worsened across several contacts despite inhaler-technique review and safety-netting.",
+      "The later emergency attendance records oxygen saturation 84% and inability to complete sentences.",
+      "Functional impact was already present through avoidance of stairs because of breathlessness."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The emergency attendance identifies severe asthma exacerbation and records immediate nebulised bronchodilators, systemic steroids and controlled oxygen, without a later outcome or disposition."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The preceding community visit documents only partial improvement after a nebulised bronchodilator and avoidance of stairs because of breathlessness."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The available snapshot has no explicit progressive terminal diagnosis, frailty assessment, repeated admission series, or documented readiness for a goals-of-care discussion."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No advance care plan, DNACPR/DNR, ReSPECT, ADRT, documented goals-of-care discussion, or hospice/palliative-care involvement was found in the available snapshot.",
+      "Absence from this single snapshot does not establish that such planning does not exist elsewhere; human confirmation is required."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Review of all 47 resources found encounters, observations, diagnostics, an emergency attendance and a longitudinal GP record, but no explicit advance or palliative-care planning record."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Coverage consists of one successful eligible snapshot containing 47 unique resources and no duplicate visibility; other record sources were not separately collected."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Telephone is recorded as the patient's contact preference."
+    ],
+    "uncertainties": [
+      "The patient's priorities, understanding, decision-making preferences, desired participants and readiness for a planning conversation are unknown.",
+      "Family or carer identities, availability, wishes and permission to involve them are unknown.",
+      "Mental capacity, advocacy needs, communication accessibility needs, preferred language and legal representatives are not documented.",
+      "No legal or advance care-planning record is present in the available snapshot; its existence elsewhere is unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Two GP observations record the administrative contact preference as telephone."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The snapshot does not identify patient or family wishes, family/carer contacts, capacity or accessibility needs, legal representatives, or advance planning documents."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown; a community encounter occurred as a home visit, but the residence type and living arrangements are not documented.",
+    "functionAndMobility": "Baseline function and mobility are unknown. During worsening respiratory symptoms the patient was avoiding stairs because of breathlessness.",
+    "currentClinicalSupport": [
+      "GP long-term-condition review and respiratory safety-netting are documented.",
+      "A community home visit delivered a nebulised bronchodilator with partial improvement.",
+      "The latest acute record is an urgent hospital attendance with status arrived."
+    ],
+    "familyAndCarerSupport": [],
+    "gaps": [
+      "Current location, response to emergency treatment and disposition are unknown.",
+      "Usual activities, personal-care needs, mobility aids, frailty, cognition and symptom baseline are unknown.",
+      "Medication list is empty in the longitudinal GP record despite documented reliever use and acute treatments, so medication reconciliation is needed.",
+      "Family, unpaid-carer and formal home-support arrangements are unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "A community home visit records stair avoidance due to breathlessness, nebulised treatment and partial improvement, but does not specify residence type or living arrangement."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The latest acute event is an urgent hospital attendance with status arrived; no discharge, admission destination or treatment outcome follows."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The longitudinal GP record contains an empty medications array despite encounter text describing reliever inhaler use."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Responsible hospital clinician",
+      "meetingPriority": "core",
+      "ownership": "Confirm current location, treatment response, working explanation and whether the patient is stable enough to be offered a priorities-focused conversation.",
+      "reason": "The latest record is an urgent hospital respiratory attendance and no subsequent status or disposition is available.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Hospital owns the latest urgent attendance, which has status arrived and records severe respiratory distress and acute treatment."
+        }
+      ]
+    },
+    {
+      "role": "Usual GP or primary-care clinician",
+      "meetingPriority": "core",
+      "ownership": "Reconcile the longitudinal conditions and medicines, establish baseline and known preferences, coordinate follow-up, and lead continuity after the acute episode.",
+      "reason": "GP records contain the longitudinal problem list, repeated respiratory contacts and the recorded telephone preference.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "GP owns the longitudinal record, prior asthma and heart-failure review, respiratory observations and telephone contact-preference entries."
+        }
+      ]
+    },
+    {
+      "role": "Community clinician familiar with the recent home visit",
+      "meetingPriority": "optional",
+      "ownership": "Provide recent home symptom and function observations if these remain relevant and the patient agrees.",
+      "reason": "The community visit provides the clearest recent home-based evidence of nocturnal symptoms, hypoxaemia and stair avoidance.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Community owns the home visit recording oxygen saturation 92%, peak flow 180, partial treatment response and avoidance of stairs."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "Usual GP or primary-care clinician, after direct handover from the responsible hospital clinician",
+    "urgency": "Hospital review of current status should occur immediately through usual clinical processes; if stable, offer a small priorities-focused discussion within days rather than delaying routine follow-up.",
+    "formatAndAccessibility": "First ask the patient whether and how they wish to talk. Telephone is the only recorded contact preference, but confirm that it remains suitable, assess accessibility needs, and ask whom they want involved. Do not convene a meeting during uncontrolled respiratory distress.",
+    "objectives": [
+      "Confirm current status, likely reversibility and near-term treatment plan.",
+      "Understand what matters to the patient and what support they would find useful.",
+      "Clarify baseline function, living arrangements and available family or carer support.",
+      "Discuss future escalation and emergency preferences only with consent and without implying a prognosis.",
+      "Agree one named clinical owner and a documented follow-up plan."
+    ],
+    "briefingNotes": [
+      {
+        "note": "Respiratory symptoms progressed from more frequent night cough and reliever use to home hypoxaemia, stair avoidance and emergency distress.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "Sequential GP, community and hospital resources document worsening nocturnal symptoms, oxygen saturation 92% at home and 84% at emergency attendance."
+          }
+        ]
+      },
+      {
+        "note": "The acute episode received active asthma-directed treatment, and the subsequent response and disposition remain unknown.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "The hospital record documents nebulised bronchodilators, systemic steroids and controlled oxygen, with status arrived and no later outcome resource."
+          }
+        ]
+      },
+      {
+        "note": "Condition coding and medication information need reconciliation before relying on them for planning.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "Asthma and heart failure are labelled resolved in the GP problem list despite a recent asthma and heart-failure review and severe asthma attendance; the medications array is empty despite reliever use."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Check comfort, capacity for conversation and consent to continue.",
+      "Share a plain-language update on the current breathing problem and uncertainty.",
+      "Ask what matters most now and what the patient hopes treatment and support will achieve.",
+      "Ask about home function, support and whom the patient wishes to involve.",
+      "Agree treatment, safety-netting, follow-up ownership and whether further advance-planning discussion is wanted."
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Draft telephone invitation, only after a clinician confirms current stability and re-confirms the preference",
+      "draft": "We would like to check how you are after the recent breathing problem and make sure the plan reflects what matters to you. This is not a prediction about what will happen. If you feel well enough, would you be comfortable speaking with your usual clinician about your treatment, support and preferences? You can choose whether anyone else joins.",
+      "cautions": [
+        "Do not send or call automatically; this is a clinician-reviewed draft only.",
+        "Confirm identity, current stability, capacity for the conversation, accessibility needs and that telephone remains suitable.",
+        "Avoid prognostic language and do not imply that palliative care or treatment limits have already been decided.",
+        "Do not contact family or carers without the patient's permission or another lawful basis confirmed by the clinical team."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Telephone is recorded as the contact preference, and the latest hospital record documents a severe breathing episode without a subsequent status update."
+        }
+      ]
+    },
+    {
+      "audience": "Usual GP or primary-care clinician",
+      "channel": "Draft internal clinical handover note",
+      "draft": "Please review the latest hospital outcome and reconcile the respiratory, heart-failure and CKD entries and medication list. If the patient is stable, consider offering a sensitive conversation about priorities, support and future planning, making clear that the acute episode may be treatable and that no prognosis is being declared.",
+      "cautions": [
+        "Clinical review is required before use.",
+        "Do not interpret this assessment as a diagnosis, mortality estimate or decision to limit treatment.",
+        "Verify planning documents and care-team involvement outside the available snapshot."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The snapshot shows severe acute respiratory deterioration, contradictory condition coding, an empty medication list and no documented advance-planning record."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Verify the patient's current location, clinical status, response to emergency treatment and disposition from the hospital team before initiating any planning conversation.",
+      "owner": "Responsible hospital clinician",
+      "urgency": "Immediate clinical record and handover check",
+      "reason": "The latest resource has status arrived during severe respiratory distress and contains no subsequent outcome.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The urgent hospital attendance records oxygen saturation 84%, inability to complete sentences and acute treatment, with no later status or disposition."
+        }
+      ]
+    },
+    {
+      "action": "Reconcile active diagnoses and the current medication and inhaler regimen, including the meaning of resolved asthma and heart-failure codes and the active CKD entry.",
+      "owner": "Usual GP or primary-care clinician",
+      "urgency": "Promptly after acute handover",
+      "reason": "The structured problem and medication fields conflict with recent clinical narrative and therefore should not be used uncritically for planning.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-13",
+          "detail": "The GP list marks asthma resolved shortly before a severe asthma attendance; heart failure is also labelled resolved, CKD active, and medications are empty despite documented inhaler use."
+        }
+      ]
+    },
+    {
+      "action": "Ask the patient, once stable, about baseline function, living situation, support network, communication needs, priorities and whether they want a small planning conversation.",
+      "owner": "Usual GP or primary-care clinician",
+      "urgency": "Within days if clinically stable",
+      "reason": "These essentials are absent, while recent breathlessness has affected stair use and telephone is the only documented contact preference.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The community visit records stair avoidance due to breathlessness, and GP observations record telephone preference; wishes, living situation, support and accessibility needs are not documented."
+        }
+      ]
+    },
+    {
+      "action": "Check the wider clinical record for existing advance-care documents, prior discussions or palliative involvement before drafting any new plan.",
+      "owner": "Usual GP or primary-care clinician",
+      "urgency": "Before the proposed conversation",
+      "reason": "None is present in the available eligible snapshot, but snapshot absence cannot prove non-existence elsewhere.",
+      "evidence": [
+        {
+          "sourcePath": "record/manifest.json",
+          "detail": "The manifest reports one successful eligible snapshot with 47 unique resources; no separate wider service sources were collected."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "No explicit advance-care, resuscitation, legal planning, hospice or palliative-care record appears in the snapshot."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "The manifest reports one successful eligible 15-day snapshot, zero failed sources, 47 unique resources, no duplicate visibility and no forced insufficient-evidence safety gate. This supports review of the included trajectory but does not establish comprehensive cross-service coverage.",
+    "missingSources": [
+      "No separate hospital outcome or discharge record follows the emergency attendance in the eligible snapshot.",
+      "No dedicated advance-care, social-care, family/carer, functional, medication-administration or current-location source is included."
+    ],
+    "failedSources": [],
+    "contradictions": [
+      "The GP problem list marks asthma resolved on 2026-08-13, yet later resources describe escalating asthma symptoms and a severe asthma exacerbation.",
+      "Heart failure is labelled resolved in the problem list, while a recent GP encounter reason includes heart-failure review.",
+      "The GP medication array is empty, while narrative resources document reliever inhaler use and acute bronchodilator treatment.",
+      "CKD is marked active, but the available laboratory pattern includes unusually low creatinine and reported eGFR values above the stated lower reference threshold; diagnosis and laboratory interpretation require clinician reconciliation."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Coverage is 1 successful and 0 failed sources; failedSources is empty; deduplication reports 47 unique resources and 0 duplicate visibility; the safety gate is false."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The snapshot contains the coding, medication and laboratory inconsistencies listed, and ends without a post-attendance outcome or disposition."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "confirmed",
+    "falsePositiveChecks": [
+      "Deliberately re-read the full eligible snapshot and manifest a second time within this single-agent review; no independent verifier was used.",
+      "Checked for a benign isolated explanation and confirmed a multi-contact respiratory worsening sequence before the emergency attendance.",
+      "Checked reversibility evidence and retained explicit uncertainty because asthma-directed treatment was started but subsequent response and disposition are absent.",
+      "Checked for active ACP, ADRT, DNACPR/DNR, ReSPECT, goals-of-care, hospice or palliative involvement and found none documented in the available snapshot.",
+      "Checked patient wishes, family/carer support, residence, function and contact preferences; only telephone preference and episode-related stair avoidance were documented.",
+      "Reconciled coverage against the manifest and confirmed zero failed sources, one snapshot source and 47 unique resources.",
+      "Re-checked citations to ensure every clinical factual claim uses only record/eligible.json and coverage statements use record/manifest.json."
+    ],
+    "changesFromPrimary": [
+      "No separate primary assessment existed in this single-agent adaptation; after the deliberate second evidence pass, no material change was required.",
+      "The final framing explicitly prioritises confirmation of acute status and reversibility before any planning conversation and avoids treating absent planning records as proof that none exist elsewhere."
+    ]
+  }
+}

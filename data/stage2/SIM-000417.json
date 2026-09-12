@@ -1,0 +1,423 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000417",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "proceed",
+  "confidence": 0.86,
+  "summary": "Prompt human review for a patient-priorities and goals-of-care conversation is supported by worsening breathlessness, nocturnal gasping, reduced walking distance and increasing ankle swelling in a documented heart-failure/asthma review context, alongside a declining eGFR trend and persistent hypokalaemia/hyponatraemia. These findings also warrant timely clinical assessment for potentially treatable decompensation; they do not establish prognosis. No active advance-care or palliative plan is documented in the available snapshot, while residence, wider function, treatment burden, decision-making capacity and the patient's and family's wishes remain unknown.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-07-28T10:05:00.000Z",
+      "detail": "Latest GP encounter records waking gasping twice nightly, frequent inhaler use, family-reported reduced walking distance and increasing ankle swelling."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-06-30T07:55:00Z",
+      "detail": "Electrolyte and renal panel records sodium 131 mmol/L, potassium 3.0 mmol/L and eGFR 31 mL/min/1.73m²."
+    },
+    {
+      "sourcePath": "record/manifest.json",
+      "date": "2026-09-12T16:45:22.771Z",
+      "detail": "Manifest reports one successful eligible snapshot, no failed sources and 37 unique resources."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Escalating cardiopulmonary symptom burden and mobility loss",
+      "significance": "The progression from orthopnoea and heavier legs to twice-nightly gasping, frequent reliever use, reduced walking distance and greater ankle swelling supports prompt clinical review and a parallel discussion of priorities; asthma and potentially treatable fluid overload remain possible contributors.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-16T08:15:00.000Z",
+          "detail": "GP telephone review records more troublesome breathlessness when supine, only brief inhaler benefit and heavier legs over the preceding month."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-28T10:05:00.000Z",
+          "detail": "Later GP encounter records twice-nightly gasping, several-times-daily inhaler use, reduced walking distance and increasing ankle swelling."
+        }
+      ]
+    },
+    {
+      "signal": "Progressive renal and electrolyte abnormalities",
+      "significance": "The available trend shows lower eGFR with recurrent low potassium and sodium, increasing clinical complexity and making medication, volume status and reversible causes important to review before or alongside planning.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Earlier U&E reports include eGFR 53, followed by 42 and 35 mL/min/1.73m², with potassium declining from 3.7 to 3.4 and 3.1 mmol/L."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-30T07:55:00Z",
+          "detail": "Subsequent panel records eGFR 31, potassium 3.0 and sodium 131."
+        }
+      ]
+    },
+    {
+      "signal": "No documented active future-care plan in the available resources",
+      "significance": "The snapshot provides no documented patient priorities, escalation preferences, legal planning record or active palliative-care plan, so a clinician should first verify whether planning exists elsewhere and, if not, offer a non-alarming conversation.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Review of the 37 supplied resources found clinical results and GP contacts but no documented ACP, ADRT, DNACPR/ReSPECT, hospice or palliative-care entry."
+        },
+        {
+          "sourcePath": "record/manifest.json",
+          "detail": "Manifest identifies the available record as a single eligible snapshot containing 37 unique resources."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "no_clear_false_positive",
+    "alternativeExplanations": [
+      "Asthma or another reversible respiratory process could contribute to wheeze, breathlessness and frequent reliever use.",
+      "Potentially treatable congestion or medication-related electrolyte disturbance could contribute to orthopnoea, oedema and abnormal potassium/sodium.",
+      "The mildly raised CRP is nonspecific and does not identify the cause of deterioration."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "Urgent symptom and electrolyte assessment should not be delayed by a planning conversation.",
+      "The snapshot does not document disease severity, treatment optimisation, residence, broad functional baseline, capacity or the patient's readiness for this discussion."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "Symptoms progressed across two GP contacts despite reported inhaler use.",
+      "Family reported reduced walking distance and increasing ankle swelling.",
+      "Renal function and electrolyte abnormalities recur across the available longitudinal results."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-05-16T08:25:00.000Z",
+        "detail": "Respiratory check records full sentences, respiratory rate 20/min and mild bilateral wheeze, supporting possible respiratory contribution without excluding other causes."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-28T10:05:00.000Z",
+        "detail": "Later GP record documents worsening nocturnal breathlessness, inhaler use, mobility and swelling."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-20T08:30:00Z",
+        "detail": "CRP is 16.2 mg/L above its listed reference range, a nonspecific abnormality."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No ACP, ADRT, DNACPR/ReSPECT, hospice, palliative-care or documented escalation-preference entry was found in the supplied resources.",
+      "Absence from this bounded snapshot does not prove that no plan exists elsewhere; the GP should verify current records before initiating a new plan."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The available resource list contains reports, encounters and observations but no explicit advance-care, legal planning or palliative-care record."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Coverage is limited to one successful eligible snapshot with 37 unique resources and no retrieval failures."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Telephone is repeatedly recorded as the patient's administrative contact preference."
+    ],
+    "uncertainties": [
+      "The patient's goals, worries, understanding, readiness for planning and preferred participants are not documented.",
+      "Decision-making capacity and communication or accessibility needs are not documented.",
+      "A family report is present, but the person's identity, relationship, availability and wishes are not documented.",
+      "No legal representative, ADRT, DNACPR/ReSPECT or other care-planning record is documented in this snapshot."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-06-19T08:10:00.000Z",
+        "detail": "One of several GP observations records telephone as the administrative contact preference."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-28T10:05:00.000Z",
+        "detail": "Encounter says family reported reduced walking distance and increasing ankle swelling, without identifying the family member or documenting wishes."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown; no residence or current care setting is documented in the supplied snapshot.",
+    "functionAndMobility": "Baseline independence is unknown. The latest GP encounter records family-reported reduction in walking distance, but provides no quantified mobility, personal-care or frailty assessment.",
+    "currentClinicalSupport": [
+      "GP has conducted telephone reviews for heart-failure/asthma symptoms and recorded repeated long-term-condition contacts.",
+      "Diagnostics supplied longitudinal blood results visible to GP and hospital services."
+    ],
+    "familyAndCarerSupport": [
+      "Family supplied a report of declining walking distance and greater ankle swelling; ongoing caregiving role and availability are unknown."
+    ],
+    "gaps": [
+      "Residence, activities of daily living, falls, cognition, frailty, nutrition and formal-care provision are not documented.",
+      "Medication list, adherence, oxygen use, weight/volume trend and current specialist follow-up are not documented.",
+      "Recent admissions, emergency attendances and the broader treatment plan are not documented in this snapshot."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-28T10:05:00.000Z",
+        "detail": "GP encounter provides the only explicit functional signal: family-reported reduced walking distance."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Resources show GP-owned encounters and diagnostics-owned laboratory reports; they do not state residence or formal support."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "GP clinical lead",
+      "meetingPriority": "core",
+      "ownership": "Verify immediate clinical safety, check whether a current plan exists, ask permission to discuss priorities, and coordinate any agreed documentation or referrals.",
+      "reason": "The symptom trajectory and recorded contact preference are documented in GP-owned records, making primary care the clearest available coordinating owner.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-28T10:05:00.000Z",
+          "detail": "Latest worsening-symptom encounter is owned by GP."
+        }
+      ]
+    },
+    {
+      "role": "Patient",
+      "meetingPriority": "core",
+      "ownership": "Choose whether, when and with whom to have the conversation, and describe priorities, acceptable trade-offs and communication preferences.",
+      "reason": "This must be a patient-led priorities conversation, and telephone is the only documented contact preference.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-19T08:10:00.000Z",
+          "detail": "GP observation records telephone as the patient's administrative contact preference."
+        }
+      ]
+    },
+    {
+      "role": "Family or support person chosen by the patient",
+      "meetingPriority": "optional",
+      "ownership": "Attend only with the patient's agreement and contribute observations and support without substituting undocumented wishes for the patient's views.",
+      "reason": "Family has noticed functional and swelling changes, but identity, role and availability are unknown.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-28T10:05:00.000Z",
+          "detail": "Family report reduced walking distance and increasing ankle swelling."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "GP clinical lead",
+    "urgency": "Offer a clinician-led conversation within days, after or alongside prompt assessment of worsening breathlessness, oedema and electrolyte abnormalities; escalate sooner if the clinician identifies acute instability.",
+    "formatAndAccessibility": "Start with the documented telephone preference to offer, not presume, the conversation; confirm privacy, hearing/language/access needs, preferred format and whether the patient wants a family or support person present.",
+    "objectives": [
+      "Understand what matters most to the patient and how current symptoms affect daily life.",
+      "Clarify the patient's understanding, information preferences and readiness for future-care planning.",
+      "Review potentially reversible contributors and explain uncertainty without implying a prognosis.",
+      "Check for existing plans elsewhere and document only choices made through clinician-led shared decision-making.",
+      "Agree clinical ownership, follow-up and who may be involved."
+    ],
+    "briefingNotes": [
+      {
+        "note": "Breathlessness progressed from orthopnoea with brief inhaler relief and heavier legs to twice-nightly gasping, frequent inhaler use, reduced walking and increasing ankle swelling.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-05-16T08:15:00.000Z",
+            "detail": "Initial symptom review records orthopnoea, brief inhaler relief and heavier legs."
+          },
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-07-28T10:05:00.000Z",
+            "detail": "Later symptom review records progression in breathing, walking and ankle swelling."
+          }
+        ]
+      },
+      {
+        "note": "Renal/electrolyte results reached eGFR 31, potassium 3.0 and sodium 131; medication and volume context are absent.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-06-30T07:55:00Z",
+            "detail": "Electrolyte and renal trend panel records eGFR 31, potassium 3.0 and sodium 131."
+          }
+        ]
+      },
+      {
+        "note": "No active advance-care or palliative plan is visible, and wishes, residence, capacity and broad functional baseline are unknown.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "Available resources do not contain explicit planning records or the missing baseline domains."
+          },
+          {
+            "sourcePath": "record/manifest.json",
+            "detail": "Manifest limits coverage to one 37-resource eligible snapshot."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Confirm consent, preferred format and attendees.",
+      "Check current symptoms and what has changed.",
+      "Ask what matters most and what the patient hopes to maintain.",
+      "Discuss uncertainty and reversible issues in plain language.",
+      "Explore whether the patient wants future-care and escalation planning now.",
+      "Agree owners, documentation and follow-up."
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Telephone initially, reflecting the recorded preference",
+      "draft": "We would like to check how your breathing and swelling are affecting you and make sure your care reflects what matters most to you. This is also a chance, if you would find it helpful, to talk about preferences for care in the future. It does not mean we are making assumptions about what will happen. Would you be comfortable speaking with your GP, and is there anyone you would like involved?",
+      "cautions": [
+        "A clinician should first assess whether symptoms require urgent care.",
+        "Confirm identity, privacy, accessibility needs and continued preference for telephone before sensitive discussion.",
+        "Do not imply a prognosis or that a palliative decision has already been made."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-28T10:05:00.000Z",
+          "detail": "Latest GP encounter documents worsening breathing, mobility and ankle swelling."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-19T08:10:00.000Z",
+          "detail": "Telephone is recorded as the administrative contact preference."
+        }
+      ]
+    },
+    {
+      "audience": "Family or support person, only with patient agreement",
+      "channel": "Patient-approved channel",
+      "draft": "The patient is being offered a conversation about how current health changes are affecting daily life and what matters most in planning care. If the patient would like you involved, your observations and support may be helpful. No conclusion about future health has been made.",
+      "cautions": [
+        "Confirm the patient's consent and the person's identity and role before sharing information.",
+        "Do not assume the reporting family member is a carer, representative or decision-maker.",
+        "Keep the patient's own preferences central."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-28T10:05:00.000Z",
+          "detail": "A family report of reduced walking and increasing swelling is recorded, but no identity or authority is documented."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Clinically assess the worsening nocturnal breathlessness, oedema and frequent reliever use, with urgent escalation according to findings rather than waiting for the planning conversation.",
+      "owner": "GP clinical lead or responsible same-day clinician",
+      "urgency": "Promptly; same day if symptoms are current or worsening",
+      "reason": "The record shows a progressive symptom pattern with potentially treatable cardiopulmonary causes.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-28T10:05:00.000Z",
+          "detail": "Latest GP encounter records twice-nightly gasping, frequent inhaler use, reduced walking and increasing ankle swelling."
+        }
+      ]
+    },
+    {
+      "action": "Review or repeat renal function and electrolytes as clinically appropriate and reconcile medications, volume status and reversible causes.",
+      "owner": "Responsible clinician",
+      "urgency": "Prompt clinical review",
+      "reason": "The most concerning explicit panel records eGFR 31, potassium 3.0 and sodium 131, while no medication context is supplied.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-30T07:55:00Z",
+          "detail": "Electrolyte and renal trend panel records reduced eGFR with hypokalaemia and hyponatraemia."
+        }
+      ]
+    },
+    {
+      "action": "Check the wider clinical record for current specialist involvement, medication plan and any existing ACP, ADRT, DNACPR/ReSPECT or palliative-care documentation before drafting new planning entries.",
+      "owner": "GP clinical lead",
+      "urgency": "Before or at the offered goals-of-care conversation",
+      "reason": "None is visible in the bounded snapshot, but absence here does not establish absence elsewhere.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "No explicit specialist plan, medication list or advance-care/palliative-care record is present among the supplied resources."
+        },
+        {
+          "sourcePath": "record/manifest.json",
+          "detail": "Coverage consists of one eligible snapshot rather than a complete multi-source live clinical record."
+        }
+      ]
+    },
+    {
+      "action": "Offer the patient a priorities conversation using the recorded telephone preference, while confirming preferred format, accessibility needs and chosen participants.",
+      "owner": "GP clinical lead",
+      "urgency": "Within days, coordinated with clinical assessment",
+      "reason": "The trajectory supports prompt review, but patient readiness, wishes and accessibility needs are unknown.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-19T08:10:00.000Z",
+          "detail": "Telephone is repeatedly recorded as the patient's administrative contact preference."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-28T10:05:00.000Z",
+          "detail": "Latest encounter documents meaningful symptom and mobility deterioration."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "Manifest reports one successful eligible 15-day snapshot, zero failed sources, 37 unique resources and no forced insufficient-evidence safety gate. The snapshot has useful longitudinal laboratory and GP symptom information but lacks many baseline, treatment, service and planning domains, so absence of documentation must not be treated as absence in the wider record.",
+    "missingSources": [
+      "No separate medication, hospital attendance/admission, specialist, community-care, palliative-care or legal-planning source is represented in the manifest.",
+      "Residence, comprehensive functional assessment, capacity, accessibility needs and formal support are not documented in the eligible snapshot."
+    ],
+    "failedSources": [],
+    "contradictions": [
+      "The June 30 panel records eGFR 31, while a later July 14 U&E reports eGFR 35; both remain below range, and the difference may reflect fluctuation rather than a strictly monotonic decline.",
+      "Creatinine values remain within the listed reference interval while reported eGFR is substantially low; interpretation requires clinician review and clinical context."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "date": "2026-09-12T16:45:22.771Z",
+        "detail": "Coverage reports successful 1, failed 0, failedSources empty, 37 unique resources and forceInsufficientEvidence false."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Eligible snapshot contains 37 resources centered on laboratory reports and GP encounters/observations, with no explicit medication or planning resources."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "confirmed",
+    "falsePositiveChecks": [
+      "Deliberately re-read all 37 eligible resources after the initial synthesis, without claiming independent verification.",
+      "Re-checked the May and July symptom encounters for trajectory, reversibility signals and whether full-sentence speech or wheeze supplied a benign explanation; they did not negate later deterioration.",
+      "Re-checked serial U&E values and preserved the June-to-July eGFR fluctuation rather than claiming uninterrupted decline.",
+      "Searched the supplied resource list again for ACP, ADRT, DNACPR/ReSPECT, hospice, palliative-care, medication, admission and active specialist-plan entries; none were documented.",
+      "Re-checked the manifest safety gate, source failures, unique-resource count and scope limitations.",
+      "Re-checked that all clinical factual claims cite only record/eligible.json and all coverage statements cite record/manifest.json."
+    ],
+    "changesFromPrimary": [
+      "No material recommendation change after the deliberate self re-check.",
+      "Qualified the renal trajectory to acknowledge eGFR fluctuation from 31 to 35 rather than describing a strictly monotonic decline.",
+      "Kept potentially reversible asthma, congestion, medication and electrolyte contributors explicit and separated immediate clinical assessment from the planning conversation.",
+      "Retained none_found rather than active planning, while emphasizing that planning may exist outside this bounded snapshot."
+    ]
+  }
+}

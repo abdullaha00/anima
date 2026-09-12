@@ -1,0 +1,427 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000371",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "proceed",
+  "confidence": 0.8,
+  "summary": "Prompt human review for a sensitive goals-of-care conversation is supported by documented recent functional decline, breathlessness, reduced appetite and oedema, a June episode of marked renal impairment with hyponatraemia, subsequent neurological symptoms, and an urgent stroke-unit attendance on 13 August 2026. The record does not establish prognosis or the patient's current status at the 27 August cutoff, and it contains no documented wishes or active advance-care plan; the conversation should therefore explore priorities while clinicians simultaneously clarify potentially treatable acute issues and the outcome of the hospital attendance.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "detail": "Demographics document age 96 at the index date."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-05-30T08:15:00Z",
+      "detail": "GP encounter documents increasing daytime sleep, breathlessness on short walks, and greater help needed with meals and household tasks."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-06-25T07:25:00Z",
+      "detail": "U&E report records sodium 131 mmol/L, urea 12.8 mmol/L, creatinine 190 µmol/L, and eGFR 29 mL/min/1.73m²."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-08-13T05:45:00Z",
+      "detail": "Urgent hospital attendance records sudden facial asymmetry, left arm weakness, and dysarthria, with arrival at the stroke receiving unit."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Recent functional and symptom decline",
+      "significance": "Increasing sleepiness, exertional breathlessness, reduced appetite, oedema, and increasing help with daily tasks indicate a meaningful change in function and support needs that warrants priorities-based review.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-30T08:15:00Z",
+          "detail": "Family reported increasing daytime sleep, breathlessness on short walks, and more help needed with meals and household tasks; the encounter reason included heart failure review."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-30T08:25:00Z",
+          "detail": "GP observation records mild sacral oedema and reduced appetite reported by family."
+        }
+      ]
+    },
+    {
+      "signal": "Renal and electrolyte deterioration",
+      "significance": "The June results show a clinically important deterioration compared with earlier measurements and require clinical interpretation, including reversibility, alongside planning.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-25T07:25:00Z",
+          "detail": "Renal decline report records sodium 131, urea 12.8, creatinine 190, and eGFR 29."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-14T09:00:00Z",
+          "detail": "Later U&E records sodium 134, urea 5.7, creatinine 156, and eGFR 59, showing partial biochemical improvement but persistent creatinine elevation."
+        }
+      ]
+    },
+    {
+      "signal": "Escalating neurological events and urgent hospital care",
+      "significance": "Transient speech symptoms followed by sudden focal neurological deficits and stroke-unit attendance represent significant acute deterioration; the outcome and present care needs are unknown.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-25T10:15:00Z",
+          "detail": "GP encounter documents unsteadiness, intermittent muddling, and a resolved episode of slurred speech; urgent assessment was discussed."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-13T05:45:00Z",
+          "detail": "Hospital attendance documents sudden facial asymmetry, left arm weakness, and dysarthria, acuity 1, at the stroke receiving unit."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "no_clear_false_positive",
+    "alternativeExplanations": [
+      "The neurological deterioration may reflect an acute, potentially treatable cerebrovascular event rather than an irreversible decline.",
+      "The June renal and sodium abnormalities partly improved by July and may have had a reversible component.",
+      "Breathlessness, oedema, appetite change, and sleepiness could have treatable contributors that are not resolved in this snapshot."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "The record does not document the outcome of the stroke-unit attendance, current location, prognosis, or whether acute treatment restored function.",
+      "A conversation framed as end-of-life certainty would be unsupported and could distract from urgent assessment and treatment of reversible causes."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "Functional decline and increasing support needs were documented before the acute neurological attendance.",
+      "Renal impairment, breathlessness, oedema, reduced appetite, and neurological events span several encounters rather than a single isolated benign finding.",
+      "No active planning record is present to show that priorities and escalation preferences have already been addressed."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-05-30T08:15:00Z",
+        "detail": "GP review documents multi-domain symptom and functional decline."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-14T09:00:00Z",
+        "detail": "U&E shows improvement after the more severe 25 June abnormalities, supporting possible partial reversibility."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-13T05:45:00Z",
+        "detail": "The last documented event is an urgent stroke receiving-unit arrival; no subsequent disposition is included."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No ACP, ReSPECT, DNACPR/DNR, ADRT, hospice, palliative-care, or documented goals-of-care discussion appears in the eligible snapshot.",
+      "Absence from this limited snapshot does not prove that planning does not exist elsewhere; clinicians should verify before initiating a new discussion."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Review of the 36 included resources found clinical reports, GP encounters and observations, contact-preference observations, and one hospital attendance, but no care-planning or legal-planning resource."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Telephone is repeatedly recorded as the patient's contact preference."
+    ],
+    "uncertainties": [
+      "The patient's priorities, understanding, decision-making capacity, preferred place of care, and treatment-escalation preferences are not documented.",
+      "Family observations are documented, but family members, their wishes, availability, authority, and the patient's consent to involve them are unknown.",
+      "No legal representative or advance decision is documented in the snapshot."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-06-18T08:10:00Z",
+        "detail": "The latest administrative contact-preference observation records telephone."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-05-30T08:15:00Z",
+        "detail": "Family supplied observations about symptoms and increasing help needs, but no identities, wishes, or authority are recorded."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "No patient wishes, family wishes, capacity assessment, legal authority, or advance-care-planning document appears among the included resources."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown; no residence or current location at the cutoff is documented beyond arrival at a stroke receiving unit on 13 August 2026.",
+    "functionAndMobility": "Before the hospital attendance, the patient managed medicines but was breathless on short walks, needed increasing help with meals and household tasks, and was later described as unsteady and intermittently muddled; post-attendance function is unknown.",
+    "currentClinicalSupport": [
+      "GP encounters and observations are documented.",
+      "A stroke medical team is documented at the urgent hospital arrival; whether that team remained involved at the cutoff is unknown.",
+      "Diagnostics supplied serial blood results."
+    ],
+    "familyAndCarerSupport": [
+      "Family reported symptoms and increasing practical help needs, indicating some involvement; the actual support arrangement is unknown."
+    ],
+    "gaps": [
+      "Current residence, hospital disposition, mobility after the neurological event, activities of daily living, cognition, medication list, formal diagnoses, and community-service involvement are unknown.",
+      "The identity and availability of any family carer are unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-05-30T08:15:00Z",
+        "detail": "Encounter describes medicine self-management alongside breathlessness and increasing help with meals and household tasks."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-25T10:15:00Z",
+        "detail": "Encounter documents unsteadiness and intermittent muddling."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-13T05:45:00Z",
+        "detail": "Last location documented is the stroke receiving unit at arrival, with the stroke medical team listed as clinician."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "GP clinician responsible for continuity",
+      "meetingPriority": "core",
+      "ownership": "Confirm current status and hospital outcome, verify existing planning, and own coordination of a priorities-based review unless another current lead is identified.",
+      "reason": "GP records contain the longitudinal symptom, function, family-observation, and contact-preference information.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-30T08:15:00Z",
+          "detail": "GP encounter documents the key functional and symptom decline."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-18T08:10:00Z",
+          "detail": "GP observation records telephone contact preference."
+        }
+      ]
+    },
+    {
+      "role": "Current hospital or stroke clinician, if still involved",
+      "meetingPriority": "core",
+      "ownership": "Provide the neurological assessment, treatment response, prognosis, current function and discharge plan, and identify who currently holds clinical responsibility.",
+      "reason": "The last documented acute event was an acuity-1 arrival under the stroke medical team, with no outcome in the snapshot.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-13T05:45:00Z",
+          "detail": "Hospital attendance lists the stroke medical team and stroke receiving unit for sudden focal neurological symptoms."
+        }
+      ]
+    },
+    {
+      "role": "Family representative chosen by the patient",
+      "meetingPriority": "optional",
+      "ownership": "With the patient's consent, share observations about baseline function and practical support needs without substituting for the patient's own wishes.",
+      "reason": "Family observations informed the GP review, but no individual, authority, or availability is documented.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-30T08:15:00Z",
+          "detail": "Family reported sleepiness, breathlessness, and increasing help needs."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "GP clinician responsible for continuity, after confirming whether a hospital clinician currently owns care",
+    "urgency": "Human clinical review within 24–48 hours of receiving this assessment; accelerate if neurological symptoms, confusion, breathlessness, poor intake, oedema, or renal concerns are current or worsening.",
+    "formatAndAccessibility": "First confirm current location, capacity, and clinical stability. Offer a short telephone discussion because that preference is recorded, while checking whether communication or cognitive effects after the neurological event require an in-person format, extra time, or a chosen supporter.",
+    "objectives": [
+      "Clarify the outcome of the stroke-unit attendance, current function, active diagnoses, reversible issues, and responsible clinician.",
+      "Ask what matters most to the patient and what level of family involvement the patient wants.",
+      "Discuss acceptable treatment escalation and future care only in proportion to the clinician's updated assessment, without presenting prognosis as certain.",
+      "Verify whether any ACP, ReSPECT, DNACPR/DNR, ADRT, legal representative, or palliative plan exists outside this snapshot.",
+      "Agree one named clinical owner for documentation and follow-up."
+    ],
+    "briefingNotes": [
+      {
+        "note": "Function had declined by late May: breathlessness on short walks, more daytime sleep, and more help with meals and household tasks, although medicine self-management remained documented.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-05-30T08:15:00Z",
+            "detail": "GP function and heart failure review documents these changes."
+          }
+        ]
+      },
+      {
+        "note": "Renal results worsened markedly on 25 June and partly improved by 14 July; current renal status and cause remain unknown.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-06-25T07:25:00Z",
+            "detail": "Sodium 131, urea 12.8, creatinine 190, and eGFR 29 were recorded."
+          },
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-07-14T09:00:00Z",
+            "detail": "Sodium 134, urea 5.7, creatinine 156, and eGFR 59 were later recorded."
+          }
+        ]
+      },
+      {
+        "note": "The final record is an urgent stroke-unit arrival on 13 August; there is no discharge, outcome, or later functional assessment.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-08-13T05:45:00Z",
+            "detail": "Hospital attendance records sudden facial asymmetry, left arm weakness, and dysarthria at the stroke receiving unit."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Confirm immediate clinical stability, current location, and responsible team.",
+      "Review hospital outcome, function, renal status, symptoms, and reversible contributors.",
+      "Seek the patient's permission for the conversation and preferred family involvement.",
+      "Explore priorities, worries, acceptable care, and escalation preferences.",
+      "Check existing legal and care-planning records and agree documentation ownership."
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Draft for clinician-led telephone contact after checking capacity, accessibility, and current clinical stability",
+      "draft": "We would like to check how you have been since the recent hospital assessment and understand what is most important to you now. This is a chance to review the help you need and, if you wish, to talk about how you would prefer care to be planned if you become less well. It does not assume what will happen. Would you be comfortable having that conversation, and is there anyone you would like involved?",
+      "cautions": [
+        "Do not imply a terminal prognosis or that decisions have already been made.",
+        "Confirm identity, privacy, capacity, hearing and communication needs before substantive discussion.",
+        "Urgent or worsening symptoms require clinical assessment rather than a planning conversation alone."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-18T08:10:00Z",
+          "detail": "Latest contact-preference observation records telephone."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-13T05:45:00Z",
+          "detail": "Recent stroke-unit attendance makes current status and communication needs important to confirm."
+        }
+      ]
+    },
+    {
+      "audience": "Family member selected by the patient",
+      "channel": "Draft for clinician use only after patient consent or confirmation of lawful authority",
+      "draft": "With the patient's agreement, we are reviewing how things have changed recently and what matters most to them. Your observations about day-to-day function and support may help, but we will not assume their preferences. Please tell us what changes you have noticed and what practical support is currently available.",
+      "cautions": [
+        "Do not contact an unidentified relative from this assessment.",
+        "Confirm patient consent, confidentiality, identity, and any legal authority before sharing information.",
+        "Keep the patient's own voice central."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-30T08:15:00Z",
+          "detail": "Family observations about symptoms and help needs are recorded, but no family identity or authority is documented."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Clinically reconcile the 13 August stroke-unit attendance with the frozen record: determine disposition, treatment, current neurological deficits, capacity, location, and responsible team.",
+      "owner": "GP clinician responsible for continuity, or current hospital clinician if care remains hospital-led",
+      "urgency": "Within 24 hours of human review",
+      "reason": "The snapshot ends at arrival and cannot support safe planning without the outcome and present status.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-13T05:45:00Z",
+          "detail": "The final event is acuity-1 stroke receiving-unit arrival for sudden focal neurological symptoms."
+        }
+      ]
+    },
+    {
+      "action": "Review current breathlessness, oedema, intake, cognition, medicines, renal function and electrolytes, and address reversible contributors before or alongside goals-of-care discussion.",
+      "owner": "Responsible GP or hospital clinician",
+      "urgency": "Prompt clinical review; same day if symptoms are current or worsening",
+      "reason": "Symptoms and renal abnormalities may be clinically important and partly reversible; the snapshot does not show current measurements or treatment.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-30T08:25:00Z",
+          "detail": "Observation documents mild sacral oedema and reduced appetite."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-25T07:25:00Z",
+          "detail": "Report documents hyponatraemia and marked renal impairment."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-14T09:00:00Z",
+          "detail": "Later renal results improved but creatinine remained above the stated reference range."
+        }
+      ]
+    },
+    {
+      "action": "Check all available clinical systems for existing ACP, ReSPECT, DNACPR/DNR, ADRT, legal representative, and palliative-care records; then ask the patient about priorities and desired family involvement if clinically appropriate.",
+      "owner": "GP clinician responsible for continuity",
+      "urgency": "Before initiating or documenting a new formal plan",
+      "reason": "No such records or wishes appear in this snapshot, but limited coverage means absence cannot be assumed.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The eligible resources contain no explicit advance-care or legal-planning record and no documented patient wishes."
+        },
+        {
+          "sourcePath": "record/manifest.json",
+          "detail": "Coverage consists of one successful eligible snapshot containing 36 unique resources, with no additional source collections represented."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "The manifest reports one successful eligible 15-day snapshot, zero failed sources, 36 unique resources, no duplicate visibility, and no forced insufficient-evidence safety gate. This is a bounded snapshot rather than a complete multi-source longitudinal record.",
+    "missingSources": [
+      "No post-attendance hospital outcome or discharge record is included.",
+      "No structured medication list, complete diagnosis/problem list, residence record, community-care record, or current functional assessment is included.",
+      "No separate advance-care-planning, legal-planning, palliative-care, hospice, or family-contact record is included."
+    ],
+    "failedSources": [],
+    "contradictions": [],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Coverage reports 1 successful source, 0 failed sources, and an empty failedSources array."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Deduplication reports 36 unique resources and 0 resources with duplicate visibility."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Safety gate forceInsufficientEvidence is false with no reasons."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "confirmed",
+    "falsePositiveChecks": [
+      "Re-read all 36 eligible resources and checked that every cited event occurred on or before the 27 August 2026 cutoff.",
+      "Compared the severe 25 June renal abnormalities with the improved 14 July panel to avoid treating a partly reversible episode as inexorable decline.",
+      "Checked routine blood panels for a single benign explanation; they do not negate the separately documented functional decline, oedema, neurological symptoms, and urgent stroke attendance.",
+      "Checked every resource for ACP, ReSPECT, DNACPR/DNR, ADRT, hospice, palliative-care, documented patient wishes, and active implementation; none was found in the bounded snapshot.",
+      "Checked the final hospital event for disposition or recovery; only arrival is documented, so current status remains explicitly unknown.",
+      "Re-checked the manifest: one source succeeded, none failed, and the safety gate does not force insufficient evidence."
+    ],
+    "changesFromPrimary": [
+      "No material recommendation change was required after the deliberate second evidence re-check.",
+      "Retained explicit uncertainty about reversibility, hospital outcome, current function, prognosis, and planning outside the bounded snapshot; no independent verification is claimed."
+    ]
+  }
+}

@@ -1,0 +1,334 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000378",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "proceed",
+  "confidence": 0.78,
+  "summary": "Prompt human review is supported for a sensitive goals-of-care discussion once immediate respiratory assessment and stabilisation permit. The record shows progressive productive cough, wheeze, declining exertional tolerance, breathlessness while dressing, poor appetite, limited relief from salbutamol, and subsequent acute medical unit attendance for low oxygen saturation and an oxygen requirement. A potentially reversible acute respiratory illness remains plausible, and the snapshot does not document a progressive diagnosis, prior care planning, usual residence, full functional baseline, capacity, or patient/family wishes; the discussion should therefore explore priorities and treatment preferences without implying a prognosis.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "detail": "The eligible snapshot documents worsening respiratory symptoms followed by acute medical unit attendance for breathlessness and low oxygen saturation."
+    },
+    {
+      "sourcePath": "record/manifest.json",
+      "detail": "Coverage comprises one successful eligible snapshot containing 38 unique resources, with no failed source and no safety-gate reason."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Progressive respiratory symptom burden and functional impact",
+      "significance": "Symptoms progressed from reduced exercise tolerance with cough and wheeze to frequent yellow sputum, breathlessness while dressing, poor appetite, and only brief relief from salbutamol, supporting timely review of priorities alongside active treatment.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "GP encounters document evolution from cough, wheeze and reduced exercise tolerance to breathlessness dressing, poor appetite and limited bronchodilator relief."
+        }
+      ]
+    },
+    {
+      "signal": "Acute hospital attendance with hypoxaemia",
+      "significance": "Arrival at an acute medical unit with low oxygen saturation and an oxygen requirement indicates clinically important deterioration and a need for clinician-led review of treatment goals when the patient is stable enough.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-17T20:05:00Z",
+          "detail": "Hospital attendance records acuity 2 arrival to the acute medical unit under the respiratory medical team for productive cough, wheeze, breathlessness and low oxygen saturation."
+        }
+      ]
+    },
+    {
+      "signal": "Advanced age with incomplete baseline information",
+      "significance": "The snapshot records age 87 at index, but age alone is not a reason for a goals-of-care conversation; it increases the importance of an individualised review because residence, usual function, support, diagnoses and wishes are not documented.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Demographics record birth date 1938-12-04 and age 87 at index, while the resource set does not state residence or a complete usual functional baseline."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "no_clear_false_positive",
+    "alternativeExplanations": [
+      "A potentially reversible acute respiratory infection or exacerbation could explain the recent symptom escalation and inflammatory blood-count response.",
+      "The July blood results show white cell count and neutrophils back within the stated reference ranges after the 2026-06-28 elevations, so the laboratory trajectory alone does not establish progressive decline."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "A conversation should not delay urgent assessment or treatment of hypoxaemia and the potentially reversible respiratory presentation.",
+      "Timing may be inappropriate while the patient is clinically unstable, too breathless to participate, or lacks decision-making capacity at that moment; current stability and capacity are not documented."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "Symptoms worsened despite brief relief from salbutamol and affected dressing and appetite.",
+      "The patient subsequently required acute medical unit assessment for low oxygen saturation and an oxygen requirement.",
+      "The snapshot does not provide an established benign explanation, discharge resolution, or return to baseline."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-06-28T07:35:00Z",
+        "detail": "FBC during respiratory symptoms showed white cell count 13.6 and neutrophils 10.2, consistent with a possible acute inflammatory response but not a documented diagnosis."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Later July blood results show white cell count 4.7 and neutrophils 3.5 within their stated reference ranges, while subsequent clinical notes still document worsening symptoms and later hypoxaemic hospital attendance."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No advance care plan, ADRT, DNACPR/DNR, ReSPECT document, hospice involvement, palliative-care involvement, or documented goals-of-care discussion was found in the provided eligible snapshot.",
+      "Absence from this bounded snapshot does not establish that no plan exists elsewhere; clinicians should verify with the patient and relevant records."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The 38-resource snapshot contains clinical reports, GP encounters, contact-preference observations and one hospital attendance, but no care-planning or palliative-care resource."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "The manifest reports one successful eligible-snapshot source and 38 unique resources; coverage is bounded to that source."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Telephone is recorded as an administrative contact preference, but suitability for this sensitive discussion should be confirmed rather than assumed."
+    ],
+    "uncertainties": [
+      "The patient's goals, values, understanding of the current illness, preferred place of care, and treatment preferences are unknown.",
+      "Decision-making capacity and communication or accessibility needs at the current attendance are unknown.",
+      "Whether the patient wants family, a carer, or another trusted person involved is unknown.",
+      "Family or carer identities, availability, wishes and legal authority are unknown.",
+      "The existence of planning documents outside the eligible snapshot is unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Repeated GP observations record telephone as an administrative contact preference; the snapshot does not document wishes, family involvement, capacity, accessibility needs or legal care-planning records."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown; no usual residence or current discharge destination is documented in the provided snapshot.",
+    "functionAndMobility": "Usual function and mobility are unknown. Recent notes describe reduced exercise tolerance and later breathlessness while dressing, which is current functional impact rather than a complete baseline.",
+    "currentClinicalSupport": [
+      "As of the 2026-08-17 attendance, the patient had arrived at an acute medical unit under a respiratory medical team.",
+      "GP and diagnostics authored the preceding symptom reviews and blood reports."
+    ],
+    "familyAndCarerSupport": [],
+    "gaps": [
+      "Usual residence, mobility, activities of daily living, frailty and cognition are not documented.",
+      "Long-term diagnoses, medication list, home oxygen or community-service involvement are not documented.",
+      "Family, informal carer and formal care support are not documented.",
+      "The clinical course after arrival, treatment, response and disposition are not included."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-17T20:05:00Z",
+        "detail": "Attendance data identify the acute medical unit and respiratory medical team; GP notes describe reduced exercise tolerance and breathlessness dressing, but the snapshot gives no usual residence or complete baseline."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Acute respiratory medical team clinician",
+      "meetingPriority": "core",
+      "ownership": "Confirm immediate clinical stability and capacity, lead or delegate the initial priorities-and-treatment-preferences discussion, and document agreed next steps.",
+      "reason": "This team is explicitly recorded as responsible at the current acute medical unit attendance for hypoxaemic respiratory symptoms.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-17T20:05:00Z",
+          "detail": "Hospital attendance lists the respiratory medical team at the acute medical unit."
+        }
+      ]
+    },
+    {
+      "role": "GP clinician",
+      "meetingPriority": "core",
+      "ownership": "Provide available longitudinal context, verify prior preferences or planning in primary-care records, and support continuity after the acute attendance.",
+      "reason": "GP encounters document the recent symptom trajectory and the recorded telephone contact preference.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "GP-owned encounters document respiratory progression and administrative contact-preference observations."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "Acute respiratory medical team clinician",
+    "urgency": "Review during the current acute episode after immediate assessment and stabilisation, ideally within 24 hours if the patient is able and willing to participate; defer and reassess if clinically unstable.",
+    "formatAndAccessibility": "Offer a brief, private, clinician-led in-person discussion in the acute setting when symptoms permit. Confirm capacity, communication and accessibility needs, preferred channel, and whether the patient wants a family member, carer or trusted person involved; do not infer this from the administrative telephone preference.",
+    "objectives": [
+      "Ask what matters most to the patient and what they understand about the current illness.",
+      "Clarify acceptable treatment burdens and preferences if breathing worsens, without presenting assumptions about prognosis.",
+      "Check for existing advance care planning or legal documents not represented in the snapshot.",
+      "Agree who will document, communicate and review the plan as the acute illness evolves."
+    ],
+    "briefingNotes": [
+      {
+        "note": "Recent respiratory symptoms progressed from reduced exercise tolerance to breathlessness while dressing, poor appetite and limited salbutamol relief.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "GP respiratory encounters document this symptom progression."
+          }
+        ]
+      },
+      {
+        "note": "The patient arrived at an acute medical unit with low oxygen saturation and an oxygen requirement under the respiratory medical team.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-08-17T20:05:00Z",
+            "detail": "Hospital attendance records the location, respiratory team and hypoxaemic presentation."
+          }
+        ]
+      },
+      {
+        "note": "A reversible acute respiratory process remains plausible, and no progressive diagnosis or active advance-care plan is documented in this snapshot.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-06-28T07:35:00Z",
+            "detail": "An inflammatory FBC response occurred during respiratory symptoms; later counts improved, and the snapshot contains no explicit progressive diagnosis or care-planning resource."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Check clinical stability, capacity and readiness to talk.",
+      "Invite the patient's account, understanding, priorities and concerns.",
+      "Explain the current uncertainty and potentially reversible causes in plain language.",
+      "Discuss treatment preferences and contingencies only to the level the patient wants.",
+      "Ask about existing documents and desired involvement of trusted people.",
+      "Confirm ownership, documentation and review timing."
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Sensitive draft for an in-person conversation; confirm the patient's preferred and accessible channel first",
+      "draft": "You have had a difficult spell with your breathing, and the team is treating and assessing what may be causing it. When you feel able, we would like to understand what matters most to you and what kinds of care you would or would not want if you became more unwell. This is a chance to plan around your priorities, not a statement that we know what will happen. Would you like to talk now, later, or with someone you trust present?",
+      "cautions": [
+        "Do not imply a terminal diagnosis or predicted outcome.",
+        "Do not proceed until immediate respiratory needs are addressed and capacity and willingness are confirmed.",
+        "Do not involve family or another person without the patient's preference or an appropriate lawful basis."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The draft is grounded in documented worsening respiratory symptoms and acute attendance; the snapshot does not document the patient's wishes or desired family involvement."
+        }
+      ]
+    },
+    {
+      "audience": "GP clinician",
+      "channel": "Sensitive draft for secure clinical handover, not yet sent",
+      "draft": "The patient attended the acute medical unit with worsening productive cough, wheeze, breathlessness and low oxygen saturation. Please share any known functional baseline, prior preferences or care-planning documents and support continuity. The acute team should first confirm stability and capacity, then offer a patient-led discussion about priorities without assuming prognosis.",
+      "cautions": [
+        "Verify all details against the live clinical record before use.",
+        "Use an approved secure clinical channel and share only information necessary for care."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-17T20:05:00Z",
+          "detail": "The snapshot documents preceding GP contacts and an acute medical unit attendance for worsening hypoxaemic respiratory symptoms."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Assess and treat the respiratory presentation, including hypoxaemia, before or alongside any planning discussion; establish whether the patient is stable enough to participate.",
+      "owner": "Acute respiratory medical team clinician",
+      "urgency": "Immediate clinical priority",
+      "reason": "The attendance records low oxygen saturation and an oxygen requirement with acuity 2.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-17T20:05:00Z",
+          "detail": "Acute medical unit attendance records acuity 2 and hypoxaemic respiratory symptoms."
+        }
+      ]
+    },
+    {
+      "action": "When stable, confirm capacity, readiness, accessibility needs and permission for involvement of any trusted person, then offer a patient-led priorities discussion.",
+      "owner": "Acute respiratory medical team clinician",
+      "urgency": "During the current episode, after stabilisation",
+      "reason": "The record supports timely review but contains no capacity assessment, communication needs, wishes or family-involvement preference.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The snapshot documents deterioration but does not document capacity, wishes, accessibility needs or desired family involvement."
+        }
+      ]
+    },
+    {
+      "action": "Check primary-care and available shared records for baseline function, diagnoses, current medicines, prior goals discussions and any advance-care or legal planning documents, then reconcile findings with the patient.",
+      "owner": "GP clinician",
+      "urgency": "Promptly to inform the current review",
+      "reason": "These items are not present in the bounded eligible snapshot, while GP holds the documented longitudinal contacts.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "GP-owned contacts are present, but no complete baseline, diagnosis list, medicine list or planning document is included."
+        },
+        {
+          "sourcePath": "record/manifest.json",
+          "detail": "Collection coverage is limited to one eligible snapshot source."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "The manifest reports one successful eligible 15-day snapshot, zero failed sources, 38 unique resources and no duplicate visibility; the safety gate does not force insufficient evidence. This is bounded snapshot coverage rather than a complete live longitudinal record.",
+    "missingSources": [
+      "No separate identity, primary-care full record, hospital progress/discharge record, medication list, shared-care planning record, community-care record or legal-document source is represented in the manifest.",
+      "No clinical course after the 2026-08-17 acute medical unit arrival is included in the eligible snapshot."
+    ],
+    "failedSources": [],
+    "contradictions": [
+      "The record contains an inflammatory FBC on 2026-06-28 followed by July counts within stated white-cell and neutrophil reference ranges, while respiratory symptoms later worsened; laboratory improvement therefore does not resolve the clinical trajectory.",
+      "No direct contradiction about patient wishes or active planning can be assessed because those data are absent."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Coverage reports one successful source, zero failures, 38 unique resources, zero duplicate visibility and no forced insufficient-evidence gate."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The eligible snapshot ends with acute medical unit arrival and does not include subsequent assessment, treatment response or disposition."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "confirmed",
+    "falsePositiveChecks": [
+      "Re-read all 38 resources against the 2026-08-26 cutoff and confirmed that the key trajectory is progressive respiratory symptoms followed by the 2026-08-17 hypoxaemic acute attendance.",
+      "Re-checked for a reversible explanation and retained acute respiratory infection or exacerbation as plausible rather than treating deterioration as proof of progressive or terminal disease.",
+      "Re-checked the blood-count trend and noted that June leukocytosis and neutrophilia later improved, so laboratory values alone do not support escalation.",
+      "Re-checked for ACP, ADRT, DNACPR/DNR, ReSPECT, hospice, palliative-care involvement, patient wishes and family wishes; none are documented in the bounded snapshot.",
+      "Re-checked the manifest: one successful source, no failed sources, 38 unique resources and no forced insufficient-evidence gate.",
+      "This was a deliberate same-agent second evidence check and not independent verification."
+    ],
+    "changesFromPrimary": [
+      "No separate primary-agent assessment was used in this single-agent adaptation.",
+      "On self re-check, the recommendation remained proceed, explicitly conditional on acute stabilisation and patient readiness.",
+      "The reversible acute respiratory explanation and improving interim blood counts were retained to avoid overinterpreting the presentation.",
+      "Unknown baseline, capacity, wishes, family support, diagnoses, medicines and external planning records were kept as unknown rather than inferred."
+    ]
+  }
+}

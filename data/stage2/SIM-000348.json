@@ -1,0 +1,464 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000348",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "insufficient_evidence",
+  "confidence": 0.87,
+  "summary": "The available snapshot supports prompt clinician review of persistent leukopenia/neutropenia, recurrent mild hyponatraemia, and recently increased respiratory symptoms, but it does not document a progressive life-limiting diagnosis, frailty or functional decline, repeated acute-care use, prognosis, current treatment context, or the patient's goals. It therefore does not provide enough evidence to decide that a goals-of-care or palliative-care conversation should be initiated now. A human clinician should first assess the abnormal results and symptoms, clarify the broader clinical baseline, and then reconsider conversation appropriateness without treating missing information as reassuring.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-08-29T08:00:00.000Z",
+      "detail": "Latest FBC shows white-cell count 1.8 ×10⁹/L and neutrophils 1.4 ×10⁹/L, both below the stated reference ranges."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-08-29T08:00:00.000Z",
+      "detail": "Latest U&E shows sodium 130 mmol/L, below the stated reference range."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-07-29T12:00:00.000Z",
+      "detail": "GP encounter records more frequent night-time wheeze and dry cough over one week, with reliever use most evenings."
+    },
+    {
+      "sourcePath": "record/manifest.json",
+      "detail": "Manifest shows the only collected source was one eligible 15-day snapshot containing 35 unique resources."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Persistent leukopenia and neutropenia",
+      "significance": "Repeated low white-cell and neutrophil counts warrant human clinical assessment for cause, infection risk, trajectory, and management; the record does not establish a prognosis or palliative indication.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-15T08:00:00.000Z",
+          "detail": "FBC shows white-cell count 0.8 ×10⁹/L and neutrophils 0.6 ×10⁹/L."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-28T08:00:00Z",
+          "detail": "Persistent leukopenia check states that low white-cell and neutrophil counts remained on repeat testing and that infection precautions and repeat review were advised."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-29T08:00:00.000Z",
+          "detail": "Latest FBC remains abnormal with white-cell count 1.8 ×10⁹/L and neutrophils 1.4 ×10⁹/L."
+        }
+      ]
+    },
+    {
+      "signal": "Recurrent mild hyponatraemia",
+      "significance": "Sodium declined from the low end of range to 130 mmol/L on the two latest panels; clinical context, symptoms, medicines, and a management plan are not supplied.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-15T08:00:00.000Z",
+          "detail": "U&E shows sodium 131 mmol/L against a stated lower reference limit of 133."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-14T08:00:00.000Z",
+          "detail": "U&E shows sodium 130 mmol/L."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-29T08:00:00.000Z",
+          "detail": "U&E again shows sodium 130 mmol/L."
+        }
+      ]
+    },
+    {
+      "signal": "Increasing respiratory symptoms",
+      "significance": "The documented change from occasional exertional wheeze without extra reliever use to night-time symptoms and reliever use most evenings needs ordinary clinical reassessment, but does not alone demonstrate irreversible decline.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-31T12:00:00.000Z",
+          "detail": "Asthma review records occasional wheeze on stairs, comfort at rest, and no extra reliever doses."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-29T12:00:00.000Z",
+          "detail": "Later GP review records more frequent night-time wheeze and dry cough, with reliever use most evenings."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "uncertain",
+    "alternativeExplanations": [
+      "The respiratory change may represent a potentially treatable asthma deterioration or another acute/subacute respiratory cause; the snapshot does not document evaluation or response to treatment.",
+      "The cytopenias fluctuate rather than decline monotonically, and the snapshot does not document their cause, treatment, or clinical consequences.",
+      "The biochemical abnormalities may have reversible causes, but medication, hydration, nutritional, and diagnostic context are absent."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "No progressive life-limiting illness, repeated admission pattern, documented functional decline, or specialist prognosis is present in the supplied snapshot.",
+      "The documented issues require diagnostic and treatment review before they can support conclusions about goals-of-care conversation timing."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "Repeated leukopenia and neutropenia persist through the latest FBC.",
+      "Sodium is repeatedly below range and is 130 mmol/L on the two latest supplied panels.",
+      "Respiratory symptoms became more frequent and reliever use increased compared with the earlier review.",
+      "The narrow snapshot leaves major baseline and prognosis domains unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-06-28T08:00:00Z",
+        "detail": "Repeat FBC narrative confirms persistent low white-cell and neutrophil counts and advises infection precautions and review."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-29T12:00:00.000Z",
+        "detail": "GP encounter documents a recent increase in respiratory symptoms and reliever use."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Coverage is limited to one successful eligible snapshot source; no retrieval failure is reported."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No ACP, ReSPECT, DNACPR/DNR, ADRT, hospice, palliative-care, or active goals-of-care plan is present among the supplied resources.",
+      "This means no planning record was found in the available snapshot; it does not establish that planning does not exist elsewhere."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The supplied resources comprise laboratory reports, GP encounters, and a contact-preference observation, with no care-planning or palliative-care resource present."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Manifest confirms collection was limited to the single eligible snapshot source."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Telephone is recorded as the patient's administrative contact preference."
+    ],
+    "uncertainties": [
+      "The patient's priorities, understanding, desired level of involvement, and willingness to discuss future care are unknown.",
+      "Family or carer identities, availability, wishes, and permission to involve them are unknown.",
+      "Decision-making capacity, proxy decision-maker status, and legal care-planning records are unknown.",
+      "Accessibility, language, sensory, cognitive, cultural, and communication needs are unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-11T08:10:00.000Z",
+        "detail": "Administrative observation records the contact preference value as telephone."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-11T08:00:00.000Z",
+        "detail": "Primary-care contact says the patient discussed the next appointment and contact preferences but records no substantive wishes or family information."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown; no residence or current care setting is documented in the supplied snapshot.",
+    "functionAndMobility": "Largely unknown. One May encounter mentions climbing stairs, but there is no systematic account of activities of daily living, mobility aids, frailty, cognition, falls, nutrition, or recent functional change.",
+    "currentClinicalSupport": [
+      "GP encounters are documented for respiratory and long-term-condition review.",
+      "Diagnostics produced repeated routine blood panels visible to GP and hospital services."
+    ],
+    "familyAndCarerSupport": [],
+    "gaps": [
+      "Residence and current location",
+      "Diagnoses, medication list, treatment history, and responsible clinician",
+      "Functional, cognitive, frailty, nutritional, symptom, and psychosocial baseline",
+      "Acute-care use, admissions, referrals, specialist input, and prognosis",
+      "Family, informal carer, and formal care support"
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-05-31T12:00:00.000Z",
+        "detail": "GP asthma review mentions wheeze when climbing stairs and comfort at rest but provides no broader functional assessment."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-29T12:00:00.000Z",
+        "detail": "A completed in-person GP respiratory review is documented."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "The only collected source is the eligible snapshot, limiting baseline coverage."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "GP or responsible primary-care clinician",
+      "meetingPriority": "core",
+      "ownership": "Own the initial clinical review, reconcile the broader record, assess the abnormal blood results and respiratory symptoms, and decide whether later goals-of-care discussion is appropriate.",
+      "reason": "GP encounters are the only documented direct clinical contacts and GP visibility is recorded for the abnormal reports.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-29T12:00:00.000Z",
+          "detail": "Most recent symptom encounter is owned by GP."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-29T09:00:00.000Z",
+          "detail": "Latest abnormal FBC report is visible to GP, hospital, and diagnostics."
+        }
+      ]
+    },
+    {
+      "role": "Clinician responsible for haematology or laboratory-result follow-up",
+      "meetingPriority": "optional",
+      "ownership": "Clarify the cause, risk, trajectory, and active follow-up plan for persistent leukopenia/neutropenia; advise the GP whether specialist assessment is already underway or needed.",
+      "reason": "Repeated abnormal counts and prior advice for infection precautions and repeat review need accountable follow-up, but no named specialist or referral is documented.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-28T08:00:00Z",
+          "detail": "Persistent leukopenia report advises infection precautions and repeat review."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-29T08:00:00.000Z",
+          "detail": "Latest FBC still shows leukopenia and neutropenia."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "GP or responsible primary-care clinician",
+    "urgency": "Prompt clinician-led record and clinical review; do not arrange a goals-of-care meeting solely from this snapshot.",
+    "formatAndAccessibility": "Begin with a brief clinician review. If patient contact is clinically appropriate, use the recorded telephone preference while first confirming that preference and any accessibility or support needs.",
+    "objectives": [
+      "Confirm current symptoms, acute risk, diagnoses, medicines, treatment, and ownership of abnormal-result follow-up.",
+      "Establish residence, function, frailty, cognition, care support, recent acute-care use, and clinical trajectory.",
+      "Check for care-planning documents or prior discussions outside this snapshot.",
+      "Ask the patient what matters to them and whom they want involved before deciding whether a goals-of-care discussion is appropriate."
+    ],
+    "briefingNotes": [
+      {
+        "note": "FBC abnormalities are recurrent, with a nadir in the supplied series of white-cell count 0.8 ×10⁹/L and neutrophils 0.6 ×10⁹/L, and remain below range on the latest test.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-05-15T08:00:00.000Z",
+            "detail": "FBC records white-cell count 0.8 ×10⁹/L and neutrophils 0.6 ×10⁹/L."
+          },
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-08-29T08:00:00.000Z",
+            "detail": "Latest FBC records white-cell count 1.8 ×10⁹/L and neutrophils 1.4 ×10⁹/L."
+          }
+        ]
+      },
+      {
+        "note": "Sodium is repeatedly below range and is 130 mmol/L on the July and August panels.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-07-14T08:00:00.000Z",
+            "detail": "Sodium is 130 mmol/L."
+          },
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-08-29T08:00:00.000Z",
+            "detail": "Sodium remains 130 mmol/L."
+          }
+        ]
+      },
+      {
+        "note": "Respiratory symptoms worsened between May and July, but no subsequent assessment or response is supplied.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-05-31T12:00:00.000Z",
+            "detail": "Earlier review records occasional exertional wheeze without additional reliever use."
+          },
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-07-29T12:00:00.000Z",
+            "detail": "Later review records frequent night-time wheeze, dry cough, and reliever use most evenings."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Immediate symptom and safety assessment",
+      "Abnormal-result ownership and investigation plan",
+      "Broader baseline and trajectory",
+      "Existing care-planning search",
+      "Patient priorities, preferred involvement, and next-step decision"
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Draft telephone contact, subject to clinician review and confirmation of accessibility",
+      "draft": "We would like to check how you have been feeling, review some recent blood results and your breathing symptoms, and make sure the right follow-up is in place. We would also like to understand what matters most to you in your care. This is a routine opportunity to review your needs and plans; it does not assume any particular diagnosis or future course. Is telephone still the best way to speak, and would you like anyone you trust to be involved?",
+      "cautions": [
+        "Do not describe this as an end-of-life or palliative-care meeting before a clinician has established appropriateness and the patient has been sensitively invited.",
+        "Confirm identity, current contact preference, privacy, capacity, language, hearing, and other accessibility needs.",
+        "Do not imply that family involvement is required; seek the patient's permission and preferences."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-11T08:10:00.000Z",
+          "detail": "Telephone is recorded as the administrative contact preference."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-29T12:00:00.000Z",
+          "detail": "GP record documents increased respiratory symptoms and reliever use."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-29T08:00:00.000Z",
+          "detail": "Latest supplied blood panels include persistent cytopenias and sodium 130 mmol/L."
+        }
+      ]
+    },
+    {
+      "audience": "Internal clinical team",
+      "channel": "Draft secure clinical handover",
+      "draft": "Please identify a responsible clinician to review the recurrent leukopenia/neutropenia, sodium of 130 mmol/L on the latest panel, and the last documented increase in wheeze and reliever use. Reconcile diagnoses, medicines, investigations, current symptoms, functional baseline, care support, and any existing care-planning records. The current snapshot is insufficient to determine whether a goals-of-care conversation is indicated.",
+      "cautions": [
+        "This is decision support only and requires clinical review.",
+        "Do not infer absence of prior planning from this limited snapshot."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-29T08:00:00.000Z",
+          "detail": "Latest FBC and U&E show persistent leukopenia/neutropenia and sodium 130 mmol/L."
+        },
+        {
+          "sourcePath": "record/manifest.json",
+          "detail": "Only one eligible snapshot source was collected."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Clinically review the latest and prior FBC results, current infection symptoms, precautions, investigations, and follow-up ownership.",
+      "owner": "GP or responsible primary-care clinician",
+      "urgency": "Prompt, with timing determined by clinical triage; urgent escalation if the patient is acutely unwell.",
+      "reason": "Leukopenia and neutropenia recur across the series and remain present on the latest supplied result.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-28T08:00:00Z",
+          "detail": "Repeat report notes persistent low counts and advises infection precautions and review."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-29T08:00:00.000Z",
+          "detail": "Latest FBC shows white-cell count 1.8 ×10⁹/L and neutrophils 1.4 ×10⁹/L."
+        }
+      ]
+    },
+    {
+      "action": "Review recurrent hyponatraemia in clinical context, including symptoms, medicines, fluid status, causes, repeat-testing needs, and escalation thresholds.",
+      "owner": "GP or responsible primary-care clinician",
+      "urgency": "Prompt clinical triage; urgency should reflect symptoms and the current value rather than this retrospective snapshot alone.",
+      "reason": "Sodium is below the stated range on successive recent panels and is 130 mmol/L on the latest panel.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-15T08:00:00.000Z",
+          "detail": "Sodium is 131 mmol/L."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-29T08:00:00.000Z",
+          "detail": "Latest sodium is 130 mmol/L."
+        }
+      ]
+    },
+    {
+      "action": "Reassess respiratory symptoms and reliever use and confirm whether the July deterioration resolved or received treatment.",
+      "owner": "GP or responsible primary-care clinician",
+      "urgency": "Prompt, with same-day escalation if current symptoms indicate acute respiratory compromise.",
+      "reason": "The last supplied respiratory review records increased night-time wheeze, cough, and reliever use without a later outcome in the snapshot.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-29T12:00:00.000Z",
+          "detail": "Respiratory review records more frequent night-time wheeze, dry cough, and reliever use most evenings."
+        }
+      ]
+    },
+    {
+      "action": "Reconcile the broader clinical and care record before deciding on a goals-of-care conversation, including function, frailty, acute-care use, diagnoses, prognosis, supports, patient priorities, and existing planning.",
+      "owner": "GP or responsible primary-care clinician",
+      "urgency": "Before any goals-of-care or palliative-care invitation based on this review.",
+      "reason": "The sole collected snapshot does not cover the domains needed for a reliable conversation decision.",
+      "evidence": [
+        {
+          "sourcePath": "record/manifest.json",
+          "detail": "Manifest reports one successful eligible snapshot source, no failures, and 35 unique resources."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Resources provide laboratory and limited GP/contact information but no comprehensive functional, prognostic, support, or care-planning record."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "Collection succeeded for the single eligible 15-day snapshot: 1 successful source, 0 failed sources, and 35 unique resources. The snapshot is rich in repeated laboratory panels but sparse in diagnoses, medicines, function, care setting, acute-care use, support, prognosis, and advance-care planning, so those domains remain unknown rather than negative.",
+    "missingSources": [
+      "No separate comprehensive problem/diagnosis list or medication record is included in the collected snapshot.",
+      "No dedicated hospital, community, specialist, referral, admission, care-coordination, social-care, or palliative-care records are included.",
+      "No comprehensive functional, frailty, cognitive, residence, family/carer, or legal care-planning assessment is included."
+    ],
+    "failedSources": [],
+    "contradictions": [
+      "The June persistent-leukopenia report embeds collectedAt as 2026-06-28T08:00:00Z while its resource createdAt corresponds to 2026-06-28T12:00:00Z; this may be an expected processing delay but should be recognized when ordering events.",
+      "Counts fluctuate across tests, so the series supports persistence but not a simple monotonic deterioration."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Coverage records 1 successful source, 0 failed sources, an empty failedSources array, and 35 unique resources."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Snapshot contains 35 resources dominated by repeated blood reports plus limited GP encounters and one contact-preference observation."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-06-28T08:00:00Z",
+        "detail": "Persistent leukopenia report contains an ISO collectedAt that differs from the resource's later numeric createdAt timestamp on the same date."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "confirmed",
+    "falsePositiveChecks": [
+      "Re-read all 35 eligible resources and checked the manifest safety gate, source count, failed-source list, and deduplication count.",
+      "Re-checked the longitudinal FBC sequence and confirmed persistent but fluctuating leukopenia/neutropenia rather than claiming monotonic decline.",
+      "Re-checked sodium values and confirmed recurrent mild hyponatraemia through the latest supplied panel.",
+      "Compared both respiratory encounters and confirmed increased symptoms and reliever use, while noting the absence of a later outcome.",
+      "Searched the supplied resource content for active ACP, ReSPECT, DNACPR/DNR, ADRT, hospice, palliative-care, family/carer, functional-decline, admission, and prognosis evidence; none was present in this snapshot.",
+      "Checked every citation against record/eligible.json or record/manifest.json and omitted recordId because the supplied resources do not contain record IDs."
+    ],
+    "changesFromPrimary": [
+      "No separate primary-agent assessment existed in this single-agent adaptation; after the deliberate second evidence pass, the insufficient-evidence recommendation and cautious clinical framing were retained.",
+      "The re-check explicitly characterized blood-count variation as persistent but non-monotonic and preserved uncertainty about reversible causes and missing broader context.",
+      "No independent verification is claimed."
+    ]
+  }
+}

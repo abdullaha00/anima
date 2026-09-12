@@ -1,0 +1,376 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000464",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "do_not_proceed",
+  "confidence": 0.76,
+  "summary": "Do not initiate a goals-of-care or palliative-care conversation from this snapshot alone. The record instead supports prompt human clinical review of symptomatic persistent hyperglycaemia and the latest potassium/renal results. The available longitudinal material does not document progressive advanced illness, functional decline, repeated acute-care use, or active advance-care planning, but those domains are incompletely represented and therefore remain unknown.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-07-31T11:10:00.000Z",
+      "detail": "GP encounter documents several days of nausea, abdominal discomfort, marked lethargy, and persistently high home glucose despite increased water intake."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-07-14T08:00:00.000Z",
+      "detail": "Latest available panel shows HbA1c 57 mmol/mol, potassium 5.6 mmol/L, creatinine 89 µmol/L, and eGFR 57 mL/min/1.73m²."
+    },
+    {
+      "sourcePath": "record/manifest.json",
+      "detail": "Manifest reports one successful eligible snapshot containing 29 unique resources, no failed sources, and no safety-gate reason."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Symptomatic persistent hyperglycaemia",
+      "significance": "Nausea, abdominal discomfort, marked lethargy, and persistent high home glucose warrant timely clinician assessment for an acute, potentially treatable metabolic problem rather than being used as evidence of irreversible decline.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-31T11:10:00.000Z",
+          "detail": "GP encounter records several days of symptoms and high home glucose despite increased fluid intake."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-26T07:45:00Z",
+          "detail": "Glycaemic control review reports HbA1c 61 mmol/mol."
+        }
+      ]
+    },
+    {
+      "signal": "Latest potassium and renal markers need clinical reconciliation",
+      "significance": "The latest potassium is above its stated reference range and eGFR below its stated reference range; these findings should be interpreted by a clinician alongside symptoms, medicines, and repeat testing if indicated.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-14T08:00:00.000Z",
+          "detail": "U&E reports potassium 5.6 mmol/L (reference 3.5–5.3) and eGFR 57 mL/min/1.73m² (reference 60–120)."
+        }
+      ]
+    },
+    {
+      "signal": "Glycaemic measurements have remained above their stated reference range",
+      "significance": "Serial HbA1c results and symptoms support review of current diabetes management; they do not by themselves establish a palliative-care need.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-01-15T08:00:00.000Z",
+          "detail": "HbA1c was 54 mmol/mol against a stated upper reference of 41."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-15T08:00:00.000Z",
+          "detail": "HbA1c was 58 mmol/mol against a stated upper reference of 41."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-26T07:45:00Z",
+          "detail": "HbA1c was 61 mmol/mol against a stated upper reference of 41."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-14T08:00:00.000Z",
+          "detail": "HbA1c was 57 mmol/mol against a stated upper reference of 41."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "clear_false_positive",
+    "alternativeExplanations": [
+      "The immediate concerning presentation is compatible with an acute metabolic problem associated with persistent hyperglycaemia and requires ordinary clinical assessment before any inference about irreversible decline.",
+      "The snapshot largely contains routine laboratory monitoring and primary-care encounters rather than evidence of progressive advanced disease or escalating supportive care."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "The snapshot does not document a progressive life-limiting diagnosis, repeated admissions, deteriorating function, escalating care needs, or a palliative-care referral.",
+      "Introducing a palliative framing before assessing the symptomatic hyperglycaemia could be disproportionate and alarming."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "Marked lethargy, nausea, abdominal discomfort, and persistently high home glucose still require prompt human assessment.",
+      "Potassium 5.6 mmol/L and eGFR 57 mL/min/1.73m² require clinical interpretation, and absent medication, diagnosis, and functional data remain unknown rather than reassuring."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-31T11:10:00.000Z",
+        "detail": "Most recent encounter describes an acute several-day symptomatic hyperglycaemic presentation."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-14T08:00:00.000Z",
+        "detail": "Latest FBC and liver panel are presented as routine results; U&E includes potassium 5.6 and eGFR 57, and HbA1c is 57."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The eligible snapshot contains laboratory reports, three primary-care encounters, and one contact-preference observation, with no represented admission, function, or palliative-planning resource."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No advance-care plan, ADRT, DNACPR/ReSPECT record, hospice or palliative-care involvement, or documented prior goals-of-care discussion was found in the available 29-resource snapshot.",
+      "This means none was found in the available snapshot, not that none exists elsewhere."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Review of all resources found laboratory monitoring, primary-care encounters, and a contact-preference observation but no care-planning or palliative-care record."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Coverage is limited to one successful eligible snapshot with 29 unique resources."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "SMS is recorded as the patient's administrative contact preference."
+    ],
+    "uncertainties": [
+      "The patient's goals, values, understanding, preferred place of care, and desired family involvement are not documented in the snapshot.",
+      "Family members, carers, next of kin, decision-making capacity, health and welfare attorney status, and other legal planning are unknown.",
+      "The record says an appointment and contact preferences were discussed but does not provide the substance of that discussion beyond the separate SMS preference."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-06-27T08:10:00.000Z",
+        "detail": "Administrative observation records contact preference as SMS."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-06-27T08:00:00.000Z",
+        "detail": "Primary-care encounter says the next appointment and contact preferences were discussed without documenting wishes or family involvement."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Only the 29-resource eligible snapshot is represented, limiting conclusions about absent planning records."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown; no residence or current care setting is documented in the available snapshot.",
+    "functionAndMobility": "Unknown; activities of daily living, mobility, frailty, cognition, nutrition, and recent functional trajectory are not documented.",
+    "currentClinicalSupport": [
+      "GP/primary-care review is represented by completed encounters.",
+      "Diagnostics support is represented by serial available blood-test reports."
+    ],
+    "familyAndCarerSupport": [],
+    "gaps": [
+      "Current medicines, formal diagnoses/problem list, treatment plan, recent observations, and diabetes regimen are not provided.",
+      "Residence, function, cognition, frailty, nutrition, family/carer support, hospital use, and community services are not provided.",
+      "No follow-up disposition is recorded after the 2026-07-31 symptomatic encounter."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-31T11:10:00.000Z",
+        "detail": "A completed GP encounter is the latest represented clinical contact and documents symptoms but no disposition or baseline function."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Resources are owned predominantly by diagnostics, with GP ownership on encounters and the contact-preference observation; no residence, mobility, carer, medication, or service-support resource is present."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Manifest confirms the available record is one 29-resource eligible snapshot."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Reviewing GP or primary-care clinician",
+      "meetingPriority": "core",
+      "ownership": "Own timely assessment of the current symptoms and laboratory findings, determine immediate clinical management, and decide whether any later priorities-of-care discussion is appropriate after missing context is obtained.",
+      "reason": "GP is the documented owner of the symptomatic encounters and is the only represented clinical service positioned to coordinate the next review.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-31T11:10:00.000Z",
+          "detail": "Most recent symptomatic encounter is owned by GP."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-09T08:20:00.000Z",
+          "detail": "Earlier telephone review of thirst, nocturia, and elevated capillary glucose is also owned by GP."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "Reviewing GP or primary-care clinician",
+    "urgency": "Do not convene a goals-of-care meeting solely from this snapshot. Arrange prompt human clinical review of the symptomatic hyperglycaemia and laboratory findings; reconsider conversation need after acute assessment and record reconciliation.",
+    "formatAndAccessibility": "Start with direct clinical contact using the recorded SMS preference to arrange contact, while confirming that SMS remains suitable and offering an accessible telephone or in-person assessment as clinically appropriate.",
+    "objectives": [
+      "Assess the current symptoms and persistent hyperglycaemia and identify any urgent treatment need.",
+      "Reconcile the potassium, renal results, diagnoses, medicines, and diabetes treatment plan.",
+      "Establish residence, functional baseline, support network, recent healthcare use, and any existing care-planning documents.",
+      "Only if additional evidence supports it, ask permission for a separate conversation about priorities and future care."
+    ],
+    "briefingNotes": [
+      {
+        "note": "The latest encounter reports nausea, abdominal discomfort, marked lethargy, and high home glucose over several days.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-07-31T11:10:00.000Z",
+            "detail": "GP encounter documents the symptomatic hyperglycaemic presentation."
+          }
+        ]
+      },
+      {
+        "note": "The latest available U&E has potassium 5.6 mmol/L and eGFR 57 mL/min/1.73m², while HbA1c is 57 mmol/mol.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-07-14T08:00:00.000Z",
+            "detail": "Latest laboratory set provides the cited potassium, eGFR, and HbA1c values."
+          }
+        ]
+      },
+      {
+        "note": "SMS is recorded as the administrative contact preference; broader communication and accessibility needs are unknown.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-06-27T08:10:00.000Z",
+            "detail": "Contact-preference observation records SMS."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Immediate symptom and safety assessment",
+      "Laboratory, medication, diagnosis, and treatment reconciliation",
+      "Baseline function, residence, support, and recent service-use clarification",
+      "Decision on routine follow-up and whether any later priorities-of-care conversation is indicated"
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "SMS to arrange clinical contact, followed by telephone or in-person assessment as appropriate",
+      "draft": "Hello. We would like a clinician to review the nausea, tiredness and high glucose readings you recently reported, and to go through your latest results with you. This is to make sure you receive the right support and treatment. Please contact the practice promptly using the usual route; if you feel acutely unwell, seek urgent medical help through the usual urgent-care service.",
+      "cautions": [
+        "Confirm that SMS remains acceptable and avoid including unnecessary sensitive detail in the message.",
+        "Do not describe this as a palliative-care or end-of-life discussion on the current evidence.",
+        "A clinician must tailor urgency and safety-netting to the patient's current condition; this draft does not replace triage."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-31T11:10:00.000Z",
+          "detail": "Latest GP encounter records nausea, marked lethargy, abdominal discomfort, and persistently high home glucose."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-27T08:10:00.000Z",
+          "detail": "Administrative contact preference is SMS."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Human clinician to assess the current symptoms and persistent high glucose, including appropriate urgency and safety-netting.",
+      "owner": "Reviewing GP or primary-care clinician",
+      "urgency": "Promptly; the record does not establish whether the symptoms have resolved.",
+      "reason": "Several days of nausea, abdominal discomfort, marked lethargy, and persistent high glucose could reflect an acute treatable metabolic problem.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-31T11:10:00.000Z",
+          "detail": "Most recent encounter documents the symptomatic presentation."
+        }
+      ]
+    },
+    {
+      "action": "Reconcile the latest potassium and renal indices with current medicines, diagnoses, prior results, and repeat testing if the clinician judges it necessary.",
+      "owner": "Reviewing GP or primary-care clinician",
+      "urgency": "During the prompt clinical review.",
+      "reason": "The latest potassium exceeds its stated range and eGFR is below its stated range; medication and diagnosis context is absent.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-14T08:00:00.000Z",
+          "detail": "U&E reports potassium 5.6 mmol/L and eGFR 57 mL/min/1.73m²."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "No medication list or diagnosis/problem-list resource is included in the snapshot."
+        }
+      ]
+    },
+    {
+      "action": "Before reconsidering a goals-of-care conversation, verify diagnosis, prognosis, recent healthcare use, function, residence, supports, and any existing planning documents directly with the patient and available clinical systems.",
+      "owner": "Reviewing GP or primary-care clinician",
+      "urgency": "After immediate clinical needs are addressed and before any palliative framing.",
+      "reason": "The available snapshot lacks the core contextual evidence needed to support such a conversation.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The snapshot does not contain diagnosis, medication, function, residence, carer, admission, or advance-care-planning resources."
+        },
+        {
+          "sourcePath": "record/manifest.json",
+          "detail": "Coverage consists of one eligible snapshot with 29 unique resources."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "The manifest reports one successful eligible 15-day-cutoff snapshot, 29 unique resources, zero failed sources, no duplicate visibility, and no forced insufficient-evidence gate. The snapshot is clinically narrow: serial laboratory reports dominate, with three GP encounters and one contact-preference observation.",
+    "missingSources": [
+      "No diagnosis/problem list or medication/treatment list is represented.",
+      "No residence, function, mobility, frailty, cognition, nutrition, family/carer, or capacity information is represented.",
+      "No admissions, emergency attendances, community-service records, referrals, appointments, observations, or post-encounter disposition are represented.",
+      "No advance-care plan, ADRT, DNACPR/ReSPECT record, or palliative/hospice documentation is represented."
+    ],
+    "failedSources": [],
+    "contradictions": [
+      "Serial creatinine rises from 50 to 61 to 77 to 89 µmol/L while the reported eGFR also rises from 32 to 39 to 49 to 57 mL/min/1.73m²; this internally discordant direction should be checked rather than interpreted as a reliable renal trajectory."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Coverage reports successful 1, failed 0, failedSources empty, 29 unique resources, zero duplicate visibility, and forceInsufficientEvidence false."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Resource review shows serial routine blood reports, three GP encounters, and one administrative contact-preference observation."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2025-09-12T08:00:00.000Z",
+        "detail": "Earliest U&E reports creatinine 50 µmol/L with eGFR 32 mL/min/1.73m²."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-14T08:00:00.000Z",
+        "detail": "Latest U&E reports creatinine 89 µmol/L with eGFR 57 mL/min/1.73m²."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "confirmed",
+    "falsePositiveChecks": [
+      "Re-read all 29 eligible resources in chronological order and checked whether symptoms were better explained by an acute potentially treatable metabolic issue than by documented irreversible decline.",
+      "Re-checked for progressive life-limiting diagnoses, repeated admissions, frailty or functional loss, escalating support, and palliative or hospice involvement; none is represented in this snapshot, so those domains remain unknown.",
+      "Re-checked for ACP, ADRT, DNACPR/ReSPECT, prior goals-of-care discussions, patient wishes, family wishes, carers, and legal decision-makers; none is documented beyond an SMS contact preference.",
+      "Compared serial HbA1c, potassium, creatinine, and eGFR values and identified the internally discordant creatinine/eGFR direction.",
+      "Reconciled coverage against the manifest: one successful source, 29 unique resources, no failed sources, and no forced safety gate."
+    ],
+    "changesFromPrimary": [
+      "Single-agent second pass retained the do_not_proceed recommendation and clear-false-positive assessment; no separate independent verification is claimed.",
+      "The re-check explicitly added the creatinine/eGFR trajectory inconsistency and preserved uncertainty about all unrepresented baseline, planning, and support domains."
+    ]
+  }
+}

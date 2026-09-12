@@ -1,0 +1,486 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000220",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "proceed",
+  "confidence": 0.86,
+  "summary": "Prompt human review for a priorities and goals-of-care conversation is supported. The snapshot shows a progressive swallowing-related respiratory trajectory, recent urgent hospital presentation with severe hypoxia and consolidation, and an unsafe swallow with continued oxygen shortly before the cutoff. The acute infection is being treated and may be reversible, but persistent aspiration risk means that treatment alone is not a clear benign explanation. The record does not establish prognosis, current capacity, baseline function, patient wishes, or an active advance-care plan; these must be clarified rather than assumed.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-08-28T12:00:00.000Z",
+      "detail": "Urgent hospital attendance documented fever, productive cough, oxygen saturation 86%, dependent lower-lobe consolidation, and initiation of IV antibiotics and oxygen."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-09-05T12:00:00.000Z",
+      "detail": "Hospital note documented that swallowing remained unsafe, oxygen was 2 L/min, and aspiration teaching was given before transfer."
+    },
+    {
+      "sourcePath": "record/manifest.json",
+      "date": "2026-09-12T16:45:22.771Z",
+      "detail": "Manifest reports one successful eligible snapshot, 41 unique resources, no failed sources, and no forced insufficient-evidence gate."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Escalating swallowing and aspiration concern",
+      "significance": "Cough with drinks progressed to appetite decline, weight loss, wet cough after meals, bibasal crackles, and a later documented unsafe swallow, suggesting an ongoing risk rather than a single isolated episode.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-04-24T12:00:00.000Z",
+          "detail": "GP review recorded occasional coughing with thin drinks; swallowing advice was offered."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-10T12:00:00.000Z",
+          "detail": "Community home visit recorded reduced appetite, 2.1 kg weight loss, wet cough after meals, oxygen saturation 93% on air, and a swallowing-assessment request."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-22T12:00:00.000Z",
+          "detail": "Community observation recorded more frequent coughing with fluids, fine bibasal crackles, temperature 37.8 C, and advice for texture modification."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-05T12:00:00.000Z",
+          "detail": "Hospital note recorded persistent unsafe swallowing and family teaching on aspiration precautions."
+        }
+      ]
+    },
+    {
+      "signal": "Recent severe acute respiratory deterioration",
+      "significance": "An urgent hypoxic lower respiratory infection requiring hospital oxygen and IV antibiotics creates a timely need to review treatment priorities while also addressing reversible causes.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-28T12:00:00.000Z",
+          "detail": "Hospital attendance recorded fever, productive cough, oxygen saturation 86%, dependent lower-lobe consolidation, and treatment with IV antibiotics and oxygen."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-05T12:00:00.000Z",
+          "detail": "Oxygen need had fallen only briefly; the note still recorded oxygen at 2 L/min and unsafe swallowing."
+        }
+      ]
+    },
+    {
+      "signal": "Nutritional and biochemical vulnerability",
+      "significance": "Documented appetite and weight decline, recurrent low albumin, and hypokalaemia may increase vulnerability, although their causes and clinical impact require clinician interpretation.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-10T12:00:00.000Z",
+          "detail": "Community visit recorded reduced appetite and 2.1 kg weight loss."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-14T08:00:00.000Z",
+          "detail": "Laboratory report recorded albumin 31 g/L and potassium 3.4 mmol/L."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-29T08:00:00.000Z",
+          "detail": "Laboratory reports recorded albumin 34 g/L and potassium 3.1 mmol/L."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "no_clear_false_positive",
+    "alternativeExplanations": [
+      "The acute lower respiratory infection may improve with antibiotics, oxygen, swallowing assessment, and aspiration precautions.",
+      "Some abnormal laboratory values may reflect acute illness or reduced intake rather than irreversible decline."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "A definitive prognosis or end-of-life status is not documented, so the conversation must not be framed as a declaration that the patient is dying.",
+      "Clinical stabilization and the patient's ability and preferences for discussion are unknown at the cutoff and should be checked first."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "Swallowing concerns progressed over several months before the acute infection.",
+      "Unsafe swallowing and supplemental oxygen remained documented after treatment began.",
+      "No active goals-of-care or escalation plan is visible in the snapshot."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-28T12:00:00.000Z",
+        "detail": "The acute infection had an active potentially reversible treatment plan of IV antibiotics and oxygen."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-05T12:00:00.000Z",
+        "detail": "Despite some brief reduction in oxygen need, swallowing remained unsafe and oxygen was documented at 2 L/min."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-04-24T12:00:00.000Z",
+        "detail": "Coughing with thin drinks was already documented months before the hospital infection."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "Aspiration precautions and family teaching are documented, but these are clinical safety measures rather than evidence of an advance-care or goals-of-care plan.",
+      "No ACP, ReSPECT, DNACPR/DNR, ADRT, hospice, palliative-care involvement, or treatment-escalation plan is present in the available snapshot."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-05T12:00:00.000Z",
+        "detail": "The latest hospital note documents aspiration precautions and family teaching but does not document goals-of-care or legal planning."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "date": "2026-09-12T16:45:22.771Z",
+        "detail": "Coverage is limited to a single 41-resource eligible snapshot, so absence of planning within it is not proof that no plan exists elsewhere."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "SMS is recorded as an administrative contact preference; confirm that it remains appropriate and accessible before use."
+    ],
+    "uncertainties": [
+      "Patient priorities, understanding, readiness for discussion, decision-making capacity, preferred participants, and preferred place of care are unknown.",
+      "Family identity, authority, availability, and wishes are unknown; family observation and teaching do not establish decision-making authority.",
+      "The existence of legal representatives or advance-care documents outside the snapshot is unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-07T08:10:00.000Z",
+        "detail": "The most recent contact-preference observation records SMS."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-05T12:00:00.000Z",
+        "detail": "A hospital note says family received aspiration-precaution teaching but gives no identity, authority, or wishes."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "date": "2026-09-12T16:45:22.771Z",
+        "detail": "The sole collected source is the eligible snapshot, limiting conclusions about wishes and legal planning records."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown; a community encounter used a home-visit setting, but the snapshot does not establish usual residence.",
+    "functionAndMobility": "Unknown; activities of daily living, mobility, cognition, frailty, and usual swallowing function are not documented.",
+    "currentClinicalSupport": [
+      "GP contacts are documented before the acute admission.",
+      "Community review and aspiration advice are documented.",
+      "Hospital treatment with oxygen and IV antibiotics was active after the urgent respiratory presentation; disposition after the latest transfer note is unclear."
+    ],
+    "familyAndCarerSupport": [
+      "Family noticed the wet cough after meals and later received aspiration-precaution teaching; the identity and ongoing availability of any supporter are unknown."
+    ],
+    "gaps": [
+      "Usual residence, mobility, personal-care needs, cognition, capacity, frailty, nutrition plan, and formal care package are unknown.",
+      "Current location, oxygen requirement, infection response, swallowing-assessment outcome, and destination after transfer are unknown."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-06-10T12:00:00.000Z",
+        "detail": "A community home visit documented family observation, appetite decline, weight loss, and a swallowing-assessment request."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-28T12:00:00.000Z",
+        "detail": "Urgent hospital attendance initiated oxygen and IV antibiotics."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-05T12:00:00.000Z",
+        "detail": "Latest note documents unsafe swallow, oxygen at 2 L/min, family teaching, and transfer without a stated destination."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Responsible hospital clinician",
+      "meetingPriority": "core",
+      "ownership": "Confirm current clinical state and capacity, address reversible illness, and lead the initial priorities conversation while the patient remains under hospital care if that is still the current setting.",
+      "reason": "The latest records describe hospital treatment, continued oxygen, unsafe swallowing, and transfer, making hospital ownership the most immediate but requiring confirmation.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-05T12:00:00.000Z",
+          "detail": "Latest hospital note records unsafe swallowing, oxygen at 2 L/min, renal adjustment, family teaching, and transfer."
+        }
+      ]
+    },
+    {
+      "role": "Usual GP",
+      "meetingPriority": "core",
+      "ownership": "Provide longitudinal context, check for plans or preferences held outside this snapshot, and own community follow-up after discharge or transfer.",
+      "reason": "GP records contain earlier swallowing symptoms and contact preference, and GP visibility spans the community and hospital events.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-04-24T12:00:00.000Z",
+          "detail": "GP review documented coughing with thin drinks and swallowing advice."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-07T08:10:00.000Z",
+          "detail": "GP observation records SMS as the administrative contact preference."
+        }
+      ]
+    },
+    {
+      "role": "Swallowing specialist clinician",
+      "meetingPriority": "core",
+      "ownership": "Clarify swallowing-assessment findings, immediate risk-reduction options, and how available choices align with the patient's priorities.",
+      "reason": "A swallowing assessment was requested and the later hospital note states swallowing remained unsafe, but no completed specialist assessment is included.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-10T12:00:00.000Z",
+          "detail": "Community visit requested a swallowing assessment after wet cough with meals, appetite decline, and weight loss."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-05T12:00:00.000Z",
+          "detail": "Hospital note states swallowing remained unsafe."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "Responsible hospital clinician, with handover to the usual GP if the patient has left hospital",
+    "urgency": "Prompt review within 24-48 hours, after confirming current location, stability, capacity, and readiness; do not delay urgent treatment or swallowing safety measures.",
+    "formatAndAccessibility": "A short bedside or remote conversation chosen around the patient's current condition and communication needs. Confirm whether SMS is suitable only for logistical contact, ask whom the patient wants involved, and arrange communication support if needed.",
+    "objectives": [
+      "Elicit what matters to the patient and how much information they want now.",
+      "Explain the current swallowing and respiratory concerns without predicting an outcome.",
+      "Clarify acceptable treatments, escalation preferences, place-of-care priorities, and who should be involved.",
+      "Check for existing plans or legal documents and agree who will document and share any clinician-approved plan.",
+      "Agree immediate swallowing, nutrition, oxygen, and follow-up responsibilities."
+    ],
+    "briefingNotes": [
+      {
+        "note": "Swallow-related cough progressed over months, with appetite decline, weight loss, and increasing aspiration concern before admission.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-04-24T12:00:00.000Z",
+            "detail": "Initial GP record documented coughing with thin drinks."
+          },
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-06-10T12:00:00.000Z",
+            "detail": "Community visit documented appetite decline, 2.1 kg weight loss, wet cough after meals, and a swallowing referral request."
+          },
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-07-22T12:00:00.000Z",
+            "detail": "Community observation documented more frequent cough with fluids and bibasal crackles."
+          }
+        ]
+      },
+      {
+        "note": "The recent infection is actively treatable, but the latest record still documents unsafe swallowing and supplemental oxygen.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-08-28T12:00:00.000Z",
+            "detail": "IV antibiotics and oxygen were started for febrile hypoxic lower-lobe consolidation."
+          },
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-09-05T12:00:00.000Z",
+            "detail": "Unsafe swallow and oxygen at 2 L/min remained documented."
+          }
+        ]
+      },
+      {
+        "note": "No wishes, capacity assessment, escalation plan, or advance-care document is visible; these are questions for review, not negative findings.",
+        "evidence": [
+          {
+            "sourcePath": "record/manifest.json",
+            "date": "2026-09-12T16:45:22.771Z",
+            "detail": "Only one eligible snapshot containing 41 unique resources was collected."
+          },
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-09-05T12:00:00.000Z",
+            "detail": "Latest note addresses aspiration precautions and transfer but contains no wishes, capacity assessment, or escalation planning."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Introductions, capacity, readiness, communication needs, and desired participants",
+      "Current illness, treatment response, swallowing risk, and uncertainty",
+      "Patient priorities and acceptable burdens of treatment",
+      "Escalation and place-of-care preferences",
+      "Immediate safety plan, documentation, ownership, and follow-up"
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Clinician-led conversation; use the recorded SMS preference only for logistics after confirming suitability",
+      "draft": "We would like to talk with you about what matters most to you while we continue treating the chest infection and looking into the swallowing difficulty. This is not a prediction about what will happen. It is a chance to understand your priorities, the care you would or would not want if you became less well, and who you would like involved. Would now be an acceptable time, and is there anyone or any communication support you would like with you?",
+      "cautions": [
+        "Confirm clinical stability, capacity, readiness, and accessibility before starting.",
+        "Do not describe the conversation as proof of dying or imply that treatment will stop.",
+        "Do not send sensitive clinical detail by SMS without confirming preference, privacy, and local policy."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-28T12:00:00.000Z",
+          "detail": "The record documents active treatment for a chest infection with IV antibiotics and oxygen."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-05T12:00:00.000Z",
+          "detail": "The latest note documents ongoing unsafe swallowing."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-07T08:10:00.000Z",
+          "detail": "SMS is the most recent recorded administrative contact preference."
+        }
+      ]
+    },
+    {
+      "audience": "Family or supporter chosen by the patient, or legally appropriate representative if identified",
+      "channel": "Clinician-led telephone or meeting after confirming consent or lawful basis",
+      "draft": "With the patient's agreement, we would value your perspective on what matters to them and how best to support them. The team is treating the current illness and reviewing the swallowing difficulty. We would like to discuss priorities and possible care choices without making assumptions about the future. Please tell us what the patient has previously expressed and what support would help you take part.",
+      "cautions": [
+        "Confirm identity, consent, authority, and the patient's desired level of involvement before sharing information.",
+        "Do not assume that the family members taught aspiration precautions are decision-makers or available carers.",
+        "Separate the patient's wishes from family views and document uncertainty."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-05T12:00:00.000Z",
+          "detail": "Family received aspiration-precaution teaching, but no family identity, authority, or wishes are documented."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Confirm the patient's current location, responsible clinician, oxygen requirement, infection response, transfer destination, and immediate stability.",
+      "owner": "Responsible hospital clinician",
+      "urgency": "Now or next clinical review",
+      "reason": "The last note records continued oxygen, unsafe swallowing, and transfer, but the snapshot does not show what happened afterward.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-05T12:00:00.000Z",
+          "detail": "Latest note documents oxygen at 2 L/min, unsafe swallow, and transfer without a stated destination or later status."
+        }
+      ]
+    },
+    {
+      "action": "Ensure swallowing assessment and current aspiration, nutrition, hydration, and medication-safety measures are reviewed; continue urgent treatment according to clinical judgement.",
+      "owner": "Responsible hospital clinician with swallowing specialist input",
+      "urgency": "Same day",
+      "reason": "The requested assessment outcome is absent, swallowing remained unsafe, and weight/appetite decline preceded admission.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-10T12:00:00.000Z",
+          "detail": "Swallowing assessment was requested after wet cough with meals, appetite decline, and 2.1 kg weight loss."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-05T12:00:00.000Z",
+          "detail": "Latest hospital note states swallowing remained unsafe."
+        }
+      ]
+    },
+    {
+      "action": "Check the wider clinical record with the patient for any ACP, ReSPECT, DNACPR/DNR, ADRT, legal representative, prior preferences, or palliative involvement before drafting a new plan.",
+      "owner": "Usual GP and responsible hospital clinician",
+      "urgency": "Before or during the priorities conversation",
+      "reason": "No such record appears in this limited snapshot, but absence here does not establish absence elsewhere.",
+      "evidence": [
+        {
+          "sourcePath": "record/manifest.json",
+          "date": "2026-09-12T16:45:22.771Z",
+          "detail": "Collection consists of one successful eligible snapshot with 41 resources and no other source types."
+        }
+      ]
+    },
+    {
+      "action": "Offer a prompt, patient-led priorities conversation and document the patient's consent, capacity, wishes, participants, agreed ownership, and follow-up through normal clinician workflows.",
+      "owner": "Responsible hospital clinician, handing over to the usual GP if needed",
+      "urgency": "Within 24-48 hours when clinically appropriate",
+      "reason": "Severe recent respiratory deterioration and persistent unsafe swallowing support timely planning, while wishes and capacity remain unknown.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-28T12:00:00.000Z",
+          "detail": "Urgent attendance documented oxygen saturation 86%, consolidation, and treatment with oxygen and IV antibiotics."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-09-05T12:00:00.000Z",
+          "detail": "Unsafe swallowing and supplemental oxygen remained documented in the latest note."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "The manifest reports successful collection of the sole eligible 15-day snapshot, with 41 unique resources, zero failed sources, zero duplicate visibility, and no forced safety gate. The snapshot supports a trajectory review but is not a comprehensive current clinical record.",
+    "missingSources": [
+      "No separate medication list, structured diagnosis/problem list, functional or frailty assessment, or current observations after 2026-09-05 are included.",
+      "No completed swallowing-assessment report, discharge/transfer destination, or post-transfer outcome is included.",
+      "No dedicated advance-care, legal representative, capacity, hospice, palliative-care, or treatment-escalation source is included.",
+      "No reliable usual residence, formal care package, named clinician, or family/carer identity is included."
+    ],
+    "failedSources": [],
+    "contradictions": [
+      "The 2026-09-05 narrative says renal function limited antibiotic choices, while the 2026-08-29 laboratory report records eGFR 73 mL/min/1.73m² and creatinine 42 µmol/L; medication context and clinical rationale are absent, so this cannot be resolved from the snapshot."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "date": "2026-09-12T16:45:22.771Z",
+        "detail": "Coverage reports 1 successful source, 0 failed sources, 41 unique resources, and forceInsufficientEvidence false."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-09-05T12:00:00.000Z",
+        "detail": "The final resource is a transfer-related hospital note; no subsequent location or clinical-status resource is present."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-29T08:00:00.000Z",
+        "detail": "Laboratory report records eGFR 73 mL/min/1.73m² and creatinine 42 µmol/L before the later narrative about renal limitation."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "confirmed",
+    "falsePositiveChecks": [
+      "Re-read all 41 resources in record/eligible.json and checked the chronology from initial cough with fluids through the latest unsafe-swallow note.",
+      "Checked whether the acute respiratory episode had a potentially reversible explanation and retained IV antibiotics, oxygen, and swallowing measures as alternative explanations rather than treating the episode as irreversible.",
+      "Checked for evidence of recovery; the latest note showed only brief oxygen improvement with continued 2 L/min oxygen and unsafe swallowing.",
+      "Checked for active ACP, ReSPECT, DNACPR/DNR, ADRT, hospice, palliative-care, or escalation planning; none was found in the eligible snapshot, while recognizing limited coverage.",
+      "Re-checked patient/family evidence and did not infer wishes, legal authority, residence, capacity, or carer availability from family teaching or a home-visit setting.",
+      "Re-checked manifest coverage, failedSources, resource count, and the safety gate against record/manifest.json."
+    ],
+    "changesFromPrimary": [
+      "No separate primary assessment was used in this single-agent adaptation; the complete assessment was deliberately re-checked against both permitted source files.",
+      "After re-check, retained proceed but explicitly limited the framing to a patient-led priorities conversation alongside active treatment, not an end-of-life declaration.",
+      "Recorded uncertainty about current location, capacity, baseline function, wishes, existing plans outside the snapshot, and the unresolved renal-function narrative."
+    ]
+  }
+}

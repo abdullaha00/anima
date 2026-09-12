@@ -1,0 +1,413 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000236",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "do_not_proceed",
+  "confidence": 0.78,
+  "summary": "The record shows recurrent transient focal neurological symptoms followed by an emergency attendance for a suspected acute right hemispheric infarct, with NIHSS 8 and CT excluding intracranial haemorrhage. This is a serious acute event requiring clinical follow-up, but the snapshot does not document post-event prognosis, persistent disability, progressive life-limiting disease, repeated admissions, escalating dependency, or an active advance-care plan. A palliative or goals-of-care conversation should not be initiated solely from this snapshot; a human clinician should first establish the acute outcome and current function, then reconsider a priorities-focused discussion if prognosis or unmet needs warrant it.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-07-30T12:00:00.000Z",
+      "detail": "Urgent neurovascular referral followed recurrent transient dysphasia and right-hand clumsiness and requested brain imaging, vascular imaging, and ECG."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-08-27T12:00:00.000Z",
+      "detail": "Emergency hospital attendance recorded left facial and arm weakness with aphasia, NIHSS 8, CT without intracranial haemorrhage, and suspected acute right hemispheric infarct."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "detail": "Across the available resources, no post-stroke functional assessment, prognosis, progressive life-limiting diagnosis, repeated admission pattern, or advance-care-plan resource is documented."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Escalating focal neurological events culminating in emergency attendance",
+      "significance": "The progression from brief resolved focal symptoms to an emergency suspected stroke is clinically important and warrants human review of current outcome and needs, even though it does not by itself establish a palliative-care indication.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-04-25T12:00:00.000Z",
+          "detail": "Brief right-hand clumsiness resolved within minutes; examination found no deficit and vascular safety-netting was discussed."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-15T12:00:00.000Z",
+          "detail": "Family reported transient word-finding difficulty; speech was normal at review and a same-week TIA assessment was requested."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-27T12:00:00.000Z",
+          "detail": "Emergency attendance recorded acute facial and arm weakness with aphasia, NIHSS 8, and suspected right hemispheric infarct."
+        }
+      ]
+    },
+    {
+      "signal": "Unresolved post-acute prognosis and function",
+      "significance": "The appropriateness and timing of any priorities-focused conversation cannot be judged safely until persistence of deficits, decision-making ability, rehabilitation potential, and current support needs are known.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-27T12:00:00.000Z",
+          "detail": "The last clinical narrative is an arrived emergency attendance; no subsequent neurological, functional, rehabilitation, discharge, or prognosis assessment appears in the snapshot."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "uncertain",
+    "alternativeExplanations": [
+      "The trigger may reflect an acute stroke/TIA trajectory rather than progressive terminal decline.",
+      "Several laboratory abnormalities are mild or internally difficult to interpret and do not independently establish deterioration."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "The record ends during an acute diagnostic and treatment episode before outcome or rehabilitation potential is documented.",
+      "No progressive life-limiting condition, persistent functional decline, repeated admission pattern, or escalating care requirement is documented.",
+      "Premature palliative framing could be alarming when prognosis and the patient's current communication ability are unknown."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "The neurological events recurred over several months and culminated in an emergency suspected infarct with NIHSS 8.",
+      "CT excluded haemorrhage but did not negate the stroke team's concern for acute infarction.",
+      "Post-event deficits, complications, and recovery are not documented, so benign resolution cannot be assumed."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-07-30T12:00:00.000Z",
+        "detail": "Urgent referral described recurrent transient dysphasia and right-hand clumsiness in the setting of hypertension and diabetes."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-27T12:00:00.000Z",
+        "detail": "Emergency attendance documented suspected acute infarct with NIHSS 8 and CT showing no intracranial haemorrhage."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The available resource set contains no documented post-event outcome, progressive terminal diagnosis, or longitudinal dependency trajectory."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No advance care plan, ReSPECT form, DNACPR decision, ADRT, hospice referral, palliative-care involvement, or documented goals-of-care discussion appears in the available snapshot.",
+      "Absence from this single snapshot does not prove that such records do not exist elsewhere."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Review of all 40 available resources found encounters, observations, referrals, reports, and one hospital attendance, but no care-planning or palliative resource."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Coverage consists of one successful eligible snapshot with 40 unique resources and no duplicate visibility."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Telephone was recorded as an administrative contact preference, but it should be reconfirmed after the acute neurological event."
+    ],
+    "uncertainties": [
+      "The patient's goals, worries, understanding, preferred decision-making role, and wishes about future care are unknown.",
+      "The identity, availability, views, and authority of any family member or carer are unknown; the record only notes a family report of one symptom episode.",
+      "Decision-making capacity and any communication support needed after aphasia are unknown.",
+      "No legal proxy or advance decision is documented in the snapshot."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-05-30T08:10:00.000Z",
+        "detail": "An administrative observation recorded telephone as the contact preference."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-06-15T12:00:00.000Z",
+        "detail": "A family informant reported a short spell of word-finding difficulty, without identification, wishes, or caregiving role documented."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-27T12:00:00.000Z",
+        "detail": "The acute attendance included aphasia; persistence and communication impact are not subsequently documented."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown; the acute event reportedly began at home, but usual living arrangement and current location after emergency attendance are not documented.",
+    "functionAndMobility": "Baseline independence, mobility, cognition, activities of daily living, and post-event function are unknown.",
+    "currentClinicalSupport": [
+      "Primary care documented earlier reviews, vascular safety-netting, and urgent TIA-pathway escalation.",
+      "Hospital stroke services owned the urgent neurovascular referral and emergency attendance."
+    ],
+    "familyAndCarerSupport": [
+      "A family informant reported a transient language episode, but no ongoing caring role or availability is documented."
+    ],
+    "gaps": [
+      "Current ward, discharge destination, neurological deficits, swallowing, cognition, rehabilitation plan, and care needs are not documented.",
+      "Medication list, formal diagnoses list, comorbidity burden, and community-service involvement are not provided.",
+      "No named usual clinician, next of kin, or carer is documented."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-04-25T12:00:00.000Z",
+        "detail": "Primary care reviewed transient clumsiness, found no deficit at that visit, and discussed vascular safety-netting."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-06-15T12:00:00.000Z",
+        "detail": "A family informant reported transient dysphasia and primary care requested urgent TIA assessment."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-27T12:00:00.000Z",
+        "detail": "Symptoms began at home and hospital documented emergency arrival, but no later location or functional assessment is present."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Responsible hospital stroke clinician",
+      "meetingPriority": "core",
+      "ownership": "Establish and communicate the confirmed diagnosis, current deficits, prognosis, capacity, rehabilitation potential, and whether a priorities discussion is clinically indicated.",
+      "reason": "Hospital services own the most recent emergency neurological episode and are best placed to resolve the key acute uncertainties.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-27T12:00:00.000Z",
+          "detail": "Hospital emergency attendance recorded suspected acute right hemispheric infarct, NIHSS 8, and stroke-team assessment."
+        }
+      ]
+    },
+    {
+      "role": "Usual GP or primary care clinician",
+      "meetingPriority": "core",
+      "ownership": "Provide longitudinal context, verify baseline and existing records, and coordinate follow-up after the hospital episode.",
+      "reason": "Primary care documented the preceding transient symptoms and the patient's telephone contact preference.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-15T12:00:00.000Z",
+          "detail": "GP observation documented transient dysphasia and requested same-week TIA assessment."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-30T08:10:00.000Z",
+          "detail": "GP administrative observation recorded telephone contact preference."
+        }
+      ]
+    },
+    {
+      "role": "Patient",
+      "meetingPriority": "core",
+      "ownership": "Choose whether to take part, share priorities, identify desired supporters, and confirm communication preferences if able.",
+      "reason": "Any discussion must be led by the patient's priorities and adapted to communication ability after the acute episode.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-27T12:00:00.000Z",
+          "detail": "Aphasia was present at emergency attendance, making current communication needs important to establish before discussion."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "Responsible hospital stroke clinician until acute outcome is clarified, with handover to the usual GP if the patient has left hospital.",
+    "urgency": "Clinical status and prognosis should be reviewed promptly; defer any dedicated palliative or goals-of-care meeting unless that review identifies a need or the patient requests one.",
+    "formatAndAccessibility": "First confirm current location, capacity, language and communication needs. Offer a brief patient-led conversation in an appropriate clinical setting; use telephone only if the patient reconfirms that preference and can communicate comfortably, and invite a supporter only with consent.",
+    "objectives": [
+      "Clarify diagnosis, current deficits, recovery trajectory, rehabilitation potential, and immediate support needs.",
+      "Ask whether the patient wants to discuss priorities and future care without implying a poor outcome.",
+      "Establish communication support, decision-making capacity, and who the patient wants involved.",
+      "Check for care-planning documents or services not represented in the snapshot.",
+      "Agree explicit ownership and a trigger for reassessment rather than initiating palliative planning automatically."
+    ],
+    "briefingNotes": [
+      {
+        "note": "Transient right-hand clumsiness and dysphasia preceded an urgent neurovascular referral.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-07-30T12:00:00.000Z",
+            "detail": "Referral requested TIA review, brain and vascular imaging, and ECG for recurrent transient dysphasia and right-hand clumsiness."
+          }
+        ]
+      },
+      {
+        "note": "The final clinical event is an emergency suspected stroke, not a documented end-of-life trajectory.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-08-27T12:00:00.000Z",
+            "detail": "Emergency attendance recorded acute weakness and aphasia, NIHSS 8, no CT haemorrhage, and suspected infarct; no later outcome is available."
+          }
+        ]
+      },
+      {
+        "note": "Telephone is recorded as a contact preference, but acute aphasia means accessibility must be reassessed.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-05-30T08:10:00.000Z",
+            "detail": "Telephone contact preference was recorded before the acute event."
+          },
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-08-27T12:00:00.000Z",
+            "detail": "Aphasia was part of the emergency presentation."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Confirm what happened and the patient's current recovery and support needs.",
+      "Check understanding, capacity, and communication access.",
+      "Ask permission before discussing priorities or future care.",
+      "Identify the people the patient wants involved.",
+      "Document clinician ownership and when reassessment is needed."
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Draft for verbal use in person or by telephone only after accessibility and current preference are confirmed",
+      "draft": "We would like to check how you are doing after the recent hospital assessment and what matters most to you as recovery plans are made. This is not a prediction about what will happen. Would you be comfortable talking about your priorities, and is there anyone you would like with you?",
+      "cautions": [
+        "Do not describe the patient as dying or assume a poor prognosis.",
+        "Confirm capacity and provide communication support because aphasia was documented during the acute event.",
+        "Reconfirm telephone preference rather than relying on the earlier administrative entry.",
+        "Do not involve family without the patient's consent unless lawful best-interest processes apply."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-30T08:10:00.000Z",
+          "detail": "Telephone was recorded as the contact preference before the acute neurological event."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-27T12:00:00.000Z",
+          "detail": "Emergency attendance documented aphasia and suspected acute infarct, while subsequent prognosis is absent."
+        }
+      ]
+    },
+    {
+      "audience": "Responsible stroke clinician and usual GP",
+      "channel": "Draft internal clinical handover",
+      "draft": "Please review the patient's current neurological outcome, function, capacity, rehabilitation potential, and support needs after the emergency suspected stroke. The snapshot does not establish a palliative trajectory or show existing advance-care planning. Please decide clinically whether and when a patient-led priorities discussion would be helpful, and record who owns follow-up.",
+      "cautions": [
+        "This is decision support, not an instruction to start palliative care.",
+        "Verify current records and do not infer recovery or deterioration from the missing follow-up.",
+        "Keep acute stroke treatment and rehabilitation needs central."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-27T12:00:00.000Z",
+          "detail": "The last clinical narrative is an emergency suspected stroke attendance with no subsequent prognosis or function record."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "No advance-care-planning or palliative-care resource is present in the available snapshot."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Review the acute hospital outcome and establish current neurological status, function, capacity, swallowing and communication needs, and rehabilitation plan before considering a dedicated goals-of-care conversation.",
+      "owner": "Responsible hospital stroke clinician",
+      "urgency": "Promptly during the current episode or at the earliest post-discharge review",
+      "reason": "The snapshot ends at emergency arrival and cannot establish prognosis or current needs.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-27T12:00:00.000Z",
+          "detail": "Emergency attendance documented NIHSS 8, aphasia and weakness, but no later outcome or functional assessment is present."
+        }
+      ]
+    },
+    {
+      "action": "Check the live clinical record for stroke findings, discharge or rehabilitation documentation, medication and diagnosis lists, and any care-planning records absent from this snapshot.",
+      "owner": "Usual GP or responsible hospital clinician",
+      "urgency": "Before any planning invitation is issued",
+      "reason": "Important clinical domains and planning records are not represented, so absence must not be treated as a negative finding.",
+      "evidence": [
+        {
+          "sourcePath": "record/manifest.json",
+          "detail": "The manifest shows only one eligible-snapshot source, containing 40 unique resources."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The resource set has no discharge summary, rehabilitation assessment, medication list, formal planning record, or post-event follow-up."
+        }
+      ]
+    },
+    {
+      "action": "Do not use end-of-life language or automatically refer to palliative care from this assessment; offer a neutral priorities discussion only if the patient requests it or the treating clinician identifies a supported indication.",
+      "owner": "Responsible reviewing clinician",
+      "urgency": "At first patient communication",
+      "reason": "The acute event is serious, but prognosis, persistent disability, and a progressive life-limiting trajectory are not documented.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-27T12:00:00.000Z",
+          "detail": "The final event is an acute suspected infarct with no recorded subsequent outcome or prognosis."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "The manifest reports one successful eligible 15-day snapshot source, zero failed sources, 40 unique resources, no duplicate visibility, and no forced insufficient-evidence safety gate. Coverage is narrow: it is a curated snapshot rather than a demonstrated complete live longitudinal record.",
+    "missingSources": [
+      "No separate identity, medication, diagnosis, hospital discharge, rehabilitation, functional assessment, community-care, or advance-care-planning source is represented.",
+      "No clinical narrative after the 2026-08-27 emergency attendance is available before the 2026-08-31 cutoff."
+    ],
+    "failedSources": [],
+    "contradictions": [
+      "Several U&E reports pair creatinine above the stated reference range with eGFR at or above the stated normal range; these values should not be used to infer renal trajectory without clinical validation.",
+      "The emergency narrative describes left facial and arm weakness with aphasia while also stating a suspected right cerebral hemisphere lesion; the clinical localization should be verified rather than reinterpreted here."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Coverage reports 1 successful source, 0 failed sources, 40 unique resources, 0 resources with duplicate visibility, and forceInsufficientEvidence false."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-29T08:00:00.000Z",
+        "detail": "U&E reported creatinine 126 micromol/L above its reference high of 110 alongside eGFR 112 within its stated 60-120 range."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-27T12:00:00.000Z",
+        "detail": "The final clinical narrative records left-sided weakness, aphasia, and suspected right hemispheric infarct; no subsequent confirming report is present."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "revised",
+    "falsePositiveChecks": [
+      "Re-read all 40 resources in chronological order and confirmed progression from transient focal symptoms to urgent referral and emergency suspected stroke.",
+      "Checked specifically for progressive life-limiting disease, repeated admissions, frailty, sustained functional decline, escalating care, hospice or palliative involvement, and found none documented.",
+      "Checked for ACP, ADRT, ReSPECT, DNACPR, legal proxy, patient wishes, family wishes, and active implementation; none are documented in the snapshot.",
+      "Re-checked the final event and confirmed that CT excluded haemorrhage but that no post-event outcome, prognosis, disability, rehabilitation, or discharge record is available.",
+      "Compared manifest coverage, resource count, failed sources, deduplication, and safety-gate status against the assessment.",
+      "Checked laboratory trends and identified internally difficult creatinine/eGFR pairings that should not drive the recommendation."
+    ],
+    "changesFromPrimary": [
+      "After the deliberate second evidence review, set the false-positive verdict to uncertain rather than clear because the acute stroke concern is serious and post-event outcome is missing.",
+      "Retained do_not_proceed for a dedicated palliative or goals-of-care conversation based solely on this snapshot, while adding prompt clinician reassessment of acute outcome and a patient-led priorities option.",
+      "Made the absence of prognosis, function, planning records, and family details explicit as unknown rather than normal.",
+      "Added accessibility safeguards because aphasia was documented and the telephone preference predates the acute event.",
+      "Added the creatinine/eGFR data-quality concern and confirmed that no independent verification was performed."
+    ]
+  }
+}

@@ -1,0 +1,420 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000272",
+  "generatedAt": "2026-09-12T16:45:22.771Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "proceed",
+  "confidence": 0.86,
+  "summary": "Prompt human review is supported, alongside and not instead of urgent treatment of the acute illness. At the cutoff, this 94-year-old had arrived at an acute medical unit with fever, productive cough, increased work of breathing, oxygen saturation 88% on air, and right lower-zone air-space change after several months of respiratory symptoms and a marked decline in white cells and neutrophils. The acute infection is a potentially treatable explanation and the record does not establish an irreversible trajectory, but the combination of acute physiological compromise, profound neutropenia, advanced age, and undocumented wishes or escalation planning makes a proportionate priorities-and-contingency conversation appropriate once immediate needs and capacity are assessed.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-08-30T12:00:00.000Z",
+      "detail": "Urgent hospital attendance records fever, productive cough, increasing work of breathing, SpO2 88% on air, and right lower-zone air-space change in the acute medical unit."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "date": "2026-08-29T09:00:00.000Z",
+      "detail": "Latest FBC records white-cell count 0.9 x10^9/L and neutrophils 0.7 x10^9/L."
+    },
+    {
+      "sourcePath": "record/eligible.json",
+      "detail": "Snapshot demographics record age 94 at the index date; the 38 resources contain no documented patient wishes or advance-care-planning record."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Acute hypoxaemic febrile respiratory illness",
+      "significance": "The urgent presentation requires immediate clinical management and also creates a need for human-led contingency planning that does not delay treatment.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-30T12:00:00.000Z",
+          "detail": "Hospital attendance documents SpO2 88% on air, temperature 38.3 C, fever, productive cough, breathlessness, and imaging suggestive of right lower-zone infection."
+        }
+      ]
+    },
+    {
+      "signal": "Progressive severe leukopenia and neutropenia",
+      "significance": "Falling counts and infection at the cutoff increase short-term clinical complexity and uncertainty and warrant explicit review by the treating team.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-14T09:00:00.000Z",
+          "detail": "FBC records white-cell count 2.0 x10^9/L and neutrophils 1.5 x10^9/L."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-07-26T12:00:00.000Z",
+          "detail": "Repeat FBC records white-cell count 1.4 x10^9/L and neutrophils 0.9 x10^9/L; the practice requested urgent repeat testing and infection safety-netting."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-29T09:00:00.000Z",
+          "detail": "Latest FBC records further decline to white-cell count 0.9 x10^9/L and neutrophils 0.7 x10^9/L."
+        }
+      ]
+    },
+    {
+      "signal": "Respiratory symptoms preceded the acute attendance",
+      "significance": "The presentation was preceded by documented cough, exertional breathlessness, lower oxygen saturation, reduced appetite, and evening wheeze; the cause and reversibility remain uncertain.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-06T12:00:00.000Z",
+          "detail": "GP encounter records weeks of cough and breathlessness on inclines, SpO2 95%, and inhaler use slightly above usual."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-21T12:00:00.000Z",
+          "detail": "GP observation records SpO2 93% on air, reduced appetite reported by family, and audible evening wheeze without resting dyspnoea."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "no_clear_false_positive",
+    "alternativeExplanations": [
+      "A potentially treatable right lower-zone respiratory infection could explain the fever, productive cough, hypoxaemia, and increased work of breathing.",
+      "The snapshot does not document a progressive life-limiting diagnosis, repeated admissions, functional decline, or failure of acute treatment."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "A burdensome or prognostic conversation during untreated acute distress could be poorly timed; immediate stabilisation and assessment of decision-making capacity should come first.",
+      "The record does not support presenting palliative care or deterioration as inevitable."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "Oxygen saturation of 88% on air with fever and radiographic air-space change is clinically significant despite potential reversibility.",
+      "White-cell and neutrophil counts declined markedly across serial samples, reaching 0.9 and 0.7 x10^9/L immediately before attendance.",
+      "No patient wishes, escalation plan, or legal care-planning record is documented in the available snapshot."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-30T12:00:00.000Z",
+        "detail": "Acute attendance provides a treatable infectious explanation but documents clinically significant hypoxaemia and respiratory illness."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-29T09:00:00.000Z",
+        "detail": "Latest FBC shows severe leukopenia and neutropenia after lower counts on preceding samples."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Review of all 38 snapshot resources found no documented progressive life-limiting diagnosis, functional trajectory, patient wishes, or advance plan."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [
+      "No ACP, DNACPR/DNR, ReSPECT, ADRT, hospice, palliative-care involvement, or documented treatment-escalation plan was found in the available resources.",
+      "Absence from this limited snapshot does not prove that such planning does not exist elsewhere and should be reconciled by a human reviewer."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "The 38-resource eligible snapshot contains clinical reports, GP contacts, observations, and one hospital attendance but no advance or end-of-life planning entry."
+      },
+      {
+        "sourcePath": "record/manifest.json",
+        "date": "2026-09-12T16:45:22.771Z",
+        "detail": "Manifest reports one successful eligible-snapshot source and no failed source; broader source types were not separately collected."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [],
+    "familyWishes": [],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Telephone is recorded as the patient's contact preference."
+    ],
+    "uncertainties": [
+      "The patient's goals, understanding, preferred place of care, treatment priorities, and preferred decision participants are unknown.",
+      "Decision-making capacity during the acute illness is not documented.",
+      "Family identity, relationship, availability, authority, and wishes are unknown despite one family report.",
+      "No legal representative, ADRT, DNACPR/DNR, ReSPECT, or ACP record is documented in this snapshot."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-06-28T00:10:00.000Z",
+        "detail": "Administrative observation records telephone as the contact preference."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-06-21T12:00:00.000Z",
+        "detail": "A family report of reduced appetite and evening wheeze is documented, without identity, relationship, wishes, or authority."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "No patient goals, capacity assessment, named family contact, legal planning record, or advance plan appears in the 38 resources."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Unknown; residence and current address are not documented in the eligible snapshot.",
+    "functionAndMobility": "Unknown; activities of daily living, mobility, frailty, cognition, and functional trajectory are not documented.",
+    "currentClinicalSupport": [
+      "GP has provided long-term-condition and respiratory review.",
+      "At the cutoff the patient had arrived at an acute medical unit for an urgent respiratory presentation.",
+      "Diagnostics supplied serial blood results visible to GP and hospital."
+    ],
+    "familyAndCarerSupport": [
+      "An unspecified family member or members reported reduced appetite and evening wheeze; the nature and availability of support are unknown."
+    ],
+    "gaps": [
+      "Residence, usual function, mobility, frailty, cognition, medication list, formal care package, named carers, and usual responsible clinicians are not documented.",
+      "The snapshot does not document the acute admission outcome, treatment response, or current oxygen requirement after arrival."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-05-06T12:00:00.000Z",
+        "detail": "GP completed a respiratory and long-term-condition review."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-06-21T12:00:00.000Z",
+        "detail": "An unspecified family report is present, but no carer arrangement or baseline function is described."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "date": "2026-08-30T12:00:00.000Z",
+        "detail": "Latest resource places the patient at an acute medical unit with status arrived; subsequent course is absent."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Responsible acute medical unit clinician",
+      "organisation": "Hospital",
+      "meetingPriority": "core",
+      "ownership": "Own immediate assessment and treatment, assess capacity and timing, reconcile any escalation plan, and lead the initial priorities-and-contingency discussion.",
+      "reason": "The latest record places the patient in the acute medical unit with hypoxaemic febrile respiratory illness.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-30T12:00:00.000Z",
+          "detail": "Hospital-owned urgent attendance records arrival in the acute medical unit with SpO2 88% on air and suspected right lower-zone infection."
+        }
+      ]
+    },
+    {
+      "role": "GP clinician with access to the longitudinal record",
+      "organisation": "Primary care",
+      "meetingPriority": "core",
+      "ownership": "Provide longitudinal context, clarify baseline and prior discussions, and ensure agreed plans are reconciled back to primary care after acute review.",
+      "reason": "GP records contain the preceding respiratory symptoms, family report, and recorded telephone contact preference.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-05-06T12:00:00.000Z",
+          "detail": "GP respiratory review documents weeks of cough and exertional breathlessness."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-21T12:00:00.000Z",
+          "detail": "GP observation documents lower oxygen saturation, reduced appetite reported by family, and evening wheeze."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "Responsible acute medical unit clinician, with the GP supplying longitudinal context",
+    "urgency": "Begin within 24 hours of clinical stabilisation, or sooner if an urgent treatment-escalation decision is required; do not delay immediate treatment.",
+    "formatAndAccessibility": "A brief bedside, in-person conversation when the patient is clinically able and capacity has been assessed; use clear language, allow rest breaks, and use the recorded telephone preference only for remote follow-up. Invite family only with the patient's consent or an appropriate best-interests basis.",
+    "objectives": [
+      "Establish the patient's understanding, priorities, worries, and preferred participants.",
+      "Clarify reversible treatment being offered and what should happen if respiratory status worsens.",
+      "Confirm baseline function, residence, support, and any existing advance or legal planning held elsewhere.",
+      "Agree ownership, documentation, communication, and review after response to acute treatment is clearer."
+    ],
+    "briefingNotes": [
+      {
+        "note": "Acute presentation: fever, productive cough, increased work of breathing, SpO2 88% on air, and right lower-zone air-space change.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-08-30T12:00:00.000Z",
+            "detail": "Urgent hospital attendance documents the acute respiratory findings."
+          }
+        ]
+      },
+      {
+        "note": "Serial white-cell and neutrophil counts declined to 0.9 and 0.7 x10^9/L immediately before attendance; prior repeat prompted urgent follow-up and infection safety-netting.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-07-26T12:00:00.000Z",
+            "detail": "Repeat FBC records WCC 1.4 and neutrophils 0.9 x10^9/L with urgent repeat and infection safety-netting requested."
+          },
+          {
+            "sourcePath": "record/eligible.json",
+            "date": "2026-08-29T09:00:00.000Z",
+            "detail": "Latest FBC records WCC 0.9 and neutrophils 0.7 x10^9/L."
+          }
+        ]
+      },
+      {
+        "note": "No goals, capacity assessment, baseline function, named family contact, or advance plan is documented; these are questions, not presumed negatives.",
+        "evidence": [
+          {
+            "sourcePath": "record/eligible.json",
+            "detail": "Review of the 38 eligible resources found these domains undocumented."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Immediate clinical update, comfort, and capacity",
+      "Patient understanding and priorities",
+      "Reversible treatment and proportionate escalation contingencies",
+      "Baseline, support, preferred participants, and records held elsewhere",
+      "Named owner, documentation, communication, and review point"
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Bedside conversation initially; telephone for later remote follow-up if appropriate",
+      "draft": "You are being treated for a chest problem that has made your breathing and oxygen level worse. Alongside that treatment, we would like to understand what matters most to you and how you would want us to plan if you became more unwell. This is not a prediction about what will happen. Would now be an acceptable time to talk, and is there anyone you would like involved?",
+      "cautions": [
+        "Assess comfort and decision-making capacity first and do not delay urgent treatment.",
+        "Do not imply that deterioration or death is certain.",
+        "Check communication needs rather than assuming telephone preference is suitable during acute illness."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-30T12:00:00.000Z",
+          "detail": "Acute respiratory attendance supports a timely, treatment-compatible planning conversation."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-28T00:10:00.000Z",
+          "detail": "Telephone is recorded as the contact preference."
+        }
+      ]
+    },
+    {
+      "audience": "Family or support person chosen by the patient",
+      "channel": "In person or telephone after consent and identity checks",
+      "draft": "With the patient's agreement, we would value what you can tell us about their usual day-to-day health and what matters to them. The team is treating the current chest illness and also wants to make sure any contingency plan reflects the patient's priorities. We do not want to make assumptions about their wishes or what will happen.",
+      "cautions": [
+        "Do not contact or disclose information without consent or another appropriate legal basis.",
+        "Confirm identity, relationship, role, and whether the patient wants this person involved.",
+        "Do not treat the earlier family report as evidence of authority or wishes."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-06-21T12:00:00.000Z",
+          "detail": "An unspecified family member or members reported reduced appetite and evening wheeze, but identity and role are not documented."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "No family wishes, named contact, or legal authority are documented in the snapshot."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Urgently assess and manage the hypoxaemic febrile respiratory presentation and severe neutropenia under the acute team's usual protocols; this takes precedence over the planning conversation.",
+      "owner": "Responsible acute medical unit clinician",
+      "urgency": "Immediate",
+      "reason": "The latest attendance documents SpO2 88% on air, fever, increased work of breathing, suspected right lower-zone infection, and recent severe neutropenia.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-30T12:00:00.000Z",
+          "detail": "Urgent hospital attendance records hypoxaemia, fever, respiratory distress, and imaging suggestive of infection."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-29T09:00:00.000Z",
+          "detail": "Latest FBC records WCC 0.9 and neutrophils 0.7 x10^9/L."
+        }
+      ]
+    },
+    {
+      "action": "Check capacity, immediate communication needs, and whether any ACP, ReSPECT, DNACPR/DNR, ADRT, escalation plan, or legal representative is recorded in systems outside this snapshot.",
+      "owner": "Responsible acute medical unit clinician",
+      "urgency": "Within the initial acute review and before consequential escalation decisions where feasible",
+      "reason": "No such planning or capacity information is present in the available record, so it must not be assumed absent or resolved.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "The 38 resources contain no capacity assessment, advance plan, legal planning record, or named representative."
+        },
+        {
+          "sourcePath": "record/manifest.json",
+          "detail": "Coverage is limited to one eligible snapshot source despite successful collection."
+        }
+      ]
+    },
+    {
+      "action": "Obtain and document the patient's priorities and preferred participants once clinically able, then record a proportionate treatment-escalation contingency and a review point after response to therapy is known.",
+      "owner": "Responsible acute medical unit clinician, with GP input",
+      "urgency": "Within 24 hours of stabilisation, or earlier if escalation decisions are imminent",
+      "reason": "The acute illness is serious but potentially treatable, and patient wishes and baseline are undocumented.",
+      "evidence": [
+        {
+          "sourcePath": "record/eligible.json",
+          "date": "2026-08-30T12:00:00.000Z",
+          "detail": "The latest record documents serious acute respiratory illness with an infectious explanation."
+        },
+        {
+          "sourcePath": "record/eligible.json",
+          "detail": "Patient priorities, preferred participants, baseline function, and escalation wishes are not documented."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "The manifest reports successful collection of the single 15-day eligible snapshot, with 38 unique resources, no duplicate visibility, no failed source, and no forced insufficient-evidence safety gate. Clinical coverage is nevertheless narrow: it is not a separately collected full multi-source record, and the snapshot omits important baseline, medication, diagnosis, planning, and post-arrival information.",
+    "missingSources": [
+      "No separately collected patient directory, PDS/FHIR identity record, site workspace, NHS adapter, direct endpoint, simulation clock, or provenance index is included in this adapted snapshot.",
+      "No post-arrival hospital assessment, treatment, response, discharge outcome, medication list, problem list, functional assessment, or advance-planning document is present."
+    ],
+    "failedSources": [],
+    "contradictions": [
+      "Serial creatinine values fall from 50 to 9 micromol/L while reported eGFR falls from 78 to 51 mL/min/1.73m2; this internally unusual pattern should be checked rather than interpreted as a reliable renal trajectory.",
+      "Some resource timestamps extend across 2025-2026, while the snapshot cutoff is 2026-09-01; all cited actionable evidence was checked to be on or before the cutoff."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "date": "2026-09-12T16:45:22.771Z",
+        "detail": "Manifest reports 1 successful source, 0 failed, 38 unique resources, 0 resources with duplicate visibility, and forceInsufficientEvidence false."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Eligible snapshot contains 38 resources through the 2026-09-01 cutoff but lacks baseline function, comprehensive diagnoses and medications, planning documents, and follow-up after hospital arrival."
+      },
+      {
+        "sourcePath": "record/eligible.json",
+        "detail": "Serial U&E reports show creatinine decreasing from 50 to 9 micromol/L while eGFR decreases from 78 to 51, an internally unusual trajectory requiring source verification."
+      }
+    ]
+  },
+  "verification": {
+    "performed": true,
+    "verdict": "revised",
+    "falsePositiveChecks": [
+      "Re-read all 38 eligible resources in chronological order and confirmed that the acute respiratory illness has a potentially treatable infectious explanation.",
+      "Re-checked serial respiratory observations and blood counts and confirmed preceding symptoms plus progressive leukopenia and neutropenia before the urgent attendance.",
+      "Searched the eligible snapshot for ACP, DNACPR/DNR, ReSPECT, ADRT, hospice, palliative care, escalation planning, patient wishes, capacity, function, residence, and named carers; none were documented.",
+      "Re-checked the manifest: one source succeeded, none failed, 38 unique resources were collected, and the safety gate does not force insufficient evidence.",
+      "Checked cited timestamps against the 2026-09-01 cutoff and did not use later clinical evidence."
+    ],
+    "changesFromPrimary": [
+      "On deliberate second-pass review, framed the recommendation as prompt priorities-and-contingency planning after immediate stabilisation rather than as evidence of an irreversible or terminal trajectory.",
+      "Explicitly retained infection as a potentially reversible alternative explanation and limited the team to acute medical and GP ownership.",
+      "Added uncertainty about capacity, baseline, planning held elsewhere, family authority, post-arrival course, and the internally unusual creatinine/eGFR trajectory.",
+      "This was a self re-check for the single-agent adaptation and was not independent verification."
+    ]
+  }
+}
