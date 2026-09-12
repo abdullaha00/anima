@@ -1,4 +1,5 @@
 import { loadPatientContext } from "@/lib/patient-context";
+import { recordedGoals } from "@/lib/record/drafts";
 import { PatientStrip } from "@/components/shell/PatientStrip";
 import { EvidenceChain } from "@/components/patient/EvidenceChain";
 import { PlanStatus } from "@/components/patient/PlanStatus";
@@ -87,11 +88,6 @@ function whyFacts(patient: Patient, nowIso: string): string[] {
  * The directory fills `goals` for every patient from a template, so a goal counts as the
  * person's own words only when its text appears in a narrative in their record.
  */
-function recordedGoals(patient: Patient): string[] {
-  const texts = (patient.narratives ?? []).map((n) => n.text.toLowerCase());
-  return patient.goals.filter((g) => texts.some((t) => t.includes(g.toLowerCase())));
-}
-
 export default async function PatientPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const ctx = await loadPatientContext(id);
