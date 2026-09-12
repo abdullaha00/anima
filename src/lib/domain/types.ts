@@ -481,6 +481,8 @@ export interface WorklistRow {
   imdQuintile?: number;
   /** When the record was last signed or edited (latest of signedAt and the audit), for spotting plans due a review */
   lastTouchedAt?: string;
+  /** The decision of the patient's latest completed screening, when one exists. The decision only, never a figure. */
+  screening?: 'above' | 'below' | 'not_assessed';
 }
 
 export interface Funnel {

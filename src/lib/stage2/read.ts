@@ -13,7 +13,7 @@ import { readdir, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { Check } from "typebox/value";
 import { JOBS_ROOT, RUNS_ROOT } from "@/lib/cairn/config";
-import { patientRunAllowed } from "@/lib/stage1/linked-review";
+import { DISPLAY_COVERAGE_KINDS, patientRunAllowed } from "@/lib/stage1/linked-review";
 import { readCoverage } from "@/lib/stage1/coverage";
 import { Stage2AssessmentSchema, type Stage2Assessment, type Stage2Job } from "@/lib/cairn/types";
 
@@ -132,7 +132,7 @@ async function latestRun(patientId: string): Promise<RecordReview | undefined> {
     } catch {
       continue;
     }
-    if (run.patientId !== patientId || run.status !== "completed" || !await patientRunAllowed(patientId, runId, run.screeningId)) continue;
+    if (run.patientId !== patientId || run.status !== "completed" || !await patientRunAllowed(patientId, runId, run.screeningId, DISPLAY_COVERAGE_KINDS)) continue;
     // run.json records the absolute path on the machine that ran it; a run copied from
     // elsewhere still has its result beside it, so prefer the local file.
     const localResult = path.join(RUNS_ROOT, runId, "analysis", "final.json");
@@ -172,7 +172,8 @@ async function jobsFor(patientId: string): Promise<Stage2Job[]> {
     for (const file of await listJson(path.join(JOBS_ROOT, status))) {
       try {
         const job = (await readJson(file)) as Stage2Job;
-        if (job.patientId === patientId && (!job.screeningId || (await readCoverage(job.screeningId)).kind === "live")) out.push({ ...job, status });
+        // A screening-linked job must still read back against its frozen snapshot; any verified coverage kind may show.
+        if (job.patientId === patientId && (!job.screeningId || DISPLAY_COVERAGE_KINDS.includes((await readCoverage(job.screeningId)).kind))) out.push({ ...job, status });
       } catch {
         // an unreadable job file is not this screen's problem
       }
@@ -214,7 +215,7 @@ export async function reviewedPatientIds(): Promise<Map<string, Stage2Assessment
         screeningId?: string;
         recommendation?: Stage2Assessment["recommendation"];
       };
-      if (run.status !== "completed" || !run.patientId || !run.recommendation || !await patientRunAllowed(run.patientId, runId, run.screeningId)) continue;
+      if (run.status !== "completed" || !run.patientId || !run.recommendation || !await patientRunAllowed(run.patientId, runId, run.screeningId, DISPLAY_COVERAGE_KINDS)) continue;
       const assessment = asAssessment(await readJson(path.join(RUNS_ROOT, runId, "analysis/final.json")))?.assessment;
       if (!assessment || assessment.patientId !== run.patientId) continue;
       const at = run.completedAt ?? "";
