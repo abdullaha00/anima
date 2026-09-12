@@ -78,7 +78,7 @@ async function get(path, headers) {
 }
 
 /** Describe a value's shape without dumping the whole payload. */
-function shape(v, depth = 0, seen = 0) {
+function shape(v, depth = 0) {
   const pad = '  '.repeat(depth);
   if (v === null) return 'null';
   if (Array.isArray(v)) {

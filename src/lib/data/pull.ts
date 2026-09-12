@@ -27,8 +27,8 @@ export const SNAPSHOT_PATIENT_LIMIT = 2000;
 const DIRECTORY_PAGE_SIZE = 30;
 const VIEW_PAGE_SIZE = 100;
 const CONCURRENCY = 8;
-/** One attempt plus two retries on 502, 503, 504, 429 or a timeout. */
-const ATTEMPTS = 3;
+/** One attempt plus three retries on 502, 503, 504, 429 or a timeout. */
+const ATTEMPTS = 4;
 
 /**
  * Directory condition terms that earn a deep record pull. They mirror the
@@ -217,24 +217,74 @@ function readEpsDrug(resource: Record<string, unknown>): string | undefined {
 interface ViewPull {
   ok: boolean;
   resources: RawResource[];
+  /** The last HTTP status seen; 0 means a timeout. */
+  status: number;
 }
 
+/** A site view can take over ten seconds when the simulator is busy. */
+const VIEW_TIMEOUT_MS = 20_000;
+/** The second, slower pass over stragglers: fewer in flight, more patience. */
+const STRAGGLER_CONCURRENCY = 2;
+const STRAGGLER_TIMEOUT_MS = 60_000;
+
 /** One site view for one patient, following resourceTotal across pages when needed. */
-async function pullView(site: 'gp' | 'hospital', patientId: string): Promise<ViewPull> {
+async function pullView(site: 'gp' | 'hospital', patientId: string, timeoutMs: number): Promise<ViewPull> {
   const path = `/api/sites/${site}/view`;
-  const first = await getWithRetry<unknown>(path, { patient: patientId, limit: VIEW_PAGE_SIZE });
-  if (first.status !== 200 || first.json === null) return { ok: false, resources: [] };
+  const first = await getWithRetry<unknown>(path, { patient: patientId, limit: VIEW_PAGE_SIZE }, timeoutMs);
+  if (first.status !== 200 || first.json === null) return { ok: false, resources: [], status: first.status };
 
   const body = asRecord(first.json);
   const resources = asArray(body.resources).filter(isRawResource);
   const total = asNumber(body.resourceTotal) ?? resources.length;
 
   for (let offset = VIEW_PAGE_SIZE; offset < total; offset += VIEW_PAGE_SIZE) {
-    const page = await getWithRetry<unknown>(path, { patient: patientId, limit: VIEW_PAGE_SIZE, offset });
-    if (page.status !== 200 || page.json === null) return { ok: false, resources };
+    const page = await getWithRetry<unknown>(path, { patient: patientId, limit: VIEW_PAGE_SIZE, offset }, timeoutMs);
+    if (page.status !== 200 || page.json === null) return { ok: false, resources, status: page.status };
     resources.push(...asArray(asRecord(page.json).resources).filter(isRawResource));
   }
-  return { ok: true, resources };
+  return { ok: true, resources, status: 200 };
+}
+
+interface DeepRecord {
+  id: string;
+  gp: ViewPull;
+  hospital: ViewPull;
+}
+
+/**
+ * Both views for each patient: a fast pass at the normal concurrency, then a
+ * slow pass over whatever failed, because the simulator answers slowly under
+ * load rather than refusing outright.
+ */
+async function pullDeepRecords(ids: string[], log: (line: string) => void): Promise<Map<string, DeepRecord>> {
+  const records = new Map<string, DeepRecord>();
+  let done = 0;
+
+  const firstPass = await mapConcurrent(ids, CONCURRENCY, async (id) => {
+    const [gp, hospital] = await Promise.all([
+      pullView('gp', id, VIEW_TIMEOUT_MS),
+      pullView('hospital', id, VIEW_TIMEOUT_MS),
+    ]);
+    done += 1;
+    if (done % 25 === 0 || done === ids.length) log(`deep records: ${done}/${ids.length}`);
+    return { id, gp, hospital };
+  });
+  for (const record of firstPass) records.set(record.id, record);
+
+  const stragglers = firstPass.filter((record) => !record.gp.ok || !record.hospital.ok);
+  if (stragglers.length === 0) return records;
+
+  log(`deep records: ${stragglers.length} incomplete, second pass at concurrency ${STRAGGLER_CONCURRENCY}`);
+  await sleep(2_000);
+  done = 0;
+  await mapConcurrent(stragglers, STRAGGLER_CONCURRENCY, async (record) => {
+    const gp = record.gp.ok ? record.gp : await pullView('gp', record.id, STRAGGLER_TIMEOUT_MS);
+    const hospital = record.hospital.ok ? record.hospital : await pullView('hospital', record.id, STRAGGLER_TIMEOUT_MS);
+    records.set(record.id, { id: record.id, gp, hospital });
+    done += 1;
+    if (done % 10 === 0 || done === stragglers.length) log(`deep records: second pass ${done}/${stragglers.length}`);
+  });
+  return records;
 }
 
 // ---------------------------------------------------------------------------
@@ -288,17 +338,12 @@ export async function pullSlice(opts: PullOptions): Promise<PullResult> {
     .map((patient) => patient.id);
   log(`deep records: ${deepIds.length} patients to pull`);
 
-  let done = 0;
-  const views = await mapConcurrent(deepIds, CONCURRENCY, async (id) => {
-    const [gp, hospital] = await Promise.all([pullView('gp', id), pullView('hospital', id)]);
-    done += 1;
-    if (done % 25 === 0 || done === deepIds.length) log(`deep records: ${done}/${deepIds.length}`);
-    if (!gp.ok) problems.push(`/api/sites/gp/view?patient=${id}: failed after retries`);
-    if (!hospital.ok) problems.push(`/api/sites/hospital/view?patient=${id}: failed after retries`);
-    return { id, gp, hospital };
-  });
+  const viewById = await pullDeepRecords(deepIds, log);
+  for (const view of viewById.values()) {
+    if (!view.gp.ok) problems.push(describe(`/api/sites/gp/view?patient=${view.id}`, view.gp.status));
+    if (!view.hospital.ok) problems.push(describe(`/api/sites/hospital/view?patient=${view.id}`, view.hospital.status));
+  }
 
-  const viewById = new Map(views.map((view) => [view.id, view]));
   const epsByPatient = new Map<string, string[]>();
   for (const item of eps) epsByPatient.set(item.patientId, [...(epsByPatient.get(item.patientId) ?? []), item.drug]);
 
@@ -313,7 +358,7 @@ export async function pullSlice(opts: PullOptions): Promise<PullResult> {
   });
 
   const fullRecordCount = enriched.filter((patient) => patient.recordDepth === 'full').length;
-  const failedDeep = deepIds.length - views.filter((view) => view.gp.ok).length;
+  const failedDeep = [...viewById.values()].filter((view) => !view.gp.ok).length;
 
   const notes = [
     `Directory rows for the first ${formatCount(enriched.length)} patients; full GP and hospital record for the ${formatCount(fullRecordCount)} patients whose conditions match the indicator catalogue or who have a hospital episode.`,
