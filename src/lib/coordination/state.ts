@@ -102,3 +102,29 @@ export function nextActionFor(state: WorklistState): { label: string; path: stri
       return { label: "Paused: reason shown", path: "" };
   }
 }
+
+/** The three stages a clinician sees: Find the person, Prepare the decision, Record it. */
+export type Stage = "Find" | "Prepare" | "Record";
+
+export function stageFor(state: WorklistState): Stage {
+  switch (state) {
+    case "flagged":
+    case "paused":
+      return "Find";
+    case "team assembled":
+    case "coordinating":
+    case "meeting held":
+      return "Prepare";
+    case "record signed":
+    case "shared":
+      return "Record";
+  }
+}
+
+/** How far the plan has got, for grouping the worklist. */
+export type PlanGroup = "no plan" | "plan in progress" | "plan complete";
+
+export function planGroupFor(state: WorklistState): PlanGroup {
+  const stage = stageFor(state);
+  return stage === "Find" ? "no plan" : stage === "Prepare" ? "plan in progress" : "plan complete";
+}
