@@ -11,11 +11,12 @@ import { ButtonLink, Chip } from "@/components/ui";
 export function PatientStrip({
   patient,
   caseState,
+  current,
 }: {
   patient: Patient;
   assessment: Assessment;
   caseState: CaseState;
-  /** Kept for callers; the strip no longer shows a tab bar. */
+  /** The strip no longer shows a tab bar; only used to hide the record link on the record page itself. */
   current?: string;
 }) {
   const facts: { label: string; value: string; mono?: boolean }[] = [
@@ -55,9 +56,11 @@ export function PatientStrip({
             )}
           </div>
         </div>
-        <ButtonLink href={`/patient/${patient.id}/record`} variant={started ? "warn" : "primary"} className="shrink-0">
-          {started ? "Edit ReSPECT record" : "Start ReSPECT record"}
-        </ButtonLink>
+        {current === "/record" ? null : (
+          <ButtonLink href={`/patient/${patient.id}/record`} variant={started ? "warn" : "primary"} className="shrink-0">
+            {started ? "Edit ReSPECT record" : "Start ReSPECT record"}
+          </ButtonLink>
+        )}
       </div>
     </div>
   );

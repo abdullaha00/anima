@@ -31,14 +31,10 @@ export function PlanStatus({ patient, caseState }: { patient: Patient; caseState
   const cpr = rec.fields.cpr_recommendation;
   const cprRationale = rec.fields.cpr_rationale;
   const ceiling = rec.fields.escalation_ceiling;
-  const adrt = rec.fields.adrt_exists;
 
   return (
     <Panel title="Palliative and advance care planning status">
       <div className="grid gap-5 sm:grid-cols-2">
-        <LabelValue label="Palliative care register">
-          {patient.onPalliativeRegister ? "On the register" : <span className="text-secondary">No register entry in this record source</span>}
-        </LabelValue>
         <LabelValue label="Advance care plan">
           <span className={signed ? "text-affirm" : started || patient.hasAcpRecord ? "text-ink" : "text-secondary"}>{planLine}</span>
         </LabelValue>
@@ -56,9 +52,6 @@ export function PlanStatus({ patient, caseState }: { patient: Patient; caseState
           )}
         </LabelValue>
         {ceiling ? <LabelValue label="Escalation ceiling">{ceiling.value}</LabelValue> : null}
-        <LabelValue label="Advance decision to refuse treatment">
-          {adrt ? adrt.value : <span className="text-secondary">None referenced in the record.</span>}
-        </LabelValue>
       </div>
       {patient.existingPlanNote ? (
         <p className="mt-4 rounded-md border border-info-border bg-info-soft px-4 py-3 text-[13px] leading-5 text-ink">
