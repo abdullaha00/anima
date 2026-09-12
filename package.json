@@ -6,8 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "typecheck": "next typegen && tsc --noEmit"
+    "lint": "eslint && node scripts/check-language.mjs",
+    "typecheck": "next typegen && tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "check": "node scripts/check-language.mjs",
+    "snapshot": "tsx scripts/snapshot.ts",
+    "probe": "node scripts/probe.mjs --out docs/API-NOTES.md",
+    "demo:reset": "tsx scripts/demo-state.ts reset",
+    "demo:advance": "tsx scripts/demo-state.ts"
   },
   "dependencies": {
     "next": "16.3.5",
@@ -22,6 +28,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.3.5",
     "tailwindcss": "^4",
+    "tsx": "^4.23.13",
     "typescript": "^5"
   }
 }

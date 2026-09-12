@@ -1,0 +1,13 @@
+{
+  "takenAt": "2026-09-12T12:45:46.872Z",
+  "baseUrl": "https://sim.animahealth.com",
+  "simulationNow": "2026-09-12T08:00:00.000Z",
+  "patientCount": 2000,
+  "fullRecordCount": 207,
+  "populationTotal": 50000,
+  "notes": [
+    "Directory rows for the first 2,000 patients; full GP and hospital record for the 207 patients whose conditions match the indicator catalogue or who have a hospital episode.",
+    "No frailty score, NYHA, MRC, performance status, deprivation, register, ACP or next-of-kin fields exist in the simulator. Those Patient fields are left unset and the matching indicators cannot fire.",
+    "Blood results keep only eGFR, creatinine, albumin, haemoglobin, CRP, potassium and sodium. Consultation text equal to the simulator placeholder is kept on the timeline but not as a narrative."
+  ]
+}
