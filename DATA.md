@@ -18,7 +18,9 @@ This describes how we use data input from wide range of sources in the anima sim
     - It should identify the key signals that led to the palliative discussion being required.
     - Identifies any previous opinions or decisions from patient or family regarding end of life. ADRT, DNR etc must be identified and respected. 
     - Prepares notes for the meeting
+    - Letter/communications to patient and family drafted...very sensitive and respectful...not scary.
     - Suggest next immediate actions.
+    - It should also verify clear false positives or patients who already have a proper palliative/EoL plan in place/in action, ADRT that is ACTIVELY being respected/acted upon (still need to plan the actual palliative initiation for patients if they ADRT but its not being acted upon). Basically patients where it is obvious that a palliative plan would be inappropriate.
 
 # Data availability
 
@@ -103,3 +105,24 @@ A four-week advance was attempted in the isolated audit world, but the deploymen
 ## Evaluation-volume recommendation
 
 Use the 50,000-patient directory for high-recall screening and retrieval/load tests. For quality evaluation, author a stratified labelled set in isolated worlds (clear positive, clear negative and difficult/contradictory cases), freeze raw API snapshots, and have clinicians label whether a **goals-of-care/palliative-care conversation review** is appropriate. Report patient-level sensitivity, specificity/precision, abstention and evidence-citation accuracy separately; do not treat simulator prevalence as clinical prevalence.
+
+## Temporary Stage 2 candidate cohort
+
+Until explicit mortality and end-of-life cases are available, the following synthetic patients are useful high-recall inputs for exercising Stage 2. They were selected from the live simulator snapshot using documented acute episodes, age, frailty, multimorbidity, repeated hospital contact and unresolved care transitions. This is a test-prioritisation list, **not a mortality prediction or clinical label**.
+
+| Rank | Patient ID | Selection signals |
+|---:|---|---|
+| 1 | `SIM-000001` | Heart failure and CKD; acute breathlessness (acuity 2); worsening oxygen requirement; urgent post-discharge monitoring; occupied acute bed; furosemide supply. The strongest current deterioration case. |
+| 2 | `SIM-000017` | Approximately 96 years old; CKD and asthma; repeated active problems and hospital follow-up; older-person medicine supported discharge with an unacknowledged handover. |
+| 3 | `SIM-000011` | Approximately 91; heart failure and hypertension; repeated active disease/hospital-follow-up entries; recent hospital episode and unresolved follow-up task. |
+| 4 | `SIM-000036` | Approximately 87; heart failure and asthma; substantial longitudinal problem burden and previous hospital follow-up; urgent rehabilitation discharge handover. |
+| 5 | `SIM-000006` | Approximately 83; explicitly coded frailty; acute reduced mobility requiring an AMU bed; previous hospital follow-up and recent renal review. |
+| 6 | `SIM-000050` | Approximately 76; CKD, hypertension and arthritis; extensive active-problem/hospital-follow-up history; urgent respiratory assessment discharge. |
+| 7 | `SIM-000047` | Approximately 90; CKD, hypertension and arthritis; extensive active-problem history and previous hospital contact; recent hospital handover. |
+| 8 | `SIM-000007` | Current inpatient episode for chest discomfort at acuity 2, with repeated previous hospital-follow-up entries. Younger and less chronically unwell, but useful as an acute-event case. |
+| 9 | `SIM-000049` | Heart failure and hypertension; repeated active disease and hospital-follow-up entries; recent cardiology monitoring episode. |
+| 10 | `SIM-000026` | Approximately 93; diabetes and hypertension; repeated active problems/hospital follow-up; recent respiratory assessment episode. |
+
+Useful alternates are `SIM-000052` (four recorded comorbidities including heart failure, but contradictory GP status) and `SIM-000015` (three comorbidities, carer involvement and recent urgent hospital correspondence).
+
+Only `SIM-000001` currently has a convincing cluster of acute deterioration signals. The remainder are intentionally weaker, high-recall cases and should test whether Stage 2 distinguishes genuine escalation evidence from age or comorbidity alone.

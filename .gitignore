@@ -32,6 +32,10 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
+
+# Durable local Stage 2 patient snapshots, agent logs, jobs and results
+.cairn/
 
 # vercel
 .vercel

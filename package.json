@@ -2,23 +2,30 @@
   "name": "anima",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint && node scripts/check-language.mjs",
     "typecheck": "next typegen && tsc --noEmit",
-    "test": "tsx --test tests/*.test.ts",
+    "test": "tsx --test tests/*.test.ts test/*.test.ts",
     "check": "node scripts/check-language.mjs",
     "snapshot": "tsx scripts/snapshot.ts",
     "probe": "node scripts/probe.mjs --out docs/API-NOTES.md",
     "demo:reset": "tsx scripts/demo-state.ts reset",
-    "demo:advance": "tsx scripts/demo-state.ts"
+    "demo:advance": "tsx scripts/demo-state.ts",
+    "stage2": "tsx scripts/stage2.ts",
+    "stage2:enqueue": "tsx scripts/stage2-enqueue.ts",
+    "stage2:worker": "tsx scripts/stage2-worker.ts"
   },
   "dependencies": {
+    "@earendil-works/pi-coding-agent": "^0.85.1",
+    "dotenv": "^17.4.2",
     "next": "16.3.5",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "typebox": "^1.3.30"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

@@ -27,6 +27,8 @@ const ALLOWED_PHRASES = [
   /predictive validity/gi, // the equity note disclaims it
   /no claim of predictive/gi,
   /not validated/gi,
+  /patient-messaging/gi, // simulator resource identifier, not interface copy
+  /messaging-workspace/gi, // simulator API path, not interface copy
 ];
 
 // The banned list. Word boundaries so "chatter" or "pinged" style false positives stay rare.
@@ -51,7 +53,7 @@ const BANNED = [
 ];
 
 const SOURCE_EXT = new Set(['.ts', '.tsx', '.css', '.md', '.mjs', '.json']);
-const SKIP_DIRS = new Set(['node_modules', '.git', '.next', 'reference', 'data', 'docs']);
+const SKIP_DIRS = new Set(['node_modules', '.git', '.next', '.cairn', 'reference', 'data', 'docs']);
 
 function* walk(dir) {
   for (const name of readdirSync(dir)) {

@@ -33,6 +33,6 @@ The standard template downloads Geist fonts from Google during the production bu
 - `next.config.ts`: framework configuration.
 - `state.md`: agreed clinical app scope and implementation status.
 
-Keep future simulator credentials in `.env.local`, which is ignored by Git. Use server-side environment variables for secrets, never `NEXT_PUBLIC_` variables. The scaffold does not yet access the simulator or contain patient records.
+Keep future simulator credentials in `.env.local`, which is ignored by Git. Use server-side environment variables for secrets, never `NEXT_PUBLIC_` variables. The Stage 2 pipeline accesses the simulator only from server/worker code. See [docs/STAGE2.md](docs/STAGE2.md) for CLI, worker, HTTP trigger, storage and security details.
 
 Downloaded simulator reference documents remain local and excluded from the commit. The existing local `README.md` describes those downloads; this file documents the application.
