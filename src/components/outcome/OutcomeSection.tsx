@@ -31,6 +31,8 @@ export function OutcomeSection({ ctx, review }: { ctx: PatientContext; review?: 
   const thread = caseState.threads.find((t) => t.channel === "professional");
   const threadMessages = thread?.messages ?? [];
   const messages = new Map(threadMessages.map((m) => [m.id, m]));
+  // Opening the thread counts as taking part: those who read it default to attended.
+  const readIds = new Set((thread?.reads ?? []).map((r) => r.participantId));
   const messageLabels: OutcomeMessageRef[] = threadMessages
     .filter((m) => m.kind !== "system")
     .map((m) => ({ id: m.id, label: shortLabel(m, authorName(m.authorId)) }));
@@ -70,6 +72,7 @@ export function OutcomeSection({ ctx, review }: { ctx: PatientContext; review?: 
                 name: p.name,
                 role: p.roleLabel ?? p.role,
                 accepted: p.status === "accepted",
+                read: readIds.has(p.id),
                 simulated: Boolean(p.simulated),
               }))}
               proposals={threadMessages

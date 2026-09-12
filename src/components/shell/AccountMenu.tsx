@@ -47,20 +47,22 @@ export function AccountMenu({ name, organisation }: { name: string; organisation
       <button
         ref={button}
         type="button"
-        aria-haspopup="menu"
+        aria-haspopup="dialog"
         aria-expanded={open}
         aria-controls={menuId}
         aria-label={`Account: ${name}`}
         title={name}
         onClick={() => setOpen((o) => !o)}
-        className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-[12px] font-bold leading-none text-primary-ink transition-colors hover:bg-primary-hover"
+        className="group flex h-11 w-11 items-center justify-center rounded-full"
       >
-        {initialsOf(name)}
+        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-[12px] font-bold leading-none text-primary-ink transition-colors group-hover:bg-primary-hover">
+          {initialsOf(name)}
+        </span>
       </button>
       {open ? (
         <div
           id={menuId}
-          role="menu"
+          role="dialog"
           aria-label="Account"
           className="absolute right-0 top-full z-30 mt-2 w-64 rounded-lg border border-line bg-surface p-4 shadow-lg"
         >
@@ -71,12 +73,12 @@ export function AccountMenu({ name, organisation }: { name: string; organisation
           <div className="mt-3 flex justify-end">
             <button
               type="button"
-              role="menuitem"
+              autoFocus
               onClick={() => {
                 setOpen(false);
                 button.current?.focus();
               }}
-              className="inline-flex min-h-9 items-center rounded-md border border-line-strong bg-surface px-3 text-[13px] font-semibold text-ink shadow-xs hover:bg-surface-2"
+              className="inline-flex min-h-11 items-center rounded-md border border-line-strong bg-surface px-3 text-[13px] font-semibold text-ink shadow-xs hover:bg-surface-2"
             >
               Close
             </button>

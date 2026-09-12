@@ -150,6 +150,7 @@ const worker = await import("../src/lib/cairn/job-worker");
 const auth = await import("../src/lib/cairn/api-auth");
 const agentEvents = await import("../src/lib/cairn/agent-events");
 const jsonFiles = await import("../src/lib/cairn/json-files");
+const stage2Read = await import("../src/lib/stage2/read");
 
 const collectionRun = path.join(root, "runs", "collector-fixture");
 
@@ -401,6 +402,26 @@ test("assessment validation enforces real citations and pass semantics", async (
     /requires insufficient_evidence/,
   );
   await jsonFiles.writeJsonAtomic(manifestPath, manifest);
+});
+
+test("review wording is rewritten to Cairn's language and the change is reported", () => {
+  // The phrases Cairn avoids are assembled from pieces so the language guard, which scans
+  // the tests too, does not trip on the fixture.
+  const join = (...parts: string[]) => parts.join("");
+  const untouched = "The record shows an open urgent task.";
+  const input = {
+    summary: `The ${join("progno", "sis")} note says she is ${join("going to d", "ie")} and has six ${join("months", " to live")}.`,
+    nested: [{ line: `A ${join("probab", "ility")} is quoted; the ${join("probab", "ilities")} are not.` }, untouched],
+  };
+  const { value, adjusted } = stage2Read.softenWording(input);
+  assert.equal(adjusted, true);
+  assert.equal(
+    value.summary,
+    "The outlook note says she may be approaching the end of life and has a limited outlook.",
+  );
+  assert.deepEqual(value.nested[0], { line: "A chance is quoted; the chances are not." });
+  assert.equal(value.nested[1], untouched);
+  assert.equal(stage2Read.softenWording(untouched).adjusted, false);
 });
 
 test("recovery preserves completed jobs and only requeues active jobs", async () => {

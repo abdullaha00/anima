@@ -2,16 +2,17 @@
 
 import { useEffect, useState } from "react";
 
-const LINKS: { hash: string; label: string }[] = [
+const LINKS: { hash: string; label: string; short?: string }[] = [
   { hash: "#team", label: "Care team" },
-  { hash: "#thread", label: "Coordination thread" },
+  { hash: "#thread", label: "Coordination thread", short: "Thread" },
   { hash: "#outcome", label: "Outcome" },
   { hash: "#record", label: "Record" },
 ];
 
 /**
  * The compact in-page jump bar for the one record page. Plain anchors, so it works
- * without JavaScript; the current section is marked once the hash is known.
+ * without JavaScript; the current section is marked once the hash is known. At phone
+ * width the row scrolls sideways rather than wrapping, and the longest label shortens.
  */
 export function RecordJumpBar() {
   const [hash, setHash] = useState("");
@@ -27,11 +28,11 @@ export function RecordJumpBar() {
       aria-label="Sections of the record"
       className="sticky top-14 z-10 -mx-4 mb-8 border-b border-line bg-ground/95 px-4 backdrop-blur-sm sm:-mx-8 sm:px-8"
     >
-      <ul className="flex flex-wrap items-center gap-x-1 overflow-x-auto">
+      <ul className="flex flex-nowrap items-center gap-x-1 overflow-x-auto scroll-px-3 pb-px">
         {LINKS.map((l) => {
           const active = hash === l.hash;
           return (
-            <li key={l.hash} className="flex">
+            <li key={l.hash} className="flex shrink-0">
               <a
                 href={l.hash}
                 aria-current={active ? "location" : undefined}
@@ -39,7 +40,14 @@ export function RecordJumpBar() {
                   active ? "border-primary text-primary" : "border-transparent text-muted hover:border-line-strong hover:text-ink"
                 }`}
               >
-                {l.label}
+                {l.short ? (
+                  <>
+                    <span className="sm:hidden">{l.short}</span>
+                    <span className="hidden sm:inline">{l.label}</span>
+                  </>
+                ) : (
+                  l.label
+                )}
               </a>
             </li>
           );

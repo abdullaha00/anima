@@ -2,7 +2,7 @@ import type { PatientContext } from "@/lib/patient-context";
 import type { RecordReview } from "@/lib/stage2/read";
 import { assembleTeamForm } from "@/app/actions";
 import { DEMO_PATIENT_IDS, DEMO_THREAD_PURPOSE, defaultPurpose } from "@/lib/coordination/fixtures";
-import { Button, ButtonLink, Chip, EmptyLine, Microlabel, Notice, Panel } from "@/components/ui";
+import { Button, ButtonLink, Chip, EmptyLine, Microlabel, Notice, Panel, Section } from "@/components/ui";
 import { ParticipantRow } from "@/components/team/ParticipantRow";
 import { RemovedGroup } from "@/components/team/RemovedGroup";
 import { AddParticipantForm } from "@/components/team/AddParticipantForm";
@@ -13,7 +13,8 @@ const SUBHEADING = "text-[18px] font-semibold leading-tight tracking-[-0.01em] t
 
 /**
  * Care team: who needs to be involved, and why. Every participant carries a reason traced
- * to the record. Recipients of the signed record and the family channel are kept visibly
+ * to the record. The proposed professional team is the one card; the family channel and the
+ * recipients of the signed record sit under it as quiet groupings on the ground, visibly
  * apart from the professional thread.
  */
 export function TeamSection({ ctx, review }: { ctx: PatientContext; review?: RecordReview }) {
@@ -44,7 +45,7 @@ export function TeamSection({ ctx, review }: { ctx: PatientContext; review?: Rec
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_340px] xl:items-start">
         <div className="flex min-w-0 flex-col gap-6">
           {participants.length === 0 ? (
-            <Panel as="div" tone="brand">
+            <Panel heading="h3" as="div" tone="brand">
               <h3 className={SUBHEADING}>Who needs to be involved, and why</h3>
               {state === "flagged" ? (
                 <form action={assembleTeamForm} className="mt-4 flex flex-col gap-4">
@@ -73,7 +74,7 @@ export function TeamSection({ ctx, review }: { ctx: PatientContext; review?: Rec
             </Panel>
           ) : (
             <>
-              <Panel as="div" tone="brand">
+              <Panel heading="h3" as="div" tone="brand">
                 <h3 className={SUBHEADING}>Who needs to be involved, and why</h3>
                 <p className="prose-clinical mt-2 mb-5 text-[13px] font-medium leading-5 text-secondary">
                   Every participant carries a reason and the record entry behind it, so the list can be checked rather
@@ -98,14 +99,14 @@ export function TeamSection({ ctx, review }: { ctx: PatientContext; review?: Rec
                 <AddParticipantForm patientId={patient.id} />
               </Panel>
 
-              <Panel as="div">
-                <h3 className={SUBHEADING}>Family channel</h3>
-                <p className="prose-clinical mt-2 mb-5 text-[13px] font-medium leading-5 text-secondary">
+              {/* Quiet groupings on the ground: the professional team above is the one card. */}
+              <Section title="Family channel" aside={family.length ? `${family.length} on the channel` : undefined}>
+                <p className="prose-clinical mb-4 text-[13px] font-medium leading-5 text-secondary">
                   Never in the professional thread. Content limited to what matters, place preferences, who is involved,
                   practical arrangements and questions. Nothing is posted there automatically.
                 </p>
                 {family.length ? (
-                  <ul className="flex flex-col divide-y divide-line border-t border-line pt-5">
+                  <ul className="flex flex-col divide-y divide-line">
                     {family.map((p) => (
                       <ParticipantRow key={p.id} participant={p} patientId={patient.id} controls="remove" />
                     ))}
@@ -113,11 +114,13 @@ export function TeamSection({ ctx, review }: { ctx: PatientContext; review?: Rec
                 ) : (
                   <EmptyLine>No carer or next of kin is recorded. Add one above if the conversation names someone.</EmptyLine>
                 )}
-              </Panel>
+              </Section>
 
-              <Panel as="div">
-                <h3 className={SUBHEADING}>Recipients of the signed record</h3>
-                <p className="prose-clinical mt-2 mb-4 text-[13px] font-medium leading-5 text-secondary">
+              <Section
+                title="Recipients of the signed record"
+                aside={recipients.length ? `${recipients.length} recipients` : undefined}
+              >
+                <p className="prose-clinical mb-4 text-[13px] font-medium leading-5 text-secondary">
                   They receive the signed record and never join the thread.
                 </p>
                 {recipients.length ? (
@@ -135,7 +138,7 @@ export function TeamSection({ ctx, review }: { ctx: PatientContext; review?: Rec
                 ) : (
                   <EmptyLine>No recipients listed. Out of hours and the ambulance service are added on sharing.</EmptyLine>
                 )}
-              </Panel>
+              </Section>
 
               <RemovedGroup removed={caseState.removedParticipants} />
             </>
@@ -143,7 +146,7 @@ export function TeamSection({ ctx, review }: { ctx: PatientContext; review?: Rec
         </div>
 
         <aside className="flex min-w-0 flex-col gap-4">
-          <Panel title="Next action">
+          <Panel heading="h3" title="Next action">
             {professionalThread ? (
               <div className="flex min-w-0 flex-col gap-4">
                 <p className="text-[15px] leading-6 text-secondary">
@@ -176,7 +179,7 @@ export function TeamSection({ ctx, review }: { ctx: PatientContext; review?: Rec
             )}
           </Panel>
 
-          <Panel title="How the team was proposed">
+          <Panel heading="h3" title="How the team was proposed">
             <p className="prose-clinical text-[13px] font-medium leading-5 text-secondary">
               The usual GP is always included and holds the record. Specialists follow the indicators present. Frailty
               or a change in care needs brings the community matron and social care. Five or more medicines brings a

@@ -20,6 +20,8 @@ export interface OutcomePerson {
   name: string;
   role: string;
   accepted: boolean;
+  /** Opened the professional thread. Reading it counts as taking part. */
+  read: boolean;
   simulated: boolean;
 }
 
@@ -64,6 +66,27 @@ function nextKey(): number {
   return keySeq;
 }
 
+/** Proposals grouped by record field, in thread order within each group. The last one is the latest. */
+interface FieldProposals {
+  field: RecordFieldName;
+  latest: OutcomeProposal;
+  earlier: OutcomeProposal[];
+}
+
+function groupByField(proposals: OutcomeProposal[]): FieldProposals[] {
+  const groups = new Map<RecordFieldName, OutcomeProposal[]>();
+  for (const p of proposals) {
+    const list = groups.get(p.field);
+    if (list) list.push(p);
+    else groups.set(p.field, [p]);
+  }
+  return [...groups.entries()].map(([field, list]) => ({
+    field,
+    latest: list[list.length - 1],
+    earlier: list.slice(0, -1),
+  }));
+}
+
 /**
  * The outcome is assembled from the professional thread rather than retyped: proposals
  * become decisions, participants become attendees, and next steps cite the entry they
@@ -84,10 +107,13 @@ export function OutcomeForm({
   messages: OutcomeMessageRef[];
 }) {
   const [attendance, setAttendance] = useState<Record<string, "attended" | "apologies">>(() =>
-    Object.fromEntries(people.map((p) => [p.id, p.accepted ? "attended" : "apologies"])),
+    Object.fromEntries(people.map((p) => [p.id, p.accepted || p.read ? "attended" : "apologies"])),
   );
+  // One row per record field; only the latest proposal for each field starts checked, so two
+  // proposals for the same field never become two decisions by default.
+  const byField = groupByField(proposals);
   const [chosen, setChosen] = useState<Record<string, boolean>>(() =>
-    Object.fromEntries(proposals.map((p) => [p.messageId, true])),
+    Object.fromEntries(byField.map((g) => [g.latest.messageId, true])),
   );
   const [added, setAdded] = useState<AddedDecision[]>([]);
   const [steps, setSteps] = useState<NextStepRow[]>([{ key: 1, what: "", ownerId: "", due: "", createdFrom: "" }]);
@@ -244,8 +270,8 @@ export function OutcomeForm({
           </p>
         ) : (
           <ul className="flex flex-col divide-y divide-line">
-            {proposals.map((p) => (
-              <li key={p.messageId} className="py-3 first:pt-0 last:pb-0">
+            {byField.map(({ field, latest: p, earlier }) => (
+              <li key={field} className="py-3 first:pt-0 last:pb-0">
                 <label className="flex cursor-pointer items-start gap-3">
                   <input
                     type="checkbox"
@@ -256,11 +282,16 @@ export function OutcomeForm({
                   <span className="flex flex-col gap-1">
                     <span className="text-[15px] leading-6 text-ink">Decision: {p.body}</span>
                     <span className="text-[13px] font-medium leading-5 text-secondary">
-                      into the record: <span className="text-ink">{fieldLabel(p.field)}</span> = &ldquo;{p.value}&rdquo;
+                      into the record: <span className="text-ink">{fieldLabel(field)}</span> = &ldquo;{p.value}&rdquo;
                     </span>
                     <span className="font-mono text-[12px] leading-5 text-faint">
                       proposed by {p.authorName} · {p.messageId}
                     </span>
+                    {earlier.length > 0 ? (
+                      <span className="text-[12px] leading-5 text-faint">
+                        also proposed by {earlier.map((e) => `${e.authorName} (${e.messageId})`).join(", ")}
+                      </span>
+                    ) : null}
                   </span>
                 </label>
               </li>

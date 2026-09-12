@@ -2,7 +2,7 @@
 
 import { useActionState } from "react";
 import { attemptCairnSignature, signRecord, type ActionResult } from "@/app/actions";
-import { Button, Notice, Panel } from "@/components/ui";
+import { Button, Microlabel, Notice, Panel } from "@/components/ui";
 import { CHECK_CLASS, FIELD_CLASS, INPUT_CLASS, LABEL_CLASS } from "@/components/team/form-classes";
 
 /**
@@ -43,7 +43,7 @@ export function SignGate({
           {/* Cairn's path: refused. */}
           <form action={cairnAction} className="flex flex-col gap-3 md:border-r md:border-line md:pr-10">
             <input type="hidden" name="patientId" value={patientId} />
-            <span className="microlabel">Cairn</span>
+            <Microlabel>Cairn</Microlabel>
             <p className="text-[15px] leading-6 text-secondary">
               Cairn assembled this draft from the conversation and the coordination thread.
             </p>
@@ -63,7 +63,7 @@ export function SignGate({
           {/* The clinician's path: ordinary and easy. */}
           <form action={signAction} className="flex flex-col gap-4">
             <input type="hidden" name="patientId" value={patientId} />
-            <span className="microlabel">Clinician signature</span>
+            <Microlabel>Clinician signature</Microlabel>
             <label className={FIELD_CLASS}>
               <span className={LABEL_CLASS}>Named clinician</span>
               <input

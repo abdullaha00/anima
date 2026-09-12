@@ -124,6 +124,8 @@ export function stageFor(state: WorklistState): Stage {
 /** How far the plan has got, for grouping the worklist. */
 export type PlanGroup = "no plan" | "plan in progress" | "plan complete";
 export const PLAN_GROUPS: PlanGroup[] = ["no plan", "plan in progress", "plan complete"];
+/** Order of the groups on the worklist: work under way first, then finished plans with their open next steps, then people still waiting for a plan. The filter select keeps PLAN_GROUPS. */
+export const WORKLIST_ORDER: PlanGroup[] = ["plan in progress", "plan complete", "no plan"];
 
 export function planGroupFor(state: WorklistState): PlanGroup {
   const stage = stageFor(state);

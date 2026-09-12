@@ -31,12 +31,12 @@ export function PatientStrip({
         <div className="min-w-0">
           <Link
             href="/"
-            className="inline-flex min-h-8 items-center text-[13px] font-semibold text-primary underline-offset-4 hover:underline"
+            className="-my-1.5 inline-flex min-h-11 items-center text-[13px] font-semibold text-primary underline-offset-4 hover:underline"
           >
             Worklist
           </Link>
           <h1 className="mt-1 font-display text-[28px] leading-[1.1] text-ink">{patient.name ?? patient.id}</h1>
-          <p className="mt-1.5 text-[13px] text-secondary tnum">{demographics.join(" · ")}</p>
+          <p className="mt-1.5 break-words text-[13px] leading-5 text-secondary tnum">{demographics.join(" · ")}</p>
           <div className="mt-2.5 flex flex-wrap gap-1.5">
             {patient.conditions.length ? (
               patient.conditions.map((c) => <Chip key={c}>{c}</Chip>)
@@ -45,7 +45,7 @@ export function PatientStrip({
             )}
           </div>
         </div>
-        <PlanBadge plan={planGroupFor(caseState.state)} />
+        <PlanBadge plan={planGroupFor(caseState.state)} className="shrink-0" />
       </div>
     </div>
   );

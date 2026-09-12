@@ -1,7 +1,7 @@
 import type { CairnRecord } from "@/lib/domain/types";
 import { readiness } from "@/lib/record/record";
 import { RECORD_FIELDS, fieldLabel } from "@/lib/record/fields";
-import { Panel } from "@/components/ui";
+import { Microlabel, Panel } from "@/components/ui";
 
 /** What still stands between this draft and a signature. Computed from the record itself. */
 export function ReadinessPanel({ record }: { record: CairnRecord }) {
@@ -10,7 +10,7 @@ export function ReadinessPanel({ record }: { record: CairnRecord }) {
   const signed = record.status === "signed" || record.status === "shared";
 
   return (
-    <Panel
+    <Panel heading="h3"
       as="aside"
       title="Required before signing"
       aside={
@@ -28,7 +28,7 @@ export function ReadinessPanel({ record }: { record: CairnRecord }) {
         <div className="flex flex-col gap-4">
           {r.missing.length ? (
             <div className="flex flex-col gap-1.5">
-              <span className="microlabel">Required, not yet recorded</span>
+              <Microlabel>Required, not yet recorded</Microlabel>
               <ul className="flex flex-col divide-y divide-line">
                 {r.missing.map((f) => (
                   <li key={f} className="py-1.5 text-[15px] leading-6">
@@ -42,7 +42,7 @@ export function ReadinessPanel({ record }: { record: CairnRecord }) {
           ) : null}
           {r.unsourced.length ? (
             <div className="flex flex-col gap-1.5">
-              <span className="microlabel">Recorded without a source</span>
+              <Microlabel>Recorded without a source</Microlabel>
               <ul className="flex flex-col divide-y divide-line">
                 {r.unsourced.map((f) => (
                   <li key={f} className="py-1.5 text-[15px] leading-6">

@@ -2,7 +2,7 @@
 
 import { useActionState } from "react";
 import { promoteDecision, type ActionResult } from "@/app/actions";
-import { Button, Notice } from "@/components/ui";
+import { Button, Microlabel, Notice } from "@/components/ui";
 
 /**
  * The right-hand half of a promotion: the proposed value and the accept button. The action
@@ -29,7 +29,7 @@ export function PromotionBlock({
       <input type="hidden" name="patientId" value={patientId} />
       <input type="hidden" name="decisionIndex" value={decisionIndex} />
       <div className="flex flex-col gap-1">
-        <span className="microlabel">Proposed</span>
+        <Microlabel>Proposed</Microlabel>
         <p className="text-[15px] font-medium leading-6 text-ink">{proposedValue}</p>
       </div>
       {state?.ok === false ? (

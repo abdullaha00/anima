@@ -54,44 +54,58 @@ async function listJson(dir: string): Promise<string[]> {
  * replaced by the wording Cairn uses instead. The replacement is disclosed on screen.
  */
 // The words are assembled from pieces so the language guard, which bans them in our own copy,
-// does not trip on the list of what we replace.
+// does not trip on the list of what we replace. Longer phrases come before the shorter ones
+// they contain, so "X illness" is rewritten as a whole before "X" alone is.
 const w = (...parts: string[]) => parts.join("");
 const B = "\\b";
 const WORDING: [RegExp, string][] = [
   [new RegExp(`${B}${w("termin", "al")} illness${B}`, "gi"), "a life-limiting illness"],
   [new RegExp(`${B}${w("termin", "al")}(ly)?${B}`, "gi"), "life-limiting"],
+  // "is going to X", "will X", "expected to X": the leading auxiliary is absorbed too.
+  [new RegExp(`${B}(?:(?:is|are|was|were) )?(?:will|going to|expected to) ${w("d", "ie")}${B}`, "gi"), "may be approaching the end of life"],
   [new RegExp(`${B}(is|are|was|were) ${w("dy", "ing")}${B}`, "gi"), "$1 approaching the end of life"],
   [new RegExp(`${B}${w("dy", "ing")}${B}`, "gi"), "approaching the end of life"],
+  // "six months to X", "a few months to X": a count before the phrase goes with it.
+  [new RegExp(`${B}(?:(?:\\d+|a few|several|some|two|three|six|twelve) )?${w("months", " to live")}${B}`, "gi"), "a limited outlook"],
   [new RegExp(`${B}${w("progno", "sis")}${B}`, "gi"), "outlook"],
   [new RegExp(`${B}${w("progno", "stic")}${B}`, "gi"), "outlook-based"],
+  [new RegExp(`${B}${w("probab", "ilities")}${B}`, "gi"), "chances"],
+  [new RegExp(`${B}${w("probab", "ility")}${B}`, "gi"), "chance"],
   [new RegExp(`${B}${w("pred", "ict")}(s|ed|ion|ions)?${B}`, "gi"), "suggest$1"],
   [new RegExp(`${B}risk ${w("sc", "ore")}${B}`, "gi"), "score"],
 ];
 
-let lastWordingAdjusted = false;
-
-function soften(value: unknown): unknown {
-  if (typeof value === "string") {
-    let out = value;
-    for (const [re, to] of WORDING) {
-      if (re.test(out)) lastWordingAdjusted = true;
-      re.lastIndex = 0;
-      out = out.replace(re, to);
+/**
+ * Apply Cairn's wording to every string in a value, however deeply nested. Returns the
+ * rewritten value and whether anything changed, so concurrent reads never share state.
+ */
+export function softenWording<T>(value: T): { value: T; adjusted: boolean } {
+  let adjusted = false;
+  const walk = (v: unknown): unknown => {
+    if (typeof v === "string") {
+      let out = v;
+      for (const [re, to] of WORDING) {
+        re.lastIndex = 0;
+        if (!re.test(out)) continue;
+        adjusted = true;
+        re.lastIndex = 0;
+        out = out.replace(re, to);
+      }
+      return out;
     }
-    return out;
-  }
-  if (Array.isArray(value)) return value.map(soften);
-  if (value && typeof value === "object") {
-    return Object.fromEntries(Object.entries(value as Record<string, unknown>).map(([k, v]) => [k, soften(v)]));
-  }
-  return value;
+    if (Array.isArray(v)) return v.map(walk);
+    if (v && typeof v === "object") {
+      return Object.fromEntries(Object.entries(v as Record<string, unknown>).map(([k, x]) => [k, walk(x)]));
+    }
+    return v;
+  };
+  return { value: walk(value) as T, adjusted };
 }
 
-function asAssessment(value: unknown): Stage2Assessment | undefined {
+function asAssessment(value: unknown): { assessment: Stage2Assessment; wordingAdjusted: boolean } | undefined {
   if (!Check(Stage2AssessmentSchema, value)) return undefined;
-  lastWordingAdjusted = false;
-  const softened = soften(value) as Stage2Assessment;
-  return softened;
+  const { value: assessment, adjusted } = softenWording(value);
+  return { assessment, wordingAdjusted: adjusted };
 }
 
 /** The latest completed run for a patient under .cairn/runs, if any. */
@@ -115,19 +129,18 @@ async function latestRun(patientId: string): Promise<RecordReview | undefined> {
     // run.json records the absolute path on the machine that ran it; a run copied from
     // elsewhere still has its result beside it, so prefer the local file.
     const localResult = path.join(RUNS_ROOT, runId, "analysis", "final.json");
-    let assessment: Stage2Assessment | undefined;
+    let read: ReturnType<typeof asAssessment>;
     for (const candidate of [localResult, run.resultPath].filter((c): c is string => !!c)) {
       try {
-        assessment = asAssessment(await readJson(candidate));
-        if (assessment) break;
+        read = asAssessment(await readJson(candidate));
+        if (read) break;
       } catch {
         // try the next location
       }
     }
-    if (!assessment) continue;
-    const completedAt = run.completedAt ?? assessment.generatedAt;
-    if (!best || completedAt > best.completedAt)
-      best = { assessment, source: "run", runId, completedAt, wordingAdjusted: lastWordingAdjusted };
+    if (!read) continue;
+    const completedAt = run.completedAt ?? read.assessment.generatedAt;
+    if (!best || completedAt > best.completedAt) best = { ...read, source: "run", runId, completedAt };
   }
   return best;
 }
@@ -136,15 +149,10 @@ async function latestRun(patientId: string): Promise<RecordReview | undefined> {
 async function committed(patientId: string): Promise<RecordReview | undefined> {
   const file = path.join(COMMITTED_ROOT, `${patientId}.json`);
   try {
-    const assessment = asAssessment(await readJson(file));
-    if (!assessment) return undefined;
+    const read = asAssessment(await readJson(file));
+    if (!read) return undefined;
     const st = await stat(file);
-    return {
-      assessment,
-      source: "committed",
-      completedAt: assessment.generatedAt || st.mtime.toISOString(),
-      wordingAdjusted: lastWordingAdjusted,
-    };
+    return { ...read, source: "committed", completedAt: read.assessment.generatedAt || st.mtime.toISOString() };
   } catch {
     return undefined;
   }
@@ -210,7 +218,7 @@ export async function reviewedPatientIds(): Promise<Map<string, Stage2Assessment
   }
   for (const file of await listJson(COMMITTED_ROOT)) {
     try {
-      const a = asAssessment(await readJson(file));
+      const a = asAssessment(await readJson(file))?.assessment;
       if (a && (seen.get(a.patientId) ?? "") <= a.generatedAt) out.set(a.patientId, a.recommendation);
     } catch {
       // skip
