@@ -12,7 +12,7 @@ export function ReadinessPanel({ record }: { record: CairnRecord }) {
   return (
     <Panel
       as="aside"
-      title="Readiness"
+      title="Required before signing"
       aside={
         <span className="tnum">
           {recorded} of {RECORD_FIELDS.length} recorded

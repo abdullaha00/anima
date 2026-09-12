@@ -97,7 +97,7 @@ export function nextActionFor(state: WorklistState): { label: string; path: stri
     case "record signed":
       return { label: "Share with audiences", path: "/record" };
     case "shared":
-      return { label: "View audit, review next steps", path: "/record" };
+      return { label: "Review next steps and the audit", path: "/record" };
     case "paused":
       return { label: "Paused: reason shown", path: "" };
   }

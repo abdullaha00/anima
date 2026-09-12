@@ -37,7 +37,7 @@
   --ink: var(--stone-900);
   --secondary: var(--stone-700);
   --muted: var(--stone-600);
-  --faint: var(--stone-500);
+  --faint: #6f685e; /* between stone-500 and stone-600: 5:1 on white, still reads as metadata */
 
   --primary: var(--cairn-500);
   --primary-hover: var(--cairn-600);

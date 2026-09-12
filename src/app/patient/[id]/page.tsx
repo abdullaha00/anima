@@ -26,14 +26,14 @@ export default async function PatientPage({ params }: { params: Promise<{ id: st
           {/* The person before the record. Their own recorded goals, set large on Cairn green:
               the one bold element on the screen, so everything clinical around it can stay quiet. */}
           <section aria-labelledby="in-their-words" className="overflow-hidden rounded-lg bg-primary text-primary-ink shadow-sm">
-            <div className="px-7 pb-6 pt-6 sm:px-8">
+            <div className="px-6 pb-5 pt-5 sm:px-7">
               <h2 id="in-their-words" className="text-[12px] font-semibold text-primary-ink/75">
-                What matters to {firstName}, in {firstName}&rsquo;s own words from the record
+                What matters to {firstName}, in {firstName}&rsquo;s own words
               </h2>
               {patient.goals.length ? (
-                <ul className="mt-3 flex flex-col gap-2">
+                <ul className="mt-2.5 flex flex-col gap-1.5">
                   {patient.goals.map((g) => (
-                    <li key={g} className="font-voice text-[22px] leading-[1.35] sm:text-[26px]">
+                    <li key={g} className="font-voice text-[22px] leading-[1.35] sm:text-[24px]">
                       &ldquo;{g}&rdquo;
                     </li>
                   ))}
@@ -41,6 +41,7 @@ export default async function PatientPage({ params }: { params: Promise<{ id: st
               ) : (
                 <p className="mt-3 text-[15px] text-primary-ink/80">No goals recorded in the patient directory.</p>
               )}
+              <p className="mt-3 text-[12px] text-primary-ink/70">Goals recorded in the patient directory, NHS-SIM.</p>
             </div>
             {patient.needs.length || patient.nextOfKin ? (
               <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-white/15 bg-black/10 px-7 py-3 text-[13px] sm:px-8">

@@ -100,7 +100,7 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
       <PageHeader
         eyebrow="Case finding"
         title="Worklist"
-        intro="Every patient with indicators present in the record, and where their plan has got to. What is stuck shows in the last column."
+        intro="Every patient with indicators present in the record, and where their plan has got to. The last column shows the next action and who owns it."
         aside={
           <span className="tnum">
             {mode === "snapshot" || degraded ? "Snapshot" : "Live"} · simulation clock {formatDate(nowIso)} · taken{" "}
@@ -116,7 +116,7 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
             key={label}
             className={`flex flex-col gap-1 px-5 py-4 ${i > 0 ? "border-l border-line" : ""} ${i >= 2 ? "border-t border-line sm:border-t-0" : ""}`}
           >
-            <dd className={`font-display text-[26px] leading-none tnum ${i === 1 || i === 4 ? "text-primary" : "text-ink"}`}>
+            <dd className={`font-display text-[22px] leading-none tnum ${i === 1 || i === 4 ? "text-primary" : "text-ink"}`}>
               {value.toLocaleString("en-GB")}
             </dd>
             <dt className="microlabel mt-1">{label}</dt>
@@ -155,7 +155,7 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
                         <th className="microlabel w-[6%] px-2 py-2.5 tnum">Age</th>
                         <th className="microlabel w-[17%] px-3 py-2.5">Conditions</th>
                         <th className="microlabel w-[33%] px-3 py-2.5">Indicators present</th>
-                        <th className="microlabel px-3 py-2.5">Waiting on</th>
+                        <th className="microlabel px-3 py-2.5">Next action · owner</th>
                       </tr>
                     </thead>
                     {g.tiers.map((t) => (
@@ -191,8 +191,8 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
                               </div>
                             </td>
                             <td className="px-3 py-3 align-top">
-                              <span className="font-bold text-ink tnum">{r.assessment.signals.length}</span>
-                              <span className="text-secondary"> · {r.assessment.signals.map((s) => s.label).join("; ")}</span>
+                              <span className="font-semibold text-ink tnum">{plural(r.assessment.signals.length, "indicator")}</span>
+                              <span className="text-secondary">: {r.assessment.signals.map((s) => s.label).join("; ")}</span>
                             </td>
                             <td className="px-3 py-3 align-top">
                               {r.state === "paused" && r.pausedReason ? (
@@ -208,7 +208,7 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
                                   </span>
                                 </span>
                               ) : (
-                                <span className="text-muted">no open next step</span>
+                                <span className="text-muted">no action recorded</span>
                               )}
                             </td>
                           </tr>

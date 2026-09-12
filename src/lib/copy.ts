@@ -19,7 +19,7 @@ export const ADRT_LINE =
 export const FAMILY_CONSENT_LINE = "Shared with consent recorded in the conversation.";
 
 export const THREAD_NOT_RECORD_LINE =
-  "The coordination thread is how a decision was reached. A decision only counts once a clinician promotes it into the record and signs.";
+  "Discussion here does not change the record. A named clinician promotes what is agreed into the record and signs it.";
 
 export const SIMULATED_LINE =
   "Simulated participant. Replies from colleagues are seeded for this demonstration.";

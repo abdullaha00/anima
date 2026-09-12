@@ -85,13 +85,21 @@ export function RecordFields({
                           not recorded{f.required ? ", and required before signature" : ""}
                         </p>
                         {!locked ? (
-                          <FieldEntryForm
-                            patientId={patientId}
-                            field={f.name}
-                            label={f.label}
-                            defaultSource={defaultSource}
-                            serif={serif}
-                          />
+                          <details className="group">
+                            <summary className="inline-flex min-h-11 cursor-pointer list-none items-center gap-1.5 text-[13px] font-semibold text-primary-hover hover:underline">
+                              <span aria-hidden="true" className="inline-block transition-transform group-open:rotate-90">
+                                &rsaquo;
+                              </span>
+                              Record this from the conversation
+                            </summary>
+                            <FieldEntryForm
+                              patientId={patientId}
+                              field={f.name}
+                              label={f.label}
+                              defaultSource={defaultSource}
+                              serif={serif}
+                            />
+                          </details>
                         ) : null}
                       </div>
                     )}
