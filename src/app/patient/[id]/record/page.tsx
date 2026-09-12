@@ -1,4 +1,4 @@
-import { loadPatientContext } from "@/lib/patient-context";
+import { ensureTeamAssembled, loadPatientContext } from "@/lib/patient-context";
 import { getReviewStatus } from "@/lib/stage2/read";
 import { PatientStrip } from "@/components/shell/PatientStrip";
 import { RecordJumpBar } from "@/components/record/RecordJumpBar";
@@ -15,7 +15,8 @@ export const dynamic = "force-dynamic";
  */
 export default async function RecordPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const ctx = await loadPatientContext(id);
+  // A newly flagged case has its team proposed on first open, so the panel always has rows.
+  const ctx = await ensureTeamAssembled(await loadPatientContext(id));
   const { review } = await getReviewStatus(ctx.patient.id);
   const record = ctx.caseState.record;
   const locked = record.status === "signed" || record.status === "shared";

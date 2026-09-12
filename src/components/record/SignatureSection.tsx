@@ -9,7 +9,6 @@ import { ReadinessLine } from "@/components/record/ReadinessPanel";
 import { SignGate } from "@/components/record/SignGate";
 import { ShareBlock } from "@/components/record/ShareBlock";
 import { AudienceTabs, type Provenance } from "@/components/record/AudienceTabs";
-import { AuditPanel } from "@/components/record/AuditPanel";
 
 /** ISO date six months on, for the default review date. */
 function sixMonthsOn(isoDate: string): string {
@@ -21,7 +20,7 @@ function sixMonthsOn(isoDate: string): string {
 /**
  * Signatures and review: what still stands before a signature, the sign gate (Cairn is
  * refused; a named clinician signs), then once signed the signature line, sharing, what
- * each audience sees, and the audit.
+ * each audience sees.
  */
 export function SignatureSection({ ctx }: { ctx: PatientContext }) {
   const { patient, caseState, nowIso } = ctx;
@@ -46,7 +45,6 @@ export function SignatureSection({ ctx }: { ctx: PatientContext }) {
         as="div"
         heading="h2"
         title={<span id="sign-heading">Signatures and review</span>}
-        aside={<span className="tnum">Version {record.version}</span>}
       >
         <div className="flex flex-col gap-6">
           <div className="border-b border-line pb-4">
@@ -112,7 +110,6 @@ export function SignatureSection({ ctx }: { ctx: PatientContext }) {
         </>
       ) : null}
 
-      <AuditPanel recordAudit={record.audit} caseAudit={caseState.audit} />
     </section>
   );
 }
