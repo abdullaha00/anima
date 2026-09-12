@@ -12,6 +12,9 @@ import { ThreadEntries } from "@/components/thread/ThreadEntries";
 import { Composer } from "@/components/thread/Composer";
 import { resolveAuthor } from "@/components/thread/authors";
 import { OpenThreadForm } from "@/components/team/OpenThreadForm";
+import { DraftCommunications, MeetingBriefing } from "@/components/thread/ReviewPanels";
+import { isFamilyAudience } from "@/components/review/Citations";
+import { getReviewStatus } from "@/lib/stage2/read";
 
 export const dynamic = "force-dynamic";
 
@@ -43,6 +46,16 @@ export default async function ThreadPage({
   const familyParticipants = caseState.participants.filter((p) => p.channel === "family" && !p.recipientOnly);
   const teamProposed = caseState.participants.length > 0;
 
+  // The record review, if one exists. Drafts are drafts: nothing is posted to either channel by Cairn.
+  const { review } = await getReviewStatus(patient.id);
+  const drafts = (review?.assessment.communications ?? []).filter((c) => isFamilyAudience(c.audience) === family);
+  const reviewPanels = review ? (
+    <>
+      {!family ? <MeetingBriefing meeting={review.assessment.meeting} /> : null}
+      <DraftCommunications communications={drafts} audience={channel} />
+    </>
+  ) : null;
+
   const proposals = (thread?.messages ?? [])
     .filter((m) => m.kind === "proposal" && m.proposes)
     .map((m) => ({
@@ -59,7 +72,8 @@ export default async function ThreadPage({
       <p className="prose-clinical py-4 text-[13px] font-medium leading-5 text-secondary">{THREAD_NOT_RECORD_LINE}</p>
 
       {!thread ? (
-        <Panel className="mt-2 max-w-2xl">
+        <div className="mt-2 flex max-w-2xl flex-col gap-6">
+        <Panel>
           <h2 className="font-display text-[22px] leading-tight text-ink">
             {family ? "No family channel is open" : "No coordination thread is open"}
           </h2>
@@ -110,6 +124,8 @@ export default async function ThreadPage({
             </div>
           )}
         </Panel>
+        {reviewPanels}
+        </div>
       ) : (
         <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_320px] xl:items-start">
           <div className="flex min-w-0 flex-col gap-8">
@@ -161,6 +177,7 @@ export default async function ThreadPage({
           </div>
 
           <aside className="flex min-w-0 flex-col gap-4">
+            {reviewPanels}
             <Panel title={family ? "Family channel" : "Professional thread"}>
               {family ? (
                 <div className="flex flex-col gap-2 text-[13px] font-medium leading-5 text-secondary">

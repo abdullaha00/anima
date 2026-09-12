@@ -3,7 +3,9 @@ import { PatientStrip } from "@/components/shell/PatientStrip";
 import { EvidenceChain } from "@/components/patient/EvidenceChain";
 import { PlanStatus } from "@/components/patient/PlanStatus";
 import { CaseActions } from "@/components/patient/CaseActions";
+import { RecordReview } from "@/components/patient/RecordReview";
 import { PagedList, type PagedItem } from "@/components/patient/PagedList";
+import { getReviewStatus } from "@/lib/stage2/read";
 import { EmptyLine, Panel } from "@/components/ui";
 import { formatDate, monthsBetween, plural } from "@/lib/format";
 import type { Patient, ReviewTier, TimelineEvent } from "@/lib/domain/types";
@@ -78,6 +80,7 @@ export default async function PatientPage({ params }: { params: Promise<{ id: st
   const { id } = await params;
   const ctx = await loadPatientContext(id);
   const { patient, assessment, caseState, nowIso } = ctx;
+  const reviewStatus = await getReviewStatus(patient.id);
   const firstName = patient.name?.split(" ")[0] ?? "this person";
   const facts = whyFacts(patient, nowIso);
 
@@ -115,6 +118,9 @@ export default async function PatientPage({ params }: { params: Promise<{ id: st
               </div>
             ) : null}
           </section>
+
+          {/* Stage 2: a read-only reading of the whole record, a prompt for clinical review. */}
+          <RecordReview status={reviewStatus} patientName={firstName} />
 
           <Panel title={`Why ${firstName} is on the list`} tone="brand">
             <p className="text-[18px] font-semibold leading-snug tracking-[-0.01em] text-ink">{TIER_SENTENCE[assessment.tier]}</p>

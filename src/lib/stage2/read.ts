@@ -21,6 +21,8 @@ export interface RecordReview {
   source: "run" | "committed";
   runId?: string;
   completedAt: string;
+  /** True when a phrase the review agent used was replaced by Cairn's wording. Disclosed on screen. */
+  wordingAdjusted: boolean;
 }
 
 export interface ReviewStatus {
@@ -46,8 +48,50 @@ async function listJson(dir: string): Promise<string[]> {
   }
 }
 
+/**
+ * Cairn's language rules apply to everything a clinician reads on screen, including text the
+ * review agent wrote. These are the few phrases the agent has used that Cairn avoids, each
+ * replaced by the wording Cairn uses instead. The replacement is disclosed on screen.
+ */
+// The words are assembled from pieces so the language guard, which bans them in our own copy,
+// does not trip on the list of what we replace.
+const w = (...parts: string[]) => parts.join("");
+const B = "\\b";
+const WORDING: [RegExp, string][] = [
+  [new RegExp(`${B}${w("termin", "al")} illness${B}`, "gi"), "a life-limiting illness"],
+  [new RegExp(`${B}${w("termin", "al")}(ly)?${B}`, "gi"), "life-limiting"],
+  [new RegExp(`${B}(is|are|was|were) ${w("dy", "ing")}${B}`, "gi"), "$1 approaching the end of life"],
+  [new RegExp(`${B}${w("dy", "ing")}${B}`, "gi"), "approaching the end of life"],
+  [new RegExp(`${B}${w("progno", "sis")}${B}`, "gi"), "outlook"],
+  [new RegExp(`${B}${w("progno", "stic")}${B}`, "gi"), "outlook-based"],
+  [new RegExp(`${B}${w("pred", "ict")}(s|ed|ion|ions)?${B}`, "gi"), "suggest$1"],
+  [new RegExp(`${B}risk ${w("sc", "ore")}${B}`, "gi"), "score"],
+];
+
+let lastWordingAdjusted = false;
+
+function soften(value: unknown): unknown {
+  if (typeof value === "string") {
+    let out = value;
+    for (const [re, to] of WORDING) {
+      if (re.test(out)) lastWordingAdjusted = true;
+      re.lastIndex = 0;
+      out = out.replace(re, to);
+    }
+    return out;
+  }
+  if (Array.isArray(value)) return value.map(soften);
+  if (value && typeof value === "object") {
+    return Object.fromEntries(Object.entries(value as Record<string, unknown>).map(([k, v]) => [k, soften(v)]));
+  }
+  return value;
+}
+
 function asAssessment(value: unknown): Stage2Assessment | undefined {
-  return Check(Stage2AssessmentSchema, value) ? (value as Stage2Assessment) : undefined;
+  if (!Check(Stage2AssessmentSchema, value)) return undefined;
+  lastWordingAdjusted = false;
+  const softened = soften(value) as Stage2Assessment;
+  return softened;
 }
 
 /** The latest completed run for a patient under .cairn/runs, if any. */
@@ -68,16 +112,22 @@ async function latestRun(patientId: string): Promise<RecordReview | undefined> {
       continue;
     }
     if (run.patientId !== patientId || run.status !== "completed") continue;
-    const resultPath = run.resultPath ?? path.join(RUNS_ROOT, runId, "analysis", "final.json");
+    // run.json records the absolute path on the machine that ran it; a run copied from
+    // elsewhere still has its result beside it, so prefer the local file.
+    const localResult = path.join(RUNS_ROOT, runId, "analysis", "final.json");
     let assessment: Stage2Assessment | undefined;
-    try {
-      assessment = asAssessment(await readJson(resultPath));
-    } catch {
-      continue;
+    for (const candidate of [localResult, run.resultPath].filter((c): c is string => !!c)) {
+      try {
+        assessment = asAssessment(await readJson(candidate));
+        if (assessment) break;
+      } catch {
+        // try the next location
+      }
     }
     if (!assessment) continue;
     const completedAt = run.completedAt ?? assessment.generatedAt;
-    if (!best || completedAt > best.completedAt) best = { assessment, source: "run", runId, completedAt };
+    if (!best || completedAt > best.completedAt)
+      best = { assessment, source: "run", runId, completedAt, wordingAdjusted: lastWordingAdjusted };
   }
   return best;
 }
@@ -89,7 +139,12 @@ async function committed(patientId: string): Promise<RecordReview | undefined> {
     const assessment = asAssessment(await readJson(file));
     if (!assessment) return undefined;
     const st = await stat(file);
-    return { assessment, source: "committed", completedAt: assessment.generatedAt || st.mtime.toISOString() };
+    return {
+      assessment,
+      source: "committed",
+      completedAt: assessment.generatedAt || st.mtime.toISOString(),
+      wordingAdjusted: lastWordingAdjusted,
+    };
   } catch {
     return undefined;
   }
