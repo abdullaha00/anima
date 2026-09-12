@@ -105,7 +105,7 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
   ];
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex min-w-0 flex-col gap-8">
       <PageHeader
         eyebrow="Case finding"
         title="Worklist"
@@ -136,7 +136,7 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
       {result.modelDisclosure ? <Notice kind="info">{result.modelDisclosure}</Notice> : null}
 
       <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_300px]">
-        <div className="flex flex-col gap-6">
+        <div className="flex min-w-0 flex-col gap-6">
           <WorklistFilters values={filters} owners={owners} imdAvailable={e.imdAvailable} />
 
           {groups.length === 0 ? (
@@ -231,7 +231,7 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
           )}
         </div>
 
-        <aside className="flex flex-col gap-5">
+        <aside className="flex min-w-0 flex-col gap-5">
           <Panel title="Cohort composition" aside="descriptive" tone="brand">
             <dl className="flex flex-col gap-4">
               <div>

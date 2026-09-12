@@ -22,7 +22,7 @@ export default async function PatientPage({ params }: { params: Promise<{ id: st
       <PatientStrip patient={patient} assessment={assessment} caseState={caseState} current="" />
 
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
-        <div className="flex flex-col gap-6">
+        <div className="flex min-w-0 flex-col gap-6">
           {/* The person before the record. Their own recorded goals, set large on Cairn green:
               the one bold element on the screen, so everything clinical around it can stay quiet. */}
           <section aria-labelledby="in-their-words" className="overflow-hidden rounded-lg bg-primary text-primary-ink shadow-sm">
@@ -74,7 +74,7 @@ export default async function PatientPage({ params }: { params: Promise<{ id: st
           <PlanStatus patient={patient} caseState={caseState} />
         </div>
 
-        <aside className="flex flex-col gap-5">
+        <aside className="flex min-w-0 flex-col gap-5">
           <CaseActions caseState={caseState} patientId={patient.id} />
 
           <Panel title="Admissions and contacts" aside={`${patient.timeline.length} entries`}>

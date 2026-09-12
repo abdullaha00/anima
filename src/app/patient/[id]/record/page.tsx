@@ -53,7 +53,7 @@ export default async function RecordPage({ params }: { params: Promise<{ id: str
       <PatientStrip patient={patient} assessment={assessment} caseState={caseState} current="/record" />
 
       <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(16rem,20rem)] xl:items-start">
-        <div className="flex flex-col gap-8">
+        <div className="flex min-w-0 flex-col gap-8">
           <header className="flex flex-col gap-2">
             <h2 className="font-display text-[22px] leading-tight text-ink">The record</h2>
             <p className={`text-[15px] leading-6 ${signed ? "font-medium text-affirm" : "text-secondary"}`}>{statusLine}</p>
@@ -74,7 +74,7 @@ export default async function RecordPage({ params }: { params: Promise<{ id: str
           <RecordFields record={record} patientId={patient.id} defaultSource={defaultSource} locked={signed} />
 
           {signed ? (
-            <div className="flex flex-col gap-8">
+            <div className="flex min-w-0 flex-col gap-8">
               <Notice kind="affirm">
                 Signed by {record.signedBy} on {formatDateTime(record.signedAt)}. The record is now immutable; a change
                 creates a new version.

@@ -60,7 +60,7 @@ export default async function TeamPage({ params }: { params: Promise<{ id: strin
         </Panel>
       ) : (
         <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px] xl:items-start">
-          <div className="flex flex-col gap-8">
+          <div className="flex min-w-0 flex-col gap-8">
             <Panel as="div" tone="brand">
               <section aria-labelledby="team-heading">
                 <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
@@ -138,10 +138,10 @@ export default async function TeamPage({ params }: { params: Promise<{ id: strin
             <RemovedGroup removed={caseState.removedParticipants} />
           </div>
 
-          <aside className="flex flex-col gap-4">
+          <aside className="flex min-w-0 flex-col gap-4">
             <Panel title="Next action">
               {professionalThread ? (
-                <div className="flex flex-col gap-4">
+                <div className="flex min-w-0 flex-col gap-4">
                   <p className="text-[15px] leading-6 text-secondary">
                     The professional coordination thread is open with {professionalThread.participantIds.length}{" "}
                     participants.
@@ -151,7 +151,7 @@ export default async function TeamPage({ params }: { params: Promise<{ id: strin
                   </ButtonLink>
                 </div>
               ) : state === "team assembled" ? (
-                <div className="flex flex-col gap-3">
+                <div className="flex min-w-0 flex-col gap-3">
                   <Microlabel>Open the coordination thread</Microlabel>
                   <p className="text-[13px] font-medium leading-5 text-secondary">
                     Scoped to this patient and this decision, with a closed participant list and an audit of who has

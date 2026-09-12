@@ -202,8 +202,8 @@ export function Panel({
     <Tag className={`overflow-hidden rounded-lg border border-line bg-surface shadow-sm ${className}`}>
       {title ? (
         <header className={`flex items-baseline justify-between gap-4 px-6 py-3.5 ${header}`}>
-          <h2 className={`text-[14px] font-bold tracking-[-0.01em] ${titleColour}`}>{title}</h2>
-          {aside ? <div className={`text-[12px] ${asideColour}`}>{aside}</div> : null}
+          <h2 className={`min-w-0 text-[14px] font-bold tracking-[-0.01em] ${titleColour}`}>{title}</h2>
+          {aside ? <div className={`min-w-0 text-right text-[12px] ${asideColour}`}>{aside}</div> : null}
         </header>
       ) : null}
       <div className="px-6 py-5">{children}</div>

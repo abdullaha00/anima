@@ -112,7 +112,7 @@ export default async function ThreadPage({
         </Panel>
       ) : (
         <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_320px] xl:items-start">
-          <div className="flex flex-col gap-8">
+          <div className="flex min-w-0 flex-col gap-8">
             <ThreadHeader thread={thread} caseState={caseState} />
 
             <Panel as="div">
@@ -160,7 +160,7 @@ export default async function ThreadPage({
             ) : null}
           </div>
 
-          <aside className="flex flex-col gap-4">
+          <aside className="flex min-w-0 flex-col gap-4">
             <Panel title={family ? "Family channel" : "Professional thread"}>
               {family ? (
                 <div className="flex flex-col gap-2 text-[13px] font-medium leading-5 text-secondary">
