@@ -11,6 +11,9 @@ import {
 } from "@/lib/record/fields";
 import { draftFor } from "@/lib/record/drafts";
 import { Disclosure, Panel } from "@/components/ui";
+
+/** Shown when nothing in the record says whether the person had capacity, so nothing is pre-selected. */
+const NO_CAPACITY_NOTE = "Nothing in the record says whether the person had capacity. Cairn has not pre-selected; choose after the conversation.";
 import { FieldEntryForm, type FieldEntryKind } from "./FieldEntryForm";
 
 /** The three ReSPECT sections on the form: anchor, title and the line under it. */
@@ -128,7 +131,7 @@ function Field({ def: f, record, patient, review, nowIso, locked, nested = false
           options={options}
           defaultSource={draft?.source}
           defaultValue={draft?.value ?? (kind === "segmented" ? "No recorded decision" : "")}
-          draftNote={draftNote}
+          draftNote={draftNote ?? (f.name === "capacity_assessment" ? NO_CAPACITY_NOTE : undefined)}
           buttonLabel={buttonLabel}
           serif={serif}
         />
