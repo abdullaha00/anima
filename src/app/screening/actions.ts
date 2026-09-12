@@ -1,5 +1,6 @@
 "use server";
 import { revalidatePath } from "next/cache";
+import { DISPLAY_COVERAGE_KINDS } from "@/lib/stage1/linked-review";
 import { enqueueScreening, retryScreening, ScreeningJobError } from "@/lib/stage1/job-queue";
 import { enforceStage2RateLimit } from "@/lib/cairn/api-auth";
 
@@ -31,7 +32,7 @@ export async function saveClinicalReview(_previous: { message: string }, data: F
     const { CLINICIAN } = await import("@/lib/copy");
     const screeningId = String(data.get("screeningId") ?? "");
     const { input, job, coverage } = await verifiedLinkedReview(screeningId);
-    if (coverage.kind !== "live" || !await getPatient(input.patientId)) return { message: "Only a fresh simulator review for a known patient can enter the care workflow. Authored examples remain in the research view." };
+    if (!DISPLAY_COVERAGE_KINDS.includes(coverage.kind) || !await getPatient(input.patientId)) return { message: "Only a verified screening for a known patient can enter the care workflow." };
     const decision = String(data.get("decision")) as "accepted" | "amended" | "dismissed";
     await updateCase(input.patientId, c => decideScreening(c, { patientId: input.patientId, screeningId, snapshotHash: input.snapshotHash, stage2JobId: job.id }, {
       decision, reason: String(data.get("reason") ?? ""), ownerId: String(data.get("ownerId") ?? ""), what: String(data.get("what") ?? ""), due: String(data.get("due") ?? ""), expectedRevision: Number(data.get("revision")),
