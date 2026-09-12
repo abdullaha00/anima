@@ -1,0 +1,2715 @@
+[
+  {
+    "id": "r-1",
+    "data": {
+      "text": "Fictional case. Blood monitoring requested; home equipment and medication handover not confirmed."
+    },
+    "kind": "document",
+    "dueAt": 1789286400000,
+    "owner": "hospital",
+    "title": "Discharge: monitoring required; medication list changed",
+    "status": "available",
+    "version": 1,
+    "priority": "urgent",
+    "createdAt": 1789200000000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "hospital"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789200000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Synthetic hospital history"
+        },
+        "action": "generate_history",
+        "source": "hospital",
+        "version": 1
+      },
+      "recovery": {
+        "basis": "synthetic-history",
+        "migration": "historical-record-attribution-v2"
+      }
+    }
+  },
+  {
+    "id": "r-3",
+    "data": {
+      "drug": "Furosemide tablets",
+      "note": "Simulation only; no dosing guidance.",
+      "stock": 3
+    },
+    "kind": "prescription",
+    "dueAt": 1789286400000,
+    "owner": "pharmacy",
+    "title": "Discharge medication supply",
+    "status": "approved",
+    "version": 1,
+    "priority": "urgent",
+    "createdAt": 1789200000000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "pharmacy",
+      "hospital",
+      "patient"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789200000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Synthetic pharmacy history"
+        },
+        "action": "generate_history",
+        "source": "pharmacy",
+        "version": 1
+      },
+      "recovery": {
+        "basis": "synthetic-history",
+        "migration": "historical-record-attribution-v2"
+      }
+    }
+  },
+  {
+    "id": "r-6",
+    "data": {
+      "channel": "respiratory",
+      "linkedRecord": true,
+      "participants": 21
+    },
+    "kind": "message",
+    "dueAt": 1789286400000,
+    "owner": "messaging",
+    "title": "Respiratory: review worsening oxygen requirement",
+    "status": "open",
+    "version": 1,
+    "priority": "urgent",
+    "createdAt": 1789200000000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "messaging",
+      "hospital",
+      "gp"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789200000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Synthetic messaging history"
+        },
+        "action": "generate_history",
+        "source": "messaging",
+        "version": 1
+      },
+      "recovery": {
+        "basis": "synthetic-history",
+        "migration": "historical-record-attribution-v2"
+      }
+    }
+  },
+  {
+    "id": "r-7",
+    "data": {
+      "channel": "discharge-and-flow",
+      "linkedRecord": true,
+      "participants": 14
+    },
+    "kind": "message",
+    "dueAt": 1789286400000,
+    "owner": "messaging",
+    "title": "Discharge & flow: confirm medication handover",
+    "status": "open",
+    "version": 1,
+    "priority": "urgent",
+    "createdAt": 1789200000000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "messaging",
+      "hospital",
+      "pharmacy",
+      "community"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789200000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Synthetic messaging history"
+        },
+        "action": "generate_history",
+        "source": "messaging",
+        "version": 1
+      },
+      "recovery": {
+        "basis": "synthetic-history",
+        "migration": "historical-record-attribution-v2"
+      }
+    }
+  },
+  {
+    "id": "r-47",
+    "data": {
+      "ward": "AMU",
+      "barrier": "medicines and home monitoring",
+      "expectedDischarge": "today"
+    },
+    "kind": "bed",
+    "dueAt": 1789286400000,
+    "owner": "beds",
+    "title": "Acute medical bed 12",
+    "status": "occupied",
+    "version": 1,
+    "priority": "urgent",
+    "createdAt": 1789200000000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "beds",
+      "hospital",
+      "community",
+      "pharmacy"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789200000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Synthetic beds history"
+        },
+        "action": "generate_history",
+        "source": "beds",
+        "version": 1
+      },
+      "recovery": {
+        "basis": "synthetic-history",
+        "migration": "historical-record-attribution-v2"
+      }
+    }
+  },
+  {
+    "id": "hospital-attendance-seed-0",
+    "data": {
+      "stage": "waiting",
+      "acuity": "2",
+      "location": "Waiting room",
+      "arrivalAt": 1789197900000,
+      "clinician": "Unassigned",
+      "presentingComplaint": "Breathlessness"
+    },
+    "kind": "hospital-attendance",
+    "owner": "hospital",
+    "title": "Breathlessness",
+    "status": "waiting",
+    "version": 1,
+    "priority": "urgent",
+    "createdAt": 1789197900000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "hospital"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789197900000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Synthetic hospital seed"
+        },
+        "action": "seed",
+        "source": "hospital",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "discharge-summary-example",
+    "data": {
+      "stage": "sent",
+      "sentAt": 1789200000000,
+      "sentBy": "Dr Morgan Bell",
+      "assignee": "",
+      "sections": {
+        "course": "Observation and discharge planning completed in this fictional scenario.",
+        "reason": "Synthetic admission for a monitoring review.",
+        "results": "No outstanding investigations recorded in this example.",
+        "followUp": "Follow-up arrangements require confirmation by the receiving team.",
+        "diagnoses": "See the existing simulated problem list; no new diagnosis recorded.",
+        "gpActions": "Review this handover and record its processing outcome in the simulation.",
+        "medicationChanges": "No changes recorded in this example letter."
+      }
+    },
+    "kind": "discharge-summary",
+    "owner": "hospital",
+    "title": "Discharge summary · monitoring handover",
+    "status": "sent",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1789200000000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "hospital",
+      "gp"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789200000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Morgan Bell"
+        },
+        "action": "seed",
+        "source": "hospital",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "document-batch-2-001",
+    "data": {
+      "stage": "sent",
+      "sentAt": 1789030800000,
+      "sentBy": "Dr Morgan Bell",
+      "assignee": "",
+      "sections": {
+        "course": "The monitoring episode is complete. The appointment reference was missing from the original referral. The discharge coordinator recorded the handover for Amira Khan.",
+        "reason": "Attendance for a planned monitoring episode. This is a fictional episode for document workflow practice.",
+        "results": "The simulated monitoring report is awaiting administrative sign-off.",
+        "followUp": "The cardiology booking office will issue a follow-up appointment letter.",
+        "diagnoses": "No new coded diagnosis is asserted by this training letter. Check the simulated patient record when classifying the correspondence.",
+        "gpActions": "Route to the duty GP for review and request the missing reconciliation attachment from the hospital document team.",
+        "medicationChanges": "The reconciliation attachment has not arrived. No medicine change is specified in this letter."
+      }
+    },
+    "kind": "discharge-summary",
+    "owner": "hospital",
+    "title": "Cardiology · Monitoring handover",
+    "status": "sent",
+    "version": 2,
+    "priority": "urgent",
+    "createdAt": 1789027200000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "hospital",
+      "gp"
+    ],
+    "provenance": {
+      "changes": [
+        {
+          "time": 1789030800000,
+          "actor": {
+            "kind": "simulation",
+            "name": "Dr Morgan Bell"
+          },
+          "action": "seed_document_sent",
+          "source": "hospital",
+          "version": 2
+        }
+      ],
+      "created": {
+        "time": 1789027200000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Morgan Bell"
+        },
+        "action": "seed",
+        "source": "hospital",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-fbc-0",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "fbc",
+        "name": "Full blood count (FBC)"
+      },
+      "analytes": [
+        {
+          "id": "haemoglobin",
+          "name": "Haemoglobin",
+          "unit": "g/L",
+          "value": 157,
+          "referenceLow": 115,
+          "referenceHigh": 165
+        },
+        {
+          "id": "white-cell-count",
+          "name": "White cell count",
+          "unit": "×10⁹/L",
+          "value": 2.6,
+          "referenceLow": 4,
+          "referenceHigh": 11
+        },
+        {
+          "id": "platelets",
+          "name": "Platelets",
+          "unit": "×10⁹/L",
+          "value": 203,
+          "referenceLow": 150,
+          "referenceHigh": 400
+        },
+        {
+          "id": "mcv",
+          "name": "Mean cell volume",
+          "unit": "fL",
+          "value": 80.3,
+          "referenceLow": 80,
+          "referenceHigh": 100
+        },
+        {
+          "id": "neutrophils",
+          "name": "Neutrophils",
+          "unit": "×10⁹/L",
+          "value": 2,
+          "referenceLow": 2,
+          "referenceHigh": 7.5
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1757664000000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "Full blood count (FBC) · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1757667600000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1757667600000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-fbc-1",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "fbc",
+        "name": "Full blood count (FBC)"
+      },
+      "analytes": [
+        {
+          "id": "haemoglobin",
+          "name": "Haemoglobin",
+          "unit": "g/L",
+          "value": 150,
+          "referenceLow": 115,
+          "referenceHigh": 165
+        },
+        {
+          "id": "white-cell-count",
+          "name": "White cell count",
+          "unit": "×10⁹/L",
+          "value": 1.3,
+          "referenceLow": 4,
+          "referenceHigh": 11
+        },
+        {
+          "id": "platelets",
+          "name": "Platelets",
+          "unit": "×10⁹/L",
+          "value": 167,
+          "referenceLow": 150,
+          "referenceHigh": 400
+        },
+        {
+          "id": "mcv",
+          "name": "Mean cell volume",
+          "unit": "fL",
+          "value": 77.1,
+          "referenceLow": 80,
+          "referenceHigh": 100
+        },
+        {
+          "id": "neutrophils",
+          "name": "Neutrophils",
+          "unit": "×10⁹/L",
+          "value": 1,
+          "referenceLow": 2,
+          "referenceHigh": 7.5
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1768464000000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "Full blood count (FBC) · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1768467600000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1768467600000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-fbc-2",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "fbc",
+        "name": "Full blood count (FBC)"
+      },
+      "analytes": [
+        {
+          "id": "haemoglobin",
+          "name": "Haemoglobin",
+          "unit": "g/L",
+          "value": 147,
+          "referenceLow": 115,
+          "referenceHigh": 165
+        },
+        {
+          "id": "white-cell-count",
+          "name": "White cell count",
+          "unit": "×10⁹/L",
+          "value": 0.7,
+          "referenceLow": 4,
+          "referenceHigh": 11
+        },
+        {
+          "id": "platelets",
+          "name": "Platelets",
+          "unit": "×10⁹/L",
+          "value": 149,
+          "referenceLow": 150,
+          "referenceHigh": 400
+        },
+        {
+          "id": "mcv",
+          "name": "Mean cell volume",
+          "unit": "fL",
+          "value": 75.5,
+          "referenceLow": 80,
+          "referenceHigh": 100
+        },
+        {
+          "id": "neutrophils",
+          "name": "Neutrophils",
+          "unit": "×10⁹/L",
+          "value": 0.5,
+          "referenceLow": 2,
+          "referenceHigh": 7.5
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1778832000000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "Full blood count (FBC) · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1778835600000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1778835600000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-fbc-3",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "fbc",
+        "name": "Full blood count (FBC)"
+      },
+      "analytes": [
+        {
+          "id": "haemoglobin",
+          "name": "Haemoglobin",
+          "unit": "g/L",
+          "value": 149,
+          "referenceLow": 115,
+          "referenceHigh": 165
+        },
+        {
+          "id": "white-cell-count",
+          "name": "White cell count",
+          "unit": "×10⁹/L",
+          "value": 1,
+          "referenceLow": 4,
+          "referenceHigh": 11
+        },
+        {
+          "id": "platelets",
+          "name": "Platelets",
+          "unit": "×10⁹/L",
+          "value": 160,
+          "referenceLow": 150,
+          "referenceHigh": 400
+        },
+        {
+          "id": "mcv",
+          "name": "Mean cell volume",
+          "unit": "fL",
+          "value": 76.4,
+          "referenceLow": 80,
+          "referenceHigh": 100
+        },
+        {
+          "id": "neutrophils",
+          "name": "Neutrophils",
+          "unit": "×10⁹/L",
+          "value": 0.8,
+          "referenceLow": 2,
+          "referenceHigh": 7.5
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1784016000000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "Full blood count (FBC) · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1784019600000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1784019600000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-fbc-4",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "fbc",
+        "name": "Full blood count (FBC)"
+      },
+      "analytes": [
+        {
+          "id": "haemoglobin",
+          "name": "Haemoglobin",
+          "unit": "g/L",
+          "value": 155,
+          "referenceLow": 115,
+          "referenceHigh": 165
+        },
+        {
+          "id": "white-cell-count",
+          "name": "White cell count",
+          "unit": "×10⁹/L",
+          "value": 2.3,
+          "referenceLow": 4,
+          "referenceHigh": 11
+        },
+        {
+          "id": "platelets",
+          "name": "Platelets",
+          "unit": "×10⁹/L",
+          "value": 192,
+          "referenceLow": 150,
+          "referenceHigh": 400
+        },
+        {
+          "id": "mcv",
+          "name": "Mean cell volume",
+          "unit": "fL",
+          "value": 79.3,
+          "referenceLow": 80,
+          "referenceHigh": 100
+        },
+        {
+          "id": "neutrophils",
+          "name": "Neutrophils",
+          "unit": "×10⁹/L",
+          "value": 1.7,
+          "referenceLow": 2,
+          "referenceHigh": 7.5
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1787990400000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "Full blood count (FBC) · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1787994000000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1787994000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-fbc-5",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "fbc",
+        "name": "Full blood count (FBC)"
+      },
+      "analytes": [
+        {
+          "id": "haemoglobin",
+          "name": "Haemoglobin",
+          "unit": "g/L",
+          "value": 161,
+          "referenceLow": 115,
+          "referenceHigh": 165
+        },
+        {
+          "id": "white-cell-count",
+          "name": "White cell count",
+          "unit": "×10⁹/L",
+          "value": 3.5,
+          "referenceLow": 4,
+          "referenceHigh": 11
+        },
+        {
+          "id": "platelets",
+          "name": "Platelets",
+          "unit": "×10⁹/L",
+          "value": 227,
+          "referenceLow": 150,
+          "referenceHigh": 400
+        },
+        {
+          "id": "mcv",
+          "name": "Mean cell volume",
+          "unit": "fL",
+          "value": 82.4,
+          "referenceLow": 80,
+          "referenceHigh": 100
+        },
+        {
+          "id": "neutrophils",
+          "name": "Neutrophils",
+          "unit": "×10⁹/L",
+          "value": 2.6,
+          "referenceLow": 2,
+          "referenceHigh": 7.5
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1789113600000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "Full blood count (FBC) · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1789117200000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789117200000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-ue-0",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "ue",
+        "name": "Urea & electrolytes (U&E)"
+      },
+      "analytes": [
+        {
+          "id": "sodium",
+          "name": "Sodium",
+          "unit": "mmol/L",
+          "value": 143,
+          "referenceLow": 133,
+          "referenceHigh": 146
+        },
+        {
+          "id": "potassium",
+          "name": "Potassium",
+          "unit": "mmol/L",
+          "value": 5.2,
+          "referenceLow": 3.5,
+          "referenceHigh": 5.3
+        },
+        {
+          "id": "urea",
+          "name": "Urea",
+          "unit": "mmol/L",
+          "value": 7.7,
+          "referenceLow": 2.5,
+          "referenceHigh": 7.8
+        },
+        {
+          "id": "creatinine",
+          "name": "Creatinine",
+          "unit": "µmol/L",
+          "value": 112,
+          "referenceLow": 45,
+          "referenceHigh": 110
+        },
+        {
+          "id": "egfr",
+          "name": "eGFR",
+          "unit": "mL/min/1.73m²",
+          "value": 53,
+          "referenceLow": 60,
+          "referenceHigh": 120
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1757664000000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "Urea & electrolytes (U&E) · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1757667600000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1757667600000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-ue-1",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "ue",
+        "name": "Urea & electrolytes (U&E)"
+      },
+      "analytes": [
+        {
+          "id": "sodium",
+          "name": "Sodium",
+          "unit": "mmol/L",
+          "value": 145,
+          "referenceLow": 133,
+          "referenceHigh": 146
+        },
+        {
+          "id": "potassium",
+          "name": "Potassium",
+          "unit": "mmol/L",
+          "value": 5.5,
+          "referenceLow": 3.5,
+          "referenceHigh": 5.3
+        },
+        {
+          "id": "urea",
+          "name": "Urea",
+          "unit": "mmol/L",
+          "value": 9.1,
+          "referenceLow": 2.5,
+          "referenceHigh": 7.8
+        },
+        {
+          "id": "creatinine",
+          "name": "Creatinine",
+          "unit": "µmol/L",
+          "value": 128,
+          "referenceLow": 45,
+          "referenceHigh": 110
+        },
+        {
+          "id": "egfr",
+          "name": "eGFR",
+          "unit": "mL/min/1.73m²",
+          "value": 63,
+          "referenceLow": 60,
+          "referenceHigh": 120
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1768464000000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "Urea & electrolytes (U&E) · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1768467600000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1768467600000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-ue-2",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "ue",
+        "name": "Urea & electrolytes (U&E)"
+      },
+      "analytes": [
+        {
+          "id": "sodium",
+          "name": "Sodium",
+          "unit": "mmol/L",
+          "value": 146,
+          "referenceLow": 133,
+          "referenceHigh": 146
+        },
+        {
+          "id": "potassium",
+          "name": "Potassium",
+          "unit": "mmol/L",
+          "value": 5.7,
+          "referenceLow": 3.5,
+          "referenceHigh": 5.3
+        },
+        {
+          "id": "urea",
+          "name": "Urea",
+          "unit": "mmol/L",
+          "value": 9.9,
+          "referenceLow": 2.5,
+          "referenceHigh": 7.8
+        },
+        {
+          "id": "creatinine",
+          "name": "Creatinine",
+          "unit": "µmol/L",
+          "value": 138,
+          "referenceLow": 45,
+          "referenceHigh": 110
+        },
+        {
+          "id": "egfr",
+          "name": "eGFR",
+          "unit": "mL/min/1.73m²",
+          "value": 69,
+          "referenceLow": 60,
+          "referenceHigh": 120
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1778832000000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "Urea & electrolytes (U&E) · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1778835600000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1778835600000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-ue-3",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "ue",
+        "name": "Urea & electrolytes (U&E)"
+      },
+      "analytes": [
+        {
+          "id": "sodium",
+          "name": "Sodium",
+          "unit": "mmol/L",
+          "value": 146,
+          "referenceLow": 133,
+          "referenceHigh": 146
+        },
+        {
+          "id": "potassium",
+          "name": "Potassium",
+          "unit": "mmol/L",
+          "value": 5.6,
+          "referenceLow": 3.5,
+          "referenceHigh": 5.3
+        },
+        {
+          "id": "urea",
+          "name": "Urea",
+          "unit": "mmol/L",
+          "value": 9.7,
+          "referenceLow": 2.5,
+          "referenceHigh": 7.8
+        },
+        {
+          "id": "creatinine",
+          "name": "Creatinine",
+          "unit": "µmol/L",
+          "value": 136,
+          "referenceLow": 45,
+          "referenceHigh": 110
+        },
+        {
+          "id": "egfr",
+          "name": "eGFR",
+          "unit": "mL/min/1.73m²",
+          "value": 68,
+          "referenceLow": 60,
+          "referenceHigh": 120
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1784016000000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "Urea & electrolytes (U&E) · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1784019600000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1784019600000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-ue-4",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "ue",
+        "name": "Urea & electrolytes (U&E)"
+      },
+      "analytes": [
+        {
+          "id": "sodium",
+          "name": "Sodium",
+          "unit": "mmol/L",
+          "value": 144,
+          "referenceLow": 133,
+          "referenceHigh": 146
+        },
+        {
+          "id": "potassium",
+          "name": "Potassium",
+          "unit": "mmol/L",
+          "value": 5.4,
+          "referenceLow": 3.5,
+          "referenceHigh": 5.3
+        },
+        {
+          "id": "urea",
+          "name": "Urea",
+          "unit": "mmol/L",
+          "value": 8.6,
+          "referenceLow": 2.5,
+          "referenceHigh": 7.8
+        },
+        {
+          "id": "creatinine",
+          "name": "Creatinine",
+          "unit": "µmol/L",
+          "value": 123,
+          "referenceLow": 45,
+          "referenceHigh": 110
+        },
+        {
+          "id": "egfr",
+          "name": "eGFR",
+          "unit": "mL/min/1.73m²",
+          "value": 60,
+          "referenceLow": 60,
+          "referenceHigh": 120
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1787990400000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "Urea & electrolytes (U&E) · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1787994000000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1787994000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-ue-5",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "ue",
+        "name": "Urea & electrolytes (U&E)"
+      },
+      "analytes": [
+        {
+          "id": "sodium",
+          "name": "Sodium",
+          "unit": "mmol/L",
+          "value": 142,
+          "referenceLow": 133,
+          "referenceHigh": 146
+        },
+        {
+          "id": "potassium",
+          "name": "Potassium",
+          "unit": "mmol/L",
+          "value": 5.1,
+          "referenceLow": 3.5,
+          "referenceHigh": 5.3
+        },
+        {
+          "id": "urea",
+          "name": "Urea",
+          "unit": "mmol/L",
+          "value": 7.2,
+          "referenceLow": 2.5,
+          "referenceHigh": 7.8
+        },
+        {
+          "id": "creatinine",
+          "name": "Creatinine",
+          "unit": "µmol/L",
+          "value": 107,
+          "referenceLow": 45,
+          "referenceHigh": 110
+        },
+        {
+          "id": "egfr",
+          "name": "eGFR",
+          "unit": "mL/min/1.73m²",
+          "value": 49,
+          "referenceLow": 60,
+          "referenceHigh": 120
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1789113600000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "Urea & electrolytes (U&E) · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1789117200000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789117200000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-hba1c-0",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "hba1c",
+        "name": "HbA1c"
+      },
+      "analytes": [
+        {
+          "id": "hba1c",
+          "name": "HbA1c",
+          "unit": "mmol/mol",
+          "value": 40,
+          "referenceLow": 20,
+          "referenceHigh": 41
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1757664000000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "HbA1c · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1757667600000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1757667600000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-hba1c-1",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "hba1c",
+        "name": "HbA1c"
+      },
+      "analytes": [
+        {
+          "id": "hba1c",
+          "name": "HbA1c",
+          "unit": "mmol/mol",
+          "value": 34,
+          "referenceLow": 20,
+          "referenceHigh": 41
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1768464000000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "HbA1c · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1768467600000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1768467600000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-hba1c-2",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "hba1c",
+        "name": "HbA1c"
+      },
+      "analytes": [
+        {
+          "id": "hba1c",
+          "name": "HbA1c",
+          "unit": "mmol/mol",
+          "value": 30,
+          "referenceLow": 20,
+          "referenceHigh": 41
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1778832000000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "HbA1c · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1778835600000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1778835600000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-hba1c-3",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "hba1c",
+        "name": "HbA1c"
+      },
+      "analytes": [
+        {
+          "id": "hba1c",
+          "name": "HbA1c",
+          "unit": "mmol/mol",
+          "value": 30,
+          "referenceLow": 20,
+          "referenceHigh": 41
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1784016000000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "HbA1c · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1784019600000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1784019600000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-hba1c-4",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "hba1c",
+        "name": "HbA1c"
+      },
+      "analytes": [
+        {
+          "id": "hba1c",
+          "name": "HbA1c",
+          "unit": "mmol/mol",
+          "value": 34,
+          "referenceLow": 20,
+          "referenceHigh": 41
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1787990400000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "HbA1c · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1787994000000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1787994000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-hba1c-5",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "hba1c",
+        "name": "HbA1c"
+      },
+      "analytes": [
+        {
+          "id": "hba1c",
+          "name": "HbA1c",
+          "unit": "mmol/mol",
+          "value": 40,
+          "referenceLow": 20,
+          "referenceHigh": 41
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1789113600000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "HbA1c · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1789117200000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789117200000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-lft-0",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "lft",
+        "name": "Liver function tests (LFT)"
+      },
+      "analytes": [
+        {
+          "id": "alt",
+          "name": "ALT",
+          "unit": "U/L",
+          "value": 12,
+          "referenceLow": 0,
+          "referenceHigh": 40
+        },
+        {
+          "id": "alp",
+          "name": "Alkaline phosphatase",
+          "unit": "U/L",
+          "value": 57,
+          "referenceLow": 30,
+          "referenceHigh": 130
+        },
+        {
+          "id": "bilirubin",
+          "name": "Bilirubin",
+          "unit": "µmol/L",
+          "value": 15,
+          "referenceLow": 0,
+          "referenceHigh": 21
+        },
+        {
+          "id": "albumin",
+          "name": "Albumin",
+          "unit": "g/L",
+          "value": 45,
+          "referenceLow": 35,
+          "referenceHigh": 50
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1757664000000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "Liver function tests (LFT) · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1757667600000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1757667600000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-lft-1",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "lft",
+        "name": "Liver function tests (LFT)"
+      },
+      "analytes": [
+        {
+          "id": "alt",
+          "name": "ALT",
+          "unit": "U/L",
+          "value": 20,
+          "referenceLow": 0,
+          "referenceHigh": 40
+        },
+        {
+          "id": "alp",
+          "name": "Alkaline phosphatase",
+          "unit": "U/L",
+          "value": 72,
+          "referenceLow": 30,
+          "referenceHigh": 130
+        },
+        {
+          "id": "bilirubin",
+          "name": "Bilirubin",
+          "unit": "µmol/L",
+          "value": 18,
+          "referenceLow": 0,
+          "referenceHigh": 21
+        },
+        {
+          "id": "albumin",
+          "name": "Albumin",
+          "unit": "g/L",
+          "value": 47,
+          "referenceLow": 35,
+          "referenceHigh": 50
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1768464000000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "Liver function tests (LFT) · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1768467600000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1768467600000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-lft-2",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "lft",
+        "name": "Liver function tests (LFT)"
+      },
+      "analytes": [
+        {
+          "id": "alt",
+          "name": "ALT",
+          "unit": "U/L",
+          "value": 23,
+          "referenceLow": 0,
+          "referenceHigh": 40
+        },
+        {
+          "id": "alp",
+          "name": "Alkaline phosphatase",
+          "unit": "U/L",
+          "value": 78,
+          "referenceLow": 30,
+          "referenceHigh": 130
+        },
+        {
+          "id": "bilirubin",
+          "name": "Bilirubin",
+          "unit": "µmol/L",
+          "value": 19,
+          "referenceLow": 0,
+          "referenceHigh": 21
+        },
+        {
+          "id": "albumin",
+          "name": "Albumin",
+          "unit": "g/L",
+          "value": 48,
+          "referenceLow": 35,
+          "referenceHigh": 50
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1778832000000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "Liver function tests (LFT) · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1778835600000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1778835600000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-lft-3",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "lft",
+        "name": "Liver function tests (LFT)"
+      },
+      "analytes": [
+        {
+          "id": "alt",
+          "name": "ALT",
+          "unit": "U/L",
+          "value": 19,
+          "referenceLow": 0,
+          "referenceHigh": 40
+        },
+        {
+          "id": "alp",
+          "name": "Alkaline phosphatase",
+          "unit": "U/L",
+          "value": 72,
+          "referenceLow": 30,
+          "referenceHigh": 130
+        },
+        {
+          "id": "bilirubin",
+          "name": "Bilirubin",
+          "unit": "µmol/L",
+          "value": 18,
+          "referenceLow": 0,
+          "referenceHigh": 21
+        },
+        {
+          "id": "albumin",
+          "name": "Albumin",
+          "unit": "g/L",
+          "value": 47,
+          "referenceLow": 35,
+          "referenceHigh": 50
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1784016000000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "Liver function tests (LFT) · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1784019600000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1784019600000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-lft-4",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "lft",
+        "name": "Liver function tests (LFT)"
+      },
+      "analytes": [
+        {
+          "id": "alt",
+          "name": "ALT",
+          "unit": "U/L",
+          "value": 11,
+          "referenceLow": 0,
+          "referenceHigh": 40
+        },
+        {
+          "id": "alp",
+          "name": "Alkaline phosphatase",
+          "unit": "U/L",
+          "value": 56,
+          "referenceLow": 30,
+          "referenceHigh": 130
+        },
+        {
+          "id": "bilirubin",
+          "name": "Bilirubin",
+          "unit": "µmol/L",
+          "value": 15,
+          "referenceLow": 0,
+          "referenceHigh": 21
+        },
+        {
+          "id": "albumin",
+          "name": "Albumin",
+          "unit": "g/L",
+          "value": 45,
+          "referenceLow": 35,
+          "referenceHigh": 50
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1787990400000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "Liver function tests (LFT) · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1787994000000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1787994000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-lft-5",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "lft",
+        "name": "Liver function tests (LFT)"
+      },
+      "analytes": [
+        {
+          "id": "alt",
+          "name": "ALT",
+          "unit": "U/L",
+          "value": 4,
+          "referenceLow": 0,
+          "referenceHigh": 40
+        },
+        {
+          "id": "alp",
+          "name": "Alkaline phosphatase",
+          "unit": "U/L",
+          "value": 42,
+          "referenceLow": 30,
+          "referenceHigh": 130
+        },
+        {
+          "id": "bilirubin",
+          "name": "Bilirubin",
+          "unit": "µmol/L",
+          "value": 12,
+          "referenceLow": 0,
+          "referenceHigh": 21
+        },
+        {
+          "id": "albumin",
+          "name": "Albumin",
+          "unit": "g/L",
+          "value": 43,
+          "referenceLow": 35,
+          "referenceHigh": 50
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1789113600000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "Liver function tests (LFT) · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1789117200000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789117200000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-crp-0",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "crp",
+        "name": "C-reactive protein (CRP)"
+      },
+      "analytes": [
+        {
+          "id": "crp",
+          "name": "C-reactive protein",
+          "unit": "mg/L",
+          "value": 5.6,
+          "referenceLow": 0,
+          "referenceHigh": 5
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1757664000000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "C-reactive protein (CRP) · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1757667600000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1757667600000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-crp-1",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "crp",
+        "name": "C-reactive protein (CRP)"
+      },
+      "analytes": [
+        {
+          "id": "crp",
+          "name": "C-reactive protein",
+          "unit": "mg/L",
+          "value": 4,
+          "referenceLow": 0,
+          "referenceHigh": 5
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1768464000000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "C-reactive protein (CRP) · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1768467600000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1768467600000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-crp-2",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "crp",
+        "name": "C-reactive protein (CRP)"
+      },
+      "analytes": [
+        {
+          "id": "crp",
+          "name": "C-reactive protein",
+          "unit": "mg/L",
+          "value": 2.8,
+          "referenceLow": 0,
+          "referenceHigh": 5
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1778832000000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "C-reactive protein (CRP) · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1778835600000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1778835600000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-crp-3",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "crp",
+        "name": "C-reactive protein (CRP)"
+      },
+      "analytes": [
+        {
+          "id": "crp",
+          "name": "C-reactive protein",
+          "unit": "mg/L",
+          "value": 2.8,
+          "referenceLow": 0,
+          "referenceHigh": 5
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1784016000000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "C-reactive protein (CRP) · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1784019600000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1784019600000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-crp-4",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "crp",
+        "name": "C-reactive protein (CRP)"
+      },
+      "analytes": [
+        {
+          "id": "crp",
+          "name": "C-reactive protein",
+          "unit": "mg/L",
+          "value": 4,
+          "referenceLow": 0,
+          "referenceHigh": 5
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1787990400000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "C-reactive protein (CRP) · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1787994000000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1787994000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-crp-5",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "crp",
+        "name": "C-reactive protein (CRP)"
+      },
+      "analytes": [
+        {
+          "id": "crp",
+          "name": "C-reactive protein",
+          "unit": "mg/L",
+          "value": 5.6,
+          "referenceLow": 0,
+          "referenceHigh": 5
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1789113600000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "C-reactive protein (CRP) · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1789117200000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789117200000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-lipids-0",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "lipids",
+        "name": "Lipid profile"
+      },
+      "analytes": [
+        {
+          "id": "total-cholesterol",
+          "name": "Total cholesterol",
+          "unit": "mmol/L",
+          "value": 4,
+          "referenceLow": 0,
+          "referenceHigh": 5
+        },
+        {
+          "id": "hdl",
+          "name": "HDL cholesterol",
+          "unit": "mmol/L",
+          "value": 1.1,
+          "referenceLow": 1,
+          "referenceHigh": 2.5
+        },
+        {
+          "id": "triglycerides",
+          "name": "Triglycerides",
+          "unit": "mmol/L",
+          "value": 0.5,
+          "referenceLow": 0,
+          "referenceHigh": 1.7
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1757664000000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "Lipid profile · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1757667600000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1757667600000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-lipids-1",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "lipids",
+        "name": "Lipid profile"
+      },
+      "analytes": [
+        {
+          "id": "total-cholesterol",
+          "name": "Total cholesterol",
+          "unit": "mmol/L",
+          "value": 3.6,
+          "referenceLow": 0,
+          "referenceHigh": 5
+        },
+        {
+          "id": "hdl",
+          "name": "HDL cholesterol",
+          "unit": "mmol/L",
+          "value": 1,
+          "referenceLow": 1,
+          "referenceHigh": 2.5
+        },
+        {
+          "id": "triglycerides",
+          "name": "Triglycerides",
+          "unit": "mmol/L",
+          "value": 0.2,
+          "referenceLow": 0,
+          "referenceHigh": 1.7
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1768464000000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "Lipid profile · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1768467600000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1768467600000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-lipids-2",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "lipids",
+        "name": "Lipid profile"
+      },
+      "analytes": [
+        {
+          "id": "total-cholesterol",
+          "name": "Total cholesterol",
+          "unit": "mmol/L",
+          "value": 3.4,
+          "referenceLow": 0,
+          "referenceHigh": 5
+        },
+        {
+          "id": "hdl",
+          "name": "HDL cholesterol",
+          "unit": "mmol/L",
+          "value": 0.9,
+          "referenceLow": 1,
+          "referenceHigh": 2.5
+        },
+        {
+          "id": "triglycerides",
+          "name": "Triglycerides",
+          "unit": "mmol/L",
+          "value": 0.1,
+          "referenceLow": 0,
+          "referenceHigh": 1.7
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1778832000000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "Lipid profile · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1778835600000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1778835600000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-lipids-3",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "lipids",
+        "name": "Lipid profile"
+      },
+      "analytes": [
+        {
+          "id": "total-cholesterol",
+          "name": "Total cholesterol",
+          "unit": "mmol/L",
+          "value": 3.5,
+          "referenceLow": 0,
+          "referenceHigh": 5
+        },
+        {
+          "id": "hdl",
+          "name": "HDL cholesterol",
+          "unit": "mmol/L",
+          "value": 0.9,
+          "referenceLow": 1,
+          "referenceHigh": 2.5
+        },
+        {
+          "id": "triglycerides",
+          "name": "Triglycerides",
+          "unit": "mmol/L",
+          "value": 0.1,
+          "referenceLow": 0,
+          "referenceHigh": 1.7
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1784016000000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "Lipid profile · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1784019600000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1784019600000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-lipids-4",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "lipids",
+        "name": "Lipid profile"
+      },
+      "analytes": [
+        {
+          "id": "total-cholesterol",
+          "name": "Total cholesterol",
+          "unit": "mmol/L",
+          "value": 3.9,
+          "referenceLow": 0,
+          "referenceHigh": 5
+        },
+        {
+          "id": "hdl",
+          "name": "HDL cholesterol",
+          "unit": "mmol/L",
+          "value": 1.1,
+          "referenceLow": 1,
+          "referenceHigh": 2.5
+        },
+        {
+          "id": "triglycerides",
+          "name": "Triglycerides",
+          "unit": "mmol/L",
+          "value": 0.4,
+          "referenceLow": 0,
+          "referenceHigh": 1.7
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1787990400000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "Lipid profile · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1787994000000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1787994000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  },
+  {
+    "id": "blood-v1-SIM-000001-lipids-5",
+    "data": {
+      "kind": "blood-result",
+      "panel": {
+        "id": "lipids",
+        "name": "Lipid profile"
+      },
+      "analytes": [
+        {
+          "id": "total-cholesterol",
+          "name": "Total cholesterol",
+          "unit": "mmol/L",
+          "value": 4.3,
+          "referenceLow": 0,
+          "referenceHigh": 5
+        },
+        {
+          "id": "hdl",
+          "name": "HDL cholesterol",
+          "unit": "mmol/L",
+          "value": 1.3,
+          "referenceLow": 1,
+          "referenceHigh": 2.5
+        },
+        {
+          "id": "triglycerides",
+          "name": "Triglycerides",
+          "unit": "mmol/L",
+          "value": 0.7,
+          "referenceLow": 0,
+          "referenceHigh": 1.7
+        }
+      ],
+      "synthetic": true,
+      "laboratory": "Northbank training laboratory",
+      "collectedAt": 1789113600000
+    },
+    "kind": "report",
+    "owner": "diagnostics",
+    "title": "Lipid profile · synthetic blood results",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1789117200000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "gp",
+      "hospital",
+      "diagnostics"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789117200000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Dr Robin Vial"
+        },
+        "action": "seed_blood_results",
+        "source": "diagnostics",
+        "version": 1
+      }
+    }
+  }
+]

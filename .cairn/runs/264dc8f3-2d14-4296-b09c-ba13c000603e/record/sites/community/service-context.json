@@ -1,0 +1,37 @@
+[
+  {
+    "id": "capacity-community",
+    "data": {
+      "total": 4,
+      "remaining": 4
+    },
+    "kind": "capacity",
+    "owner": "community",
+    "title": "community available slots",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1789200000000,
+    "visibleTo": [
+      "community",
+      "referrals"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789200000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Synthetic community history"
+        },
+        "action": "generate_history",
+        "source": "community",
+        "version": 1
+      },
+      "recovery": {
+        "basis": "synthetic-history",
+        "migration": "historical-record-attribution-v2"
+      }
+    }
+  }
+]

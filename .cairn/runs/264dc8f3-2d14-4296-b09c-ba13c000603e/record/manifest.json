@@ -1,0 +1,237 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000001",
+  "collectedAt": "2026-09-12T13:22:49.652Z",
+  "simulatorOrigin": "https://sim.animahealth.com",
+  "sources": [
+    {
+      "name": "simulation-clock",
+      "relativePath": "clock/simulation.json",
+      "endpoint": "/api/clock",
+      "status": "ok",
+      "attempts": 1,
+      "collectedAt": "2026-09-12T13:22:45.865Z"
+    },
+    {
+      "name": "patient-directory",
+      "relativePath": "patient/directory.json",
+      "endpoint": "/api/sites/gp/patients",
+      "status": "ok",
+      "attempts": 1,
+      "collectedAt": "2026-09-12T13:22:45.876Z"
+    },
+    {
+      "name": "pds-adapter",
+      "relativePath": "patient/pds.json",
+      "endpoint": "/api/nhs/pds",
+      "status": "ok",
+      "attempts": 1,
+      "collectedAt": "2026-09-12T13:22:45.878Z"
+    },
+    {
+      "name": "pds-fhir-patient",
+      "relativePath": "patient/pds-fhir.json",
+      "endpoint": "/api/nhs/pds/Patient/SIM-000001",
+      "status": "ok",
+      "attempts": 1,
+      "collectedAt": "2026-09-12T13:22:45.879Z"
+    },
+    {
+      "name": "nhs-eps",
+      "relativePath": "nhs/eps.json",
+      "endpoint": "/api/nhs/eps",
+      "status": "ok",
+      "attempts": 1,
+      "collectedAt": "2026-09-12T13:22:46.028Z"
+    },
+    {
+      "name": "nhs-eps-tracker",
+      "relativePath": "nhs/eps-tracker.json",
+      "endpoint": "/api/nhs/eps-tracker",
+      "status": "ok",
+      "attempts": 1,
+      "collectedAt": "2026-09-12T13:22:46.029Z"
+    },
+    {
+      "name": "nhs-ers",
+      "relativePath": "nhs/ers.json",
+      "endpoint": "/api/nhs/ers",
+      "status": "ok",
+      "attempts": 1,
+      "collectedAt": "2026-09-12T13:22:46.040Z"
+    },
+    {
+      "name": "nhs-gp-connect",
+      "relativePath": "nhs/gp-connect.json",
+      "endpoint": "/api/nhs/gp-connect",
+      "status": "ok",
+      "attempts": 1,
+      "collectedAt": "2026-09-12T13:22:46.120Z"
+    },
+    {
+      "name": "nhs-mesh",
+      "relativePath": "nhs/mesh.json",
+      "endpoint": "/api/nhs/mesh",
+      "status": "ok",
+      "attempts": 1,
+      "collectedAt": "2026-09-12T13:22:46.199Z"
+    },
+    {
+      "name": "nhs-scr",
+      "relativePath": "nhs/scr.json",
+      "endpoint": "/api/nhs/scr",
+      "status": "ok",
+      "attempts": 1,
+      "collectedAt": "2026-09-12T13:22:46.622Z"
+    },
+    {
+      "name": "nhs-pathology",
+      "relativePath": "nhs/pathology.json",
+      "endpoint": "/api/nhs/pathology",
+      "status": "ok",
+      "attempts": 1,
+      "collectedAt": "2026-09-12T13:22:46.700Z"
+    },
+    {
+      "name": "nhs-radiology",
+      "relativePath": "nhs/radiology.json",
+      "endpoint": "/api/nhs/radiology",
+      "status": "ok",
+      "attempts": 1,
+      "collectedAt": "2026-09-12T13:22:46.800Z"
+    },
+    {
+      "name": "nhs-appointments",
+      "relativePath": "nhs/appointments.json",
+      "endpoint": "/api/nhs/appointments",
+      "status": "ok",
+      "attempts": 1,
+      "collectedAt": "2026-09-12T13:22:46.900Z"
+    },
+    {
+      "name": "hospital-attendances",
+      "relativePath": "direct/hospital-attendances.json",
+      "endpoint": "/api/sites/hospital/attendances",
+      "status": "ok",
+      "attempts": 1,
+      "collectedAt": "2026-09-12T13:22:46.982Z"
+    },
+    {
+      "name": "hospital-documents",
+      "relativePath": "direct/hospital-documents.json",
+      "endpoint": "/api/sites/hospital/documents",
+      "status": "ok",
+      "attempts": 1,
+      "collectedAt": "2026-09-12T13:22:47.060Z"
+    },
+    {
+      "name": "gp-documents",
+      "relativePath": "direct/gp-documents.json",
+      "endpoint": "/api/sites/gp/documents",
+      "status": "ok",
+      "attempts": 1,
+      "collectedAt": "2026-09-12T13:22:47.682Z"
+    },
+    {
+      "name": "patient-messaging",
+      "relativePath": "direct/patient-messaging.json",
+      "endpoint": "/api/sites/patient/messaging-workspace",
+      "status": "ok",
+      "attempts": 1,
+      "collectedAt": "2026-09-12T13:22:47.782Z"
+    },
+    {
+      "name": "wearable-devices",
+      "relativePath": "direct/wearable-devices.json",
+      "endpoint": "/api/sites/wearables/devices",
+      "status": "ok",
+      "attempts": 1,
+      "collectedAt": "2026-09-12T13:22:47.818Z"
+    },
+    {
+      "name": "wearable-readings",
+      "relativePath": "direct/wearable-readings.json",
+      "endpoint": "/api/sites/wearables/readings",
+      "status": "ok",
+      "attempts": 1,
+      "collectedAt": "2026-09-12T13:22:47.852Z"
+    },
+    {
+      "name": "site-gp",
+      "relativePath": "sites/gp/patient-resources.json",
+      "endpoint": "/api/sites/gp/view",
+      "status": "ok",
+      "attempts": 1,
+      "collectedAt": "2026-09-12T13:22:48.299Z"
+    },
+    {
+      "name": "site-hospital",
+      "relativePath": "sites/hospital/patient-resources.json",
+      "endpoint": "/api/sites/hospital/view",
+      "status": "ok",
+      "attempts": 1,
+      "collectedAt": "2026-09-12T13:22:48.299Z"
+    },
+    {
+      "name": "site-community",
+      "relativePath": "sites/community/patient-resources.json",
+      "endpoint": "/api/sites/community/view",
+      "status": "ok",
+      "attempts": 1,
+      "collectedAt": "2026-09-12T13:22:48.936Z"
+    },
+    {
+      "name": "site-pharmacy",
+      "relativePath": "sites/pharmacy/patient-resources.json",
+      "endpoint": "/api/sites/pharmacy/view",
+      "status": "ok",
+      "attempts": 1,
+      "collectedAt": "2026-09-12T13:22:48.984Z"
+    },
+    {
+      "name": "site-diagnostics",
+      "relativePath": "sites/diagnostics/patient-resources.json",
+      "endpoint": "/api/sites/diagnostics/view",
+      "status": "ok",
+      "attempts": 1,
+      "collectedAt": "2026-09-12T13:22:49.068Z"
+    },
+    {
+      "name": "site-referrals",
+      "relativePath": "sites/referrals/patient-resources.json",
+      "endpoint": "/api/sites/referrals/view",
+      "status": "ok",
+      "attempts": 1,
+      "collectedAt": "2026-09-12T13:22:49.170Z"
+    },
+    {
+      "name": "site-wearables",
+      "relativePath": "sites/wearables/patient-resources.json",
+      "endpoint": "/api/sites/wearables/view",
+      "status": "ok",
+      "attempts": 1,
+      "collectedAt": "2026-09-12T13:22:49.171Z"
+    },
+    {
+      "name": "site-patient",
+      "relativePath": "sites/patient/patient-resources.json",
+      "endpoint": "/api/sites/patient/view",
+      "status": "ok",
+      "attempts": 1,
+      "collectedAt": "2026-09-12T13:22:49.535Z"
+    }
+  ],
+  "coverage": {
+    "successful": 27,
+    "failed": 0,
+    "failedSources": []
+  },
+  "deduplication": {
+    "uniqueResourceCount": 55,
+    "resourcesWithDuplicateVisibility": 47
+  },
+  "safetyGate": {
+    "forceInsufficientEvidence": false,
+    "reasons": []
+  }
+}

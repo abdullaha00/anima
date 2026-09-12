@@ -1,0 +1,37 @@
+[
+  {
+    "id": "capacity-diagnostics",
+    "data": {
+      "total": 4,
+      "remaining": 4
+    },
+    "kind": "capacity",
+    "owner": "diagnostics",
+    "title": "diagnostics available slots",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1789200000000,
+    "visibleTo": [
+      "diagnostics",
+      "referrals"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789200000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Synthetic diagnostics history"
+        },
+        "action": "generate_history",
+        "source": "diagnostics",
+        "version": 1
+      },
+      "recovery": {
+        "basis": "synthetic-history",
+        "migration": "historical-record-attribution-v2"
+      }
+    }
+  }
+]

@@ -1,0 +1,91 @@
+{
+  "resources": [
+    {
+      "id": "messaging-example-1",
+      "data": {
+        "assignee": "",
+        "allowReply": true,
+        "entries": [
+          {
+            "id": "messaging-example-1-1",
+            "body": "Your appointment booking is ready to confirm. Please reply with your preferred morning or afternoon time.",
+            "at": 1789156800000,
+            "actor": {
+              "kind": "simulation",
+              "name": "Alex Ledger · Practice administrator"
+            },
+            "direction": "outgoing",
+            "channel": "email",
+            "delivery": [
+              {
+                "status": "queued",
+                "at": 1789156800000,
+                "actor": {
+                  "kind": "simulation",
+                  "name": "Alex Ledger · Practice administrator"
+                }
+              },
+              {
+                "status": "delivered",
+                "at": 1789156801000,
+                "actor": {
+                  "kind": "simulation",
+                  "name": "Alex Ledger · Practice administrator"
+                }
+              }
+            ]
+          },
+          {
+            "id": "messaging-example-1-2",
+            "body": "Thank you. An afternoon appointment would work for me.",
+            "at": 1789156860000,
+            "actor": {
+              "kind": "simulation",
+              "name": "Amira Khan"
+            },
+            "direction": "incoming",
+            "channel": "sms"
+          }
+        ]
+      },
+      "kind": "conversation",
+      "owner": "gp",
+      "title": "Appointment confirmation",
+      "status": "open",
+      "version": 1,
+      "priority": "routine",
+      "createdAt": 1789156800000,
+      "patientId": "SIM-000001",
+      "visibleTo": [
+        "gp",
+        "patient"
+      ]
+    }
+  ],
+  "patients": [
+    {
+      "id": "SIM-000001",
+      "name": "Amira Khan",
+      "goals": [
+        "Understand the next step",
+        "Avoid unnecessary travel",
+        "Stay at home with a clear contact for help"
+      ],
+      "needs": [
+        "Home visit",
+        "Carer involvement"
+      ],
+      "localIds": {
+        "gp": "RIV-0",
+        "legacy": "WH-90000",
+        "hospital": "NBG-10000"
+      },
+      "birthDate": "1952-05-12",
+      "synthetic": true,
+      "conditions": [
+        "Heart failure",
+        "CKD"
+      ]
+    }
+  ]
+}

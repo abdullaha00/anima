@@ -1,0 +1,33 @@
+{
+  "resourceType": "Bundle",
+  "type": "searchset",
+  "total": 1,
+  "originalTotal": 1,
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "SIM-000001",
+        "identifier": [
+          {
+            "system": "urn:nhs-sim:synthetic",
+            "value": "SIM-000001"
+          }
+        ],
+        "name": [
+          {
+            "text": "Amira Khan"
+          }
+        ],
+        "birthDate": "1952-05-12",
+        "meta": {
+          "tag": [
+            {
+              "code": "SYNTHETIC"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

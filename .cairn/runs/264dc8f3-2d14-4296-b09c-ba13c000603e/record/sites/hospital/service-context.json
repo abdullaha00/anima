@@ -1,0 +1,73 @@
+[
+  {
+    "id": "capacity-hospital",
+    "data": {
+      "total": 2,
+      "remaining": 2
+    },
+    "kind": "capacity",
+    "owner": "hospital",
+    "title": "hospital available slots",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1789200000000,
+    "visibleTo": [
+      "hospital",
+      "referrals"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789200000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Synthetic hospital history"
+        },
+        "action": "generate_history",
+        "source": "hospital",
+        "version": 1
+      },
+      "recovery": {
+        "basis": "synthetic-history",
+        "migration": "historical-record-attribution-v2"
+      }
+    }
+  },
+  {
+    "id": "capacity-beds",
+    "data": {
+      "total": 2,
+      "remaining": 2
+    },
+    "kind": "capacity",
+    "owner": "beds",
+    "title": "beds available slots",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1789200000000,
+    "visibleTo": [
+      "beds",
+      "referrals",
+      "hospital"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789200000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Synthetic beds history"
+        },
+        "action": "generate_history",
+        "source": "beds",
+        "version": 1
+      },
+      "recovery": {
+        "basis": "synthetic-history",
+        "migration": "historical-record-attribution-v2"
+      }
+    }
+  }
+]

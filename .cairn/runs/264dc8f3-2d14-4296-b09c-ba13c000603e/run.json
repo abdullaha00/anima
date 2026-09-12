@@ -1,0 +1,20 @@
+{
+  "runId": "264dc8f3-2d14-4296-b09c-ba13c000603e",
+  "patientId": "SIM-000001",
+  "status": "completed",
+  "phase": "completed",
+  "startedAt": "2026-09-12T13:22:45.837Z",
+  "completedAt": "2026-09-12T13:25:43.074Z",
+  "resultPath": "/home/ec2-user/code/others/anima/.cairn/runs/264dc8f3-2d14-4296-b09c-ba13c000603e/analysis/final.json",
+  "recommendation": "proceed",
+  "verificationVerdict": "revised",
+  "collectionCoverage": {
+    "successful": 27,
+    "failed": 0,
+    "failedSources": []
+  },
+  "agentConfiguration": {
+    "model": "openai/gpt-5.6-sol",
+    "thinkingLevel": "low"
+  }
+}

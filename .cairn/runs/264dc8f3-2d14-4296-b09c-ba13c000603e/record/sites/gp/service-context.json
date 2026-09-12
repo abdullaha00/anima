@@ -1,0 +1,37 @@
+[
+  {
+    "id": "capacity-gp",
+    "data": {
+      "total": 6,
+      "remaining": 6
+    },
+    "kind": "capacity",
+    "owner": "gp",
+    "title": "gp available slots",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1789200000000,
+    "visibleTo": [
+      "gp",
+      "referrals"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789200000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Synthetic GP history"
+        },
+        "action": "generate_history",
+        "source": "gp",
+        "version": 1
+      },
+      "recovery": {
+        "basis": "synthetic-history",
+        "migration": "historical-record-attribution-v2"
+      }
+    }
+  }
+]

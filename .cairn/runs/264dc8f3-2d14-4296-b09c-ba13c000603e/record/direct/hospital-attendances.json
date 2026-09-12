@@ -1,0 +1,66 @@
+{
+  "resources": [
+    {
+      "id": "hospital-attendance-seed-0",
+      "data": {
+        "stage": "waiting",
+        "acuity": "2",
+        "location": "Waiting room",
+        "arrivalAt": 1789197900000,
+        "clinician": "Unassigned",
+        "presentingComplaint": "Breathlessness"
+      },
+      "kind": "hospital-attendance",
+      "owner": "hospital",
+      "title": "Breathlessness",
+      "status": "waiting",
+      "version": 1,
+      "priority": "urgent",
+      "createdAt": 1789197900000,
+      "patientId": "SIM-000001",
+      "visibleTo": [
+        "hospital"
+      ],
+      "provenance": {
+        "changes": [],
+        "created": {
+          "time": 1789197900000,
+          "actor": {
+            "kind": "simulation",
+            "name": "Synthetic hospital seed"
+          },
+          "action": "seed",
+          "source": "hospital",
+          "version": 1
+        }
+      }
+    }
+  ],
+  "patients": [
+    {
+      "id": "SIM-000001",
+      "name": "Amira Khan",
+      "goals": [
+        "Understand the next step",
+        "Avoid unnecessary travel",
+        "Stay at home with a clear contact for help"
+      ],
+      "needs": [
+        "Home visit",
+        "Carer involvement"
+      ],
+      "localIds": {
+        "gp": "RIV-0",
+        "legacy": "WH-90000",
+        "hospital": "NBG-10000"
+      },
+      "birthDate": "1952-05-12",
+      "synthetic": true,
+      "conditions": [
+        "Heart failure",
+        "CKD"
+      ]
+    }
+  ],
+  "now": 1789200000000
+}
