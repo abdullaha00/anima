@@ -6,6 +6,8 @@ import { PatientStrip } from "@/components/shell/PatientStrip";
 import { ButtonLink, Notice, Panel } from "@/components/ui";
 import { OutcomeForm, type OutcomeMessageRef, type OutcomePerson, type OutcomeProposal } from "@/components/outcome/OutcomeForm";
 import { OutcomeView } from "@/components/outcome/OutcomeView";
+import { ReviewNextSteps } from "@/components/outcome/ReviewNextSteps";
+import { getReviewStatus } from "@/lib/stage2/read";
 
 export const dynamic = "force-dynamic";
 
@@ -32,6 +34,7 @@ export default async function OutcomePage({ params }: { params: Promise<{ id: st
 
   const base = `/patient/${patient.id}`;
   const outcome = caseState.outcome;
+  const { review } = await getReviewStatus(patient.id);
 
   return (
     <div>
@@ -112,6 +115,16 @@ export default async function OutcomePage({ params }: { params: Promise<{ id: st
             .
           </Notice>
         )}
+
+        {review ? (
+          <ReviewNextSteps
+            patientId={patient.id}
+            actions={review.assessment.immediateActions}
+            owners={owners}
+            nowIso={nowIso}
+            enabled={Boolean(outcome)}
+          />
+        ) : null}
       </div>
     </div>
   );

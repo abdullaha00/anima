@@ -7,6 +7,8 @@ import { sweep } from "@/lib/scoring/sweep";
 import { casesById } from "@/lib/store";
 import { PLAN_GROUPS, planGroupFor, stageFor, type PlanGroup } from "@/lib/coordination/state";
 import { formatDate, formatDateTime, plural } from "@/lib/format";
+import { reviewedPatientIds } from "@/lib/stage2/read";
+import { RECOMMENDATION_LABEL } from "@/lib/stage2/present";
 import { Chip, Mono, Notice, Panel, StateBadge, TierLabel } from "@/components/ui";
 import { WorklistFilters, type FilterValues } from "@/components/worklist/WorklistFilters";
 
@@ -82,7 +84,7 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
     owner: one(sp.owner),
   };
 
-  const [{ patients, meta, mode, degraded }, cases] = await Promise.all([getPatients(), casesById()]);
+  const [{ patients, meta, mode, degraded }, cases, reviewed] = await Promise.all([getPatients(), casesById(), reviewedPatientIds()]);
   const engine = getEngine();
   const nowIso = meta.simulationNow;
   const assessments = await engine.assessMany(patients, { nowIso });
@@ -156,8 +158,8 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
                         <th className="microlabel w-[19%] px-3 py-2.5">Patient</th>
                         <th className="microlabel w-[6%] px-2 py-2.5 tnum">Age</th>
                         <th className="microlabel w-[16%] px-3 py-2.5">Conditions</th>
-                        <th className="microlabel w-[30%] px-3 py-2.5">Indicators present</th>
-                        <th className="microlabel w-[13%] px-3 py-2.5">Stage</th>
+                        <th className="microlabel w-[28%] px-3 py-2.5">Indicators present</th>
+                        <th className="microlabel w-[15%] px-3 py-2.5">Stage</th>
                         <th className="microlabel px-3 py-2.5">Next action · owner</th>
                       </tr>
                     </thead>
@@ -201,6 +203,10 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
                               <div className="flex flex-col items-start gap-1.5">
                                 <Chip tone="brand">{stageFor(r.state)}</Chip>
                                 <StateBadge state={r.state} />
+                                {(() => {
+                                  const rec = reviewed.get(r.patientId);
+                                  return rec ? <Chip tone={RECOMMENDATION_LABEL[rec].tone}>{RECOMMENDATION_LABEL[rec].label}</Chip> : null;
+                                })()}
                               </div>
                             </td>
                             <td className="px-3 py-3 align-top">

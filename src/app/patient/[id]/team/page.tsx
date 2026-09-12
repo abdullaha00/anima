@@ -7,6 +7,8 @@ import { ParticipantRow } from "@/components/team/ParticipantRow";
 import { RemovedGroup } from "@/components/team/RemovedGroup";
 import { AddParticipantForm } from "@/components/team/AddParticipantForm";
 import { OpenThreadForm } from "@/components/team/OpenThreadForm";
+import { ReviewTeamSuggestions } from "@/components/team/ReviewTeamSuggestions";
+import { getReviewStatus } from "@/lib/stage2/read";
 
 export const dynamic = "force-dynamic";
 
@@ -19,6 +21,7 @@ export default async function TeamPage({ params }: { params: Promise<{ id: strin
   const { id } = await params;
   const { patient, assessment, caseState } = await loadPatientContext(id);
   const { participants, state } = caseState;
+  const { review } = await getReviewStatus(patient.id);
 
   const professionals = participants.filter((p) => p.channel === "professional" && !p.recipientOnly);
   const recipients = participants.filter((p) => p.recipientOnly);
@@ -84,6 +87,13 @@ export default async function TeamPage({ params }: { params: Promise<{ id: strin
                 ) : (
                   <EmptyLine>No professional participants remain on this case.</EmptyLine>
                 )}
+                {review ? (
+                  <ReviewTeamSuggestions
+                    patientId={patient.id}
+                    careTeam={review.assessment.careTeam}
+                    participants={participants}
+                  />
+                ) : null}
                 <AddParticipantForm patientId={patient.id} />
               </section>
             </Panel>

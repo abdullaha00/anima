@@ -1,0 +1,20 @@
+{
+  "runId": "a84155d6-f20f-4c1e-848d-837e3e42d373",
+  "patientId": "SIM-000001",
+  "status": "completed",
+  "phase": "completed",
+  "startedAt": "2026-09-12T13:48:15.776Z",
+  "completedAt": "2026-09-12T13:52:03.228Z",
+  "resultPath": "C:\\Users\\PCAdmin\\OneDrive\\Coding Projects\\openai-anima-hackathon\\anima\\.cairn\\runs\\a84155d6-f20f-4c1e-848d-837e3e42d373\\analysis\\final.json",
+  "recommendation": "proceed",
+  "verificationVerdict": "revised",
+  "collectionCoverage": {
+    "successful": 27,
+    "failed": 0,
+    "failedSources": []
+  },
+  "agentConfiguration": {
+    "model": "pi-default",
+    "thinkingLevel": "pi-default"
+  }
+}

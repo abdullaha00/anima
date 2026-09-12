@@ -42,6 +42,7 @@ import { checkFamilyContent } from "@/lib/coordination/family-guard";
 import { canTransition, resume, transition } from "@/lib/coordination/state";
 import { scriptedReplies } from "@/lib/coordination/fixtures";
 import { getCase, nowIso, resetCase, updateCase } from "@/lib/store";
+import { QueueCapacityError, enqueueStage2Job } from "@/lib/cairn/jobs";
 
 export type ActionResult = { ok: true; message?: string } | { ok: false; error: string };
 
@@ -885,4 +886,25 @@ export async function resumeCaseForm(formData: FormData): Promise<void> {
 
 export async function resetDemoForm(formData: FormData): Promise<void> {
   return fromForm(formData, (id) => resetDemo(id));
+}
+
+// ---------------------------------------------------------------------------
+// Stage 2 record review
+// ---------------------------------------------------------------------------
+
+/**
+ * Queue a Stage 2 record review for one patient. This only writes a queued job to the
+ * filesystem queue: the separate worker (`npm run stage2:worker`, which needs a model key
+ * in .env.local) picks it up, and the screen reads the result once it has landed. The
+ * review is clinical decision support only; a named clinician decides.
+ */
+export async function requestRecordReview(patientId: string): Promise<ActionResult> {
+  try {
+    await enqueueStage2Job(patientId);
+    revalidate(patientId);
+    return { ok: true, message: "Record review queued. A worker picks it up; refresh in a few minutes." };
+  } catch (e) {
+    if (e instanceof QueueCapacityError) return { ok: false, error: "The review queue is full, try again shortly." };
+    return { ok: false, error: errorMessage(e) };
+  }
 }
