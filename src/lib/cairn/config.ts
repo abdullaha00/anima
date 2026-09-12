@@ -18,6 +18,12 @@ export const CAIRN_ROOT = path.resolve(
   /* turbopackIgnore: true */
   selectedDataRoot,
 );
+// Pi defaults to ~/.pi/agent even when credentials come from environment variables. Vercel's
+// synthetic home path is not writable (and its parent may not exist), so keep Pi's empty config
+// and credential-store files in the same writable temporary area as the run artifacts.
+if (process.env.VERCEL && !process.env.PI_CODING_AGENT_DIR) {
+  process.env.PI_CODING_AGENT_DIR = path.join(CAIRN_ROOT, "pi-agent");
+}
 export const JOBS_ROOT = path.join(CAIRN_ROOT, "jobs");
 export const RUNS_ROOT = path.join(CAIRN_ROOT, "runs");
 export const SIMULATOR_ORIGIN = (

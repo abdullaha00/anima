@@ -105,13 +105,11 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
   const rows = applyFilters(result.rows, filters, nowIso);
   const groups = groupRows(rows, nowIso);
   const owners = Array.from(new Set(result.rows.map((r) => r.clinician))).sort();
-  const reassessmentPatientId = result.rows[0]?.patientId ?? patients[0]?.id;
 
   return (
     <div className="flex flex-col gap-6">
-      <header className="flex items-center justify-between gap-4 border-b border-line pb-5">
+      <header className="border-b border-line pb-5">
         <h1 className="font-display text-[28px] leading-[1.1] text-ink sm:text-[32px]">Worklist</h1>
-        {reassessmentPatientId ? <ReassessButton patientId={reassessmentPatientId} /> : null}
       </header>
 
       {result.modelDisclosure ? <Notice kind="info">{result.modelDisclosure}</Notice> : null}
@@ -139,13 +137,14 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
                       <th className="microlabel w-[24%] px-3 py-2.5">Patient</th>
                       <th className="microlabel w-[6%] px-2 py-2.5 tnum">Age</th>
                       <th className="microlabel w-[18%] px-3 py-2.5">Conditions</th>
-                      <th className="microlabel w-[30%] px-3 py-2.5">Indicators present</th>
-                      <th className="microlabel px-3 py-2.5">Clinician</th>
+                      <th className="microlabel w-[24%] px-3 py-2.5">Indicators present</th>
+                      <th className="microlabel w-[12%] px-3 py-2.5">Clinician</th>
+                      <th className="microlabel w-[16%] px-3 py-2.5 text-right">Action</th>
                     </tr>
                   </thead>
                   <PagedRows
                     pageSize={PAGE_SIZE}
-                    colSpan={6}
+                    colSpan={7}
                     rows={g.rows.map((r) => {
                       const showState = r.state !== "flagged";
                       const signals = r.assessment.signals;
@@ -198,6 +197,9 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
                             {r.state === "paused" && r.pausedReason ? (
                               <div className="mt-0.5 text-secondary">paused: {r.pausedReason}</div>
                             ) : null}
+                          </td>
+                          <td className="mt-3 block w-full p-0 md:mt-0 md:table-cell md:px-3 md:py-2 md:text-right md:align-top">
+                            <ReassessButton patientId={r.patientId} />
                           </td>
                         </RowLink>
                       );
