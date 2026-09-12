@@ -130,8 +130,8 @@ export default async function PatientPage({ params }: { params: Promise<{ id: st
                 </h2>
                 <ul className="mt-3 flex flex-col gap-2">
                   {goals.map((g) => (
-                    <li key={g} className="font-voice hang-quote text-[26px] leading-[1.35] sm:text-[28px]">
-                      &ldquo;{g}
+                    <li key={g} className="font-voice hang-quote break-words text-[26px] leading-[1.35] sm:text-[28px]">
+                      &ldquo;{g}&rdquo;
                     </li>
                   ))}
                 </ul>

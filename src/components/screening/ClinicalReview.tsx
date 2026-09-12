@@ -23,8 +23,11 @@ export function ClinicalReview({ screeningId, patientId, participants, previous,
       <p className="mt-1 max-w-[65ch] text-[14px] leading-6 text-secondary">
         Check the cited evidence and the patient&rsquo;s wishes, then accept, amend or dismiss the proposal and confirm who owns the next preparation action.
       </p>
-      <p className="mt-2 text-[13px]">
-        <Link href={`/patient/${patientId}/record#team`} className="font-semibold text-primary-hover hover:underline">
+      <p className="mt-1 text-[13px]">
+        <Link
+          href={`/patient/${patientId}/record#team`}
+          className="inline-flex min-h-11 items-center font-semibold text-primary-hover underline-offset-4 hover:underline"
+        >
           Open the care team
         </Link>
       </p>

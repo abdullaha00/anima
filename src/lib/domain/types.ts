@@ -478,7 +478,6 @@ export interface WorklistRow {
   /** The oldest open next step, with its owner, if any */
   waitingOn?: { what: string; ownerName: string; ownerRole: string; due: string; status: NextStep['status'] };
   isCancer: boolean;
-  imdQuintile?: number;
   /** When the record was last signed or edited (latest of signedAt and the audit), for spotting plans due a review */
   lastTouchedAt?: string;
   /** The decision of the patient's latest completed screening, when one exists. The decision only, never a figure. */

@@ -39,7 +39,7 @@ export function PatientStrip({
           >
             Worklist
           </Link>
-          <h1 className="mt-1 font-display text-[28px] leading-[1.1] text-ink">{patient.name ?? patient.id}</h1>
+          <h1 className="mt-1 break-words font-display text-[28px] leading-[1.1] text-ink">{patient.name ?? patient.id}</h1>
           <dl className="mt-2 flex flex-wrap gap-x-6 gap-y-2">
             {facts.map((f) => (
               <div key={f.label} className="flex flex-col">
@@ -57,7 +57,11 @@ export function PatientStrip({
           </div>
         </div>
         {current === "/record" ? null : (
-          <ButtonLink href={`/patient/${patient.id}/record`} variant={started ? "warn" : "primary"} className="shrink-0">
+          <ButtonLink
+            href={`/patient/${patient.id}/record`}
+            variant={started ? "warn" : "primary"}
+            className="w-full shrink-0 sm:w-auto"
+          >
             {started ? "Edit ReSPECT record" : "Start ReSPECT record"}
           </ButtonLink>
         )}

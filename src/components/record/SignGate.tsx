@@ -46,7 +46,7 @@ export function SignGate({
   return (
     <div className="grid gap-8 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] md:gap-10">
       {/* Cairn's path: refused. */}
-      <form action={cairnAction} className="flex flex-col gap-3 md:border-r md:border-line md:pr-10">
+      <form action={cairnAction} className="flex flex-col gap-3 border-b border-line pb-6 md:border-b-0 md:border-r md:pb-0 md:pr-10">
         <input type="hidden" name="patientId" value={patientId} />
         <Microlabel>Cairn</Microlabel>
         <p className="text-[15px] leading-6 text-secondary">

@@ -281,9 +281,9 @@ export function Panel({
   return (
     <Tag className={`overflow-hidden rounded-lg bg-surface shadow-sm ${className}`}>
       {title ? (
-        <header className={`flex items-baseline justify-between gap-4 px-6 py-3.5 ${header}`}>
+        <header className={`flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5 px-6 py-3.5 ${header}`}>
           <Heading className={`min-w-0 text-[14px] font-bold tracking-[-0.01em] ${titleColour}`}>{title}</Heading>
-          {aside ? <div className={`min-w-0 text-right text-[12px] ${asideColour}`}>{aside}</div> : null}
+          {aside ? <div className={`ml-auto min-w-0 text-right text-[12px] ${asideColour}`}>{aside}</div> : null}
         </header>
       ) : null}
       <div className="px-6 py-5">{children}</div>

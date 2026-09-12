@@ -11,13 +11,12 @@ export interface FilterValues {
   tier: string;
   noPlan: string;
   group: string;
-  imd: string;
   owner: string;
 }
 
 type FilterKey = Exclude<keyof FilterValues, "q">;
 
-const FILTER_KEYS: FilterKey[] = ["plan", "tier", "noPlan", "group", "imd", "owner"];
+const FILTER_KEYS: FilterKey[] = ["plan", "tier", "noPlan", "group", "owner"];
 
 const GROUPS = ["heart", "kidney", "respiratory", "neurological", "frailty", "cancer"];
 
@@ -26,7 +25,6 @@ const LABELS: Record<FilterKey, string> = {
   tier: "Review tier",
   noPlan: "Existing plan",
   group: "Condition group",
-  imd: "Deprivation quintile",
   owner: "Clinician",
 };
 
@@ -36,12 +34,12 @@ function describe(key: FilterKey, value: string): string {
   return value;
 }
 
-const EMPTY_FILTERS: Record<FilterKey, string> = { plan: "", tier: "", noPlan: "", group: "", imd: "", owner: "" };
+const EMPTY_FILTERS: Record<FilterKey, string> = { plan: "", tier: "", noPlan: "", group: "", owner: "" };
 
 const SEARCH_DEBOUNCE_MS = 250;
 
 function pick(values: FilterValues): Record<FilterKey, string> {
-  return { plan: values.plan, tier: values.tier, noPlan: values.noPlan, group: values.group, imd: values.imd, owner: values.owner };
+  return { plan: values.plan, tier: values.tier, noPlan: values.noPlan, group: values.group, owner: values.owner };
 }
 
 /**
@@ -49,15 +47,7 @@ function pick(values: FilterValues): Record<FilterKey, string> {
  * list can be shared and reloaded. Search applies as the clinician types (debounced); the
  * filter popout edits a local draft that is only written to the URL on Apply.
  */
-export function WorklistFilters({
-  values,
-  owners,
-  imdAvailable,
-}: {
-  values: FilterValues;
-  owners: string[];
-  imdAvailable: boolean;
-}) {
+export function WorklistFilters({ values, owners }: { values: FilterValues; owners: string[] }) {
   const router = useRouter();
   const pathname = usePathname();
   const [pending, startTransition] = useTransition();
@@ -135,7 +125,7 @@ export function WorklistFilters({
   }
 
   return (
-    <div className={`flex flex-col gap-3 transition-opacity duration-150 ${pending ? "opacity-70" : ""}`}>
+    <div className={`relative flex flex-col gap-3 transition-opacity duration-150 ${pending ? "opacity-70" : ""}`}>
       <div className="flex flex-wrap items-center gap-3">
         <form
           role="search"
@@ -166,7 +156,8 @@ export function WorklistFilters({
           </span>
         </form>
 
-        <div ref={panel} className="relative">
+        {/* Below sm the popout spans the whole filter block so it cannot run off the left edge. */}
+        <div ref={panel} className="static sm:relative">
           <Button
             type="button"
             variant={applied.length ? "primary" : "quiet"}
@@ -181,7 +172,7 @@ export function WorklistFilters({
               id="worklist-filter-panel"
               role="dialog"
               aria-label="Filter the worklist"
-              className="absolute right-0 z-20 mt-2 w-[min(92vw,640px)] rounded-lg border border-line bg-surface p-5 shadow-lg"
+              className="absolute left-0 right-0 z-20 mt-2 w-auto rounded-lg border border-line bg-surface p-5 shadow-lg sm:left-auto sm:w-[min(92vw,640px)]"
             >
               <div className="grid gap-4 sm:grid-cols-2">
                 <label className="flex flex-col gap-1.5">
@@ -213,23 +204,6 @@ export function WorklistFilters({
                     ))}
                   </select>
                 </label>
-                {imdAvailable ? (
-                <label className="flex flex-col gap-1.5">
-                  <span className="text-[13px] font-semibold text-ink">Deprivation quintile</span>
-                  {imdAvailable ? (
-                    <select id="filter-imd" className={selectClass} value={draft.imd} onChange={(e) => setDraftValue("imd", e.target.value)}>
-                      <option value="">all</option>
-                      {[1, 2, 3, 4, 5].map((n) => (
-                        <option key={n} value={String(n)}>
-                          Q{n}
-                        </option>
-                      ))}
-                    </select>
-                  ) : (
-                    <span className="text-[13px] leading-6 text-muted">Not carried by this data source.</span>
-                  )}
-                </label>
-                ) : null}
                 <label className="flex flex-col gap-1.5">
                   <span className="text-[13px] font-semibold text-ink">Clinician</span>
                   <select id="filter-owner" className={selectClass} value={draft.owner} onChange={(e) => setDraftValue("owner", e.target.value)}>
