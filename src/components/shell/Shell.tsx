@@ -2,10 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { CLINICIAN } from "@/lib/copy";
-import { loadExamplePatients } from "@/lib/cohort/examples";
 import { AccountMenu } from "./AccountMenu";
 import { DataStatus } from "./DataStatus";
-import { ExamplePatients } from "./ExamplePatients";
 
 /**
  * The frame around every screen: a top bar on the same stone ground as the page, holding the
@@ -14,7 +12,6 @@ import { ExamplePatients } from "./ExamplePatients";
  * the link in the patient strip.
  */
 export function Shell({ children }: { children: ReactNode }) {
-  const examples = loadExamplePatients().patients;
   return (
     <div className="flex min-h-full flex-1 flex-col">
       <a
@@ -30,7 +27,6 @@ export function Shell({ children }: { children: ReactNode }) {
             <span className="text-[16px] font-bold tracking-[-0.01em] text-ink">Cairn</span>
           </Link>
           <div className="ml-auto flex shrink-0 items-center gap-3 text-[12px] leading-5 text-muted">
-            <ExamplePatients patients={examples} />
             <DataStatus />
             <AccountMenu name={CLINICIAN.name} organisation={CLINICIAN.organisation} />
           </div>
