@@ -46,6 +46,7 @@ export function Composer({
   proposals,
   fields,
   allowedTopics,
+  submitVariant = "primary",
 }: {
   patientId: string;
   threadId: string;
@@ -53,6 +54,8 @@ export function Composer({
   proposals: ProposalOption[];
   fields: FieldOption[];
   allowedTopics: string[];
+  /** 'quiet' when another composer on the same screen already carries the primary action. */
+  submitVariant?: "primary" | "quiet";
 }) {
   const family = channel === "family";
   const kinds: ComposerKind[] = family
@@ -190,7 +193,7 @@ export function Composer({
       ) : null}
 
       <div className="flex flex-wrap items-center gap-4">
-        <Button type="submit" variant="primary" disabled={pending}>
+        <Button type="submit" variant={submitVariant} disabled={pending}>
           {pending ? "Adding to the thread" : "Add to the thread"}
         </Button>
         {family ? (

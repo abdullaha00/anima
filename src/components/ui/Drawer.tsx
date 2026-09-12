@@ -33,15 +33,25 @@ export function Drawer({
       >
         <span
           aria-hidden="true"
-          className={`mt-[0.55rem] inline-block h-2 w-2 shrink-0 border-b border-r border-primary transition-transform duration-150 ${
-            open ? "rotate-45 translate-y-[-2px]" : "-rotate-45 translate-x-[-1px]"
-          }`}
-        />
+          className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-sm text-primary group-hover:bg-primary-soft"
+        >
+          <svg
+            viewBox="0 0 16 16"
+            className={`h-4 w-4 transition-transform duration-150 ${open ? "rotate-90" : ""}`}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M6 3.5 10.5 8 6 12.5" />
+          </svg>
+        </span>
         <span className="flex-1">{summary}</span>
       </button>
-      <div id={id} className="drawer" data-open={open} aria-hidden={!open}>
+      <div id={id} className="drawer" data-open={open} inert={!open}>
         <div>
-          <div className="pb-3 pl-5">{children}</div>
+          <div className="pb-3 pl-9">{children}</div>
         </div>
       </div>
     </div>

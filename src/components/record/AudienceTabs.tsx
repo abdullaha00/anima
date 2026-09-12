@@ -6,7 +6,7 @@ import type { AudienceView } from "@/lib/record/record";
 import { FAMILY_CONSENT_LINE, NOT_BINDING_LINE } from "@/lib/copy";
 import { formatDateTime } from "@/lib/format";
 import { fieldLabel } from "@/lib/record/fields";
-import { Chip, ProvenanceLine } from "@/components/ui";
+import { Chip, Microlabel, ProvenanceLine } from "@/components/ui";
 
 export interface Provenance {
   recordedBy: string;
@@ -27,10 +27,16 @@ function valueOf(view: AudienceView, name: RecordFieldName): string | undefined 
   return view.fields.find((f) => f.name === name)?.value;
 }
 
-/** Four lines, large, high contrast, on the dark ground. CPR first. Nothing else. */
+/** A few lines, large, high contrast, on the dark ground. CPR first, its rationale under it. Nothing else. */
 function AmbulanceView({ view, patientLine }: { view: AudienceView; patientLine?: string }) {
   const cpr = valueOf(view, "cpr_recommendation");
-  const rest: RecordFieldName[] = ["preferences_for_care", "not_recommended", "preferred_place_of_care"];
+  const rest: RecordFieldName[] = [
+    "cpr_rationale",
+    "escalation_ceiling",
+    "recommended_interventions",
+    "preferences_for_care",
+    "preferred_place_of_care",
+  ];
   const label = "text-[11px] font-semibold uppercase tracking-[0.06em] opacity-70";
   return (
     <div className="rounded-lg bg-ink p-8 text-[#F4EFE7]">
@@ -42,6 +48,8 @@ function AmbulanceView({ view, patientLine }: { view: AudienceView; patientLine?
         </div>
         {rest.map((name) => {
           const v = valueOf(view, name);
+          // Only fields on this audience's allowlist are shown; an allowed, absent field says so.
+          if (v === undefined && !view.missing.includes(name)) return null;
           return (
             <div key={name} className="flex flex-col gap-1">
               <span className={label}>{fieldLabel(name)}</span>
@@ -119,7 +127,7 @@ function FamilyView({ view }: { view: AudienceView }) {
   return (
     <div className="flex flex-col gap-8 py-2 sm:px-4">
       <div className="flex flex-col gap-2">
-        <span className="microlabel">What matters</span>
+        <Microlabel>What matters</Microlabel>
         {whatMatters ? (
           <p className="prose-clinical font-voice text-[22px] leading-[1.4] text-ink">&ldquo;{whatMatters}&rdquo;</p>
         ) : (
@@ -127,11 +135,11 @@ function FamilyView({ view }: { view: AudienceView }) {
         )}
       </div>
       <div className="flex flex-col gap-2">
-        <span className="microlabel">Preferred place of care</span>
+        <Microlabel>Preferred place of care</Microlabel>
         <p className="font-voice text-[20px] leading-[1.4] text-ink">{place ?? <span className="text-muted">not recorded</span>}</p>
       </div>
       <div className="flex flex-col gap-2">
-        <span className="microlabel">People involved</span>
+        <Microlabel>People involved</Microlabel>
         <p className="text-[15px] leading-6 text-ink">{people ?? <span className="text-muted">not recorded</span>}</p>
       </div>
       <p className="border-t border-line pt-5 text-[13px] font-medium leading-5 text-secondary">{FAMILY_CONSENT_LINE}</p>
@@ -192,7 +200,7 @@ export function AudienceTabs({ views: unordered, provenance, sharedWith, patient
 
   return (
     <div className="flex flex-col gap-5">
-      <div role="tablist" aria-label="Audience views" className="-mb-px flex flex-wrap gap-x-1 overflow-x-auto border-b border-line">
+      <div role="tablist" aria-label="Audience views" className="-mb-px flex flex-nowrap gap-x-1 overflow-x-auto border-b border-line pb-px">
         {views.map((v, i) => {
           const selected = i === index;
           return (
@@ -205,14 +213,14 @@ export function AudienceTabs({ views: unordered, provenance, sharedWith, patient
               type="button"
               role="tab"
               aria-selected={selected}
-              aria-controls={`${baseId}-panel-${v.audience}`}
+              aria-controls={selected ? `${baseId}-panel-${v.audience}` : undefined}
               tabIndex={i === focused ? 0 : -1}
               onClick={() => {
                 setIndex(i);
                 setFocused(i);
               }}
               onKeyDown={(e) => onKeyDown(e, i)}
-              className={`-mb-px inline-flex min-h-11 items-center gap-2 whitespace-nowrap border-b-2 px-3 text-[13px] font-semibold ${
+              className={`-mb-px inline-flex min-h-11 shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-3 text-[13px] font-semibold ${
                 selected ? "border-primary text-primary" : "border-transparent text-muted hover:border-line-strong hover:text-ink"
               }`}
             >

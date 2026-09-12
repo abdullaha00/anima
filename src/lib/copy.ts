@@ -36,7 +36,19 @@ export const CLINICIAN = {
   name: "Dr Maya Shah",
   role: "usual gp" as const,
   organisation: "Riverside Practice",
+  /** A simulated registration number for the demonstration clinician. Not a real GMC number. */
+  gmc: "7654321",
 };
+
+/** Simulated clinician names for worklist rows whose record names no usual GP. Not real people. */
+export const SIMULATED_CLINICIANS = [
+  "Dr Priya Nair",
+  "Dr Tom Adeyemi",
+  "Dr Hannah Cole",
+  "Dr Samuel Reid",
+  "Dr Aisha Begum",
+  "Dr Owen Hughes",
+];
 
 export const ORGANISATIONS = {
   gp: "Riverside Practice",

@@ -131,7 +131,11 @@ export function refuseSignature(rec: CairnRecord, attemptedBy: string, at?: stri
  * whatever state the draft is in. Readiness is checked directly rather than requiring the
  * awaiting_signature status, so a complete draft can be signed in one step from the UI.
  */
-export function sign(rec: CairnRecord, clinician: string, opts: { at?: string } = {}): CairnRecord {
+export function sign(
+  rec: CairnRecord,
+  clinician: string,
+  opts: { at?: string; gmc?: string; signature?: string; nextReviewAt?: string } = {},
+): CairnRecord {
   if (isCairn(clinician)) {
     throw new SignatureRefused("A record must be signed by a named clinician. Cairn cannot sign.");
   }
@@ -148,10 +152,11 @@ export function sign(rec: CairnRecord, clinician: string, opts: { at?: string } 
   }
   const at = opts.at ?? nowIso();
   const name = clinician.trim();
-  return withAudit(
-    { ...rec, status: "signed", signedBy: name, signedAt: at },
-    auditEvent("sign", name, `signed by ${name}`, at),
-  );
+  const signed: CairnRecord = { ...rec, status: "signed", signedBy: name, signedAt: at };
+  if (opts.gmc?.trim()) signed.signedGmc = opts.gmc.trim();
+  if (opts.signature?.trim()) signed.signature = opts.signature.trim();
+  if (opts.nextReviewAt?.trim()) signed.nextReviewAt = opts.nextReviewAt.trim();
+  return withAudit(signed, auditEvent("sign", name, `signed by ${name}`, at));
 }
 
 export function share(rec: CairnRecord, audiences: Audience[], opts: { actor?: string; at?: string } = {}): CairnRecord {

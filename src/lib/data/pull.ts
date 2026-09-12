@@ -6,17 +6,17 @@
  * the same population. Server-only.
  */
 
-import type { Patient, SnapshotMeta } from '@/lib/domain/types';
+import type { MedicationEntry, Patient, SnapshotMeta } from '@/lib/domain/types';
 import { simBaseUrl, simGet, type SimResponse } from './sim-client';
 import {
   asArray,
   asNumber,
   asRecord,
   asString,
-  deriveAge,
   enrichWithView,
   isRawDirectoryRow,
   isRawResource,
+  MEDICATION_SOURCE,
   normaliseDirectoryPatient,
   withMedication,
   type RawDirectoryRow,
@@ -58,10 +58,8 @@ export const DEEP_RECORD_TERMS = [
   'kidney',
 ];
 
-/** Recorded needs that point at dependency or a care setting worth reading in full. */
-const DEEP_RECORD_NEEDS = /carer|home visit|care home|nursing home|interpreter|step-free|transport/i;
-/** Age at the simulation clock from which the full record is always pulled. */
-export const DEEP_RECORD_AGE = 65;
+/** Recorded needs that point at dependency or a care setting; they feed the named-contact extraction. */
+const DEEP_RECORD_NEEDS = /carer|home visit|care home|nursing home/i;
 
 export interface DeepRecordInput {
   conditions: string[];
@@ -71,17 +69,22 @@ export interface DeepRecordInput {
   hasEpisode?: boolean;
 }
 
+function matchesCatalogueTerm(condition: string): boolean {
+  const lower = condition.toLowerCase();
+  return DEEP_RECORD_TERMS.some((term) => lower.includes(term));
+}
+
 /**
  * Whether a patient earns the full GP and hospital record rather than the directory
- * row alone: any directory condition at all, a need that suggests dependency or a care
- * setting, age 65 or over at the simulation clock, or any hospital attendance or
- * discharge summary.
+ * row alone: a directory condition the catalogue recognises, a need that suggests a
+ * carer or a care setting, or any hospital attendance or discharge summary. A wider
+ * rule (any condition, age 65 or over) was tried and flagged exactly the same patients
+ * from a file nearly three times the size.
  */
 export function needsDeepRecord(input: DeepRecordInput, nowIso: string): boolean {
-  if (input.conditions.length > 0) return true;
+  void nowIso;
+  if (input.conditions.some(matchesCatalogueTerm)) return true;
   if (input.needs.some((need) => DEEP_RECORD_NEEDS.test(need))) return true;
-  const age = deriveAge(input.birthDate, nowIso);
-  if (age !== undefined && age >= DEEP_RECORD_AGE) return true;
   return Boolean(input.hasEpisode);
 }
 
@@ -202,10 +205,14 @@ async function pullResourceList(path: string, problems: string[]): Promise<RawRe
 
 interface EpsMedication {
   patientId: string;
-  drug: string;
+  entry: MedicationEntry;
 }
 
-/** The EPS bundle is simplified FHIR: subject.reference and a JSON string in an extension. */
+/**
+ * The EPS bundle is simplified FHIR: subject.reference, a status, a description and a
+ * JSON string in an extension carrying `drug`, `note` and `stock`. No dose, frequency,
+ * route, prescriber or date is carried.
+ */
 async function pullEps(problems: string[]): Promise<EpsMedication[]> {
   const res = await getWithRetry<unknown>('/api/nhs/eps');
   if (res.status !== 200 || res.json === null) {
@@ -217,24 +224,45 @@ async function pullEps(problems: string[]): Promise<EpsMedication[]> {
     const resource = asRecord(asRecord(entry).resource);
     const reference = asString(asRecord(resource.subject).reference) ?? '';
     const patientId = reference.startsWith('Patient/') ? reference.slice('Patient/'.length) : undefined;
-    const drug = readEpsDrug(resource);
-    if (patientId && drug) out.push({ patientId, drug });
+    const medication = readEpsMedication(resource);
+    if (patientId && medication) out.push({ patientId, entry: medication });
   }
   return out;
 }
 
-function readEpsDrug(resource: Record<string, unknown>): string | undefined {
+function readEpsMedication(resource: Record<string, unknown>): MedicationEntry | undefined {
+  const description = asString(resource.description);
+  let workflow: Record<string, unknown> = {};
   for (const raw of asArray(resource.extension)) {
     const text = asString(asRecord(raw).valueString);
     if (!text) continue;
     try {
-      const drug = asString(asRecord(JSON.parse(text) as unknown).drug);
-      if (drug) return drug;
+      const parsed = asRecord(JSON.parse(text) as unknown);
+      if (asString(parsed.drug)) {
+        workflow = parsed;
+        break;
+      }
     } catch {
       // Not JSON; try the next extension.
     }
   }
-  return asString(resource.description);
+  const name = asString(workflow.drug) ?? description;
+  if (!name) return undefined;
+  const title = description && description.toLowerCase() !== name.toLowerCase() ? description : undefined;
+  const note = [title, asString(workflow.note)].filter((part): part is string => Boolean(part)).join(' ');
+  return {
+    name,
+    status: asString(resource.status),
+    dose: asString(workflow.dose),
+    frequency: asString(workflow.frequency),
+    route: asString(workflow.route),
+    form: asString(workflow.form),
+    quantity: asString(workflow.quantity),
+    prescriber: asString(workflow.prescriber),
+    note: note || undefined,
+    source: MEDICATION_SOURCE.eps,
+    sourceId: asString(resource.id),
+  };
 }
 
 interface ViewPull {
@@ -379,8 +407,8 @@ export async function pullSlice(opts: PullOptions): Promise<PullResult> {
     if (!view.hospital.ok) problems.push(describe(`/api/sites/hospital/view?patient=${view.id}`, view.hospital.status));
   }
 
-  const epsByPatient = new Map<string, string[]>();
-  for (const item of eps) epsByPatient.set(item.patientId, [...(epsByPatient.get(item.patientId) ?? []), item.drug]);
+  const epsByPatient = new Map<string, MedicationEntry[]>();
+  for (const item of eps) epsByPatient.set(item.patientId, [...(epsByPatient.get(item.patientId) ?? []), item.entry]);
 
   const enriched = patients.map((patient) => {
     const view = viewById.get(patient.id);
@@ -388,7 +416,7 @@ export async function pullSlice(opts: PullOptions): Promise<PullResult> {
     let next = view || hospitalResources.length > 0
       ? enrichWithView(patient, view?.gp.resources ?? [], hospitalResources, simulationNow)
       : patient;
-    for (const drug of epsByPatient.get(patient.id) ?? []) next = withMedication(next, drug);
+    for (const entry of epsByPatient.get(patient.id) ?? []) next = withMedication(next, entry);
     return next;
   });
 
@@ -397,7 +425,7 @@ export async function pullSlice(opts: PullOptions): Promise<PullResult> {
   const withFindings = enriched.filter((patient) => (patient.extracted?.length ?? 0) > 0).length;
 
   const notes = [
-    `Directory rows for the first ${formatCount(enriched.length)} patients. The full GP and hospital record was pulled for ${formatCount(deepIds.length)} of them: every patient with any directory condition, a recorded need matching carer, home visit, care home, nursing home, interpreter, step-free or transport, age ${DEEP_RECORD_AGE} or over at the simulation clock, or any hospital attendance or discharge summary. ${formatCount(fullRecordCount)} came back with a complete GP view.`,
+    `Directory rows for the first ${formatCount(enriched.length)} patients. The full GP and hospital record was pulled for ${formatCount(deepIds.length)} of them: every patient with a directory condition the indicator catalogue recognises, a recorded need matching carer, home visit, care home or nursing home, or any hospital attendance or discharge summary. ${formatCount(fullRecordCount)} came back with a complete GP view.`,
     `The simulator has no structured frailty score, NYHA, MRC, performance status, deprivation, register, ACP or next-of-kin fields. Where a consultation, discharge summary, hospital note, referral or inter-service message states one in prose it is quoted into patient.extracted and fills the matching field only when nothing structured exists; ${formatCount(withFindings)} patients carry at least one such finding. Deprivation has no source and stays unset.`,
     'Blood results keep only eGFR, creatinine, albumin, haemoglobin, CRP, potassium and sodium. Consultation text equal to the simulator placeholder is kept on the timeline but not as a narrative.',
   ];

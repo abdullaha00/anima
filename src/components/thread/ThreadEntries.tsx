@@ -1,6 +1,6 @@
 import type { CaseState, CoordinationThread, ThreadMessage } from "@/lib/domain/types";
 import { fieldLabel } from "@/lib/record/fields";
-import { Chip, EmptyLine, SimulatedTag } from "@/components/ui";
+import { Chip, EmptyLine, Microlabel, SimulatedTag } from "@/components/ui";
 import { formatDateTime } from "@/lib/format";
 import { resolveAuthor } from "./authors";
 
@@ -95,11 +95,10 @@ function Entry({ caseState, m, reply = false }: { caseState: CaseState; m: Threa
 
         {isProposal && m.proposes ? (
           <div className="rounded-md bg-surface-2 px-4 py-3">
-            <p className="microlabel">Proposes for the record</p>
+            <Microlabel>Proposes for the record</Microlabel>
             <p className="mt-1 flex flex-wrap items-baseline gap-x-2 gap-y-1 text-[15px] leading-6">
-              <span className="font-medium text-ink">{fieldLabel(m.proposes.field)}</span>
-              <span className="text-muted">→</span>
-              <span className="font-voice text-[17px] text-ink">{m.proposes.value}</span>
+              <span className="text-secondary">{fieldLabel(m.proposes.field)}:</span>
+              <span className="font-semibold text-ink">{m.proposes.value}</span>
               {m.promotedToRecord ? (
                 <Chip className="ml-1 border-affirm-border bg-affirm-soft text-affirm">promoted into the record</Chip>
               ) : null}

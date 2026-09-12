@@ -20,11 +20,18 @@ export async function writeJsonAtomic(
     await fileHandle.close();
     fileHandle = undefined;
     await rename(temporaryPath, filePath);
-    const directoryHandle = await open(directory, "r");
+    // Sync the directory entry too, where the platform allows it. Windows refuses fsync on
+    // a directory handle (EPERM), and the rename above is already durable enough there.
     try {
-      await directoryHandle.sync();
-    } finally {
-      await directoryHandle.close();
+      const directoryHandle = await open(directory, "r");
+      try {
+        await directoryHandle.sync();
+      } finally {
+        await directoryHandle.close();
+      }
+    } catch (error) {
+      const code = (error as NodeJS.ErrnoException).code;
+      if (code !== "EPERM" && code !== "EINVAL" && code !== "EISDIR") throw error;
     }
   } finally {
     await fileHandle?.close().catch(() => undefined);

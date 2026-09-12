@@ -36,8 +36,8 @@
   --line-strong: var(--stone-300);
   --ink: var(--stone-900);
   --secondary: var(--stone-700);
-  --muted: var(--stone-600);
-  --faint: #6f685e; /* between stone-500 and stone-600: 5:1 on white, still reads as metadata */
+  --muted: var(--stone-700);
+  --faint: var(--stone-600); /* 6.1:1 on white, 5.4:1 on the ground: metadata that can still be read at 12px */
 
   --primary: var(--cairn-500);
   --primary-hover: var(--cairn-600);
@@ -122,6 +122,7 @@
 }
 
 html {
+  scroll-padding-top: 112px;
   background: var(--ground);
 }
 
@@ -160,7 +161,6 @@ body {
 :focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 2px;
-  border-radius: 3px;
 }
 
 /* Inputs use the card surface on the stone ground. Focus: cairn-400 plus a soft ring. */
@@ -168,7 +168,7 @@ body {
   font: inherit;
   color: var(--ink);
   background: var(--surface);
-  border: 1.5px solid var(--line-strong);
+  border: 1.5px solid var(--stone-500);
   border-radius: 8px;
   padding: 9px 13px;
   min-height: 44px;
@@ -214,9 +214,14 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-/* The person's own words and the human summary: set larger, medium weight, never bold. */
+/* The person's own words and the human summary: set larger, regular weight, never bold. */
 .font-voice {
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: -0.01em;
+}
+
+/* One hanging opening quote, so the words align and the mark sits in the margin. */
+.hang-quote {
+  text-indent: -0.42em;
 }

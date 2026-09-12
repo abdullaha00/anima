@@ -11,6 +11,7 @@ import type {
   Admission,
   Condition,
   LabResult,
+  MedicationEntry,
   Narrative,
   Patient,
   TimelineEvent,
@@ -233,9 +234,51 @@ interface Accumulator {
   timeline: TimelineEvent[];
   narratives: Narrative[];
   admissions: Admission[];
-  medications: string[];
+  medications: MedicationEntry[];
   medicationCount?: number;
   usualGp?: string;
+}
+
+/** Source labels shown on the medicines list. */
+export const MEDICATION_SOURCE = {
+  gpList: 'GP medicines list',
+  hospital: 'hospital prescription',
+  eps: 'EPS',
+} as const;
+
+/**
+ * One entry per medicine per source. A current issue outranks an ended one of the
+ * same medicine, so the reconciliation copies the GP list keeps for an earlier repeat
+ * never hide the live issue. The same resource seen twice (the EPS bundle mirrors the
+ * pharmacy prescription under the same id) is kept once.
+ */
+export function addMedication(list: MedicationEntry[], entry: MedicationEntry): MedicationEntry[] {
+  if (entry.sourceId && list.some((existing) => existing.sourceId === entry.sourceId && existing.source !== entry.source)) {
+    return list;
+  }
+  const key = `${entry.name.trim().toLowerCase()}|${entry.source}`;
+  const index = list.findIndex((existing) => `${existing.name.trim().toLowerCase()}|${existing.source}` === key);
+  if (index < 0) return [...list, entry];
+  const existing = list[index];
+  if (existing.status === 'ended' && entry.status !== 'ended') {
+    const next = [...list];
+    next[index] = entry;
+    return next;
+  }
+  return list;
+}
+
+/** Join the parts of a remark that the record carries, skipping the empty ones. */
+function joinNote(parts: (string | undefined)[]): string | undefined {
+  const kept = parts.map((part) => part?.trim()).filter((part): part is string => Boolean(part));
+  return kept.length > 0 ? kept.join(' ') : undefined;
+}
+
+/** A sentence from a fragment: capitalised, ending in a full stop. */
+function sentence(text: string): string {
+  const trimmed = text.trim();
+  const capitalised = trimmed.charAt(0).toUpperCase() + trimmed.slice(1);
+  return /[.!?]$/.test(capitalised) ? capitalised : `${capitalised}.`;
 }
 
 function dedupeById(resources: RawResource[]): RawResource[] {
@@ -276,11 +319,6 @@ function createdAtIso(resource: RawResource, acc: Accumulator): string {
   return msToIso(asNumber(resource.createdAt), acc.nowIso);
 }
 
-function addUnique(list: string[], value: string): void {
-  const key = value.trim().toLowerCase();
-  if (!list.some((existing) => existing.trim().toLowerCase() === key)) list.push(value.trim());
-}
-
 /** ehr-record: problem list, medicines list, allergies. */
 function applyEhrRecord(acc: Accumulator, resource: RawResource): void {
   const data = asRecord(resource.data);
@@ -303,13 +341,41 @@ function applyEhrRecord(acc: Accumulator, resource: RawResource): void {
 
   // A medicines list that exists but is empty is a real count of zero. Each entry is
   // one issue of a medicine: `term` names it, `isCurrent: false` marks an ended earlier
-  // issue kept for reconciliation, and `note` is a remark, never a name.
+  // issue kept for reconciliation, and `note` is a remark, never a name. The list
+  // carries route, supply status, issue and review dates, prescription type and
+  // indication. It carries no dose, frequency, form, quantity or prescriber.
   const medicines = asArray(data.medications).map(asRecord);
   const current = medicines.filter((medicine) => medicine.isCurrent !== false);
   acc.medicationCount = current.length;
-  for (const medicine of current) {
+  // Current issues first, so an ended earlier issue never displaces a live one.
+  for (const medicine of [...current, ...medicines.filter((medicine) => medicine.isCurrent === false)]) {
     const name = asString(medicine.term) ?? asString(medicine.drug) ?? asString(medicine.name);
-    if (name) addUnique(acc.medications, name);
+    if (!name) continue;
+    const ended = medicine.isCurrent === false;
+    const indication = asString(medicine.indication);
+    const prescriptionType = asString(medicine.prescriptionType);
+    const reviewDate = asString(medicine.reviewDate);
+    const issueDate = asString(medicine.issueDate);
+    const descriptor = joinNote([
+      prescriptionType ? sentence(`${prescriptionType} prescription${indication ? ` for ${indication}` : ''}`) : indication ? sentence(`for ${indication}`) : undefined,
+      reviewDate && !ended ? sentence(`review due ${reviewDate}`) : undefined,
+    ]);
+    acc.medications = addMedication(acc.medications, {
+      name,
+      status: ended ? 'ended' : asString(medicine.supplyStatus) ?? 'current',
+      dose: asString(medicine.dose),
+      frequency: asString(medicine.frequency),
+      route: asString(medicine.route),
+      form: asString(medicine.form),
+      quantity: asString(medicine.quantity) ?? (asNumber(medicine.quantity) !== undefined ? String(medicine.quantity) : undefined),
+      startedAt: issueDate,
+      endedAt: asString(medicine.endDate) ?? asString(medicine.endedAt),
+      prescriber: asString(medicine.prescriber),
+      note: joinNote([descriptor, asString(medicine.note)]),
+      source: MEDICATION_SOURCE.gpList,
+      at: issueDate,
+      sourceId: resource.id,
+    });
   }
 }
 
@@ -510,11 +576,32 @@ function applyDocument(acc: Accumulator, resource: RawResource): void {
   }
 }
 
+/**
+ * prescription: a pharmacy-owned supply record. It carries the drug, a remark, a stock
+ * count and a workflow status, and nothing about dose, frequency or prescriber.
+ */
 function applyPrescription(acc: Accumulator, resource: RawResource): void {
   const data = asRecord(resource.data);
   const drug = asString(data.drug);
-  if (drug) addUnique(acc.medications, drug);
-  pushEvent(acc, resource, 'prescription', createdAtIso(resource, acc), asString(resource.title) ?? 'Prescription', drug);
+  const atIso = createdAtIso(resource, acc);
+  const title = asString(resource.title);
+  if (drug) {
+    acc.medications = addMedication(acc.medications, {
+      name: drug,
+      status: asString(resource.status),
+      dose: asString(data.dose),
+      frequency: asString(data.frequency),
+      route: asString(data.route),
+      form: asString(data.form),
+      quantity: asString(data.quantity) ?? (asNumber(data.quantity) !== undefined ? String(data.quantity) : undefined),
+      prescriber: asString(data.prescriber) ?? asString(data.clinician),
+      note: joinNote([title && title.toLowerCase() !== drug.toLowerCase() ? sentence(title) : undefined, asString(data.note)]),
+      source: MEDICATION_SOURCE.hospital,
+      at: atIso,
+      sourceId: resource.id,
+    });
+  }
+  pushEvent(acc, resource, 'prescription', atIso, title ?? 'Prescription', drug);
 }
 
 function applyBed(acc: Accumulator, resource: RawResource): void {
@@ -647,9 +734,8 @@ export function enrichWithView(
   return applyFindings(enriched, extractFindings(narratives));
 }
 
-/** Add a medicine named outside the site views (for example from the EPS bundle). */
-export function withMedication(patient: Patient, drug: string): Patient {
-  const medications = [...(patient.medications ?? [])];
-  addUnique(medications, drug);
+/** Add a medicine recorded outside the site views (for example from the EPS bundle). */
+export function withMedication(patient: Patient, entry: MedicationEntry): Patient {
+  const medications = addMedication(patient.medications ?? [], entry);
   return { ...patient, medications };
 }

@@ -16,11 +16,14 @@ export function OpenThreadForm({
   channel,
   defaultPurpose,
   note,
+  submitVariant = "primary",
 }: {
   patientId: string;
   channel: Channel;
   defaultPurpose: string;
   note?: string;
+  /** 'quiet' when another form on the same screen already carries the primary action. */
+  submitVariant?: "primary" | "quiet";
 }) {
   const [state, formAction, pending] = useActionState<ActionResult | null, FormData>(
     async (_prev, fd) => openThread(String(fd.get("patientId") ?? ""), channel, String(fd.get("purpose") ?? "")),
@@ -56,7 +59,7 @@ export function OpenThreadForm({
         </Notice>
       ) : null}
       <div>
-        <Button type="submit" variant="primary" disabled={pending}>
+        <Button type="submit" variant={submitVariant} disabled={pending}>
           {pending
             ? "Opening the coordination thread"
             : channel === "family"

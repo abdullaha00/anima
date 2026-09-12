@@ -1,79 +1,147 @@
 /**
  * The fields of the record, in display order, with the labels and the rules a clinician sees.
- * Ported from reference/cairn/record.py. The order here is the order on the record screen.
+ * Ported from reference/cairn/record.py and reshaped to the ReSPECT sections. The order here
+ * is the order on the record form; the "other" group stays in the model and off the form.
  */
 
 import type { RecordFieldName } from "@/lib/domain/types";
 
+export type RecordFieldGroup = "what matters" | "clinical context" | "emergency care" | "other";
+
 export interface RecordFieldDef {
   name: RecordFieldName;
   label: string;
-  description: string;
+  /** A short plain sentence under the label, where one helps. */
+  description?: string;
   required: boolean;
-  group: "the person" | "clinical recommendations" | "capacity and representation";
+  group: RecordFieldGroup;
   /** True when the field may appear on the family view. */
   familySafe: boolean;
 }
 
+/** The groups shown on the form, in order. "other" is kept in the model and not shown. */
+export const FORM_GROUPS: RecordFieldGroup[] = ["what matters", "clinical context", "emergency care"];
+
+export const CAPACITY_OPTIONS = [
+  "Had capacity for this decision",
+  "Lacked capacity for this decision",
+  "Best interests decision",
+] as const;
+
+export const CPR_OPTIONS = ["Attempt CPR", "Do not attempt CPR", "No recorded decision"] as const;
+
+export const ESCALATION_OPTIONS = ["Full escalation", "Trial of treatment", "Comfort-focused", "Community-only"] as const;
+
 export const RECORD_FIELDS: RecordFieldDef[] = [
-  // What matters to the person. Their words come first, deliberately.
+  // What matters. The person's words come first, deliberately.
+  {
+    name: "capacity_assessment",
+    label: "Capacity for this decision",
+    description: "Whether the person had capacity for this decision when it was made.",
+    required: true,
+    group: "what matters",
+    familySafe: false,
+  },
   {
     name: "what_matters",
-    label: "What matters to the person",
-    description: "The person's own priorities, in their words, recorded from the conversation.",
+    label: "Patient's expressed wishes",
+    description: "In their own words, from the conversation.",
     required: true,
-    group: "the person",
+    group: "what matters",
     familySafe: true,
   },
   {
     name: "concerns_and_fears",
-    label: "Concerns and fears",
-    description: "What the person is worried about, in their words.",
+    label: "Patient's expressed fears and concerns",
+    description: "What they are worried about, in their words.",
     required: false,
-    group: "the person",
+    group: "what matters",
     familySafe: true,
-  },
-
-  // Clinical recommendations, ReSPECT-shaped.
-  {
-    name: "clinical_summary",
-    label: "Clinical summary",
-    description: "A short summary of the relevant conditions and recent events, as recorded.",
-    required: true,
-    group: "clinical recommendations",
-    familySafe: false,
   },
   {
     name: "preferences_for_care",
-    label: "Preferences for care",
-    description: "Where the person's priority sits between comfort and life-sustaining treatment.",
+    label: "What is most important to the patient about how they are treated",
+    description: "Where their priority sits between comfort and life-sustaining treatment.",
     required: true,
-    group: "clinical recommendations",
+    group: "what matters",
+    familySafe: false,
+  },
+
+  // Clinical context.
+  {
+    name: "clinical_summary",
+    label: "Diagnosis summary",
+    description: "The relevant conditions and recent events, as recorded.",
+    required: true,
+    group: "clinical context",
+    familySafe: false,
+  },
+  {
+    name: "clinical_trajectory",
+    label: "Likely clinical trajectory",
+    description: "How things have been changing for this person, from the record.",
+    required: false,
+    group: "clinical context",
+    familySafe: false,
+  },
+  {
+    name: "active_medications",
+    label: "Relevant active medications",
+    description: "Medicines that matter in an emergency, as the record lists them.",
+    required: false,
+    group: "clinical context",
+    familySafe: false,
+  },
+
+  // Emergency care, ReSPECT-shaped.
+  {
+    name: "cpr_recommendation",
+    label: "CPR recommendation",
+    description: "A clinical recommendation agreed with the person; not legally binding and not a DNACPR form.",
+    required: true,
+    group: "emergency care",
+    familySafe: false,
+  },
+  {
+    name: "cpr_rationale",
+    label: "CPR rationale",
+    description: "Why, and who it was discussed with.",
+    required: false,
+    group: "emergency care",
+    familySafe: false,
+  },
+  {
+    name: "escalation_ceiling",
+    label: "Escalation ceiling",
+    description: "The level of treatment the team recommends if the person becomes unwell.",
+    required: true,
+    group: "emergency care",
+    familySafe: false,
+  },
+  {
+    name: "escalation_rationale",
+    label: "Escalation rationale",
+    description: "Why this ceiling, in a sentence a colleague can check.",
+    required: false,
+    group: "emergency care",
     familySafe: false,
   },
   {
     name: "recommended_interventions",
-    label: "Recommended interventions",
-    description: "What the team recommends should be done if the person becomes unwell.",
+    label: "Clinical priorities if the patient deteriorates",
+    description: "What should happen first, and who should be involved.",
     required: true,
-    group: "clinical recommendations",
+    group: "emergency care",
     familySafe: false,
   },
+
+  // Kept in the model and off the form.
   {
     name: "not_recommended",
     label: "Not recommended (ceilings of treatment)",
     description: "Interventions the team recommends against, agreed with the person or their representative.",
     required: false,
-    group: "clinical recommendations",
-    familySafe: false,
-  },
-  {
-    name: "cpr_recommendation",
-    label: "CPR recommendation",
-    description:
-      "A clinical recommendation about CPR, agreed with the person; it is not legally binding and is not a DNACPR form.",
-    required: true,
-    group: "clinical recommendations",
+    group: "other",
     familySafe: false,
   },
   {
@@ -81,7 +149,7 @@ export const RECORD_FIELDS: RecordFieldDef[] = [
     label: "Preferred place of care",
     description: "Where the person would prefer to be cared for, as they have said.",
     required: false,
-    group: "clinical recommendations",
+    group: "other",
     familySafe: true,
   },
   {
@@ -89,26 +157,15 @@ export const RECORD_FIELDS: RecordFieldDef[] = [
     label: "Preferred place of death",
     description: "Where the person would prefer to be at the end of their life, as they have said.",
     required: false,
-    group: "clinical recommendations",
+    group: "other",
     familySafe: true,
-  },
-
-  // Capacity and representation.
-  {
-    name: "capacity_assessment",
-    label: "Capacity assessment",
-    description: "Whether the person has capacity for this decision, and who assessed it.",
-    required: true,
-    group: "capacity and representation",
-    familySafe: false,
   },
   {
     name: "adrt_exists",
     label: "Advance decision to refuse treatment (ADRT) on file",
-    description:
-      "Whether a separate, legally binding ADRT exists and where it is held; it is referenced here, never generated.",
+    description: "Whether a separate, legally binding ADRT exists and where it is held; referenced here, never generated.",
     required: false,
-    group: "capacity and representation",
+    group: "other",
     familySafe: false,
   },
   {
@@ -116,37 +173,34 @@ export const RECORD_FIELDS: RecordFieldDef[] = [
     label: "Lasting power of attorney for health and welfare",
     description: "Whether a lasting power of attorney for health and welfare is registered, and who holds it.",
     required: false,
-    group: "capacity and representation",
+    group: "other",
     familySafe: false,
   },
   {
     name: "people_involved",
     label: "People involved",
     description: "Who took part in the conversation and who has been informed.",
-    required: true,
-    group: "capacity and representation",
+    required: false,
+    group: "other",
     familySafe: true,
   },
 ];
 
-/** Exactly record.py missing_for_signature. */
-export const REQUIRED_FIELDS: RecordFieldName[] = [
-  "what_matters",
-  "clinical_summary",
-  "preferences_for_care",
-  "recommended_interventions",
-  "cpr_recommendation",
-  "capacity_assessment",
-  "people_involved",
-];
+/** What a signature needs: every field marked required, in form order. */
+export const REQUIRED_FIELDS: RecordFieldName[] = RECORD_FIELDS.filter((f) => f.required).map((f) => f.name);
 
-/** Exactly record.py CLINICAL_FIELDS. */
+/** Fields whose provenance is checked before signature (record.py CLINICAL_FIELDS, plus the ReSPECT additions). */
 export const CLINICAL_FIELDS: RecordFieldName[] = [
   "clinical_summary",
+  "clinical_trajectory",
+  "active_medications",
   "preferences_for_care",
   "recommended_interventions",
   "not_recommended",
   "cpr_recommendation",
+  "cpr_rationale",
+  "escalation_ceiling",
+  "escalation_rationale",
   "preferred_place_of_care",
   "preferred_place_of_death",
   "capacity_assessment",

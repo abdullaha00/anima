@@ -5,26 +5,11 @@ import { formatDateTime } from "@/lib/format";
 
 /** Shared primitives, following the Cairn design system. Quiet by default. */
 
-type ButtonVariant = "primary" | "quiet" | "refuse" | "link";
+import { Button } from "./Button";
+import { BUTTON, BUTTON_BASE, type ButtonVariant } from "./button-classes";
+import { CloseDetails } from "./CloseDetails";
 
-const BUTTON: Record<ButtonVariant, string> = {
-  primary: "bg-primary text-primary-ink hover:bg-primary-hover disabled:bg-stone-200 disabled:text-faint disabled:cursor-not-allowed",
-  quiet:
-    "bg-surface text-ink border border-line-strong shadow-xs hover:bg-surface-2 disabled:bg-stone-200 disabled:text-faint disabled:cursor-not-allowed",
-  refuse: "bg-refuse-soft text-refuse border border-refuse-border hover:bg-surface disabled:opacity-50",
-  link: "text-primary-hover hover:bg-primary-soft px-3",
-};
-
-const BUTTON_BASE =
-  "inline-flex items-center justify-center gap-2 rounded-md px-[18px] py-[9px] text-[14px] font-semibold leading-none min-h-11 transition-colors duration-150";
-
-export function Button({
-  variant = "quiet",
-  className = "",
-  ...rest
-}: React.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: ButtonVariant }) {
-  return <button className={`${BUTTON_BASE} ${BUTTON[variant]} ${className}`} {...rest} />;
-}
+export { Button };
 
 export function ButtonLink({
   href,
@@ -44,19 +29,111 @@ export function ButtonLink({
   );
 }
 
-export function Microlabel({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <div className={`microlabel ${className}`}>{children}</div>;
+/**
+ * A small label above content. Sentence case by default: quiet, 12px, semibold, muted.
+ * `caps` gives the tracked uppercase form, kept for table headers and the ambulance view only.
+ */
+export function Microlabel({
+  children,
+  className = "",
+  caps = false,
+}: {
+  children: ReactNode;
+  className?: string;
+  caps?: boolean;
+}) {
+  return (
+    <div className={`${caps ? "microlabel" : "text-[12px] font-semibold leading-5 text-muted"} ${className}`}>{children}</div>
+  );
 }
 
-/** A review tier, carried by weight, never by colour. */
+/** A secondary grouping on the ground, not a card: a title, a hairline, the content. */
+export function Section({
+  title,
+  aside,
+  children,
+  className = "",
+  as: Tag = "section",
+}: {
+  title: ReactNode;
+  aside?: ReactNode;
+  children: ReactNode;
+  className?: string;
+  as?: "section" | "div";
+}) {
+  return (
+    <Tag className={`border-t border-line pt-4 ${className}`}>
+      <div className="mb-3 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+        <h3 className="text-[15px] font-semibold leading-6 tracking-[-0.01em] text-ink">{title}</h3>
+        {aside ? <div className="text-[12px] leading-5 text-faint">{aside}</div> : null}
+      </div>
+      {children}
+    </Tag>
+  );
+}
+
+/**
+ * A quiet, server-safe disclosure: a native details element whose summary reads as a link.
+ * For controls a clinician needs rarely (removal, blocking, long lists).
+ */
+export function Disclosure({
+  label,
+  children,
+  className = "",
+  defaultOpen = false,
+  closeLabel,
+}: {
+  label: ReactNode;
+  children: ReactNode;
+  className?: string;
+  defaultOpen?: boolean;
+  /** When set, a matching link at the foot of the content closes the disclosure again. */
+  closeLabel?: string;
+}) {
+  return (
+    <details className={`group ${className}`} open={defaultOpen || undefined}>
+      <summary className="inline-flex min-h-11 cursor-pointer list-none items-center gap-1.5 text-[13px] font-semibold text-primary-hover hover:underline [&::-webkit-details-marker]:hidden">
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 12 12"
+          className="h-3 w-3 shrink-0 transition-transform duration-150 group-open:rotate-90"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M4 2.5 7.5 6 4 9.5" />
+        </svg>
+        {label}
+      </summary>
+      <div className="pt-2">{children}</div>
+      {closeLabel ? (
+        <div className="mt-2 border-t border-line pt-1">
+          <CloseDetails label={closeLabel} />
+        </div>
+      ) : null}
+    </details>
+  );
+}
+
+/** Tier tints for the worklist: a band and a dot per tier. Amber and blue are categories here, never alarms; no red. */
+export const TIER_TONE: Record<ReviewTier, { band: string; dot: string; text: string }> = {
+  "review this week": { band: "bg-warn-soft", dot: "bg-warn-stripe", text: "font-bold text-warn" },
+  "review this month": { band: "bg-info-soft", dot: "bg-info", text: "font-bold text-info" },
+  "consider at next contact": { band: "bg-primary-soft", dot: "bg-cairn-400", text: "font-semibold text-affirm" },
+  "no prompt": { band: "bg-surface-2", dot: "bg-stone-300", text: "font-medium text-secondary" },
+};
+
+/** A review tier: weight, a dot and a tint, so the tiers read apart at a glance. */
 export function TierLabel({ tier, className = "" }: { tier: ReviewTier; className?: string }) {
-  const weight =
-    tier === "review this week"
-      ? "font-bold text-ink"
-      : tier === "review this month"
-        ? "font-semibold text-ink"
-        : "font-medium text-secondary";
-  return <span className={`text-[13px] ${weight} ${className}`}>{tier}</span>;
+  const tone = TIER_TONE[tier];
+  return (
+    <span className={`inline-flex items-center gap-2 text-[13px] ${tone.text} ${className}`}>
+      <span aria-hidden="true" className={`h-2 w-2 shrink-0 rounded-full ${tone.dot}`} />
+      {tier}
+    </span>
+  );
 }
 
 const STATE_TONE: Record<WorklistState, { pill: string; dot: string }> = {
@@ -169,7 +246,7 @@ export function Notice({
   return (
     <div className={`rounded-md border px-4 py-3.5 text-[14px] leading-6 ${NOTICE[kind]} ${className}`} role={role}>
       {title ? (
-        <p className={`text-[13px] font-bold ${kind === "refuse" ? "text-refuse" : kind === "affirm" ? "text-affirm" : kind === "warn" ? "text-warn" : ""}`}>
+        <p className={`text-[14px] font-bold ${kind === "refuse" ? "text-refuse" : kind === "affirm" ? "text-affirm" : kind === "warn" ? "text-warn" : ""}`}>
           {title}
         </p>
       ) : null}
@@ -186,6 +263,7 @@ export function Panel({
   className = "",
   as: Tag = "section",
   tone = "plain",
+  heading: Heading = "h2",
 }: {
   title?: ReactNode;
   aside?: ReactNode;
@@ -194,15 +272,17 @@ export function Panel({
   as?: "section" | "div" | "aside";
   /** 'brand' tints the header Cairn green, for the one panel that carries the screen's purpose. */
   tone?: "plain" | "brand";
+  /** Heading level of the title: h2 on a page, h3 inside a section that already has an h2. */
+  heading?: "h2" | "h3";
 }) {
   const header = tone === "brand" ? "border-b border-cairn-100 bg-primary-soft" : "border-b border-line";
   const titleColour = tone === "brand" ? "text-affirm" : "text-ink";
-  const asideColour = tone === "brand" ? "text-affirm/80" : "text-faint";
+  const asideColour = tone === "brand" ? "text-affirm" : "text-faint";
   return (
-    <Tag className={`overflow-hidden rounded-lg border border-line bg-surface shadow-sm ${className}`}>
+    <Tag className={`overflow-hidden rounded-lg bg-surface shadow-sm ${className}`}>
       {title ? (
         <header className={`flex items-baseline justify-between gap-4 px-6 py-3.5 ${header}`}>
-          <h2 className={`min-w-0 text-[14px] font-bold tracking-[-0.01em] ${titleColour}`}>{title}</h2>
+          <Heading className={`min-w-0 text-[14px] font-bold tracking-[-0.01em] ${titleColour}`}>{title}</Heading>
           {aside ? <div className={`min-w-0 text-right text-[12px] ${asideColour}`}>{aside}</div> : null}
         </header>
       ) : null}

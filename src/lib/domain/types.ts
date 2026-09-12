@@ -105,6 +105,31 @@ export interface Narrative {
   sourceId?: string;
 }
 
+/**
+ * One medicine on the record, with every structured field the source carries.
+ * The simulator's medicines list and prescriptions name the medicine, its route,
+ * status and dates, but carry no dose or frequency; those fields stay undefined
+ * rather than being guessed. The UI says so when nothing carries them.
+ */
+export interface MedicationEntry {
+  name: string;
+  /** e.g. 'current' | 'ended' | 'approved' | 'supplied', as the record says */
+  status?: string;
+  dose?: string;
+  frequency?: string;
+  route?: string;
+  form?: string;
+  quantity?: string;
+  startedAt?: string;
+  endedAt?: string;
+  prescriber?: string;
+  note?: string;
+  /** 'GP medicines list' | 'hospital prescription' | 'EPS' */
+  source: string;
+  at?: string;
+  sourceId?: string;
+}
+
 export interface TimelineEvent {
   at: string;
   kind:
@@ -171,7 +196,8 @@ export interface Patient {
   needs: string[];
   /** Number of medicines on the record, when the record carries a medicines list. */
   medicationCount?: number;
-  medications?: string[];
+  /** Each medicine with whatever the record carries about it. See MedicationEntry. */
+  medications?: MedicationEntry[];
   timeline: TimelineEvent[];
   /** The GP clinician named on the record, when known */
   usualGp?: string;
@@ -343,7 +369,12 @@ export type RecordFieldName =
   | 'capacity_assessment'
   | 'adrt_exists'
   | 'lpa_health_welfare'
-  | 'people_involved';
+  | 'people_involved'
+  | 'clinical_trajectory'
+  | 'active_medications'
+  | 'cpr_rationale'
+  | 'escalation_ceiling'
+  | 'escalation_rationale';
 
 export interface RecordEntry {
   value: string;
@@ -374,6 +405,12 @@ export interface CairnRecord {
   fields: Partial<Record<RecordFieldName, RecordEntry>>;
   signedBy?: string;
   signedAt?: string;
+  /** The signing clinician's registration number, as typed at signature. */
+  signedGmc?: string;
+  /** The typed signature, as entered at signature. */
+  signature?: string;
+  /** ISO date the plan is due a review, set at signature. */
+  nextReviewAt?: string;
   sharedWith: Audience[];
   audit: AuditEvent[];
   version: number;
@@ -433,10 +470,14 @@ export interface WorklistRow {
   assessment: Assessment;
   state: WorklistState;
   pausedReason?: string;
+  /** The named clinician for the row: the patient's usual GP, else a stable simulated pick */
+  clinician: string;
   /** The oldest open next step, with its owner, if any */
   waitingOn?: { what: string; ownerName: string; ownerRole: string; due: string; status: NextStep['status'] };
   isCancer: boolean;
   imdQuintile?: number;
+  /** When the record was last signed or edited (latest of signedAt and the audit), for spotting plans due a review */
+  lastTouchedAt?: string;
 }
 
 export interface Funnel {

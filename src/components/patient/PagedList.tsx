@@ -1,5 +1,7 @@
 "use client";
 
+import { Chip, type ChipTone } from "@/components/ui";
+
 import { useState } from "react";
 
 export interface PagedItem {
@@ -9,6 +11,9 @@ export interface PagedItem {
   primary: string;
   secondary?: string;
   detail?: string;
+  /** A short category, shown as a chip: appointment, ED attendance, task. */
+  tag?: string;
+  tone?: ChipTone;
 }
 
 /** A short list shown five at a time, with plain previous and next controls. */
@@ -23,12 +28,17 @@ export function PagedList({ items, pageSize = 5, empty }: { items: PagedItem[]; 
     <div className="flex flex-col gap-3">
       <ol className="flex flex-col divide-y divide-line">
         {slice.map((it) => (
-          <li key={it.key} className="grid grid-cols-[5.75rem_1fr] gap-3 py-2.5 text-[13px] leading-5 first:pt-0">
-            <span className="text-[12px] text-faint tnum">{it.meta ?? ""}</span>
-            <span className="min-w-0">
-              <span className="font-medium text-ink">{it.primary}</span>
-              {it.secondary ? <span className="text-faint"> · {it.secondary}</span> : null}
-              {it.detail ? <span className="block text-[12px] leading-5 text-secondary">{it.detail}</span> : null}
+          <li key={it.key} className="grid grid-cols-[5.5rem_1fr] gap-3 py-3 text-[13px] leading-5 first:pt-0">
+            <span className="font-mono text-[12px] leading-5 text-faint tnum">{it.meta ?? ""}</span>
+            <span className="flex min-w-0 flex-col gap-1">
+              <span className="text-[14px] font-semibold leading-5 text-ink">{it.primary}</span>
+              {it.tag || it.secondary ? (
+                <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                  {it.tag ? <Chip tone={it.tone ?? "neutral"}>{it.tag}</Chip> : null}
+                  {it.secondary ? <span className="text-[12px] leading-5 text-secondary">{it.secondary}</span> : null}
+                </span>
+              ) : null}
+              {it.detail ? <span className="text-[13px] leading-5 text-secondary">{it.detail}</span> : null}
             </span>
           </li>
         ))}

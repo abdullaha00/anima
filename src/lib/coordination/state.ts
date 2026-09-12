@@ -9,9 +9,10 @@ import type { CaseState, WorklistState } from "@/lib/domain/types";
 import { auditEvent } from "@/lib/record/record";
 
 export const TRANSITIONS: Record<WorklistState, WorklistState[]> = {
-  flagged: ["team assembled", "paused"],
-  "team assembled": ["coordinating", "paused"],
-  coordinating: ["meeting held", "paused"],
+  // A ready record can be signed from any working state; a meeting is not a precondition.
+  flagged: ["team assembled", "record signed", "paused"],
+  "team assembled": ["coordinating", "record signed", "paused"],
+  coordinating: ["meeting held", "record signed", "paused"],
   "meeting held": ["record signed", "paused"],
   "record signed": ["shared", "paused"],
   shared: [],
@@ -83,23 +84,23 @@ export const STATE_LABELS: Record<WorklistState, string> = {
   paused: "Paused",
 };
 
-/** What the UI offers next, as a label and a path suffix relative to /patient/[id]. */
+/** What the UI offers next, as a label and a path suffix relative to /patient/[id]. Everything lives on the one record page, so the suffix is an anchor into it. */
 export function nextActionFor(state: WorklistState): { label: string; path: string } {
   switch (state) {
     case "flagged":
-      return { label: "Review the evidence, assemble the team", path: "" };
+      return { label: "Review the evidence, assemble the team", path: "/record#team" };
     case "team assembled":
-      return { label: "Open the thread", path: "/team" };
+      return { label: "Open the thread", path: "/record#team" };
     case "coordinating":
-      return { label: "Post, propose, record the outcome", path: "/thread" };
+      return { label: "Post, propose, record the outcome", path: "/record#thread" };
     case "meeting held":
-      return { label: "Promote decisions into the record", path: "/outcome" };
+      return { label: "Promote decisions into the record", path: "/record#outcome" };
     case "record signed":
-      return { label: "Share with audiences", path: "/record" };
+      return { label: "Share with audiences", path: "/record#record" };
     case "shared":
-      return { label: "Review next steps and the audit", path: "/record" };
+      return { label: "Review next steps and the audit", path: "/record#record" };
     case "paused":
-      return { label: "Paused: reason shown", path: "" };
+      return { label: "Paused: reason shown", path: "/record#team" };
   }
 }
 
@@ -121,11 +122,25 @@ export function stageFor(state: WorklistState): Stage {
   }
 }
 
-/** How far the plan has got, for grouping the worklist. */
-export type PlanGroup = "no plan" | "plan in progress" | "plan complete";
-export const PLAN_GROUPS: PlanGroup[] = ["no plan", "plan in progress", "plan complete"];
+/** How far the plan has got, for grouping the worklist. "review plan" is a complete plan nobody has reviewed or edited for six months. */
+export type PlanGroup = "no plan" | "plan in progress" | "review plan" | "plan complete";
+export const PLAN_GROUPS: PlanGroup[] = ["no plan", "plan in progress", "review plan", "plan complete"];
+/** Order of the groups on the worklist: people still waiting for a plan first, then work under way, then plans due a review, then finished plans. The filter select keeps PLAN_GROUPS. */
+export const WORKLIST_ORDER: PlanGroup[] = ["no plan", "plan in progress", "review plan", "plan complete"];
 
-export function planGroupFor(state: WorklistState): PlanGroup {
+/** The group implied by the state alone. Never "review plan": that needs the record's dates, see planGroupForRow. */
+export function planGroupFor(state: WorklistState): Exclude<PlanGroup, "review plan"> {
   const stage = stageFor(state);
   return stage === "Find" ? "no plan" : stage === "Prepare" ? "plan in progress" : "plan complete";
+}
+
+const REVIEW_AFTER_MONTHS = 6;
+
+/** A signed or shared plan that has not been reviewed or edited in the past six months belongs in "review plan". */
+export function planGroupForRow(state: WorklistState, lastTouchedIso: string | undefined, nowIso: string): PlanGroup {
+  const base = planGroupFor(state);
+  if (base !== "plan complete" || !lastTouchedIso) return base;
+  const cutoff = new Date(nowIso);
+  cutoff.setMonth(cutoff.getMonth() - REVIEW_AFTER_MONTHS);
+  return new Date(lastTouchedIso).getTime() < cutoff.getTime() ? "review plan" : base;
 }
