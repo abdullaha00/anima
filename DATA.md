@@ -28,6 +28,8 @@ The public API currently reports **50,000 synthetic patients** (`GET /api/sites/
 
 A team key creates an isolated world over the shared fictional population. Patient-specific additions and workflow changes remain in that world. Site views can contain the same resource in several sites and can also contain non-patient resources; deduplicate by resource `id` and filter on exact `patientId` before counting.
 
+RULE: if data was missing or failed previously still try again, they are likely transient failures.
+
 ## Where patient data lives
 
 | Data needed by this system | Primary API/source | Typical representation / notes |
