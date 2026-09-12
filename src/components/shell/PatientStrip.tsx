@@ -19,12 +19,12 @@ export function PatientStrip({
   /** Kept for callers; the strip no longer shows a tab bar. */
   current?: string;
 }) {
-  const demographics = [
-    patient.age !== undefined ? `${patient.age}` : "age not recorded",
-    patient.sex,
-    patient.birthDate ? `DOB ${formatDate(patient.birthDate)}` : undefined,
-    patient.id,
-  ].filter(Boolean);
+  const facts: { label: string; value: string; mono?: boolean }[] = [
+    { label: "Age", value: patient.age !== undefined ? `${patient.age}` : "not recorded" },
+    ...(patient.sex ? [{ label: "Sex", value: patient.sex }] : []),
+    { label: "Date of birth", value: patient.birthDate ? formatDate(patient.birthDate) : "not recorded" },
+    { label: "Identifier", value: patient.id, mono: true },
+  ];
   return (
     <div className="mb-6 border-b border-line">
       <div className="flex flex-wrap items-start justify-between gap-x-6 gap-y-3 pb-5">
@@ -36,7 +36,14 @@ export function PatientStrip({
             Worklist
           </Link>
           <h1 className="mt-1 font-display text-[28px] leading-[1.1] text-ink">{patient.name ?? patient.id}</h1>
-          <p className="mt-1.5 break-words text-[13px] leading-5 text-secondary tnum">{demographics.join(" · ")}</p>
+          <dl className="mt-2 flex flex-wrap gap-x-6 gap-y-2">
+            {facts.map((f) => (
+              <div key={f.label} className="flex flex-col">
+                <dt className="text-[12px] font-semibold leading-5 text-muted">{f.label}</dt>
+                <dd className={`text-[14px] leading-5 text-ink tnum ${f.mono ? "font-mono text-[13px]" : ""}`}>{f.value}</dd>
+              </div>
+            ))}
+          </dl>
           <div className="mt-2.5 flex flex-wrap gap-1.5">
             {patient.conditions.length ? (
               patient.conditions.map((c) => <Chip key={c}>{c}</Chip>)

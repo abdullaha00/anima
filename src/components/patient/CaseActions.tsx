@@ -7,7 +7,7 @@ import { ButtonLink, Notice, Panel } from "@/components/ui";
  */
 export function CaseActions({ caseState, patientId }: { caseState: CaseState; patientId: string }) {
   return (
-    <Panel title="Next action" tone="brand">
+    <Panel title="Next action">
       <div className="flex flex-col gap-3">
         {caseState.state === "paused" ? (
           <Notice kind="quiet" title="Paused">
@@ -17,6 +17,7 @@ export function CaseActions({ caseState, patientId }: { caseState: CaseState; pa
         <ButtonLink href={`/patient/${patientId}/record`} variant="primary" className="w-full">
           Go to the record
         </ButtonLink>
+        <p className="text-[13px] leading-5 text-secondary">A draft. Nothing is shared until a named clinician signs.</p>
       </div>
     </Panel>
   );

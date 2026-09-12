@@ -4,10 +4,11 @@ import { EvidenceChain } from "@/components/patient/EvidenceChain";
 import { PlanStatus } from "@/components/patient/PlanStatus";
 import { CaseActions } from "@/components/patient/CaseActions";
 import { RecordReview } from "@/components/patient/RecordReview";
+import { RECOMMENDATION_LABEL } from "@/lib/stage2/present";
 import { PagedList, type PagedItem } from "@/components/patient/PagedList";
 import { MedicinesPanel } from "@/components/patient/MedicinesPanel";
 import { getReviewStatus } from "@/lib/stage2/read";
-import { Panel } from "@/components/ui";
+import { Panel, type ChipTone } from "@/components/ui";
 import { formatDate, monthsBetween, plural } from "@/lib/format";
 import type { Patient, ReviewTier, TimelineEvent } from "@/lib/domain/types";
 
@@ -43,6 +44,19 @@ const SERVICE_LABEL: Record<string, string> = {
   diagnostics: "diagnostics",
 };
 
+/** Category tints for the record lists: hospital contact, practice contact, paper. Never severity. */
+const KIND_TONE: Record<TimelineEvent["kind"], ChipTone> = {
+  attendance: "warn",
+  "discharge summary": "info",
+  consultation: "brand",
+  task: "neutral",
+  appointment: "brand",
+  "blood result": "info",
+  prescription: "info",
+  message: "neutral",
+  other: "neutral",
+};
+
 const CONTACT_KINDS: TimelineEvent["kind"][] = ["attendance", "consultation", "appointment", "task", "message"];
 const DOCUMENT_KINDS: TimelineEvent["kind"][] = ["discharge summary", "other"];
 
@@ -51,7 +65,9 @@ function toItems(events: TimelineEvent[]): PagedItem[] {
     key: `${e.sourceId ?? i}-${e.at}`,
     meta: formatDate(e.at),
     primary: e.title,
-    secondary: `${KIND_LABEL[e.kind]}${e.service ? `, ${SERVICE_LABEL[e.service] ?? e.service}` : ""}`,
+    tag: KIND_LABEL[e.kind],
+    tone: KIND_TONE[e.kind],
+    secondary: e.service ? (SERVICE_LABEL[e.service] ?? e.service) : undefined,
     detail: e.detail,
   }));
 }
@@ -63,9 +79,7 @@ function whyFacts(patient: Patient, nowIso: string): string[] {
   if (unplanned.length) {
     const latest = unplanned.map((a) => a.at).sort().at(-1);
     facts.push(
-      `${plural(unplanned.length, "unplanned hospital episode")} in the past year, the most recent on ${formatDate(latest)}${
-        unplanned[0]?.summary ? ` (${unplanned[0].summary.replace(/\.$/, "").toLowerCase()})` : ""
-      }.`,
+      `${plural(unplanned.length, "unplanned hospital episode")} in the past year, the most recent on ${formatDate(latest)}.`,
     );
   }
   if (patient.conditions.length) facts.push(`${patient.conditions.join(", ")} recorded.`);
@@ -94,9 +108,17 @@ export default async function PatientPage({ params }: { params: Promise<{ id: st
 
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
         <div className="flex min-w-0 flex-col gap-6">
+          <div className="xl:hidden">
+            <CaseActions caseState={caseState} patientId={patient.id} />
+          </div>
           {/* Why this person is here, with the evidence chain: the first thing on the screen. */}
           <Panel title={`Why ${firstName} is on the list`} tone="brand">
             <p className="text-[18px] font-semibold leading-snug tracking-[-0.01em] text-ink">{TIER_SENTENCE[assessment.tier]}</p>
+            {reviewStatus.review ? (
+              <p className="mt-1 text-[14px] leading-6 text-secondary">
+                Record review: {RECOMMENDATION_LABEL[reviewStatus.review.assessment.recommendation].label.toLowerCase()}.
+              </p>
+            ) : null}
             {facts.length ? (
               <ul className="mt-3 flex flex-col gap-1.5 text-[14px] leading-6 text-secondary">
                 {facts.map((f) => (
@@ -117,8 +139,8 @@ export default async function PatientPage({ params }: { params: Promise<{ id: st
           {patient.goals.length ? (
             <section aria-labelledby="in-their-words" className="overflow-hidden rounded-lg bg-primary text-primary-ink shadow-sm">
               <div className="px-6 pb-6 pt-5 sm:px-7">
-                <h2 id="in-their-words" className="text-[12px] font-semibold text-primary-ink/75">
-                  What matters to {firstName}, in {firstName}&rsquo;s own words
+                <h2 id="in-their-words" className="text-[12px] font-semibold text-cairn-100">
+                  In {firstName}&rsquo;s own words
                 </h2>
                 <ul className="mt-3 flex flex-col gap-2">
                   {patient.goals.map((g) => (
@@ -129,7 +151,7 @@ export default async function PatientPage({ params }: { params: Promise<{ id: st
                 </ul>
               </div>
               {patient.nextOfKin ? (
-                <div className="border-t border-white/15 bg-black/10 px-6 py-3 text-[13px] text-primary-ink/90 sm:px-7">
+                <div className="border-t border-white/15 bg-black/10 px-6 py-3 text-[13px] text-cairn-50 sm:px-7">
                   Named contact: {patient.nextOfKin}
                 </div>
               ) : null}
@@ -142,8 +164,10 @@ export default async function PatientPage({ params }: { params: Promise<{ id: st
           <PlanStatus patient={patient} caseState={caseState} />
         </div>
 
-        <aside className="flex min-w-0 flex-col gap-5">
-          <CaseActions caseState={caseState} patientId={patient.id} />
+        <aside className="flex min-w-0 flex-col gap-6">
+          <div className="hidden xl:block">
+            <CaseActions caseState={caseState} patientId={patient.id} />
+          </div>
 
           <Panel title="Admissions and contacts" aside={plural(contacts.length, "entry", "entries")}>
             <PagedList items={contacts} empty="No admissions or contacts in this record." />

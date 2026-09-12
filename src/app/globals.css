@@ -36,8 +36,8 @@
   --line-strong: var(--stone-300);
   --ink: var(--stone-900);
   --secondary: var(--stone-700);
-  --muted: var(--stone-600);
-  --faint: #6f685e; /* between stone-500 and stone-600: 5:1 on white, still reads as metadata */
+  --muted: var(--stone-700);
+  --faint: var(--stone-600); /* 6.1:1 on white, 5.4:1 on the ground: metadata that can still be read at 12px */
 
   --primary: var(--cairn-500);
   --primary-hover: var(--cairn-600);

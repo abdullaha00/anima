@@ -20,19 +20,25 @@ import { Chip, Disclosure, Microlabel, Notice, Panel } from "@/components/ui";
 function Citations({ evidence }: { evidence: EvidenceReference[] }) {
   if (!evidence.length) return null;
   return (
-    <details className="mt-2">
-      <summary className="inline-flex min-h-11 cursor-pointer list-none items-center gap-1 text-[12px] font-medium text-faint hover:text-primary-hover hover:underline">
-        <span aria-hidden="true" className="text-[10px]">&#9656;</span>
-        {evidence.length === 1 ? "1 source in the record" : `${evidence.length} sources in the record`}
-      </summary>
-      <ul className="mt-1.5 flex flex-col gap-1 border-l-2 border-line pl-3">
-        {evidence.map((e, i) => (
-          <li key={`${e.sourcePath}-${e.recordId ?? ""}-${i}`} className="text-[12px] leading-5 text-secondary tnum">
-            {citationLine(e)}
-          </li>
-        ))}
+    <Disclosure
+      className="mt-2"
+      label={evidence.length === 1 ? "1 source in the record" : `${evidence.length} sources in the record`}
+    >
+      <ul className="flex flex-col gap-2">
+        {evidence.map((e, i) => {
+          const line = citationLine(e);
+          const cut = line.lastIndexOf(" · ");
+          const where = cut > 0 ? line.slice(0, cut) : line;
+          const what = cut > 0 ? line.slice(cut + 3) : "";
+          return (
+            <li key={`${e.sourcePath}-${e.recordId ?? ""}-${i}`} className="flex flex-col gap-0.5">
+              <span className="font-mono text-[12px] leading-5 text-faint tnum">{where}</span>
+              {what ? <span className="text-[13px] leading-5 text-secondary">{what}</span> : null}
+            </li>
+          );
+        })}
       </ul>
-    </details>
+    </Disclosure>
   );
 }
 
@@ -93,6 +99,10 @@ export function RecordReview({ status }: { status: ReviewStatus }) {
   }
 
   const a = review.assessment;
+  // The first three sentences carry the verdict; the rest of the summary sits inside the fold.
+  const sentences = a.summary.match(/[^.!?]+[.!?]+(?:\s+|$)/g) ?? [a.summary];
+  const lead = sentences.slice(0, 3).join("").trim();
+  const rest = sentences.slice(3).join("").trim();
   const rec = RECOMMENDATION_LABEL[a.recommendation];
   const fam = a.patientAndFamily;
   const care = a.careBaseline;
@@ -115,11 +125,12 @@ export function RecordReview({ status }: { status: ReviewStatus }) {
             </Chip>
             <p className="text-[14px] leading-6 text-secondary">{rec.line}</p>
           </div>
-          <p className="max-w-[72ch] text-[16px] leading-[1.6] text-ink">{a.summary}</p>
+          <p className="max-w-[72ch] text-[16px] leading-[1.6] text-ink">{lead}</p>
         </div>
 
-        <Disclosure label="Show the full review">
+        <Disclosure label="Show the full review" closeLabel="Hide the full review">
           <div className="flex flex-col gap-5">
+            {rest ? <p className="max-w-[72ch] text-[15px] leading-6 text-secondary">{rest}</p> : null}
             {/* What the record shows: one tile per finding, so four findings read as four things. */}
             <Part title="What the record shows">
               {a.evidenceForReview.length ? (
