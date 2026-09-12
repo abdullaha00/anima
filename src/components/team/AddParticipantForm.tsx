@@ -71,7 +71,7 @@ export function AddParticipantForm({ patientId }: { patientId: string }) {
           <input name="evidence" className={INPUT_CLASS} placeholder="The record entry or indicator behind the reason" />
         </label>
         <div className="flex flex-wrap items-end gap-x-6 gap-y-3">
-          <label className={`${FIELD_CLASS} w-48`}>
+          <label className={`${FIELD_CLASS} w-full sm:w-48`}>
             <span className={LABEL_CLASS}>Channel</span>
             <select name="channel" defaultValue="professional" className={SELECT_CLASS}>
               <option value="professional">professional</option>

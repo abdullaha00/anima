@@ -29,10 +29,10 @@ export function PagedList({ items, pageSize = 5, empty }: { items: PagedItem[]; 
     <div className="flex flex-col gap-3">
       <ol className="flex flex-col divide-y divide-line">
         {slice.map((it) => (
-          <li key={it.key} className="grid grid-cols-[5.5rem_1fr] gap-3 py-3 text-[13px] leading-5 first:pt-0">
-            <span className="font-mono text-[12px] leading-5 text-faint tnum">{it.meta ?? ""}</span>
+          <li key={it.key} className="grid grid-cols-[5.5rem_minmax(0,1fr)] gap-3 py-3 text-[13px] leading-5 first:pt-0">
+            <span className="break-words font-mono text-[12px] leading-5 text-faint tnum">{it.meta ?? ""}</span>
             <span className="flex min-w-0 flex-col gap-1">
-              <span className="text-[14px] font-semibold leading-5 text-ink">{it.primary}</span>
+              <span className="break-words text-[14px] font-semibold leading-5 text-ink">{it.primary}</span>
               {it.tag || it.secondary ? (
                 <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
                   {it.tag ? <Chip tone={it.tone ?? "neutral"}>{it.tag}</Chip> : null}

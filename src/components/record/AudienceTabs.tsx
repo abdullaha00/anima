@@ -39,12 +39,12 @@ function AmbulanceView({ view, patientLine }: { view: AudienceView; patientLine?
   ];
   const label = "text-[11px] font-semibold uppercase tracking-[0.06em] opacity-70";
   return (
-    <div className="rounded-lg bg-ink p-8 text-[#F4EFE7]">
+    <div className="rounded-lg bg-ink p-5 text-[#F4EFE7] sm:p-8">
       <div className="flex flex-col gap-6">
         {patientLine ? <p className="text-[16px] font-semibold tracking-[-0.01em] opacity-90 tnum">{patientLine}</p> : null}
         <div className="flex flex-col gap-1">
           <span className={label}>CPR recommendation</span>
-          <p className="text-[30px] font-bold leading-tight tracking-[-0.01em]">{cpr ?? "not recorded"}</p>
+          <p className="break-words text-[26px] font-bold leading-tight tracking-[-0.01em] sm:text-[30px]">{cpr ?? "not recorded"}</p>
         </div>
         {rest.map((name) => {
           const v = valueOf(view, name);
@@ -200,7 +200,7 @@ export function AudienceTabs({ views: unordered, provenance, sharedWith, patient
 
   return (
     <div className="flex flex-col gap-5">
-      <div role="tablist" aria-label="Audience views" className="-mb-px flex flex-nowrap gap-x-1 overflow-x-auto border-b border-line pb-px">
+      <div role="tablist" aria-label="Audience views" className="-mb-px flex min-w-0 max-w-full flex-nowrap gap-x-1 overflow-x-auto border-b border-line pb-px">
         {views.map((v, i) => {
           const selected = i === index;
           return (

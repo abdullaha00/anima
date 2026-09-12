@@ -22,7 +22,10 @@ export function RowLink({ href, className = "", children }: { href: string; clas
   }
 
   return (
-    <tr onClick={onClick} className={`cursor-pointer hover:bg-surface-2 focus-within:bg-surface-2 ${className}`}>
+    <tr
+      onClick={onClick}
+      className={`flex cursor-pointer flex-wrap px-4 py-3 hover:bg-surface-2 focus-within:bg-surface-2 md:table-row md:p-0 ${className}`}
+    >
       {children}
     </tr>
   );

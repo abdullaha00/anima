@@ -37,11 +37,12 @@ export function Pager({
   const start = current * pageSize;
   return (
     <nav aria-label="Pagination" className="flex flex-col items-center gap-0.5 text-[12px] text-secondary tnum">
-      <div className="flex w-full items-center justify-between gap-2">
+      <div className="flex w-full flex-wrap items-center justify-between gap-2">
         <button type="button" className={BUTTON} onClick={() => onChange(Math.max(0, current - 1))} disabled={current === 0}>
           Previous
         </button>
-        <div className="flex flex-wrap items-center justify-center gap-0.5">
+        {/* Narrow screens: the numbers take their own line above Previous / Next. */}
+        <div className="order-first flex basis-full flex-wrap items-center justify-center gap-0.5 sm:order-none sm:basis-auto">
           {pageItems(current, pages).map((item, i) =>
             item === "gap" ? (
               <span key={`gap-${i}`} aria-hidden="true" className={`${PAGE_LINK} font-normal text-faint`}>
@@ -99,8 +100,8 @@ export function PagedRows({ rows, pageSize = 10, colSpan }: { rows: ReactNode[];
     <tbody>
       {slice}
       {pages > 1 ? (
-        <tr>
-          <td colSpan={colSpan} className="px-3 py-1">
+        <tr className="block px-4 py-2 md:table-row md:p-0">
+          <td colSpan={colSpan} className="block p-0 md:table-cell md:px-3 md:py-1">
             <Pager current={current} pages={pages} total={rows.length} pageSize={pageSize} onChange={setPage} />
           </td>
         </tr>

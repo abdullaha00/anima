@@ -74,26 +74,27 @@ function EvidenceItem({ evidence: e, record }: { evidence: Evidence; record?: In
   const { source, date } = entryParts(record);
   const reading = firstSentence(e.interpretation) ?? softenWording(e.interpretation).value;
   return (
-    <div className="flex flex-col gap-0.5">
-      <div className="flex items-baseline gap-x-1.5 text-[12px] leading-5">
+    <div className="flex min-w-0 flex-col gap-0.5">
+      {/* Source and date stay together; the id sits on the right at sm+ and drops to its own line on a phone. */}
+      <div className="flex min-w-0 flex-wrap items-baseline gap-x-1.5 gap-y-0 text-[12px] leading-5">
         <span className="font-semibold text-secondary">{source}</span>
         {date ? (
           <>
             <span aria-hidden="true" className="text-faint">&middot;</span>
-            <span className="text-faint tnum">{date}</span>
+            <span className="whitespace-nowrap text-faint tnum">{date}</span>
           </>
         ) : null}
-        <span className="ml-auto pl-3 font-mono text-[11px] text-faint tnum">{e.recordId}</span>
+        <span className="basis-full break-all font-mono text-[11px] text-faint tnum sm:ml-auto sm:basis-auto sm:pl-3">{e.recordId}</span>
       </div>
-      <p className="max-w-[72ch] text-[13px] leading-5 text-ink">&ldquo;{e.quote.trim()}&rdquo;</p>
-      <p className="max-w-[72ch] text-[13px] leading-5 text-secondary">{reading}</p>
+      <p className="max-w-[72ch] break-words text-[13px] leading-5 text-ink">&ldquo;{e.quote.trim()}&rdquo;</p>
+      <p className="max-w-[72ch] break-words text-[13px] leading-5 text-secondary">{reading}</p>
     </div>
   );
 }
 
 function EvidenceList({ items, records }: { items: Evidence[]; records: Map<string, InputRecord> }) {
   return (
-    <ul className="flex flex-col gap-3 border-l-2 border-stone-200 pl-3">
+    <ul className="flex min-w-0 flex-col gap-3 border-l-2 border-stone-200 pl-3">
       {items.map((e, i) => (
         <li key={`${e.recordId}-${e.pointer}-${i}`}>
           <EvidenceItem evidence={e} record={records.get(e.recordId)} />
@@ -169,7 +170,7 @@ export async function ScreeningPanel({ patientId, caseState }: { patientId: stri
       {limitations.length ? (
         <div className="mt-5">
           <Microlabel className="mb-1.5">Limitations</Microlabel>
-          <ul className="flex max-w-[72ch] list-disc flex-col gap-1 pl-4 text-[13px] leading-5 text-secondary marker:text-faint">
+          <ul className="flex max-w-[72ch] list-disc flex-col gap-1 break-words pl-4 text-[13px] leading-5 text-secondary marker:text-faint">
             {limitations.map(l => (
               <li key={l}>{l}</li>
             ))}

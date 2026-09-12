@@ -55,7 +55,7 @@ export function ParticipantRow({
         <p className="prose-clinical mt-2 text-[14px] leading-6 text-ink">{p.reasonForInclusion}</p>
         <div className="mt-2 flex flex-col gap-0.5">
           <span className="text-[12px] font-semibold leading-5 text-secondary">Evidence</span>
-          <p className="prose-clinical max-w-[72ch] text-[13px] leading-5 text-secondary">
+          <p className="prose-clinical max-w-[72ch] break-words text-[13px] leading-5 text-secondary">
             <EvidenceText text={p.evidence} />
             {p.source === "added by clinician" ? <span className="text-faint"> · added by clinician</span> : null}
           </p>

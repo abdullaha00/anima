@@ -8,20 +8,23 @@ import { citationParts } from "@/lib/stage2/present";
 export function Citation({ evidence: e }: { evidence: EvidenceReference }) {
   const c = citationParts(e);
   return (
-    <div className="flex flex-col gap-0.5">
-      <div className="flex items-baseline gap-x-1.5 text-[12px] leading-5">
+    <div className="flex min-w-0 flex-col gap-0.5">
+      {/* Source and date stay together; the id sits on the right at sm+ and drops to its own line on a phone. */}
+      <div className="flex min-w-0 flex-wrap items-baseline gap-x-1.5 gap-y-0 text-[12px] leading-5">
         <span className="font-semibold text-secondary">{c.source}</span>
         {c.date ? (
           <>
             <span aria-hidden="true" className="text-faint">
               &middot;
             </span>
-            <span className="text-faint tnum">{c.date}</span>
+            <span className="whitespace-nowrap text-faint tnum">{c.date}</span>
           </>
         ) : null}
-        {c.id ? <span className="ml-auto pl-3 font-mono text-[11px] text-faint tnum">{c.id}</span> : null}
+        {c.id ? (
+          <span className="basis-full break-all font-mono text-[11px] text-faint tnum sm:ml-auto sm:basis-auto sm:pl-3">{c.id}</span>
+        ) : null}
       </div>
-      <p className="max-w-[72ch] text-[13px] leading-5 text-secondary">{c.detail}</p>
+      <p className="max-w-[72ch] break-words text-[13px] leading-5 text-secondary">{c.detail}</p>
     </div>
   );
 }

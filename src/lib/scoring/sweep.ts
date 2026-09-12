@@ -173,7 +173,6 @@ export function sweep(
       clinician: clinicianFor(p),
       waitingOn: waitingOnFor(c),
       isCancer: isCancer(p),
-      imdQuintile: p.imdQuintile,
       lastTouchedAt: lastTouchedFor(c),
       screening: opts.screenings?.get(p.id),
     });
