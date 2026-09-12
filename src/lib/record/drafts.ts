@@ -26,6 +26,15 @@ function joinTerms(terms: string[]): string {
   return `${terms.slice(0, -1).join(", ")} and ${terms[terms.length - 1]}`;
 }
 
+/**
+ * The goals the record itself carries in the person's words. The directory holds template
+ * goals for every patient; only a goal whose text appears in a narrative counts as theirs.
+ */
+export function recordedGoals(patient: Patient): string[] {
+  const texts = (patient.narratives ?? []).map((n) => n.text.toLowerCase());
+  return patient.goals.filter((g) => texts.some((t) => t.includes(g.toLowerCase())));
+}
+
 export function draftFor(
   field: RecordFieldName,
   patient: Patient,
@@ -40,9 +49,9 @@ export function draftFor(
       };
 
     case "what_matters": {
-      const goals = patient.goals.map(sentence).filter((g) => g !== "");
+      const goals = recordedGoals(patient).map(sentence).filter((g) => g !== "");
       if (goals.length === 0) return undefined;
-      return { value: goals.join(" "), source: "patient directory, recorded goals" };
+      return { value: goals.join(" "), source: "patient record, in their own words" };
     }
 
     case "clinical_summary": {
