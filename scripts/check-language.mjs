@@ -32,11 +32,16 @@ const ALLOWED_PHRASES = [
   /messaging-workspace/gi, // simulator API path, not interface copy
 ];
 
-// Screening now explicitly presents unvalidated estimates. Do not ban model terminology
-// or percentages generally; retain deterministic prognosis and autonomous-action bans.
-// Word boundaries avoid incidental matches.
+// Interface copy never predicts, scores or forecasts a person. Word boundaries avoid
+// incidental matches ("predicate", "prognosis" inside a citation is still caught on purpose).
 const BANNED = [
   { re: /\bdying\b/gi, why: 'never describe a person as dying' },
+  { re: /\bpredict\w*/gi, why: 'Cairn never predicts' },
+  { re: /\brisk of death\b|\bmortality risk\b|\bprobability of death\b/gi, why: 'prognosis claim' },
+  { re: /\bprognos\w*/gi, why: 'no prognosis language' },
+  { re: /\brisk scores?\b/gi, why: 'no scores on a person' },
+  { re: /\bprobabilit(y|ies)\b/gi, why: 'no probabilities on a person' },
+  { re: /\d+(\.\d+)?\s?%\s+(chance|risk|probability|likely)/gi, why: 'percentage on a person' },
   { re: /\bwill die\b|\bgoing to die\b|\bexpected to die\b/gi, why: 'prognosis claim' },
   { re: /\bterminal(ly)?\b/gi, why: 'banned word' },
   { re: /\blikelihood of dying\b|\bmonths to live\b/gi, why: 'prognosis claim' },

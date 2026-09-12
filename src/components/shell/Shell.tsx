@@ -2,15 +2,19 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { CLINICIAN } from "@/lib/copy";
+import { loadExamplePatients } from "@/lib/cohort/examples";
 import { AccountMenu } from "./AccountMenu";
 import { DataStatus } from "./DataStatus";
+import { ExamplePatients } from "./ExamplePatients";
 
 /**
  * The frame around every screen: a top bar on the same stone ground as the page, holding the
- * mark (the way to the worklist), the data source (only when degraded) and the signed-in
- * clinician; then the work area. The way back from a patient is the link in the patient strip.
+ * mark (the way to the worklist), the example-patient control, the data source (only when
+ * degraded) and the signed-in clinician; then the work area. The way back from a patient is
+ * the link in the patient strip.
  */
 export function Shell({ children }: { children: ReactNode }) {
+  const examples = loadExamplePatients().patients;
   return (
     <div className="flex min-h-full flex-1 flex-col">
       <a
@@ -25,19 +29,14 @@ export function Shell({ children }: { children: ReactNode }) {
             <Image src="/cairn-mark.png" alt="" width={28} height={28} priority className="h-7 w-7 object-contain" />
             <span className="text-[16px] font-bold tracking-[-0.01em] text-ink">Cairn</span>
           </Link>
-          <Link href="/screening" className="self-center text-[13px] font-semibold underline">Screening</Link>
           <div className="ml-auto flex shrink-0 items-center gap-3 text-[12px] leading-5 text-muted">
+            <ExamplePatients patients={examples} />
             <DataStatus />
             <AccountMenu name={CLINICIAN.name} organisation={CLINICIAN.organisation} />
           </div>
         </div>
       </header>
       <main id="main" tabIndex={-1} className="mx-auto w-full min-w-0 max-w-[1180px] flex-1 overflow-x-clip px-4 py-6 sm:px-8 lg:py-10">{children}</main>
-      <footer className="mx-auto w-full max-w-[1180px] px-4 pb-8 text-[12px] leading-5 text-faint sm:px-8">
-        Cairn supports clinical review using record indicators and an unvalidated mortality screening prototype. It
-        cannot sign a record, and shares nothing until a named clinician signs. Synthetic data from NHS-SIM. Participant
-        replies are simulated.
-      </footer>
     </div>
   );
 }
