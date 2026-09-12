@@ -2,7 +2,6 @@
 
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useRef, useState, useTransition } from "react";
-import { TIER_ORDER } from "@/lib/domain/types";
 import { Button } from "@/components/ui";
 import { PLAN_GROUPS } from "@/lib/coordination/state";
 
@@ -188,19 +187,6 @@ export function WorklistFilters({
                         {p}
                       </option>
                     ))}
-                  </select>
-                </label>
-                <label className="flex flex-col gap-1.5">
-                  <span className="text-[13px] font-semibold text-ink">Review tier</span>
-                  <select id="filter-tier" className={selectClass} value={draft.tier} onChange={(e) => setDraftValue("tier", e.target.value)}>
-                    <option value="">all</option>
-                    {Object.keys(TIER_ORDER)
-                      .filter((t) => t !== "no prompt")
-                      .map((t) => (
-                        <option key={t} value={t}>
-                          {t}
-                        </option>
-                      ))}
                   </select>
                 </label>
                 <label className="flex flex-col gap-1.5">

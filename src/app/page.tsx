@@ -5,10 +5,13 @@ import { getEngine } from "@/lib/scoring";
 import { sweep } from "@/lib/scoring/sweep";
 import { casesById } from "@/lib/store";
 import { WORKLIST_ORDER, planGroupForRow, type PlanGroup } from "@/lib/coordination/state";
-import { formatDate, plural } from "@/lib/format";
+import { plural } from "@/lib/format";
 import { Chip, Mono, Notice, StateBadge } from "@/components/ui";
 import { WorklistFilters, type FilterValues } from "@/components/worklist/WorklistFilters";
 import { RowLink } from "@/components/worklist/RowLink";
+import { PagedRows } from "@/components/worklist/PagedRows";
+
+const PAGE_SIZE = 10;
 
 export const dynamic = "force-dynamic";
 
@@ -67,7 +70,7 @@ function applyFilters(rows: WorklistRow[], f: FilterValues, nowIso: string): Wor
     if (f.noPlan === "yes" && (r.assessment.hasPlan || r.assessment.alreadyOnRegister)) return false;
     if (f.group && !r.conditions.some((c) => CONDITION_GROUPS[f.group]?.test(c))) return false;
     if (f.imd && String(r.imdQuintile ?? "") !== f.imd) return false;
-    if (f.owner && r.waitingOn?.ownerName !== f.owner) return false;
+    if (f.owner && r.clinician !== f.owner) return false;
     return true;
   });
 }
@@ -102,7 +105,7 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
 
   const rows = applyFilters(result.rows, filters, nowIso);
   const groups = groupRows(rows, nowIso);
-  const owners = Array.from(new Set(result.rows.map((r) => r.waitingOn?.ownerName).filter((x): x is string => !!x))).sort();
+  const owners = Array.from(new Set(result.rows.map((r) => r.clinician))).sort();
 
   return (
     <div className="flex flex-col gap-6">
@@ -135,11 +138,13 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
                       <th className="microlabel w-[6%] px-2 py-2.5 tnum">Age</th>
                       <th className="microlabel w-[18%] px-3 py-2.5">Conditions</th>
                       <th className="microlabel w-[30%] px-3 py-2.5">Indicators present</th>
-                      <th className="microlabel px-3 py-2.5">Next action · owner</th>
+                      <th className="microlabel px-3 py-2.5">Clinician</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    {g.rows.map((r) => {
+                  <PagedRows
+                    pageSize={PAGE_SIZE}
+                    colSpan={6}
+                    rows={g.rows.map((r) => {
                       const showState = r.state !== "flagged";
                       const signals = r.assessment.signals;
                       return (
@@ -180,27 +185,16 @@ export default async function WorklistPage({ searchParams }: { searchParams: Pro
                               <span aria-label="no indicators recorded" className="text-faint">—</span>
                             )}
                           </td>
-                          <td className="px-3 py-3 align-top">
+                          <td className="px-3 py-3 align-top text-[13px] text-ink">
+                            {r.clinician}
                             {r.state === "paused" && r.pausedReason ? (
-                              <span className="text-secondary">paused: {r.pausedReason}</span>
-                            ) : r.waitingOn ? (
-                              <span>
-                                <span className="font-semibold text-ink">{r.waitingOn.ownerName}</span>
-                                <span className="text-secondary">
-                                  , {r.waitingOn.ownerRole}
-                                  <br />
-                                  {r.waitingOn.what} · due {formatDate(r.waitingOn.due)}
-                                  {r.waitingOn.status === "blocked" ? " · blocked" : ""}
-                                </span>
-                              </span>
-                            ) : (
-                              <span aria-label="no action recorded" className="text-faint">—</span>
-                            )}
+                              <div className="mt-0.5 text-secondary">paused: {r.pausedReason}</div>
+                            ) : null}
                           </td>
                         </RowLink>
                       );
                     })}
-                  </tbody>
+                  />
                 </table>
               </div>
             </section>
