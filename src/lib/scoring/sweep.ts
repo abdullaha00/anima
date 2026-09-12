@@ -1,9 +1,9 @@
 /**
  * Population case-finding. A port of reference/cairn/casefind.py.
  *
- * The funnel is deliberate. The rules read every patient and apply explicit indicators, so
- * the shortlist is small, cheap and fully explainable before any model is involved. Every
- * flag can be traced to the record entry that caused it.
+ * The rules read every patient and apply explicit indicators for reporting and ordering, while
+ * the worklist itself retains the whole population. Every displayed indicator can be traced to
+ * the record entry that caused it.
  *
  * The equity comparison: the palliative care register historically captured about 29% of
  * the people it should have, roughly 67% of cancer patients against 20% of those with
@@ -156,10 +156,11 @@ export function sweep(
     const a = byPatient.get(p.id);
     if (!a) continue;
     byTier[a.tier] += 1;
-    if (a.tier === 'no prompt') continue;
 
     if (a.modelRank !== undefined) anyModelRank = true;
-    if (p.imdQuintile !== undefined) imdFlagged.set(p.imdQuintile, (imdFlagged.get(p.imdQuintile) ?? 0) + 1);
+    if (a.tier !== 'no prompt' && p.imdQuintile !== undefined) {
+      imdFlagged.set(p.imdQuintile, (imdFlagged.get(p.imdQuintile) ?? 0) + 1);
+    }
 
     const c = cases.get(p.id);
     rows.push({
@@ -180,8 +181,11 @@ export function sweep(
 
   rows.sort(compareRows);
 
-  const newRows = rows.filter((r) => !r.assessment.alreadyOnRegister && !r.assessment.hasPlan);
-  const cohortCancer = rows.filter((r) => r.isCancer).length;
+  // Every patient belongs on the worklist. Keep indicator and equity reporting scoped to the
+  // rule-identified cohort so displaying patients without a legacy prompt does not inflate it.
+  const identifiedRows = rows.filter((r) => r.assessment.tier !== 'no prompt');
+  const newRows = identifiedRows.filter((r) => !r.assessment.alreadyOnRegister && !r.assessment.hasPlan);
+  const cohortCancer = identifiedRows.filter((r) => r.isCancer).length;
   const newCancer = newRows.filter((r) => r.isCancer).length;
 
   const imdAvailable = imdPopulation.size > 0;
@@ -194,8 +198,8 @@ export function sweep(
   const equity: Equity = {
     // Share of the identified cohort that is cancer. The historical register comparator is
     // roughly 2 in 3 cancer, so a lower cancer share here is the claim.
-    cohortCancerShare: rows.length ? round3(cohortCancer / rows.length) : null,
-    cohortNonCancerShare: rows.length ? round3(1 - cohortCancer / rows.length) : null,
+    cohortCancerShare: identifiedRows.length ? round3(cohortCancer / identifiedRows.length) : null,
+    cohortNonCancerShare: identifiedRows.length ? round3(1 - cohortCancer / identifiedRows.length) : null,
     newlyIdentifiedNonCancerShare: newRows.length ? round3(1 - newCancer / newRows.length) : null,
     flagRateByImdQuintile,
     imdAvailable,
@@ -208,7 +212,7 @@ export function sweep(
     funnel: {
       patientsScanned: patients.length,
       alreadyOnRegister,
-      indicatorsPresent: rows.length,
+      indicatorsPresent: identifiedRows.length,
       notOnRegisterOrPlan: newRows.length,
       reviewThisWeek: byTier['review this week'],
       promptedForReview: byTier['review this week'] + byTier['review this month'],

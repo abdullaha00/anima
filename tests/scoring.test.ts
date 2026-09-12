@@ -525,7 +525,7 @@ function caseFor(patientId: string, overrides: Partial<CaseState> = {}): CaseSta
 }
 
 describe('sweep', () => {
-  it('counts a small population and reports null cancer share when nothing is flagged', () => {
+  it('shows the whole population while reporting null cohort shares when nothing has an indicator', () => {
     const ps = [patient({ conditions: ['Asthma'] }), patient({ conditions: ['Hypertension'], onPalliativeRegister: true })];
     const as = ps.map((p) => rulesEngine.assess(p, CTX));
     const r = sweep(ps, as, new Map(), NOW);
@@ -543,7 +543,7 @@ describe('sweep', () => {
     assert.equal(r.equity.newlyIdentifiedNonCancerShare, null);
     assert.equal(r.equity.imdAvailable, false);
     assert.deepEqual(r.equity.flagRateByImdQuintile, {});
-    assert.equal(r.rows.length, 0);
+    assert.deepEqual(r.rows.map((row) => row.patientId), ps.map((patient) => patient.id));
     assert.equal(r.engineId, 'rules');
     assert.equal(r.modelDisclosure, undefined);
     assert.ok(r.inertIndicators.some((i) => i.id === 'GEN_FRAILTY'));
@@ -606,8 +606,8 @@ describe('sweep', () => {
       'no prompt': 1,
     });
 
-    // rows: work in progress first ('meeting held', M), then 'flagged' (W then N by tier)
-    assert.deepEqual(r.rows.map((x) => x.patientId), ['M', 'W', 'N']);
+    // rows: work in progress first ('meeting held', M), then every other patient by tier.
+    assert.deepEqual(r.rows.map((x) => x.patientId), ['M', 'W', 'N', 'Z']);
     assert.deepEqual(r.rows[0].waitingOn, {
       what: 'Home visit',
       ownerName: 'Sam Okafor',
