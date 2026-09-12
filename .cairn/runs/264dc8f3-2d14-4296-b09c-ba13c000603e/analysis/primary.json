@@ -1,0 +1,610 @@
+{
+  "schemaVersion": "1.0",
+  "patientId": "SIM-000001",
+  "generatedAt": "2026-09-12T13:22:49.660Z",
+  "humanReviewRequired": true,
+  "clinicalDecisionSupportOnly": true,
+  "recommendation": "proceed",
+  "confidence": 0.84,
+  "summary": "Prompt human review is supported, without implying that the patient is dying: the snapshot shows an urgent current hospital attendance for breathlessness, an open request to review worsening oxygen requirement, heart failure/CKD context, reduced exertional tolerance, and unresolved discharge/home-support coordination. The patient's documented priorities—understanding the next step, avoiding unnecessary travel, and staying at home with a clear contact—make a small, timely goals-of-care conversation appropriate alongside acute assessment.",
+  "summaryEvidence": [
+    {
+      "sourcePath": "record/direct/hospital-attendances.json",
+      "recordId": "hospital-attendance-seed-0",
+      "date": "2026-09-12",
+      "detail": "Urgent acuity-2 attendance is in waiting status for breathlessness; location is the waiting room and clinician is unassigned."
+    },
+    {
+      "sourcePath": "record/nhs/mesh.json",
+      "recordId": "r-6",
+      "detail": "Open communication requests respiratory review of a worsening oxygen requirement."
+    },
+    {
+      "sourcePath": "record/patient/directory.json",
+      "recordId": "SIM-000001",
+      "detail": "Structured record lists heart failure and CKD and goals to understand the next step, avoid unnecessary travel, and stay at home with a clear contact for help."
+    },
+    {
+      "sourcePath": "record/sites/gp/patient-resources.json",
+      "recordId": "r-3668",
+      "detail": "Recent consultation records a wish to return home, limited daughter availability during working hours, and home support still to be confirmed."
+    }
+  ],
+  "evidenceForReview": [
+    {
+      "signal": "Acute respiratory deterioration requiring immediate clinical ownership",
+      "significance": "A current urgent breathlessness attendance plus an open worsening-oxygen review warrants prompt clinician review; it supports planning in parallel but does not establish prognosis or irreversibility.",
+      "evidence": [
+        {
+          "sourcePath": "record/direct/hospital-attendances.json",
+          "recordId": "hospital-attendance-seed-0",
+          "date": "2026-09-12",
+          "detail": "Patient is waiting after an urgent acuity-2 arrival with breathlessness and no assigned clinician."
+        },
+        {
+          "sourcePath": "record/nhs/mesh.json",
+          "recordId": "r-6",
+          "detail": "Open respiratory communication explicitly says to review worsening oxygen requirement."
+        }
+      ]
+    },
+    {
+      "signal": "Chronic disease and functional limitation",
+      "significance": "Heart failure/CKD context and exertional tiredness increase vulnerability and make priorities-based anticipatory planning relevant, although the record does not establish terminal disease.",
+      "evidence": [
+        {
+          "sourcePath": "record/patient/directory.json",
+          "recordId": "SIM-000001",
+          "detail": "Conditions are listed as heart failure and CKD."
+        },
+        {
+          "sourcePath": "record/sites/gp/patient-resources.json",
+          "recordId": "r-3666",
+          "detail": "Earlier consultation records tiredness on the walk to the shops."
+        }
+      ]
+    },
+    {
+      "signal": "Discharge and support gaps",
+      "significance": "Current inpatient/flow records identify medicines and home monitoring as discharge barriers, while the patient lives alone and home support remains unconfirmed.",
+      "evidence": [
+        {
+          "sourcePath": "record/sites/community/patient-resources.json",
+          "recordId": "r-47",
+          "date": "2026-09-12",
+          "detail": "Acute medical bed is occupied; expected discharge is today and the barrier is medicines and home monitoring."
+        },
+        {
+          "sourcePath": "record/sites/gp/patient-resources.json",
+          "recordId": "r-3668",
+          "detail": "Patient wants to return home; daughter can collect a prescription but cannot attend during working hours; home support remains to be confirmed."
+        },
+        {
+          "sourcePath": "record/sites/gp/patient-resources.json",
+          "recordId": "r-3664",
+          "detail": "Personal context says the patient lives alone in a ground-floor flat and her daughter visits after work."
+        }
+      ]
+    },
+    {
+      "signal": "Documented patient priorities align with a goals-of-care review",
+      "significance": "The conversation can be framed around practical priorities and treatment planning rather than a declaration of dying.",
+      "evidence": [
+        {
+          "sourcePath": "record/patient/directory.json",
+          "recordId": "SIM-000001",
+          "detail": "Goals are to understand the next step, avoid unnecessary travel, and stay at home with a clear contact for help."
+        },
+        {
+          "sourcePath": "record/sites/gp/patient-resources.json",
+          "recordId": "r-3664",
+          "detail": "Recorded statement of what matters: staying at home with a clear contact for help."
+        }
+      ]
+    }
+  ],
+  "falsePositiveReview": {
+    "verdict": "no_clear_false_positive",
+    "alternativeExplanations": [
+      "The breathlessness and oxygen requirement may reflect an acute, potentially treatable episode.",
+      "Some recent hospital documentation describes planned monitoring/observation and no new diagnosis, so not every hospital contact represents progressive decline.",
+      "The GP problem list marks heart failure as resolved, which conflicts with other heart-failure context and requires clinical reconciliation."
+    ],
+    "reasonsConversationMayBeInappropriate": [
+      "Do not initiate a sensitive planning conversation before urgent breathlessness and oxygen needs are clinically assessed and the patient is stable enough to participate.",
+      "The record does not document terminal disease, prognosis, repeated unplanned admissions, or loss of decision-making capacity.",
+      "Patient preference for the timing of such a conversation and daughter involvement has not been confirmed."
+    ],
+    "reasonsNotToOfferFalseReassurance": [
+      "There is a current urgent breathlessness attendance and an open worsening-oxygen review.",
+      "Medicines, home monitoring, follow-up ownership, and home support are not fully resolved.",
+      "A treatable acute cause would not remove the value of planning around the patient's documented priorities."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/direct/hospital-attendances.json",
+        "recordId": "hospital-attendance-seed-0",
+        "date": "2026-09-12",
+        "detail": "Current attendance is urgent, acuity 2, for breathlessness."
+      },
+      {
+        "sourcePath": "record/direct/hospital-documents.json",
+        "recordId": "discharge-summary-example",
+        "date": "2026-09-12",
+        "detail": "Monitoring/observation discharge summary says no new diagnosis and no outstanding investigations in that example, with follow-up requiring confirmation."
+      },
+      {
+        "sourcePath": "record/sites/gp/patient-resources.json",
+        "recordId": "r-53",
+        "detail": "GP problem list marks heart failure resolved while CKD remains active."
+      },
+      {
+        "sourcePath": "record/nhs/mesh.json",
+        "recordId": "r-6",
+        "detail": "Open respiratory review concerns worsening oxygen requirement."
+      }
+    ]
+  },
+  "existingPlanning": {
+    "status": "none_found",
+    "details": [],
+    "evidence": [
+      {
+        "sourcePath": "record/sites/gp/patient-resources.json",
+        "detail": "Reviewed GP patient resources contain personal goals and contact preferences but no documented ACP, ADRT, DNACPR/DNR, ReSPECT, hospice, or palliative-care plan."
+      },
+      {
+        "sourcePath": "record/sites/hospital/patient-resources.json",
+        "detail": "Reviewed hospital patient resources contain acute/discharge workflow records but no documented ACP, ADRT, DNACPR/DNR, ReSPECT, hospice, or palliative-care plan."
+      }
+    ]
+  },
+  "patientAndFamily": {
+    "patientWishes": [
+      "Understand the next step.",
+      "Avoid unnecessary travel.",
+      "Stay at home with a clear contact for help.",
+      "Return home."
+    ],
+    "familyWishes": [
+      "Daughter asked for appointments to be grouped on one day."
+    ],
+    "legalAndCarePlanningRecords": [],
+    "contactPreferences": [
+      "Telephone is recorded as a contact preference."
+    ],
+    "uncertainties": [
+      "It is not documented whether the patient wants her daughter involved in this specific conversation.",
+      "No decision-making capacity assessment is documented in the reviewed snapshot.",
+      "No legal proxy, ADRT, DNACPR/DNR, ReSPECT, or formal ACP record was found."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/patient/directory.json",
+        "recordId": "SIM-000001",
+        "detail": "Lists goals to understand the next step, avoid unnecessary travel, and stay at home with a clear contact for help."
+      },
+      {
+        "sourcePath": "record/sites/gp/patient-resources.json",
+        "recordId": "r-3668",
+        "detail": "Consultation records that the patient wants to return home."
+      },
+      {
+        "sourcePath": "record/sites/gp/patient-resources.json",
+        "recordId": "r-3666",
+        "detail": "Daughter asked for appointments to be grouped on one day."
+      },
+      {
+        "sourcePath": "record/sites/gp/patient-resources.json",
+        "recordId": "r-55",
+        "detail": "Contact preference value is telephone."
+      }
+    ]
+  },
+  "careBaseline": {
+    "residence": "Lives alone in a ground-floor flat.",
+    "functionAndMobility": "Able to walk to the shops historically, but reported getting tired on that walk; no fuller mobility or activities-of-daily-living assessment is documented.",
+    "currentClinicalSupport": [
+      "Current hospital team for urgent breathlessness assessment.",
+      "GP follow-up is booked, but capacity is not reserved.",
+      "Discharge medication supply with furosemide is approved; dosing guidance is not present in this synthetic record."
+    ],
+    "familyAndCarerSupport": [
+      "Daughter visits after work and can collect a prescription, but cannot attend during working hours."
+    ],
+    "gaps": [
+      "Home support arrangements remain to be confirmed.",
+      "Medicines and home monitoring are recorded discharge barriers.",
+      "Receiving-team follow-up and medication reconciliation require confirmation.",
+      "No fuller functional baseline, formal care package, or named community clinician is documented."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/sites/gp/patient-resources.json",
+        "recordId": "r-3664",
+        "detail": "Records living alone in a ground-floor flat and daughter visiting after work."
+      },
+      {
+        "sourcePath": "record/sites/gp/patient-resources.json",
+        "recordId": "r-3666",
+        "detail": "Reports tiredness walking to the shops."
+      },
+      {
+        "sourcePath": "record/direct/hospital-attendances.json",
+        "recordId": "hospital-attendance-seed-0",
+        "date": "2026-09-12",
+        "detail": "Current urgent hospital attendance for breathlessness."
+      },
+      {
+        "sourcePath": "record/nhs/appointments.json",
+        "recordId": "r-3665",
+        "date": "2026-09-12",
+        "detail": "Practice follow-up is booked in person with Dr Maya Shah; capacityReserved is false."
+      },
+      {
+        "sourcePath": "record/nhs/eps.json",
+        "recordId": "r-3",
+        "detail": "Approved discharge supply is furosemide tablets with stock 3 and no dosing guidance."
+      },
+      {
+        "sourcePath": "record/sites/community/patient-resources.json",
+        "recordId": "r-47",
+        "date": "2026-09-12",
+        "detail": "Medicines and home monitoring are barriers to expected discharge today."
+      },
+      {
+        "sourcePath": "record/direct/hospital-documents.json",
+        "recordId": "document-batch-2-001",
+        "detail": "Cardiology handover says medication reconciliation attachment is missing and follow-up appointment letter is pending."
+      }
+    ]
+  },
+  "careTeam": [
+    {
+      "role": "Current hospital acute/medical clinician",
+      "organisation": "Hospital",
+      "meetingPriority": "core",
+      "ownership": "First stabilise and assess breathlessness/oxygen need; clarify current working diagnosis, reversibility, treatment options, and discharge readiness.",
+      "reason": "The patient is currently waiting with urgent breathlessness and a worsening-oxygen review is open.",
+      "evidence": [
+        {
+          "sourcePath": "record/direct/hospital-attendances.json",
+          "recordId": "hospital-attendance-seed-0",
+          "date": "2026-09-12",
+          "detail": "Urgent acuity-2 breathlessness attendance is waiting and clinician is unassigned."
+        },
+        {
+          "sourcePath": "record/nhs/mesh.json",
+          "recordId": "r-6",
+          "detail": "Open respiratory communication requests review of worsening oxygen requirement."
+        }
+      ]
+    },
+    {
+      "role": "GP clinician",
+      "name": "Dr Maya Shah",
+      "organisation": "General practice",
+      "meetingPriority": "core",
+      "ownership": "Lead or co-lead the priorities conversation, reconcile the longitudinal problem list and hospital handover, and ensure a single documented follow-up owner.",
+      "reason": "A practice follow-up is booked with this clinician and prior records contain the patient's goals and unresolved cross-team follow-up.",
+      "evidence": [
+        {
+          "sourcePath": "record/nhs/appointments.json",
+          "recordId": "r-3665",
+          "date": "2026-09-12",
+          "detail": "Booked in-person practice follow-up names Dr Maya Shah."
+        },
+        {
+          "sourcePath": "record/sites/gp/patient-resources.json",
+          "recordId": "r-3667",
+          "detail": "After a hospital contact the patient could not tell which team would arrange the next review."
+        }
+      ]
+    },
+    {
+      "role": "Patient",
+      "meetingPriority": "core",
+      "ownership": "Choose whether and when to discuss priorities, identify acceptable care and travel burden, and decide whether her daughter should participate.",
+      "reason": "The record contains explicit personal goals but does not document consent for family involvement in this conversation.",
+      "evidence": [
+        {
+          "sourcePath": "record/patient/directory.json",
+          "recordId": "SIM-000001",
+          "detail": "Documents goals around understanding next steps, avoiding travel, and staying home with a clear contact."
+        }
+      ]
+    }
+  ],
+  "meeting": {
+    "proposedOwner": "GP clinician, coordinated with the current hospital acute/medical clinician while the episode is active.",
+    "urgency": "Prompt: acute clinical review now; offer the goals-of-care conversation once clinically stable, ideally before discharge or at the earliest confirmed GP follow-up.",
+    "formatAndAccessibility": "Ask the patient whether she prefers a bedside conversation before discharge, telephone, home visit, or another format; telephone is recorded as a contact preference and the directory lists home-visit need and avoiding unnecessary travel. Ask whether she wants her daughter included and accommodate the daughter's limited daytime availability.",
+    "objectives": [
+      "Clarify the current illness, likely reversibility, uncertainty, and what to expect next.",
+      "Elicit what matters now, including acceptable treatment and travel burden and conditions needed for a safe return home.",
+      "Agree one named contact/team and escalation plan for worsening breathlessness or oxygen needs.",
+      "Resolve medication reconciliation, monitoring, home-support, and follow-up ownership.",
+      "Ask whether the patient wants formal advance-care planning discussed or documented; do not presume preferences about resuscitation or hospital treatment."
+    ],
+    "briefingNotes": [
+      {
+        "note": "Open by acknowledging that this is planning around the patient's priorities, not a conclusion that she is dying.",
+        "evidence": [
+          {
+            "sourcePath": "record/patient/directory.json",
+            "recordId": "SIM-000001",
+            "detail": "Explicit priorities concern next steps, travel burden, and staying home with a clear contact."
+          }
+        ]
+      },
+      {
+        "note": "Clinical assessment takes precedence because breathlessness attendance is urgent and the oxygen requirement is described as worsening.",
+        "evidence": [
+          {
+            "sourcePath": "record/direct/hospital-attendances.json",
+            "recordId": "hospital-attendance-seed-0",
+            "date": "2026-09-12",
+            "detail": "Urgent acuity-2 attendance for breathlessness."
+          },
+          {
+            "sourcePath": "record/nhs/mesh.json",
+            "recordId": "r-6",
+            "detail": "Open request to review worsening oxygen requirement."
+          }
+        ]
+      },
+      {
+        "note": "Do not assume heart failure status: directory lists heart failure while the GP problem list marks it resolved.",
+        "evidence": [
+          {
+            "sourcePath": "record/patient/directory.json",
+            "recordId": "SIM-000001",
+            "detail": "Heart failure is listed among current conditions."
+          },
+          {
+            "sourcePath": "record/sites/gp/patient-resources.json",
+            "recordId": "r-53",
+            "detail": "Longitudinal GP problem list marks heart failure resolved."
+          }
+        ]
+      },
+      {
+        "note": "Discharge planning must address living alone, daughter availability, home monitoring, medicine supply, and missing reconciliation.",
+        "evidence": [
+          {
+            "sourcePath": "record/sites/gp/patient-resources.json",
+            "recordId": "r-3668",
+            "detail": "Lives with limited daytime daughter availability and unconfirmed home support."
+          },
+          {
+            "sourcePath": "record/sites/community/patient-resources.json",
+            "recordId": "r-47",
+            "detail": "Medicines and home monitoring are discharge barriers."
+          },
+          {
+            "sourcePath": "record/direct/hospital-documents.json",
+            "recordId": "document-batch-2-001",
+            "detail": "Medication reconciliation attachment has not arrived."
+          }
+        ]
+      }
+    ],
+    "agenda": [
+      "Confirm clinical stability and current assessment of breathlessness/oxygen requirement.",
+      "Ask permission to discuss future care and whether to include the daughter.",
+      "Review the patient's recorded priorities and check they remain accurate.",
+      "Discuss realistic treatment and location-of-care options without prognostic overstatement.",
+      "Agree medications, monitoring, home support, escalation instructions, and one accountable contact.",
+      "Document agreed preferences and decide whether a formal ACP/ReSPECT discussion is wanted."
+    ]
+  },
+  "communications": [
+    {
+      "audience": "Patient",
+      "channel": "Telephone or bedside/in-person according to current location and preference",
+      "draft": "We would like to talk with you about what matters most to you and make sure the hospital and practice are working to the same plan. This is not a statement that you are dying. It is a chance to understand your priorities, explain the next steps, reduce unnecessary travel where possible, and agree who you should contact for help. Would you be comfortable having that conversation, and would you like your daughter involved?",
+      "cautions": [
+        "Urgent assessment and stabilisation of breathlessness must come first.",
+        "Check privacy, capacity, preferred format, and permission for daughter involvement.",
+        "Do not imply a terminal prognosis or assume limits on treatment."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/patient/directory.json",
+          "recordId": "SIM-000001",
+          "detail": "Goals include understanding the next step, avoiding unnecessary travel, and staying home with a clear contact."
+        },
+        {
+          "sourcePath": "record/sites/gp/patient-resources.json",
+          "recordId": "r-55",
+          "detail": "Telephone is recorded as contact preference."
+        },
+        {
+          "sourcePath": "record/direct/hospital-attendances.json",
+          "recordId": "hospital-attendance-seed-0",
+          "date": "2026-09-12",
+          "detail": "Patient is currently waiting in hospital with urgent breathlessness."
+        }
+      ]
+    },
+    {
+      "audience": "Daughter, only with patient consent",
+      "channel": "Telephone outside working hours if feasible",
+      "draft": "With your mother's permission, we would value your practical input so that her care plan reflects what matters to her and is workable at home. We especially want to clarify medicines, monitoring, follow-up, and who to contact for help.",
+      "cautions": [
+        "Do not disclose information without the patient's consent or other lawful basis.",
+        "Do not treat the daughter as a legal proxy; no such authority is documented.",
+        "Account for the documented inability to attend during working hours."
+      ],
+      "evidence": [
+        {
+          "sourcePath": "record/sites/gp/patient-resources.json",
+          "recordId": "r-3668",
+          "detail": "Daughter can collect a prescription but cannot attend during working hours; home support remains unconfirmed."
+        },
+        {
+          "sourcePath": "record/sites/gp/patient-resources.json",
+          "recordId": "r-3664",
+          "detail": "Daughter visits after work."
+        }
+      ]
+    }
+  ],
+  "immediateActions": [
+    {
+      "action": "Assign a hospital clinician to assess and stabilise the current breathlessness and worsening oxygen requirement.",
+      "owner": "Hospital acute/medical team",
+      "urgency": "Immediate",
+      "reason": "Current attendance is urgent, acuity 2, waiting, and unassigned; an oxygen-review request is open.",
+      "evidence": [
+        {
+          "sourcePath": "record/direct/hospital-attendances.json",
+          "recordId": "hospital-attendance-seed-0",
+          "date": "2026-09-12",
+          "detail": "Urgent breathlessness attendance is waiting with clinician unassigned."
+        },
+        {
+          "sourcePath": "record/nhs/mesh.json",
+          "recordId": "r-6",
+          "detail": "Open respiratory review requests assessment of worsening oxygen requirement."
+        }
+      ]
+    },
+    {
+      "action": "Confirm whether the patient is currently in the waiting area or an occupied AMU bed and establish one accountable team before any discharge.",
+      "owner": "Hospital flow/acute team",
+      "urgency": "Today",
+      "reason": "The snapshot simultaneously shows a waiting-room attendance and an occupied AMU bed with expected discharge today.",
+      "evidence": [
+        {
+          "sourcePath": "record/direct/hospital-attendances.json",
+          "recordId": "hospital-attendance-seed-0",
+          "date": "2026-09-12",
+          "detail": "Location is waiting room and status is waiting."
+        },
+        {
+          "sourcePath": "record/sites/community/patient-resources.json",
+          "recordId": "r-47",
+          "date": "2026-09-12",
+          "detail": "AMU bed 12 is occupied with expected discharge today."
+        }
+      ]
+    },
+    {
+      "action": "Reconcile medication supply, missing reconciliation attachment, blood-monitoring requirement, and home-monitoring equipment before discharge.",
+      "owner": "Hospital discharging clinician with pharmacy/community handover",
+      "urgency": "Before discharge",
+      "reason": "These are explicit unresolved handover and discharge barriers.",
+      "evidence": [
+        {
+          "sourcePath": "record/direct/hospital-documents.json",
+          "recordId": "document-batch-2-001",
+          "detail": "Medication reconciliation attachment has not arrived."
+        },
+        {
+          "sourcePath": "record/index/deduplicated-resources.json",
+          "recordId": "r-1",
+          "date": "2026-09-12",
+          "detail": "Discharge document says blood monitoring is requested and home equipment/medication handover is not confirmed."
+        },
+        {
+          "sourcePath": "record/sites/community/patient-resources.json",
+          "recordId": "r-47",
+          "date": "2026-09-12",
+          "detail": "Medicines and home monitoring are discharge barriers."
+        }
+      ]
+    },
+    {
+      "action": "Offer a brief priorities-based goals-of-care review once stable and document consent, current wishes, escalation plan, and a single contact.",
+      "owner": "GP clinician with current hospital clinician",
+      "urgency": "Before discharge if feasible, otherwise at earliest confirmed follow-up",
+      "reason": "Documented goals align with planning and prior cross-team follow-up ownership was unclear.",
+      "evidence": [
+        {
+          "sourcePath": "record/patient/directory.json",
+          "recordId": "SIM-000001",
+          "detail": "Goals are understanding next steps, avoiding unnecessary travel, and staying home with a clear contact."
+        },
+        {
+          "sourcePath": "record/sites/gp/patient-resources.json",
+          "recordId": "r-3667",
+          "detail": "Patient previously could not tell which team would arrange the next review."
+        }
+      ]
+    }
+  ],
+  "dataQuality": {
+    "coverageSummary": "Manifest reports 27 successful sources, 0 failed sources, 55 unique resources, and 47 resources with duplicate visibility; safetyGate.forceInsufficientEvidence is false. Deduplicated resources were used to avoid counting repeated visibility as separate events.",
+    "missingSources": [],
+    "failedSources": [],
+    "contradictions": [
+      "Current-location records conflict or represent rapidly changing workflow: urgent attendance is waiting in the waiting room while an AMU bed is recorded occupied with expected discharge today.",
+      "Heart failure is listed as a condition in the patient directory but marked resolved in the longitudinal GP problem list.",
+      "One discharge summary says no medication changes, while another says medication reconciliation is missing and a separate discharge document says the medication list changed/handover is unconfirmed.",
+      "A booked GP appointment exists but capacityReserved is false, so completion/availability is uncertain."
+    ],
+    "evidence": [
+      {
+        "sourcePath": "record/manifest.json",
+        "detail": "Coverage: 27 successful, 0 failed, failedSources empty; deduplication: 55 unique resources and 47 with duplicate visibility; forceInsufficientEvidence false."
+      },
+      {
+        "sourcePath": "record/direct/hospital-attendances.json",
+        "recordId": "hospital-attendance-seed-0",
+        "date": "2026-09-12",
+        "detail": "Waiting-room attendance is in waiting status."
+      },
+      {
+        "sourcePath": "record/sites/community/patient-resources.json",
+        "recordId": "r-47",
+        "date": "2026-09-12",
+        "detail": "AMU bed is occupied with discharge expected today."
+      },
+      {
+        "sourcePath": "record/patient/directory.json",
+        "recordId": "SIM-000001",
+        "detail": "Heart failure is listed as a condition."
+      },
+      {
+        "sourcePath": "record/sites/gp/patient-resources.json",
+        "recordId": "r-53",
+        "detail": "Heart failure is marked resolved in the GP problem list."
+      },
+      {
+        "sourcePath": "record/direct/hospital-documents.json",
+        "recordId": "discharge-summary-example",
+        "date": "2026-09-12",
+        "detail": "Example discharge summary says no medication changes."
+      },
+      {
+        "sourcePath": "record/direct/hospital-documents.json",
+        "recordId": "document-batch-2-001",
+        "detail": "Cardiology handover says medication reconciliation is missing."
+      },
+      {
+        "sourcePath": "record/index/deduplicated-resources.json",
+        "recordId": "r-1",
+        "date": "2026-09-12",
+        "detail": "Discharge document title says medication list changed and text says handover is unconfirmed."
+      },
+      {
+        "sourcePath": "record/nhs/appointments.json",
+        "recordId": "r-3665",
+        "date": "2026-09-12",
+        "detail": "GP follow-up is booked but capacityReserved is false."
+      }
+    ]
+  },
+  "verification": {
+    "performed": false,
+    "verdict": "pending",
+    "falsePositiveChecks": [
+      "Checked for a benign planned-monitoring explanation and found some routine monitoring documentation, but this does not explain away the separate urgent breathlessness attendance and worsening oxygen requirement.",
+      "Checked for active ACP, ADRT, DNACPR/DNR, ReSPECT, hospice, or palliative-care planning; none was found in reviewed patient resources.",
+      "Checked for evidence of current deterioration, functional limitation, repeated contacts, support gaps, and conflicting heart-failure status.",
+      "Checked current location and ownership; records conflict and require reconciliation."
+    ],
+    "changesFromPrimary": []
+  }
+}

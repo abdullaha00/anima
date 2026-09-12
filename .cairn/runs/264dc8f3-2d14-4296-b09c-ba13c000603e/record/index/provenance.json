@@ -1,0 +1,297 @@
+{
+  "blood-v1-SIM-000001-crp-0": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-crp-1": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-crp-2": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-crp-3": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-crp-4": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-crp-5": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-fbc-0": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-fbc-1": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-fbc-2": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-fbc-3": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-fbc-4": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-fbc-5": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-hba1c-0": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-hba1c-1": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-hba1c-2": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-hba1c-3": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-hba1c-4": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-hba1c-5": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-lft-0": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-lft-1": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-lft-2": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-lft-3": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-lft-4": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-lft-5": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-lipids-0": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-lipids-1": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-lipids-2": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-lipids-3": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-lipids-4": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-lipids-5": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-ue-0": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-ue-1": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-ue-2": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-ue-3": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-ue-4": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "blood-v1-SIM-000001-ue-5": [
+    "nhs/radiology.json",
+    "sites/diagnostics/patient-resources.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "discharge-summary-example": [
+    "direct/gp-documents.json",
+    "direct/hospital-documents.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "document-batch-2-001": [
+    "direct/gp-documents.json",
+    "direct/hospital-documents.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "hospital-attendance-seed-0": [
+    "direct/hospital-attendances.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "messaging-example-1": [
+    "direct/patient-messaging.json",
+    "sites/gp/patient-resources.json",
+    "sites/patient/patient-resources.json"
+  ],
+  "r-1": [
+    "sites/hospital/patient-resources.json"
+  ],
+  "r-2": [
+    "nhs/gp-connect.json",
+    "sites/gp/patient-resources.json"
+  ],
+  "r-3": [
+    "nhs/eps-tracker.json",
+    "nhs/eps.json",
+    "sites/hospital/patient-resources.json",
+    "sites/patient/patient-resources.json",
+    "sites/pharmacy/patient-resources.json"
+  ],
+  "r-3664": [
+    "sites/gp/patient-resources.json"
+  ],
+  "r-3665": [
+    "nhs/appointments.json",
+    "sites/gp/patient-resources.json"
+  ],
+  "r-3666": [
+    "sites/gp/patient-resources.json"
+  ],
+  "r-3667": [
+    "sites/gp/patient-resources.json"
+  ],
+  "r-3668": [
+    "sites/gp/patient-resources.json"
+  ],
+  "r-47": [
+    "sites/community/patient-resources.json",
+    "sites/hospital/patient-resources.json",
+    "sites/pharmacy/patient-resources.json"
+  ],
+  "r-53": [
+    "sites/gp/patient-resources.json"
+  ],
+  "r-54": [
+    "sites/gp/patient-resources.json"
+  ],
+  "r-55": [
+    "sites/gp/patient-resources.json"
+  ],
+  "r-6": [
+    "nhs/mesh.json",
+    "sites/gp/patient-resources.json",
+    "sites/hospital/patient-resources.json"
+  ],
+  "r-7": [
+    "sites/community/patient-resources.json",
+    "sites/hospital/patient-resources.json",
+    "sites/pharmacy/patient-resources.json"
+  ],
+  "SIM-000001": [
+    "patient/pds-fhir.json",
+    "patient/pds.json"
+  ]
+}

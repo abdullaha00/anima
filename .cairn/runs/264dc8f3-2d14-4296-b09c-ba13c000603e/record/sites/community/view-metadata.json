@@ -1,0 +1,17 @@
+{
+  "site": "community",
+  "patientId": "SIM-000001",
+  "collectedAt": "2026-09-12T13:22:48.936Z",
+  "pages": [
+    {
+      "resourceOffset": 0,
+      "resourceLimit": 500,
+      "returned": 3,
+      "resourceTotal": 3
+    }
+  ],
+  "patientResourceCount": 2,
+  "serviceContextCount": 1,
+  "droppedOtherPatientResources": 0,
+  "droppedUnscopedResources": 0
+}

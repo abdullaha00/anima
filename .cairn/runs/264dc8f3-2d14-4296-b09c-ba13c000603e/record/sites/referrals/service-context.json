@@ -1,0 +1,423 @@
+[
+  {
+    "id": "capacity-gp",
+    "data": {
+      "total": 6,
+      "remaining": 6
+    },
+    "kind": "capacity",
+    "owner": "gp",
+    "title": "gp available slots",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1789200000000,
+    "visibleTo": [
+      "gp",
+      "referrals"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789200000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Synthetic GP history"
+        },
+        "action": "generate_history",
+        "source": "gp",
+        "version": 1
+      },
+      "recovery": {
+        "basis": "synthetic-history",
+        "migration": "historical-record-attribution-v2"
+      }
+    }
+  },
+  {
+    "id": "capacity-hospital",
+    "data": {
+      "total": 2,
+      "remaining": 2
+    },
+    "kind": "capacity",
+    "owner": "hospital",
+    "title": "hospital available slots",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1789200000000,
+    "visibleTo": [
+      "hospital",
+      "referrals"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789200000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Synthetic hospital history"
+        },
+        "action": "generate_history",
+        "source": "hospital",
+        "version": 1
+      },
+      "recovery": {
+        "basis": "synthetic-history",
+        "migration": "historical-record-attribution-v2"
+      }
+    }
+  },
+  {
+    "id": "capacity-community",
+    "data": {
+      "total": 4,
+      "remaining": 4
+    },
+    "kind": "capacity",
+    "owner": "community",
+    "title": "community available slots",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1789200000000,
+    "visibleTo": [
+      "community",
+      "referrals"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789200000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Synthetic community history"
+        },
+        "action": "generate_history",
+        "source": "community",
+        "version": 1
+      },
+      "recovery": {
+        "basis": "synthetic-history",
+        "migration": "historical-record-attribution-v2"
+      }
+    }
+  },
+  {
+    "id": "capacity-diagnostics",
+    "data": {
+      "total": 4,
+      "remaining": 4
+    },
+    "kind": "capacity",
+    "owner": "diagnostics",
+    "title": "diagnostics available slots",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1789200000000,
+    "visibleTo": [
+      "diagnostics",
+      "referrals"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789200000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Synthetic diagnostics history"
+        },
+        "action": "generate_history",
+        "source": "diagnostics",
+        "version": 1
+      },
+      "recovery": {
+        "basis": "synthetic-history",
+        "migration": "historical-record-attribution-v2"
+      }
+    }
+  },
+  {
+    "id": "capacity-urgent",
+    "data": {
+      "total": 3,
+      "remaining": 3
+    },
+    "kind": "capacity",
+    "owner": "urgent",
+    "title": "urgent available slots",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1789200000000,
+    "visibleTo": [
+      "urgent",
+      "referrals"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789200000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Synthetic urgent history"
+        },
+        "action": "generate_history",
+        "source": "urgent",
+        "version": 1
+      },
+      "recovery": {
+        "basis": "synthetic-history",
+        "migration": "historical-record-attribution-v2"
+      }
+    }
+  },
+  {
+    "id": "capacity-mental",
+    "data": {
+      "total": 3,
+      "remaining": 3
+    },
+    "kind": "capacity",
+    "owner": "mental",
+    "title": "mental available slots",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1789200000000,
+    "visibleTo": [
+      "mental",
+      "referrals"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789200000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Synthetic mental history"
+        },
+        "action": "generate_history",
+        "source": "mental",
+        "version": 1
+      },
+      "recovery": {
+        "basis": "synthetic-history",
+        "migration": "historical-record-attribution-v2"
+      }
+    }
+  },
+  {
+    "id": "capacity-maternity",
+    "data": {
+      "total": 4,
+      "remaining": 4
+    },
+    "kind": "capacity",
+    "owner": "maternity",
+    "title": "maternity available slots",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1789200000000,
+    "visibleTo": [
+      "maternity",
+      "referrals"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789200000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Synthetic maternity history"
+        },
+        "action": "generate_history",
+        "source": "maternity",
+        "version": 1
+      },
+      "recovery": {
+        "basis": "synthetic-history",
+        "migration": "historical-record-attribution-v2"
+      }
+    }
+  },
+  {
+    "id": "capacity-dental",
+    "data": {
+      "total": 2,
+      "remaining": 2
+    },
+    "kind": "capacity",
+    "owner": "dental",
+    "title": "dental available slots",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1789200000000,
+    "visibleTo": [
+      "dental",
+      "referrals"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789200000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Synthetic dental history"
+        },
+        "action": "generate_history",
+        "source": "dental",
+        "version": 1
+      },
+      "recovery": {
+        "basis": "synthetic-history",
+        "migration": "historical-record-attribution-v2"
+      }
+    }
+  },
+  {
+    "id": "capacity-social",
+    "data": {
+      "total": 3,
+      "remaining": 3
+    },
+    "kind": "capacity",
+    "owner": "social",
+    "title": "social available slots",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1789200000000,
+    "visibleTo": [
+      "social",
+      "referrals"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789200000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Synthetic social history"
+        },
+        "action": "generate_history",
+        "source": "social",
+        "version": 1
+      },
+      "recovery": {
+        "basis": "synthetic-history",
+        "migration": "historical-record-attribution-v2"
+      }
+    }
+  },
+  {
+    "id": "capacity-genomics",
+    "data": {
+      "total": 2,
+      "remaining": 2
+    },
+    "kind": "capacity",
+    "owner": "genomics",
+    "title": "genomics available slots",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1789200000000,
+    "visibleTo": [
+      "genomics",
+      "referrals"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789200000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Synthetic genomics history"
+        },
+        "action": "generate_history",
+        "source": "genomics",
+        "version": 1
+      },
+      "recovery": {
+        "basis": "synthetic-history",
+        "migration": "historical-record-attribution-v2"
+      }
+    }
+  },
+  {
+    "id": "capacity-theatre",
+    "data": {
+      "total": 4,
+      "remaining": 4
+    },
+    "kind": "capacity",
+    "owner": "theatre",
+    "title": "theatre available slots",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1789200000000,
+    "visibleTo": [
+      "theatre",
+      "referrals"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789200000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Synthetic theatre history"
+        },
+        "action": "generate_history",
+        "source": "theatre",
+        "version": 1
+      },
+      "recovery": {
+        "basis": "synthetic-history",
+        "migration": "historical-record-attribution-v2"
+      }
+    }
+  },
+  {
+    "id": "capacity-beds",
+    "data": {
+      "total": 2,
+      "remaining": 2
+    },
+    "kind": "capacity",
+    "owner": "beds",
+    "title": "beds available slots",
+    "status": "available",
+    "version": 1,
+    "priority": "routine",
+    "createdAt": 1789200000000,
+    "visibleTo": [
+      "beds",
+      "referrals",
+      "hospital"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789200000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Synthetic beds history"
+        },
+        "action": "generate_history",
+        "source": "beds",
+        "version": 1
+      },
+      "recovery": {
+        "basis": "synthetic-history",
+        "migration": "historical-record-attribution-v2"
+      }
+    }
+  }
+]

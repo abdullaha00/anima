@@ -1,0 +1,30 @@
+{
+  "total": 1,
+  "originalTotal": 1,
+  "items": [
+    {
+      "id": "SIM-000001",
+      "name": "Amira Khan",
+      "goals": [
+        "Understand the next step",
+        "Avoid unnecessary travel",
+        "Stay at home with a clear contact for help"
+      ],
+      "needs": [
+        "Home visit",
+        "Carer involvement"
+      ],
+      "localIds": {
+        "gp": "RIV-0",
+        "legacy": "WH-90000",
+        "hospital": "NBG-10000"
+      },
+      "birthDate": "1952-05-12",
+      "synthetic": true,
+      "conditions": [
+        "Heart failure",
+        "CKD"
+      ]
+    }
+  ]
+}

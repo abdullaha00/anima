@@ -1,0 +1,127 @@
+{
+  "resources": [
+    {
+      "id": "discharge-summary-example",
+      "data": {
+        "stage": "sent",
+        "sentAt": 1789200000000,
+        "sentBy": "Dr Morgan Bell",
+        "assignee": "",
+        "sections": {
+          "course": "Observation and discharge planning completed in this fictional scenario.",
+          "reason": "Synthetic admission for a monitoring review.",
+          "results": "No outstanding investigations recorded in this example.",
+          "followUp": "Follow-up arrangements require confirmation by the receiving team.",
+          "diagnoses": "See the existing simulated problem list; no new diagnosis recorded.",
+          "gpActions": "Review this handover and record its processing outcome in the simulation.",
+          "medicationChanges": "No changes recorded in this example letter."
+        }
+      },
+      "kind": "discharge-summary",
+      "owner": "hospital",
+      "title": "Discharge summary · monitoring handover",
+      "status": "sent",
+      "version": 1,
+      "priority": "routine",
+      "createdAt": 1789200000000,
+      "patientId": "SIM-000001",
+      "visibleTo": [
+        "hospital",
+        "gp"
+      ],
+      "provenance": {
+        "changes": [],
+        "created": {
+          "time": 1789200000000,
+          "actor": {
+            "kind": "simulation",
+            "name": "Dr Morgan Bell"
+          },
+          "action": "seed",
+          "source": "hospital",
+          "version": 1
+        }
+      }
+    },
+    {
+      "id": "document-batch-2-001",
+      "data": {
+        "stage": "sent",
+        "sentAt": 1789030800000,
+        "sentBy": "Dr Morgan Bell",
+        "assignee": "",
+        "sections": {
+          "course": "The monitoring episode is complete. The appointment reference was missing from the original referral. The discharge coordinator recorded the handover for Amira Khan.",
+          "reason": "Attendance for a planned monitoring episode. This is a fictional episode for document workflow practice.",
+          "results": "The simulated monitoring report is awaiting administrative sign-off.",
+          "followUp": "The cardiology booking office will issue a follow-up appointment letter.",
+          "diagnoses": "No new coded diagnosis is asserted by this training letter. Check the simulated patient record when classifying the correspondence.",
+          "gpActions": "Route to the duty GP for review and request the missing reconciliation attachment from the hospital document team.",
+          "medicationChanges": "The reconciliation attachment has not arrived. No medicine change is specified in this letter."
+        }
+      },
+      "kind": "discharge-summary",
+      "owner": "hospital",
+      "title": "Cardiology · Monitoring handover",
+      "status": "sent",
+      "version": 2,
+      "priority": "urgent",
+      "createdAt": 1789027200000,
+      "patientId": "SIM-000001",
+      "visibleTo": [
+        "hospital",
+        "gp"
+      ],
+      "provenance": {
+        "changes": [
+          {
+            "time": 1789030800000,
+            "actor": {
+              "kind": "simulation",
+              "name": "Dr Morgan Bell"
+            },
+            "action": "seed_document_sent",
+            "source": "hospital",
+            "version": 2
+          }
+        ],
+        "created": {
+          "time": 1789027200000,
+          "actor": {
+            "kind": "simulation",
+            "name": "Dr Morgan Bell"
+          },
+          "action": "seed",
+          "source": "hospital",
+          "version": 1
+        }
+      }
+    }
+  ],
+  "patients": [
+    {
+      "id": "SIM-000001",
+      "name": "Amira Khan",
+      "goals": [
+        "Understand the next step",
+        "Avoid unnecessary travel",
+        "Stay at home with a clear contact for help"
+      ],
+      "needs": [
+        "Home visit",
+        "Carer involvement"
+      ],
+      "localIds": {
+        "gp": "RIV-0",
+        "legacy": "WH-90000",
+        "hospital": "NBG-10000"
+      },
+      "birthDate": "1952-05-12",
+      "synthetic": true,
+      "conditions": [
+        "Heart failure",
+        "CKD"
+      ]
+    }
+  ]
+}

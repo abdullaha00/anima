@@ -1,0 +1,17 @@
+{
+  "site": "gp",
+  "patientId": "SIM-000001",
+  "collectedAt": "2026-09-12T13:22:48.299Z",
+  "pages": [
+    {
+      "resourceOffset": 0,
+      "resourceLimit": 500,
+      "returned": 95,
+      "resourceTotal": 95
+    }
+  ],
+  "patientResourceCount": 49,
+  "serviceContextCount": 1,
+  "droppedOtherPatientResources": 0,
+  "droppedUnscopedResources": 45
+}

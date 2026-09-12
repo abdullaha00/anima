@@ -1,0 +1,17 @@
+{
+  "site": "pharmacy",
+  "patientId": "SIM-000001",
+  "collectedAt": "2026-09-12T13:22:48.984Z",
+  "pages": [
+    {
+      "resourceOffset": 0,
+      "resourceLimit": 500,
+      "returned": 155,
+      "resourceTotal": 155
+    }
+  ],
+  "patientResourceCount": 3,
+  "serviceContextCount": 0,
+  "droppedOtherPatientResources": 0,
+  "droppedUnscopedResources": 152
+}

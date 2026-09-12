@@ -1,0 +1,82 @@
+[
+  {
+    "id": "r-7",
+    "data": {
+      "channel": "discharge-and-flow",
+      "linkedRecord": true,
+      "participants": 14
+    },
+    "kind": "message",
+    "dueAt": 1789286400000,
+    "owner": "messaging",
+    "title": "Discharge & flow: confirm medication handover",
+    "status": "open",
+    "version": 1,
+    "priority": "urgent",
+    "createdAt": 1789200000000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "messaging",
+      "hospital",
+      "pharmacy",
+      "community"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789200000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Synthetic messaging history"
+        },
+        "action": "generate_history",
+        "source": "messaging",
+        "version": 1
+      },
+      "recovery": {
+        "basis": "synthetic-history",
+        "migration": "historical-record-attribution-v2"
+      }
+    }
+  },
+  {
+    "id": "r-47",
+    "data": {
+      "ward": "AMU",
+      "barrier": "medicines and home monitoring",
+      "expectedDischarge": "today"
+    },
+    "kind": "bed",
+    "dueAt": 1789286400000,
+    "owner": "beds",
+    "title": "Acute medical bed 12",
+    "status": "occupied",
+    "version": 1,
+    "priority": "urgent",
+    "createdAt": 1789200000000,
+    "patientId": "SIM-000001",
+    "visibleTo": [
+      "beds",
+      "hospital",
+      "community",
+      "pharmacy"
+    ],
+    "provenance": {
+      "changes": [],
+      "created": {
+        "time": 1789200000000,
+        "actor": {
+          "kind": "simulation",
+          "name": "Synthetic beds history"
+        },
+        "action": "generate_history",
+        "source": "beds",
+        "version": 1
+      },
+      "recovery": {
+        "basis": "synthetic-history",
+        "migration": "historical-record-attribution-v2"
+      }
+    }
+  }
+]
