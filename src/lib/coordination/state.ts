@@ -123,6 +123,7 @@ export function stageFor(state: WorklistState): Stage {
 
 /** How far the plan has got, for grouping the worklist. */
 export type PlanGroup = "no plan" | "plan in progress" | "plan complete";
+export const PLAN_GROUPS: PlanGroup[] = ["no plan", "plan in progress", "plan complete"];
 
 export function planGroupFor(state: WorklistState): PlanGroup {
   const stage = stageFor(state);

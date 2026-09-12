@@ -4,6 +4,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useRef, useState, useTransition } from "react";
 import { TIER_ORDER } from "@/lib/domain/types";
 import { Button } from "@/components/ui";
+import { PLAN_GROUPS } from "@/lib/coordination/state";
 
 export interface FilterValues {
   q: string;
@@ -15,7 +16,6 @@ export interface FilterValues {
   owner: string;
 }
 
-export const PLAN_GROUPS = ["no plan", "plan in progress", "plan complete"] as const;
 const GROUPS = ["heart", "kidney", "respiratory", "neurological", "frailty", "cancer"];
 
 const LABELS: Record<keyof FilterValues, string> = {

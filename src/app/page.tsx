@@ -5,10 +5,10 @@ import { getPatients } from "@/lib/data/source";
 import { getEngine } from "@/lib/scoring";
 import { sweep } from "@/lib/scoring/sweep";
 import { casesById } from "@/lib/store";
-import { planGroupFor, stageFor, type PlanGroup } from "@/lib/coordination/state";
+import { PLAN_GROUPS, planGroupFor, stageFor, type PlanGroup } from "@/lib/coordination/state";
 import { formatDate, formatDateTime, plural } from "@/lib/format";
 import { Chip, Mono, Notice, Panel, StateBadge, TierLabel } from "@/components/ui";
-import { PLAN_GROUPS, WorklistFilters, type FilterValues } from "@/components/worklist/WorklistFilters";
+import { WorklistFilters, type FilterValues } from "@/components/worklist/WorklistFilters";
 
 export const dynamic = "force-dynamic";
 
