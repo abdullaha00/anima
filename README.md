@@ -38,6 +38,21 @@ npm run build
 npm run check       # the language guard on its own (scans src/, README.md and the build output)
 ```
 
+## The demo, in four beats
+
+1. **Worklist.** How many carry indicators and no plan, and who is waiting on somebody. Cases in
+   progress sit at the top with their next action and owner.
+2. **Patient.** Amira Khan, SIM-000001. Open an indicator: the record entry that fired it, the
+   tool it is shaped after, the date. Cairn reports what is in the record and makes no prediction.
+3. **Care team.** Assemble the team: every person with a reason and the record entry behind it.
+   Recipients of the signed record and the family channel sit apart.
+4. **Thread, outcome, record.** Propose, agree, record the outcome, promote a decision into the
+   record. Cairn attempts to sign and is refused. A named clinician signs. The ambulance view and
+   the family view are different documents. The open next step is back on the worklist.
+
+Rehearsal helpers: `npm run demo:reset` clears Amira's case; `npm run demo:advance -- <stage>`
+walks it to `team`, `thread`, `outcome`, `promoted`, `refused`, `signed` or `shared`.
+
 ## What is real and what is illustrative
 
 Be honest about this in the pitch, because a judge will ask.
