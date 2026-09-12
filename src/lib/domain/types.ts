@@ -1,7 +1,7 @@
 /**
  * The Cairn domain contract.
  *
- * Nothing in this file can express a probability, a risk score or a prognosis for a
+ * Nothing in this file can express a score, a percentage or a forecast about a
  * patient. That is deliberate. The UI depends on these shapes and never on how an
  * assessment was produced. See docs/DOMAIN.md and docs/COORDINATION.md.
  */
